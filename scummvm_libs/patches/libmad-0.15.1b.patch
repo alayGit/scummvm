@@ -1,0 +1,16 @@
+diff -ru '--exclude=*vcx*' '--exclude=*sln*' sources.orig/libmad-0.15.1b/msvc++/mad.h sources/libmad-0.15.1b/msvc++/mad.h
+--- sources.orig/libmad-0.15.1b/msvc++/mad.h	2004-01-23 10:36:03.000000000 +0100
++++ sources/libmad-0.15.1b/msvc++/mad.h	2016-03-09 16:23:31.152633400 +0100
+@@ -24,7 +24,11 @@
+ extern "C" {
+ # endif
+ 
+-# define FPM_INTEL
++#ifdef _WIN64
++# define FPM_64BIT
++#else
++# define FPM_INTEL
++#endif
+ 
+ 
+ 

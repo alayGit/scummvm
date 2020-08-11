@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "outDir": "./Scripts/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "ES2015",
+    "jsx": "react",
+    "resolveJsonModule": true
+  },
+  "exclude": [
+    "node_modules",
+    "wwwroot"
+  ]
+}

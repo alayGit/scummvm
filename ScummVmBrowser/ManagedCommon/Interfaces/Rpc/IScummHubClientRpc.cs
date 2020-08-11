@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ManagedCommon.Interfaces.Rpc
+{
+   public interface IScummHubClientRpc
+    {
+        bool SaveGame(byte[] saveData, string fileName);
+        void BackEndQuit();
+    }
+}

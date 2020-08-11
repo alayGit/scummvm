@@ -1,0 +1,15 @@
+{
+  "GeneralErrorScummVMBrowser": "An general error has occured in the Scumm VM Web Browser.\n GameId:{0} \n Error:{1} \n StackTrace:{2}",
+  "GeneralErrorCliScumm": "An general error has occured in Cli Scumm.\n Error:{0}",
+  "IceCommuncationErrorScummVMBrowserFromClient": "An error occurred while processing a client request. Error:{0}",
+  "IceCommuncationErrorScummVMBrowserFromCliScumm": "An error occurred while processing a request from CliScumm. Error:{0}",
+  "IceCommuncationErrorCliScumm": "An error occurred while processing a client request. Error:{0}",
+  "SignalRScummVmBrowserError": "An error occurred in ScummVMBrowser SignalR.\n  GameId:{0}\n, \n Error:{1}",
+  "SignalRCliScummError": "An error occurred in CliScumm SignalR \n Error:{0}",
+  "UnmanagedError": "An unmanaged error occurred in CliScumm \n Error:{0}",
+  "WrapperError": "A managed wrapper error occurred in CliScumm \n RpcPortNo:{0}, \n RpcRealTimeNo:{1}",
+  "FailedToStartError": "Unable to start error. Exception: {0}",
+  "YEncodeFailure": "Unable to yEncode the following input {0}",
+  "YDecodeFailure": "Unable to yDecode the following input {0}"
+}
+

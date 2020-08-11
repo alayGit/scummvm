@@ -1,0 +1,44 @@
+#pragma once
+#include "scummVm.h"
+#include <time.h>
+#include "nativeScummWrapperGraphics.h"
+#include "nativeScummVMWrapperEvents.h"
+#include "nativeScummVmWrapperSaveMemStream.h"
+#include "nativeScummVmSaveManager.h"
+#include "standardMutexManager.h"
+#include "../chunkedSoundManager/SoundOptions.h"
+#include "../chunkedSoundManager/SoundThreadManager.h"
+#include <assert.h>
+
+
+namespace NativeScummWrapper {
+	class NativeScummWrapperOSystem: public ModularBackend {
+	public:
+	    NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, NativeScummWrapper::f_CopyRect copyRect, NativeScummWrapper::f_PollEvent queueEvent, NativeScummWrapper::f_SaveFileData saveData, SoundManagement::f_SoundConverted soundConverted, f_Blot blotScreen);
+	    ~NativeScummWrapperOSystem();
+		virtual void initBackend() override;
+		virtual uint32 getMillis(bool skipRecord = false) override;
+		virtual void delayMillis(uint msecs) override;
+		virtual void getTimeAndDate(TimeDate &t) const override;
+		virtual void logMessage(LogMessageType::Type type, const char *message) override;
+		void setGameSaveCache(SaveFileCache *cache);
+	    byte* mixCallback(byte *samples, int sampleSize);
+		void StartSound();
+		void StopSound();
+	    NativeScummWrapper::NativeScummWrapperGraphics *getGraphicsManager();
+	    virtual void quit() override;
+	protected:
+		NativeScummWrapperEvents *_eventSource;
+
+		virtual Common::EventSource *getDefaultEventSource();
+
+	private:
+		SoundManagement::SoundOptions _soundOptions;
+		f_CopyRect copyRect;
+		f_PollEvent queueEvent;
+		SoundManagement::f_SoundConverted _playSound;
+		Audio::MixerImpl *_mixerImpl;
+		SoundManagement::SoundThreadManager *_soundThreadManager;
+		NativeScummWrapper::NativeScummWrapperGraphics*_cliGraphicsManager;
+	};
+} // namespace NativeScummWrapper

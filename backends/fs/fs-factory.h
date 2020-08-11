@@ -34,7 +34,9 @@ public:
 	/**
 	 * Destructor.
 	 */
-	virtual ~FilesystemFactory() {}
+	virtual ~FilesystemFactory() {
+
+	}
 
 	/**
 	 * Returns a node representing the "current directory".

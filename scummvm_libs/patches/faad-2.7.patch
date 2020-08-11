@@ -1,0 +1,68 @@
+diff -ru '--exclude=*vcx*' '--exclude=*sln*' sources.orig/faad2-2.7/libfaad/common.h sources/faad2-2.7/libfaad/common.h
+--- sources.orig/faad2-2.7/libfaad/common.h	2009-02-05 01:51:03.000000000 +0100
++++ sources/faad2-2.7/libfaad/common.h	2016-03-09 20:27:08.851178000 +0100
+@@ -315,7 +315,7 @@
+ 
+   #if defined(_WIN32) && !defined(__MINGW32__)
+     #define HAS_LRINTF
+-    static INLINE int lrintf(float f)
++    /*static INLINE int lrintf(float f)
+     {
+         int i;
+         __asm
+@@ -324,7 +324,7 @@
+             fistp i
+         }
+         return i;
+-    }
++    }*/
+   #elif (defined(__i386__) && defined(__GNUC__) && \
+ 	!defined(__CYGWIN__) && !defined(__MINGW32__))
+     #ifndef HAVE_LRINTF
+diff -ru '--exclude=*vcx*' '--exclude=*sln*' sources.orig/faad2-2.7/libfaad/mp4.c sources/faad2-2.7/libfaad/mp4.c
+--- sources.orig/faad2-2.7/libfaad/mp4.c	2009-02-06 04:39:58.000000000 +0100
++++ sources/faad2-2.7/libfaad/mp4.c	2016-03-09 20:27:09.200404900 +0100
+@@ -32,6 +32,7 @@
+ #include "structs.h"
+ 
+ #include <stdlib.h>
++#include <string.h>
+ 
+ #include "bits.h"
+ #include "mp4.h"
+diff -ru '--exclude=*vcx*' '--exclude=*sln*' sources.orig/faad2-2.7/libfaad/ps_dec.c sources/faad2-2.7/libfaad/ps_dec.c
+--- sources.orig/faad2-2.7/libfaad/ps_dec.c	2009-01-26 23:32:31.000000000 +0100
++++ sources/faad2-2.7/libfaad/ps_dec.c	2016-03-09 20:27:09.233469100 +0100
+@@ -33,6 +33,7 @@
+ #ifdef PS_DEC
+ 
+ #include <stdlib.h>
++#include <string.h>
+ #include "ps_dec.h"
+ #include "ps_tables.h"
+ 
+diff -ru '--exclude=*vcx*' '--exclude=*sln*' sources.orig/faad2-2.7/libfaad/sbr_hfadj.c sources/faad2-2.7/libfaad/sbr_hfadj.c
+--- sources.orig/faad2-2.7/libfaad/sbr_hfadj.c	2008-09-20 00:50:20.000000000 +0200
++++ sources/faad2-2.7/libfaad/sbr_hfadj.c	2016-03-09 20:27:09.400963200 +0100
+@@ -40,6 +40,8 @@
+ 
+ #include "sbr_noise.h"
+ 
++#include <string.h>
++
+ 
+ /* static function declarations */
+ static uint8_t estimate_current_envelope(sbr_info *sbr, sbr_hfadj_info *adj,
+diff -ru '--exclude=*vcx*' '--exclude=*sln*' sources.orig/faad2-2.7/libfaad/sbr_syntax.c sources/faad2-2.7/libfaad/sbr_syntax.c
+--- sources.orig/faad2-2.7/libfaad/sbr_syntax.c	2009-01-26 23:32:31.000000000 +0100
++++ sources/faad2-2.7/libfaad/sbr_syntax.c	2016-03-09 20:27:09.458518400 +0100
+@@ -48,6 +48,8 @@
+ #endif
+ #include "analysis.h"
+ 
++#include <string.h>
++
+ /* static function declarations */
+ /* static function declarations */
+ static void sbr_header(bitfile *ld, sbr_info *sbr);
+
