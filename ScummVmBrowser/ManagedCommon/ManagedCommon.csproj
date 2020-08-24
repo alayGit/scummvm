@@ -136,6 +136,7 @@
     <Compile Include="Implementations\WindowsEventLogger.cs" />
     <Compile Include="Interfaces\IAntiDisposalLock.cs" />
     <Compile Include="Interfaces\IByteEncoder.cs" />
+    <Compile Include="Interfaces\ICompression.cs" />
     <Compile Include="Interfaces\IGameClientStore.cs" />
     <Compile Include="Interfaces\IGameInfo.cs" />
     <Compile Include="Interfaces\ILogger.cs" />

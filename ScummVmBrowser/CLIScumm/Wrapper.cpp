@@ -31,7 +31,7 @@ CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum^>^ configureStore)
 	//_gSystemCli = reinterpret_cast<NativeScummWrapper::NativeScummWrapperOSystem*>(g_system);
 	//_wholeScreenBuffer = gcnew array<byte>(DISPLAY_DEFAULT_WIDTH * DISPLAY_DEFAULT_HEIGHT * NO_BYTES_PER_PIXEL);
 	//_wholeScreenBufferNoMouse = gcnew array<byte>(DISPLAY_DEFAULT_WIDTH * DISPLAY_DEFAULT_HEIGHT * NO_BYTES_PER_PIXEL);
-	//_configureStore = configureStore;
+	_configureStore = configureStore;
 	//_soundIsRunning = false;
 }
 
