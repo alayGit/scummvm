@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{47140F46-196C-4483-885F-6CD1B7E7777A}</ProjectGuid>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <Keyword>ManagedCProj</Keyword>
+    <RootNamespace>CLIScumm</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\dists\msvc\ScummVM_Globalx86.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\dists\msvc\ScummVM_Globalx86.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\dists\msvc\ScummVM_Globalx64.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\..\dists\msvc\ScummVM_Globalx64.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>c:\ScummVmBrowser\;c:\ScummVmBrowser\dists;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <ConformanceMode>false</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>WinMM.lib;Base64Cpp.lib;bass.lib;freetype.lib;iphlpapi.lib;jpeg-static.lib;libcurl.lib;libfaad.lib;libFLAC_static.lib;libFLAC++_static.lib;libmad.lib;libmpeg2.lib;libpng16.lib;libogg_static.lib;libtheora_static.lib;libvorbis_static.lib;libvorbisfile_static.lib;SDL.lib;SDL_net.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;SDLmain.lib;winmm.lib;winsparkle.lib;win_utf8_io_static.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Windows Kits\10\Lib\10.0.18362.0\um\x86;C:\ScummVmBrowser\ExternalLibraries\lib;C:\ScummVmBrowser\scummvm_libs\lib\x86\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\ScummVM\scummvm_libs\include\SDL;C:\ScummVM\GIT;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>C:\ScummVM\GIT\dists\ScummCLIModels\bin\Debug\;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <ConformanceMode>false</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies />
+      <AdditionalLibraryDirectories>C:\ScummVM\scummvm_libs\lib\x86\Debug;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.18362.0\um\x86\;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.18362.0\um\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>c:\ScummVmBrowser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <ConformanceMode>false</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>WinMM.lib;bass.lib;iphlpapi.lib;libcurl.lib;libmad.lib;libpng16.lib;libtheora_static.lib;SDL.lib;SDL_net.lib;SDL2.lib;SDL2main.lib;SDL2test.lib;SDLmain.lib;winmm.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Windows Kits\10\Lib\10.0.18362.0\um\x86;C:\ScummVmBrowser\scummvm_libs;C:\ScummLib\lib\x86\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <ConformanceMode>false</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies />
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Converters.cpp" />
+    <ClCompile Include="Wrapper.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Converters.h" />
+    <ClInclude Include="Wrapper.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\dists\msvc\scummvm.vcxproj">
+      <Project>{ecea4af3-126a-31e0-aef8-e6f45e92de9c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ChunkedSoundManager\ChunkedSoundManager.vcxproj">
+      <Project>{075bdd99-e541-49cd-824f-05c6cce069c4}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\CliScummData\CliScummData.vcxproj">
+      <Project>{165f09da-34c9-437b-9b0a-860150e7e830}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ManagedCommon\ManagedCommon.csproj">
+      <Project>{d8f87aa0-1710-49cc-8ccf-7e1b74fef911}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\nativeScummWrapper\NativeScummWrapper.vcxproj">
+      <Project>{3c240ad7-4423-48f3-a2ca-e12afcb02196}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\UnityCWrapper\UnityCWrapper.vcxproj">
+      <Project>{6b3497a1-d706-457c-8346-957ee217e5fe}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\msvc\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\msvc\packages\sfml-graphics.redist.2.4.2.0\build\native\sfml-graphics.redist.targets" Condition="Exists('..\msvc\packages\sfml-graphics.redist.2.4.2.0\build\native\sfml-graphics.redist.targets')" />
+    <Import Project="..\msvc\packages\sfml-system.redist.2.4.2.0\build\native\sfml-system.redist.targets" Condition="Exists('..\msvc\packages\sfml-system.redist.2.4.2.0\build\native\sfml-system.redist.targets')" />
+    <Import Project="..\msvc\packages\sfml-system.2.4.2.0\build\native\sfml-system.targets" Condition="Exists('..\msvc\packages\sfml-system.2.4.2.0\build\native\sfml-system.targets')" />
+    <Import Project="..\msvc\packages\sfml-window.redist.2.4.2.0\build\native\sfml-window.redist.targets" Condition="Exists('..\msvc\packages\sfml-window.redist.2.4.2.0\build\native\sfml-window.redist.targets')" />
+    <Import Project="..\msvc\packages\sfml-window.2.4.2.0\build\native\sfml-window.targets" Condition="Exists('..\msvc\packages\sfml-window.2.4.2.0\build\native\sfml-window.targets')" />
+    <Import Project="..\msvc\packages\sfml-graphics.2.4.2.0\build\native\sfml-graphics.targets" Condition="Exists('..\msvc\packages\sfml-graphics.2.4.2.0\build\native\sfml-graphics.targets')" />
+  </ImportGroup>
+</Project>

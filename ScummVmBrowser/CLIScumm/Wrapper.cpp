@@ -6,21 +6,21 @@ int main() {
 
 CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum^>^ configureStore)
 {
-	//eventQueue = gcnew ConcurrentQueue<IGameEvent^>();
+	eventQueue = gcnew ConcurrentQueue<IGameEvent^>();
 	imageUpdated = gcnew CLIScumm::Wrapper::Wrapper::delCopyRectToScreen(this, &CLIScumm::Wrapper::Wrapper::ScreenUpdated);
 	pollEvent = gcnew CLIScumm::Wrapper::Wrapper::delPollEvent(this, &CLIScumm::Wrapper::Wrapper::pollEventWrapper);
 	saveData = gcnew CLIScumm::Wrapper::Wrapper::delSaveData(this, &CLIScumm::Wrapper::Wrapper::SaveData);
-	//hasStarted = false;
-	//gameEventLock = gcnew Object();
+	hasStarted = false;
+	gameEventLock = gcnew Object();
 	startLock = gcnew Object();
-	//_wholeScreenBufferLock = gcnew Object();
-	//_picturesToBeSentBuffer = gcnew System::Collections::Generic::List<ScreenBuffer^>();
+	_wholeScreenBufferLock = gcnew Object();
+	_picturesToBeSentBuffer = gcnew System::Collections::Generic::List<ScreenBuffer^>();
 
 	SoundManagement::SoundOptions soundOptions = SoundManagement::SoundOptions();
 
-	//soundOptions.sampleRate = configureStore->GetValue<int>(SoundSettings::SampleRate);
-	//soundOptions.sampleSize = configureStore->GetValue<int>(SoundSettings::SampleSize);
-	//soundOptions.soundPollingFrequencyMs = configureStore->GetValue<int>(SoundSettings::SoundPollingFrequencyMs);
+	soundOptions.sampleRate = configureStore->GetValue<int>(SoundSettings::SampleRate);
+	soundOptions.sampleSize = configureStore->GetValue<int>(SoundSettings::SampleSize);
+	soundOptions.soundPollingFrequencyMs = configureStore->GetValue<int>(SoundSettings::SoundPollingFrequencyMs);
 
 	g_system = new NativeScummWrapper::NativeScummWrapperOSystem(soundOptions, static_cast<NativeScummWrapper::f_CopyRect>(Marshal::GetFunctionPointerForDelegate(imageUpdated).ToPointer()) //ToDo: Tidy these up as a whole they are a mess
 		, static_cast<NativeScummWrapper::f_PollEvent>(Marshal::GetFunctionPointerForDelegate(pollEvent).ToPointer())
@@ -28,11 +28,11 @@ CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum^>^ configureStore)
 		, static_cast<f_SoundConverted>(Marshal::GetFunctionPointerForDelegate(GCHandle::Alloc(gcnew delPlaySound(this, &CLIScumm::Wrapper::Wrapper::PlaySound), GCHandleType::Normal).Target).ToPointer())
 		, static_cast<NativeScummWrapper::f_Blot>(Marshal::GetFunctionPointerForDelegate(GCHandle::Alloc(gcnew delBlot(this, &CLIScumm::Wrapper::Wrapper::Blot), GCHandleType::Normal).Target).ToPointer())
 	);
-	//_gSystemCli = reinterpret_cast<NativeScummWrapper::NativeScummWrapperOSystem*>(g_system);
-	//_wholeScreenBuffer = gcnew array<byte>(DISPLAY_DEFAULT_WIDTH * DISPLAY_DEFAULT_HEIGHT * NO_BYTES_PER_PIXEL);
-	//_wholeScreenBufferNoMouse = gcnew array<byte>(DISPLAY_DEFAULT_WIDTH * DISPLAY_DEFAULT_HEIGHT * NO_BYTES_PER_PIXEL);
+	_gSystemCli = reinterpret_cast<NativeScummWrapper::NativeScummWrapperOSystem*>(g_system);
+	_wholeScreenBuffer = gcnew array<byte>(DISPLAY_DEFAULT_WIDTH * DISPLAY_DEFAULT_HEIGHT * NO_BYTES_PER_PIXEL);
+	_wholeScreenBufferNoMouse = gcnew array<byte>(DISPLAY_DEFAULT_WIDTH * DISPLAY_DEFAULT_HEIGHT * NO_BYTES_PER_PIXEL);
 	_configureStore = configureStore;
-	//_soundIsRunning = false;
+	_soundIsRunning = false;
 }
 
 CLIScumm::Wrapper::~Wrapper()
@@ -75,13 +75,12 @@ System::Drawing::Point CLIScumm::Wrapper::GetCurrentMousePosition()
 
 void CLIScumm::Wrapper::Init(AvailableGames game, Dictionary<System::String^, cli::array<System::Byte>^>^ gameSaveData)
 {
-	/*_gSystemCli->setGameSaveCache(Utilities::Converters::CreateSaveFileCacheFromDictionary(gameSaveData));*/
+	_gSystemCli->setGameSaveCache(Utilities::Converters::CreateSaveFileCacheFromDictionary(gameSaveData));
 
-	g_system->getFilesystemFactory();
 	Common::String gamePath = GetGamePath(game);
 
 	//TODO: Pass in a list of playable games
-	//g_system->getFilesystemFactory();
+	g_system->getFilesystemFactory();
 	Common::FSNode dir = Common::FSNode(gamePath);
 	Common::FSList files;
 	if (!dir.getChildren(files, Common::FSNode::kListAll)) {
@@ -292,6 +291,10 @@ void CLIScumm::Wrapper::UpdateWholeScreenBuffer(cli::array<Byte>^ pictureArray, 
 		{
 			System::Array::Copy(pictureArray, row * w * NO_BYTES_PER_PIXEL, wholeScreenBuffer, ((y + row) * DISPLAY_DEFAULT_WIDTH + x) * NO_BYTES_PER_PIXEL, w * NO_BYTES_PER_PIXEL);
 		}
+	}
+	catch (Exception^ e)
+	{
+		int x = 4;
 	}
 	finally
 	{

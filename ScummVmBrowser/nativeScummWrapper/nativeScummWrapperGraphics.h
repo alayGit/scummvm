@@ -88,9 +88,12 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 		virtual void warpMouse(int x, int y) override;
 		virtual void setMouseCursor(const void *buf, uint w, uint h, int hotspotX, int hotspotY, uint32 keycolor, bool dontScale = false, const Graphics::PixelFormat *format = NULL) override;
 		virtual void setCursorPalette(const byte *colors, uint start, uint num) override;
+		virtual Graphics::PixelFormat getScreenFormat() const;
+		virtual Common::List<Graphics::PixelFormat> getSupportedFormats() const;
 		bool screenUpdateOverlapsMouse(int x, int y, int w, int h);
 		bool positionInRange(int x, int y);
 		MouseState getMouseState();
+
 
 	private:
 		f_CopyRect _copyRect;

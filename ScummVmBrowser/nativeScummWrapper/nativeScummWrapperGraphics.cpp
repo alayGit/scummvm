@@ -202,6 +202,16 @@ void NativeScummWrapper::NativeScummWrapperGraphics::setCursorPalette(const byte
 	populatePalette(_cursorPalette, colors, start, num);
 }
 
+Graphics::PixelFormat NativeScummWrapper::NativeScummWrapperGraphics::getScreenFormat() const
+{
+	return Graphics::PixelFormat();
+}
+
+Common::List<Graphics::PixelFormat> NativeScummWrapper::NativeScummWrapperGraphics::getSupportedFormats() const
+{
+	return Common::List<Graphics::PixelFormat>();
+}
+
 NativeScummWrapper::PalletteColor *NativeScummWrapper::NativeScummWrapperGraphics::allocatePallette() {
 	return (NativeScummWrapper::PalletteColor *)calloc(sizeof(NativeScummWrapper::PalletteColor), NO_COLOURS);
 }

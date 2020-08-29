@@ -178,7 +178,7 @@ namespace DotNetScummTests
         {
             Cropping = new Rectangle(55, 78, 30, 9);
             const string expectedFrameName = "CanSendDownArrow";
-            const int noFrames = 100;
+            const int noFrames = 125;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
             Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CapturedAndQuit(screenBuffers[0].Buffer, screenBuffers[0].X, screenBuffers[0].Y, screenBuffers[0].W, screenBuffers[0].H, noFrames, expectedFrameName));
             await WaitForFrame(10);

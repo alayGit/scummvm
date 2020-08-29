@@ -181,11 +181,8 @@ obj/
 _ReSharper*/
 ipch/
 [Tt]est[Rr]esult*
-*.vcproj
-*.sln
 *.vsprops
 *.props
-*.vcxproj*
 *.bat
 *.tss
 *.VC.db

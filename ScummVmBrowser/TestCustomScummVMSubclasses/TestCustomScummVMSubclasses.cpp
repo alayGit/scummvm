@@ -1,4 +1,3 @@
-
 #include "pch.h"
 #include "CppUnitTest.h"
 
@@ -18,11 +17,6 @@ using namespace NativeScummWrapper;
 
 namespace TestCustomScummVMSubclasses
 {
-
-	enum Test {
-
-	};
-
 	TEST_CLASS(TestCustomScummVMSubclasses)
 	{
 
@@ -158,9 +152,9 @@ namespace TestCustomScummVMSubclasses
 		}
 
 		TestCustomScummVMSubclasses() :_graphicsManager((f_CopyRect)&CopyRect, (f_Blot)&Blot) {
-			_graphicsManager.setCursorPalette(mousePallette, 0, NO_IN_MOUSE_PALLETTE);
+			_graphicsManager.setCursorPalette(nullptr, 0, NO_IN_MOUSE_PALLETTE);
 			_graphicsManager.setPalette(pallette, 0, NO_IN_MOUSE_PALLETTE);
-			_graphicsManager.setMouseCursor(&mouseBuffer, START_MOUSE_W, START_MOUSE_H, START_X, START_Y, KEY_COLOR);
+			//_graphicsManager.setMouseCursor(&mouseBuffer, START_MOUSE_W, START_MOUSE_H, START_X, START_Y, KEY_COLOR);
 			_blotStateQueue = std::queue<BlotState>();
 			_copyRectStateQueue = std::queue<CopyRectState>();
 		}
@@ -397,7 +391,7 @@ namespace TestCustomScummVMSubclasses
 			Assert::AreEqual(expectedFullWidth, mouseState.fullWidth);
 			Assert::AreEqual(expectedFullHeight, mouseState.fullHeight);
 			Assert::AreEqual(expectedHeight, mouseState.height);
-			Assert::AreEqual(KEY_COLOR, mouseState.keyColor);
+			Assert::AreEqual((byte)0, mouseState.keyColor);
 			Assert::AreEqual(expectedHeight, mouseState.prevH);
 			Assert::AreEqual(expectedWidth, mouseState.prevW);
 			Assert::AreEqual(expectedX, mouseState.prevX);

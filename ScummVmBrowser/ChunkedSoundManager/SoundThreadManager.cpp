@@ -27,7 +27,9 @@ void SoundManagement::SoundThreadManager::Init(f_GetSoundSample getSoundSample, 
 	_getSoundSample = getSoundSample;
 	_soundConverter = new SoundConverter(_soundOptions, playSound);
 	_user = user;
+	_soundThread = nullptr;
 }
+
 void SoundManagement::SoundThreadManager::StartSound()
 {
 	if (!_soundIsRunning && !_soundIsStoppedForeverPriorToDestructor)
@@ -37,7 +39,8 @@ void SoundManagement::SoundThreadManager::StartSound()
 		if (!_soundIsRunning && !_soundIsStoppedForeverPriorToDestructor)
 		{
 			_soundIsRunning = true;
-			_soundThread = new std::thread(
+
+			_soundThread = new std::thread( //TODO: Memory 
 				[this] {
 					while (_soundIsRunning)
 					{
