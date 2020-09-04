@@ -1,0 +1,3 @@
+C:\ScummVmBrowser\dists\NativeScummWrTests\Debugx86\NativeScummWrTests\NativeScummWrTests.vcxproj.CopyComplete
+C:\ScummVmBrowser\dists\NativeScummWrTests\Debugx86\gtest.pdb
+C:\ScummVmBrowser\dists\NativeScummWrTests\Debugx86\gtest_main.pdb

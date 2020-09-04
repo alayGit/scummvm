@@ -26,7 +26,6 @@
 		<Link>
 			<IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
 			<SubSystem>Console</SubSystem>
-			<EntryPointSymbol>WinMainCRTStartup</EntryPointSymbol>
 		</Link>
 		<ResourceCompile>
 			<AdditionalIncludeDirectories>.;..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
