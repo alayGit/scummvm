@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.WebAudioStreamer = void 0;
 // mostly from https://gist.github.com/revolunet/e620e2c532b7144c62768a36b8b96da2
 // Modified to play chunked audio for games
 const SoundSettings = require("../../../../JsonResxConfigureStore/Resources/Dev/SoundSettings.json");

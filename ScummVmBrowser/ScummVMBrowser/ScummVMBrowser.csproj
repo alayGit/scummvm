@@ -416,11 +416,8 @@
     <Error Condition="!Exists('..\..\dists\msvc\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\dists\msvc\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <PropertyGroup>
-    <PreBuildEvent>C:\Users\andre\OneDrive\Desktop\KillSignalR.bat
-cd C:\ScummVMNew\ScummVMWeb\GIT\node_modules\slice2js\build\Release
-slice2js C:\ScummVMNew\ScummVMWeb\GIT\dists\IceRpc\Slices\ScummWebServer.ice  --output-dir C:\ScummVMNew\ScummVMWeb\GIT\dists\ScummVMBrowser\Scripts\Proxies
-cd C:\ScummVMNew\ScummVMWeb\GIT\dists\ScummVMBrowser
-webpack</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>
