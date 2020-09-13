@@ -1,0 +1,94 @@
+clear
+:Choose
+echo
+echo You may, if you wish, install the game to your hard
+echo drive. This will require approximately 2.5 megabytes 
+echo of free space on your hard disk, but the game will 
+echo probably play faster and smoother.
+echo 
+echo
+echo Do you wish to install everything
+echo to your hard drive (y/n)?
+pick yn installHD installReg
+
+:installHD
+space %1: 2500 NoSpaceBig
+godir %1:%4 CantCreate
+echo Installing to hard drive...
+echo Copying Startup Files...
+copy %2:*.drv
+copy %2:sierra.com
+copy %2:sciv.exe
+rem copy %2:version
+copy %2:install.*
+copy %2:resource.map
+copy %2:view.*
+copy %2:readme.
+
+
+echo %3 > resource.cfg
+echo @echo off > %1:kq4.bat
+echo sierra >> %1:kq4.bat
+echo Copying Game file...
+copy %2:resource.001      
+copy %2:resource.002      
+copy %2:resource.003      
+copy %2:resource.004
+goto exit
+
+:installReg
+space %1: 1 NoSpaceBig
+godir %1:%4 CantCreate
+echo Installing to hard drive...
+echo Copying Startup Files...
+echo %3 > resource.cfg
+echo @echo off > %1:kq4.bat
+echo %2: >> %1:kq4.bat
+
+echo cd \ >> kq4.bat
+
+REM   GET THE RIGHT DISK
+echo :getDisk1 >> %1:kq4.bat
+echo if exist disk1 goto run >> %1:kq4.bat
+echo echo Please Insert Disk 1 >> %1:kq4.bat
+echo pause >> %1:kq4.bat
+echo goto getDisk1 >> %1:kq4.bat
+echo :run >> %1:kq4.bat
+
+echo cd kq4 >> %1:kq4.bat
+echo sierra %1:%4\resource.cfg >> %1:kq4.bat
+
+copy %1:%4\resource.cfg %1:%4\resour
+echo %1: >> %1:kq4.bat
+
+:exit
+clear
+echo
+echo ÿTo play King's Quest IV NOW:
+echo ÿ   Type KQ4 [ENTER].
+echo
+echo ÿTo play King's Quest IV LATER:
+echo ÿ   From %1:%4,
+echo ÿ   Type KQ4 and press [ENTER].
+echo
+pause
+goto Exit2
+
+:NoSpaceBig
+clear
+echo
+echo There is not enough space on %1: to install. 
+echo 2.5 megabytes of disk space are necessary.
+pause
+goto Exit2
+
+:CantCreate
+alert Unable to create directory %1:%4
+goto Exit2
+
+:Exit2
+
+cd %2:..
+
+end
+
