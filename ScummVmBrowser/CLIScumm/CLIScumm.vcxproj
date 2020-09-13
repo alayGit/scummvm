@@ -170,9 +170,6 @@
     <ProjectReference Include="..\nativeScummWrapper\NativeScummWrapper.vcxproj">
       <Project>{3c240ad7-4423-48f3-a2ca-e12afcb02196}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\UnityCWrapper\UnityCWrapper.vcxproj">
-      <Project>{6b3497a1-d706-457c-8346-957ee217e5fe}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

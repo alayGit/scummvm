@@ -6,14 +6,12 @@ using ScummWebsServerVMSlices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using Unity;
 
 namespace IceRpc.I
 {
-    public class ScummWebServerI : ScummWebServerDisp_
+	public class ScummWebServerI : ScummWebServerDisp_
     {
         public static IUnityContainer Container;
         private IScummWebServerRpc _receiver;

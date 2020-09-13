@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.GameScreen = void 0;
 const React = require("react");
 const react_1 = require("react");
 const react_router_dom_1 = require("react-router-dom");

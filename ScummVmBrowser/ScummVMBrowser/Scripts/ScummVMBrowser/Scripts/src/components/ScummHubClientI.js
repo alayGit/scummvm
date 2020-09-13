@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ScummWebServerClientI = void 0;
 class ScummWebServerClientI extends ScummWebsServerVMSlices.ScummWebServerClient {
     constructor(saveCallback) {
         super();

@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AddClient = exports.Quit = exports.RunGame = exports.Init = exports.InitProxy = void 0;
 const ScummHubClientI_1 = require("./ScummHubClientI");
 const WebServerSettings = require("../../../../JsonResxConfigureStore/Resources/Dev/WebServerSettings.json");
 //const ScummVMWebServer = require("..\..\Proxies\ScummWebServer.js").ScummWebServer;

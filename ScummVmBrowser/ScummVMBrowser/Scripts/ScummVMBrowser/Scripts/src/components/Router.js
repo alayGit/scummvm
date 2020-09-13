@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MainRouter = void 0;
 const react_router_dom_1 = require("react-router-dom");
 const React = require("react");
 const react_1 = require("react");

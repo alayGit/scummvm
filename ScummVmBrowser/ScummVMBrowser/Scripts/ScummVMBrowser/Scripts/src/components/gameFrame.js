@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.GameFrame = void 0;
 const Width = 320;
 const Height = 200;
 const React = require("react");

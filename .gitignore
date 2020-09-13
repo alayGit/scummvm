@@ -9,6 +9,7 @@ lib*.a
 *.dll
 *.tlog
 *.idb
+*.lastbuildstate
 
 
 /config.log

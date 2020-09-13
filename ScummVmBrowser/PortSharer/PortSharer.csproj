@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SharedMemory, Version=2.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\dists\msvc\packages\SharedMemory.2.2.3\lib\net47\SharedMemory.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,6 +55,9 @@
       <Project>{D8F87AA0-1710-49CC-8CCF-7E1B74FEF911}</Project>
       <Name>ManagedCommon</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

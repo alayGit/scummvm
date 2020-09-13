@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Well = void 0;
 const React = require("react");
 class Well extends React.Component {
     render() {
