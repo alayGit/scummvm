@@ -1,2 +1,4 @@
 C:\ScummVmBrowser\ScummVmBrowser\nativeScummWrapper\Debugx86\nativeScummWrapper\nativeScummWrapper.pdb
 C:\ScummVmBrowser\ScummVmBrowser\nativeScummWrapper\Debugx86\nativeScummWrapper.pdb
+C:\scumm\ScummVmBrowser\nativeScummWrapper\Debugx86\nativeScummWrapper\nativeScummWrapper.pdb
+C:\scumm\ScummVmBrowser\nativeScummWrapper\Debugx86\nativeScummWrapper.pdb
