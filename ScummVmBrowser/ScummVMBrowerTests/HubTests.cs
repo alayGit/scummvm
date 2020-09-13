@@ -9,12 +9,12 @@ using ScummVMBrowser.Data;
 using ScummVMBrowser.Models;
 using ScummVMBrowser.Server;
 using SignalRHostWithUnity;
+using SignalRSelfHostTest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestMocks;
 using Unity;
 using Unity.Lifetime;
 

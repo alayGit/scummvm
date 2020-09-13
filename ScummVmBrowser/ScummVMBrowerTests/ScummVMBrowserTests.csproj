@@ -127,9 +127,9 @@
       <Project>{BA553759-5355-4CE2-BFA4-C23757EDEB84}</Project>
       <Name>SignalRHostWithUnity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestMocks\TestMocks.csproj">
-      <Project>{7EAD3C45-7E9B-4F20-A820-90362577CAEE}</Project>
-      <Name>TestMocks</Name>
+    <ProjectReference Include="..\SignalRSelfHostTest\SignalRSelfHostTest.csproj">
+      <Project>{EEEE2B6B-5447-4CD5-BB92-397833849F82}</Project>
+      <Name>SignalRSelfHostTest</Name>
     </ProjectReference>
     <ProjectReference Include="..\Trasher\Trasher.csproj">
       <Project>{DE6F95DA-AF91-4AFD-890C-0EFA007E2BE9}</Project>
@@ -142,7 +142,6 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-
     <Error Condition="!Exists('..\..\dists\msvc\packages\MSTest.TestAdapter.2.1.1\build\net45\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\dists\msvc\packages\MSTest.TestAdapter.2.1.1\build\net45\MSTest.TestAdapter.props'))" />
     <Error Condition="!Exists('..\..\dists\msvc\packages\MSTest.TestAdapter.2.1.1\build\net45\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\dists\msvc\packages\MSTest.TestAdapter.2.1.1\build\net45\MSTest.TestAdapter.targets'))" />
   </Target>

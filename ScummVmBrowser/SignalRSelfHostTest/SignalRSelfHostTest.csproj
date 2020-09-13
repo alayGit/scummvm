@@ -106,10 +106,6 @@
       <Project>{d3646efa-1cb6-4cf6-83c7-1963525fc3f0}</Project>
       <Name>CliScummSelfHost</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestMocks\TestMocks.csproj">
-      <Project>{7EAD3C45-7E9B-4F20-A820-90362577CAEE}</Project>
-      <Name>TestMocks</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
