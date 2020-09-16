@@ -190,6 +190,7 @@ ipch/
 *.vsprops
 *.props
 *.bat
+!/scripts/registerEventLog.bat
 *.tss
 *.VC.db
 .vs/

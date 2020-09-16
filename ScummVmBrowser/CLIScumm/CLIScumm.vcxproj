@@ -105,6 +105,9 @@
       </EntryPointSymbol>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\Windows Kits\10\Lib\10.0.18362.0\um\x86;$(ProjectDir)\ScummVmBrowser\CLIScumm\..\..\;$(ProjectDir)\..\..\ExternalLibraries\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>copy $(SolutionDir)..\..\RequiredDlls\*.* $(TargetDir) /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

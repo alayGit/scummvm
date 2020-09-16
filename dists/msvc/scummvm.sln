@@ -173,6 +173,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{71B5EB29-79E1-41D6-8870-AE089E7CCBC0}"
 	ProjectSection(SolutionItems) = preProject
 		nuget.config = nuget.config
+		..\..\scripts\registerEventLog.bat = ..\..\scripts\registerEventLog.bat
 		ScummVM_Debugx64.props = ScummVM_Debugx64.props
 		ScummVM_Debugx86.props = ScummVM_Debugx86.props
 		ScummVM_Globalx64.props = ScummVM_Globalx64.props

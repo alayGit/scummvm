@@ -104,8 +104,7 @@
       <AdditionalDependencies>bassflac.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>$(TargetDir)
-copy $(SolutionDir)..\..\RequiredDlls\*.* $(TargetDir) /Y</Command>
+      <Command>copy $(SolutionDir)..\..\RequiredDlls\*.* $(TargetDir) /Y</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy Dlls</Message>
