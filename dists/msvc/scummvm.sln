@@ -231,6 +231,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NativeScummWrTests", "..\Na
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testbed", "testbed.vcxproj", "{56F34D69-1704-3AE0-86A9-E143FF22D03C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RequiredDlls", "RequiredDlls", "{ABFA3F9F-DD29-420F-B149-E28105880D23}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\RequiredDlls\bass.dll = ..\..\RequiredDlls\bass.dll
+		..\..\RequiredDlls\bassenc.dll = ..\..\RequiredDlls\bassenc.dll
+		..\..\RequiredDlls\bassenc_flac.dll = ..\..\RequiredDlls\bassenc_flac.dll
+		..\..\RequiredDlls\SDL2.dll = ..\..\RequiredDlls\SDL2.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Analysis|Any CPU = Analysis|Any CPU
@@ -3431,6 +3439,7 @@ Global
 		{3BB9E2E3-8C20-3320-B7E0-BE835A4A506F} = {AEE9D335-0942-4348-BC31-24DF5AEC4A69}
 		{AFFA36D7-1E2F-3363-BF1A-D85E458E850B} = {AEE9D335-0942-4348-BC31-24DF5AEC4A69}
 		{56F34D69-1704-3AE0-86A9-E143FF22D03C} = {AEE9D335-0942-4348-BC31-24DF5AEC4A69}
+		{ABFA3F9F-DD29-420F-B149-E28105880D23} = {71B5EB29-79E1-41D6-8870-AE089E7CCBC0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F60424C1-935C-42F8-97ED-051A77D374D4}

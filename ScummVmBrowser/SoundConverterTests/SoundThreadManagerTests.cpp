@@ -59,7 +59,7 @@ namespace SoundConverterTests
 				}
 				else
 				{
-					Assert::IsTrue(_noTimesSoundConvertedCalled > 1);
+					Assert::IsTrue(_noTimesSoundConvertedCalled > 0);
 				}
 
 				noTimesCalledLasttime = _noTimesSoundConvertedCalled;

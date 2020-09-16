@@ -21,11 +21,11 @@ namespace DotNetScummTests
         ConcurrentQueue<Bitmap> _capturedFrames;
         bool hasSentQuit;
 
-        protected const string gameDirectory = "C:\\ScummVMNew\\ScummVMWeb\\Games\\KQ3";
+        protected const string gameDirectory = "C:\\scumm\\GamesKQ3";
         bool saveEnabled = true;
         public const int DisplayDefaultWidth = 320;
         public const int DisplayDefaultHeight = 200;
-        public const string GameDirectory = "C:\\ScummVMNew\\ScummVMWeb\\Games\\KQ3";
+        public const string GameDirectory = "C:\\scumm\\GamesKQ3";
         const string SaveDataResourceName = "SaveData";
         protected static ResourceManager ResourceManager = DotNetScummTests.Properties.Resources.ResourceManager;
         private object _clearLock;

@@ -7,6 +7,7 @@ scummvm.dwp
 lib*.a
 .deps
 *.dll
+!/RequiredDlls/*.dll
 *.tlog
 *.idb
 *.lastbuildstate

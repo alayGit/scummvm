@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GtaTestDurations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Executable>C:\ScummVmBrowser\dists\NativeScummWrTests\Debugx86\NativeScummWrTests.exe</Executable>
+  <Executable>C:\scumm\dists\NativeScummWrTests\Debugx86\NativeScummWrTests.exe</Executable>
   <TestDurations>
     <TestDuration Test="TestCaseName.TestName" Duration="1" />
     <TestDuration Test="MouseTest.CanMoveMouseWithinBounds" Duration="5" />
     <TestDuration Test="MouseTest.CannotMoveMouseOutOfBoundsXPos" Duration="5" />
-    <TestDuration Test="MouseTest.CannotMoveMouseOutOfBoundsXNeg" Duration="4" />
+    <TestDuration Test="MouseTest.CannotMoveMouseOutOfBoundsXNeg" Duration="5" />
     <TestDuration Test="MouseTest.CannotMoveMouseOutOfBoundsYPos" Duration="5" />
-    <TestDuration Test="MouseTest.CannotMoveMouseOutOfBoundsYNeg" Duration="4" />
-    <TestDuration Test="MouseTest.WidthDoesNotShrinkOnXBoundry" Duration="5" />
-    <TestDuration Test="MouseTest.WidthShrinksOverXBoundry" Duration="5" />
-    <TestDuration Test="MouseTest.WidthShrinksOverYBoundry" Duration="5" />
+    <TestDuration Test="MouseTest.CannotMoveMouseOutOfBoundsYNeg" Duration="7" />
+    <TestDuration Test="MouseTest.WidthDoesNotShrinkOnXBoundry" Duration="18" />
+    <TestDuration Test="MouseTest.WidthShrinksOverXBoundry" Duration="6" />
+    <TestDuration Test="MouseTest.WidthShrinksOverYBoundry" Duration="7" />
     <TestDuration Test="MouseTest.CanChangeCursor" Duration="4" />
-    <TestDuration Test="MouseTest.CanDrawRectangleOnScreen" Duration="5" />
+    <TestDuration Test="MouseTest.CanDrawRectangleOnScreen" Duration="4" />
   </TestDurations>
 </GtaTestDurations>

@@ -1,5 +1,5 @@
 {
-  "CliScummHubName": "ScummVMSignalRHub",
-  "CliScummHubHostName": "localhost",
-  "ScummVMLocation": "C:\\ScummVMNew\\ScummVMWeb\\GIT\\dists\\SignalRSelfHost\\bin\\Debug\\SignalRSelfHost.exe"
+	"CliScummHubName": "ScummVMSignalRHub",
+	"CliScummHubHostName": "localhost",
+	"ScummVMLocation": "C:\\scumm\\ScummVmBrowser\\SignalRSelfHost\\bin\\Debug\\SignalRSelfHost.exe"
 }

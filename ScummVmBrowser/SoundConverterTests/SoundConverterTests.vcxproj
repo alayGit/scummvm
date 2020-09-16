@@ -103,6 +103,13 @@
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>bassflac.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>$(TargetDir)
+copy $(SolutionDir)..\..\RequiredDlls\*.* $(TargetDir) /Y</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copy Dlls</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
