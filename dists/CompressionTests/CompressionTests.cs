@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Compression;
+using ManagedZLibCompression;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CompressionTests
@@ -12,7 +12,7 @@ namespace CompressionTests
         public void ZLibCompressAndDecompress()
         {
 			byte[] input = new byte[] { 8, 45, 56, 77, 88, 99 };
-			ZLibCompression zLibCompression = new ZLibCompression();
+			ManagedZLibCompression.ManagedZLibCompression zLibCompression = new ManagedZLibCompression.ManagedZLibCompression();
 
 			Assert.IsTrue(input.SequenceEqual(zLibCompression.Decompress(zLibCompression.Compress(input))));
         }

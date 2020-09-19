@@ -1,4 +1,4 @@
-﻿using Compression;
+﻿using ManagedZLibCompression;
 using ManagedCommon.Interfaces;
 using System;
 using System.CodeDom;
@@ -31,7 +31,7 @@ namespace CompressTests
         {
 			string[] soundData = new string[] { Sound1, Sound2, Sound3, Sound4, Sound5 };
 			string[] pictureData = new string[] { Picture1, Picture2, Picture3, Picture4, Picture5 };
-			ICompression[] compressions = new ICompression[] { new ZLibCompression() };
+			ICompression[] compressions = new ICompression[] { new ManagedZLibCompression.ManagedZLibCompression() };
 
 			foreach(ICompression compression in compressions)
 			{
