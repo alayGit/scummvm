@@ -21,6 +21,7 @@
 #include <stringapiset.h>
 #include "../ChunkedSoundManager/SoundThreadManager.h"
 #include "../ChunkedSoundManager/SoundOptions.h"
+#include <string.h>
 
 
 
@@ -83,6 +84,7 @@ namespace CLIScumm {
 		void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(cli::array<Byte>^ pictureArray, int noUpdates, int x, int y, int w, int h, ManagedCommon::Enums::Actions::DrawingAction drawingAction);
 		ConcurrentQueue<IGameEvent^>^ eventQueue;
 		delegate void delCopyRectToScreen(const void* buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor* color, byte ignore, bool isMouseUpdate, int noUpdates);
+	    array<byte>^ MarshalWholeScreenBuffer(byte *wholeScreenBuffer);
 		delegate bool delPollEvent(Common::Event& event);
 		delegate bool delSaveData(byte* saveData, int, Common::String fileName);
 		delegate void delPlaySound(byte* buffer, int size, void* user);
@@ -98,11 +100,12 @@ namespace CLIScumm {
 		CopyRectToScreen^ copyRectToScreen;
 		ManagedCommon::Delegates::SaveData^ _saveData;
 		bool _redrawWholeScreenOnNextFrame;
-		array<System::Byte>^ _wholeScreenBuffer;
-		array<System::Byte>^ _wholeScreenBufferNoMouse;
+		byte* _wholeScreenBuffer;
+		byte* _wholeScreenBufferNoMouse;
+	    int _wholeScreenBufferLength;
 		IConfigurationStore<System::Enum^>^ _configureStore;
-		void CLIScumm::Wrapper::UpdatePictureBuffer(cli::array<byte>^ pictureArray, const void* buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor* color, byte ignore);
-		void CLIScumm::Wrapper::UpdateWholeScreenBuffer(cli::array<Byte>^ pictureArray, cli::array<Byte>^ wholeScreenBuffer, int x, int y, int w, int h);
+	    void CLIScumm::Wrapper::UpdatePictureBuffer(byte *pictureArray, const void *buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor *color, byte ignore);
+	    void CLIScumm::Wrapper::UpdateWholeScreenBuffer(byte *pictureArray, byte *wholeScreenBuffer, int x, int y, int w, int h);
 		NativeScummWrapper::NativeScummWrapperOSystem* _gSystemCli;
 		PlayAudio^ _playAudio;
 		bool _soundIsRunning;

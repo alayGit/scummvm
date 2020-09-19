@@ -29,15 +29,17 @@ CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum^>^ configureStore)
 		, static_cast<NativeScummWrapper::f_Blot>(Marshal::GetFunctionPointerForDelegate(GCHandle::Alloc(gcnew delBlot(this, &CLIScumm::Wrapper::Wrapper::Blot), GCHandleType::Normal).Target).ToPointer())
 	);
 	_gSystemCli = reinterpret_cast<NativeScummWrapper::NativeScummWrapperOSystem*>(g_system);
-	_wholeScreenBuffer = gcnew array<byte>(DISPLAY_DEFAULT_WIDTH * DISPLAY_DEFAULT_HEIGHT * NO_BYTES_PER_PIXEL);
-	_wholeScreenBufferNoMouse = gcnew array<byte>(DISPLAY_DEFAULT_WIDTH * DISPLAY_DEFAULT_HEIGHT * NO_BYTES_PER_PIXEL);
+	_wholeScreenBuffer = new byte[DISPLAY_DEFAULT_WIDTH * DISPLAY_DEFAULT_HEIGHT * NO_BYTES_PER_PIXEL];
+	_wholeScreenBufferLength = DISPLAY_DEFAULT_WIDTH * DISPLAY_DEFAULT_HEIGHT * NO_BYTES_PER_PIXEL;
+	_wholeScreenBufferNoMouse = new byte[_wholeScreenBufferLength];
 	_configureStore = configureStore;
 	_soundIsRunning = false;
 }
 
 CLIScumm::Wrapper::~Wrapper()
 {
-
+	delete[] _wholeScreenBuffer;
+	delete[] _wholeScreenBufferNoMouse;
 }
 
 CopyRectToScreen^ CLIScumm::Wrapper::OnCopyRectToScreen::get() {
@@ -194,6 +196,13 @@ System::Collections::Generic::List<ScreenBuffer^>^ CLIScumm::Wrapper::GetListOfS
 	return updates;
 }
 
+array<byte> ^ CLIScumm::Wrapper::MarshalWholeScreenBuffer(byte *wholeScreenBuffer) {
+	array<byte>^ result = gcnew array<byte>(_wholeScreenBufferLength);
+	Marshal::Copy((System::IntPtr) wholeScreenBuffer, result, 0, _wholeScreenBufferLength);
+
+	return result;
+}
+
 void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(cli::array<Byte>^ pictureArray, int noUpdates, int x, int y, int w, int h, ManagedCommon::Enums::Actions::DrawingAction drawingAction)
 {
 
@@ -234,7 +243,7 @@ void CLIScumm::Wrapper::EnqueueGameEvent(IGameEvent^ gameEvent)
 	}
 }
 
-void CLIScumm::Wrapper::UpdatePictureBuffer(cli::array<byte>^ pictureArray, const void* buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor* color, byte ignore)
+void CLIScumm::Wrapper::UpdatePictureBuffer(byte* pictureArray, const void* buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor* color, byte ignore)
 {
 	int currentPixel = 0;
 
@@ -257,7 +266,7 @@ void CLIScumm::Wrapper::UpdatePictureBuffer(cli::array<byte>^ pictureArray, cons
 			}
 			else
 			{
-				for (int i = 0, wholeScreenBufferCounter = ((y + heightCounter) * DISPLAY_DEFAULT_WIDTH + x + widthCounter) * 4; i < NO_BYTES_PER_PIXEL && wholeScreenBufferCounter < _wholeScreenBuffer->Length; i++)
+				for (int i = 0, wholeScreenBufferCounter = ((y + heightCounter) * DISPLAY_DEFAULT_WIDTH + x + widthCounter) * 4; i < NO_BYTES_PER_PIXEL && wholeScreenBufferCounter < _wholeScreenBufferLength; i++)
 				{
 					pictureArray[currentPixel++] = _wholeScreenBufferNoMouse[wholeScreenBufferCounter++];
 				}
@@ -268,28 +277,41 @@ void CLIScumm::Wrapper::UpdatePictureBuffer(cli::array<byte>^ pictureArray, cons
 
 void CLIScumm::Wrapper::ScreenUpdated(const void* buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor* color, byte ignore, bool isMouseUpdate, int noUpdates)
 {
-	cli::array<byte>^ pictureArray = gcnew array<byte>(w * h * NO_BYTES_PER_PIXEL);
-
-	UpdatePictureBuffer(pictureArray, buf, pitch, x, y, w, h, color, ignore);
-
-	if (!isMouseUpdate)
+	byte *pictureArray = nullptr;
+	try
 	{
-		UpdateWholeScreenBuffer(pictureArray, _wholeScreenBufferNoMouse, x, y, w, h);
+		int pictureArrayLength = w * h * NO_BYTES_PER_PIXEL;
+		pictureArray = new byte[pictureArrayLength];
+
+		UpdatePictureBuffer(pictureArray, buf, pitch, x, y, w, h, color, ignore);
+
+		if (!isMouseUpdate) {
+			UpdateWholeScreenBuffer(pictureArray, _wholeScreenBufferNoMouse, x, y, w, h);
+		}
+
+		UpdateWholeScreenBuffer(pictureArray, _wholeScreenBuffer, x, y, w, h);
+
+		//Compress Here
+		cli::array<byte> ^ managedCompressedPictureArray = gcnew array<byte>(w * h * NO_BYTES_PER_PIXEL);
+
+		Marshal::Copy((System::IntPtr)pictureArray, managedCompressedPictureArray, 0, pictureArrayLength);
+
+		UpdatePicturesToBeSentBuffer(managedCompressedPictureArray, noUpdates, x, y, w, h, isMouseUpdate ? ManagedCommon::Enums::Actions::DrawingAction::DrawMouse : ManagedCommon::Enums::Actions::DrawingAction::DrawPicture);
 	}
-
-	UpdateWholeScreenBuffer(pictureArray, _wholeScreenBuffer, x, y, w, h);
-
-	UpdatePicturesToBeSentBuffer(pictureArray, noUpdates, x, y, w, h, isMouseUpdate ? ManagedCommon::Enums::Actions::DrawingAction::DrawMouse : ManagedCommon::Enums::Actions::DrawingAction::DrawPicture);
+	finally
+	{
+		delete[] pictureArray;
+	}
 }
 
-void CLIScumm::Wrapper::UpdateWholeScreenBuffer(cli::array<Byte>^ pictureArray, cli::array<Byte>^ wholeScreenBuffer, int x, int y, int w, int h)
+void CLIScumm::Wrapper::UpdateWholeScreenBuffer(byte* pictureArray, byte* wholeScreenBuffer, int x, int y, int w, int h)
 {
 	try
 	{
 		Monitor::Enter(_wholeScreenBufferLock);
 		for (int row = 0; row < h; row++)
 		{
-			System::Array::Copy(pictureArray, row * w * NO_BYTES_PER_PIXEL, wholeScreenBuffer, ((y + row) * DISPLAY_DEFAULT_WIDTH + x) * NO_BYTES_PER_PIXEL, w * NO_BYTES_PER_PIXEL);
+			std::memcpy(&wholeScreenBuffer[((y + row) * DISPLAY_DEFAULT_WIDTH + x) * NO_BYTES_PER_PIXEL], &pictureArray[row * w * NO_BYTES_PER_PIXEL], w * NO_BYTES_PER_PIXEL);
 		}
 	}
 	catch (Exception^ e)
@@ -304,14 +326,31 @@ void CLIScumm::Wrapper::UpdateWholeScreenBuffer(cli::array<Byte>^ pictureArray, 
 
 void CLIScumm::Wrapper::Blot(int x, int y, int w, int h, int noUpdates)
 {
-	cli::array<byte>^ pictureArray = gcnew array<byte>(w * h * NO_BYTES_PER_PIXEL);
+	byte *unCompressedPictureArray = nullptr;
 
-	for (int yCounter = 0; yCounter < h; yCounter++)
-	{
-		System::Array::Copy(_wholeScreenBufferNoMouse, (y * DISPLAY_DEFAULT_WIDTH + x + yCounter * DISPLAY_DEFAULT_WIDTH) * NO_BYTES_PER_PIXEL, pictureArray, yCounter * w * NO_BYTES_PER_PIXEL, w * NO_BYTES_PER_PIXEL);
+	try {
+
+		int pictureArrayLength = w * h * NO_BYTES_PER_PIXEL;
+		unCompressedPictureArray = new byte[pictureArrayLength];
+
+		for (int yCounter = 0; yCounter < h; yCounter++) {
+			memcpy(&unCompressedPictureArray[yCounter * w * NO_BYTES_PER_PIXEL], &_wholeScreenBufferNoMouse[(y * DISPLAY_DEFAULT_WIDTH + x + yCounter * DISPLAY_DEFAULT_WIDTH) * NO_BYTES_PER_PIXEL], w * NO_BYTES_PER_PIXEL);
+		}
+
+		//Compression Here
+
+		cli::array<byte> ^ pictureArray = gcnew array<byte>(w * h * NO_BYTES_PER_PIXEL);
+		Marshal::Copy((System::IntPtr)unCompressedPictureArray, pictureArray, 0, pictureArrayLength);
+
+		UpdatePicturesToBeSentBuffer(pictureArray, noUpdates, x, y, w, h, ManagedCommon::Enums::Actions::DrawingAction::Blot);
 	}
-
-	UpdatePicturesToBeSentBuffer(pictureArray, noUpdates, x, y, w, h, ManagedCommon::Enums::Actions::DrawingAction::Blot);
+	finally
+	{
+		if (unCompressedPictureArray != nullptr)
+		{
+			delete[] unCompressedPictureArray;
+		}
+	}
 }
 
 bool CLIScumm::Wrapper::SaveData(byte* data, int size, Common::String fileName)
@@ -323,7 +362,7 @@ bool CLIScumm::Wrapper::SaveData(byte* data, int size, Common::String fileName)
 
 void CLIScumm::Wrapper::InitScreen()
 {
-	for (int i = 0; i < _wholeScreenBuffer->Length; i++)
+	for (int i = 0; i < _wholeScreenBufferLength; i++)
 	{
 		if ((i + 1) % 4 == 0)
 		{
@@ -338,7 +377,7 @@ void CLIScumm::Wrapper::InitScreen()
 	if (OnCopyRectToScreen != nullptr)
 	{
 
-		OnCopyRectToScreen->Invoke(GetListOfScreenBufferFromSinglePictureArray(_wholeScreenBuffer, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT));
+		OnCopyRectToScreen->Invoke(GetListOfScreenBufferFromSinglePictureArray(MarshalWholeScreenBuffer(_wholeScreenBuffer), 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT));
 	}
 }
 int gameCounter = 0;
@@ -409,11 +448,7 @@ array<Byte>^ CLIScumm::Wrapper::GetWholeScreen(int% width, int% height)
 	{
 		Monitor::Enter(_wholeScreenBufferLock);
 
-		array<Byte>^ result = gcnew array<Byte>(_wholeScreenBuffer->Length);
-
-		System::Array::Copy(_wholeScreenBuffer, result, _wholeScreenBuffer->Length);
-
-		return result;
+		return MarshalWholeScreenBuffer(_wholeScreenBuffer);
 	}
 	finally
 	{
