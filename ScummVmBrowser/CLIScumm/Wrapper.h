@@ -22,12 +22,12 @@
 #include "../ChunkedSoundManager/SoundThreadManager.h"
 #include "../ChunkedSoundManager/SoundOptions.h"
 #include <string.h>
+#include "../ZLibCompression/ZLibCompression.h"
 
 
 
 
 
-using namespace System;
 using namespace System::Runtime::InteropServices;
 //using namespace System::Drawing;
 using namespace System::Drawing::Imaging;
@@ -84,7 +84,7 @@ namespace CLIScumm {
 		void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(cli::array<Byte>^ pictureArray, int noUpdates, int x, int y, int w, int h, ManagedCommon::Enums::Actions::DrawingAction drawingAction);
 		ConcurrentQueue<IGameEvent^>^ eventQueue;
 		delegate void delCopyRectToScreen(const void* buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor* color, byte ignore, bool isMouseUpdate, int noUpdates);
-	    array<byte>^ MarshalWholeScreenBuffer(byte *wholeScreenBuffer);
+	    array<byte>^ MarshalBuffer(byte *buffer, int length);
 		delegate bool delPollEvent(Common::Event& event);
 		delegate bool delSaveData(byte* saveData, int, Common::String fileName);
 		delegate void delPlaySound(byte* buffer, int size, void* user);

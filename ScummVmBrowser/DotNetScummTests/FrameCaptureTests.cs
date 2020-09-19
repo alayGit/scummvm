@@ -168,6 +168,10 @@ namespace DotNetScummTests
                     CaptureAndQuit(_b, noFrames, expectedFrameName);
                 }
             }
+			catch(Exception e)
+			{
+				int ax = 4;
+			}
             finally
             {
                 if (bitmapData != null)
@@ -215,7 +219,7 @@ namespace DotNetScummTests
             }
         }
 
-        protected virtual async Task WaitForExpectedFrameAndQuit(string expectedFrameName, int noFrames, Task completeWhenQuit, int delay = 20000, int quitDelay = 20000)
+        protected virtual async Task WaitForExpectedFrameAndQuit(string expectedFrameName, int noFrames, Task completeWhenQuit, int delay = 20000000, int quitDelay = 20000000)
         {
             Task checkForFrame = Task.Run(async () =>
             {

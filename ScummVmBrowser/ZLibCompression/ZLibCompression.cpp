@@ -5,10 +5,8 @@
 byte *ZLibCompression::ZLibCompression::Compress(byte *inputBuffer, int inputLength, int &outputLength) {
 	byte *outputBuffer = nullptr;
 
-	// STEP 1.
-	// deflate a into b. (that is, compress a into b)
+	int deflateBounds = compressBound(inputLength);
 
-	// zlib struct
 	z_stream defstream;
 	defstream.zalloc = Z_NULL;
 	defstream.zfree = Z_NULL;
@@ -20,7 +18,6 @@ byte *ZLibCompression::ZLibCompression::Compress(byte *inputBuffer, int inputLen
 	// the actual compression work.
 	deflateInit(&defstream, Z_BEST_COMPRESSION);
 
-	int deflateBounds = deflateBound(&defstream, inputLength);
 	outputBuffer = new Byte[deflateBounds];
 	defstream.next_out = (Bytef *)outputBuffer; // output char array
 	defstream.avail_out = deflateBounds;
@@ -36,7 +33,7 @@ byte *ZLibCompression::ZLibCompression::Compress(byte *inputBuffer, int inputLen
 byte *ZLibCompression::ZLibCompression::Decompress(byte *inputBuffer, int inputLength, int &outputLength) {
 	Byte *outputBuffer = nullptr;
 
-	int outputBufferBounds = compressBound(inputLength);
+	int outputBufferBounds = (uInt)inputLength * 1032;
 	outputBuffer = new Byte[outputBufferBounds];
 
 	z_stream infstream;
@@ -46,7 +43,7 @@ byte *ZLibCompression::ZLibCompression::Decompress(byte *inputBuffer, int inputL
 	// setup "b" as the input and "c" as the compressed output
 	infstream.avail_in = (uInt)inputLength + 1;     // size of input
 	infstream.next_in = (Bytef *)inputBuffer;       // input char array
-	infstream.avail_out = (uInt)inputLength * 1000; // size of output
+	infstream.avail_out = (uInt)inputLength * 1032; // size of output
 	infstream.next_out = (Bytef *)outputBuffer;     // output char array
 	// the actual DE-compression work.
 

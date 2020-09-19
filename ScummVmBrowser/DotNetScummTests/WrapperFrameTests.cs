@@ -5,6 +5,7 @@ using ManagedCommon.Delegates;
 using ManagedCommon.Enums;
 using ManagedCommon.Implementations;
 using ManagedCommon.Interfaces;
+using ManagedZLibCompression;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
@@ -35,12 +36,21 @@ namespace DotNetScummTests
 
         byte[] ExpectedAGISaveDataPrefix = new byte[] { 65, 71, 73, 58 }; //All AGI saves start with this
 
-        public void Setup(String gameFolderLocation, CopyRectToScreen copyRectToScreen)
-        {
-            _saveData = new ConcurrentDictionary<string, byte[]>();
-            _wrapper = new Wrapper(new JsonConfigStore());
+		public void Setup(String gameFolderLocation, CopyRectToScreen copyRectToScreen)
+		{
+			ManagedZLibCompression.ManagedZLibCompression managedZLibCompression = new ManagedZLibCompression.ManagedZLibCompression();
 
-            _wrapper.OnCopyRectToScreen += copyRectToScreen;
+			_saveData = new ConcurrentDictionary<string, byte[]>();
+			_wrapper = new Wrapper(new JsonConfigStore());
+
+			_wrapper.OnCopyRectToScreen += (List<ScreenBuffer> l) => copyRectToScreen(
+				l.Select(d => new ScreenBuffer()
+				    {
+						Buffer = managedZLibCompression.Decompress(d.Buffer), DrawingAction = d.DrawingAction, H = d.H, No = d.No, W = d.W, X = d.X, Y = d.Y
+					}
+		      ).ToList()
+			);
+
             _wrapper.OnSaveData += (byte[] data, string fileName) => {
                 _saveData[fileName] = data;
                 return true;
@@ -535,7 +545,7 @@ namespace DotNetScummTests
         {
             int width = 0, height = 0;
 
-            base.CaptureAndQuitWholeFrame(_wrapper.GetWholeScreen(ref width, ref height), 0, 0, width, height, noFrames, expectedFrameName);
+            base.CaptureAndQuitWholeFrame(new ManagedZLibCompression.ManagedZLibCompression().Decompress(_wrapper.GetWholeScreen(ref width, ref height)), 0, 0, width, height, noFrames, expectedFrameName);
         }
     }
 }

@@ -173,6 +173,9 @@
     <ProjectReference Include="..\nativeScummWrapper\NativeScummWrapper.vcxproj">
       <Project>{3c240ad7-4423-48f3-a2ca-e12afcb02196}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\ZLibCompression\ZLibCompression.vcxproj">
+      <Project>{dd428103-65c3-4153-b6a6-e8de628e3c3f}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
