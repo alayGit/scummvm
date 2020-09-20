@@ -356,12 +356,29 @@ bool CLIScumm::Wrapper::pollEventWrapper(Common::Event &event) {
 }
 
 void CLIScumm::Wrapper::PlaySound(byte *buffer, int size, void *user) {
-	cli::array<byte> ^ result = gcnew cli::array<byte>(size);
-	Marshal::Copy((System::IntPtr)buffer, result, 0, size);
+	byte *compressedSound = nullptr;
 
-	_playAudio->Invoke(result);
+	try {
+		ZLibCompression::ZLibCompression compressor;
 
-	delete[] buffer;
+		int compressedSize;
+		compressedSound = compressor.Compress(buffer, size, compressedSize);
+
+		cli::array<byte> ^ result = gcnew cli::array<byte>(compressedSize);
+		Marshal::Copy((System::IntPtr)compressedSound, result, 0, compressedSize);
+
+		_playAudio->Invoke(result);
+
+	} finally {
+		if (compressedSound != nullptr)
+		{
+			delete[] compressedSound;
+		}
+
+		if (buffer != nullptr) {
+			delete[] buffer;
+		}
+	}
 }
 
 byte *CLIScumm::Wrapper::GetSoundSample(byte *buffer, int size) {

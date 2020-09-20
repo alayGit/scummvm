@@ -8,19 +8,24 @@ const react_1 = require("react");
 const WebServerSettings = require("../../../../JsonResxConfigureStore/Resources/Dev/WebServerSettings.json");
 exports.GameFrame = (props) => {
     let [offScreenCanvasWorker, setOffScreenCanvasWorker] = react_1.useState(undefined);
+    let [pictureWorker, setPictureWorker] = react_1.useState(undefined);
     react_1.useEffect(() => {
+        var channel = new MessageChannel();
         let canvas = document.getElementById("canvas");
-        let offScreenCanvasWorker = new Worker(`${WebServerSettings.ServerProtocol}://${WebServerSettings.ServerRoot}:${WebServerSettings.ServerPort}/Scripts/offScreenCanvasWorker.js`); //TODO: Get url don't hardcode
+        let pictureWorker = new Worker(`${WebServerSettings.ServerProtocol}://${WebServerSettings.ServerRoot}:${WebServerSettings.ServerPort}/Scripts/dataProcessorWorker.js`);
+        let offScreenCanvasWorker = new Worker(`${WebServerSettings.ServerProtocol}://${WebServerSettings.ServerRoot}:${WebServerSettings.ServerPort}/Scripts/offScreenCanvasWorker.js`);
+        pictureWorker.postMessage({ workerPort: channel.port2 }, [channel.port2]);
         let offScreenCanvas = canvas.transferControlToOffscreen();
+        setPictureWorker(pictureWorker);
         setOffScreenCanvasWorker(offScreenCanvasWorker);
         const transferable = offScreenCanvas; //To get around a known type script bug
-        offScreenCanvasWorker.postMessage({ offScreenCanvas: offScreenCanvas }, [transferable]);
+        offScreenCanvasWorker.postMessage({ offScreenCanvas: offScreenCanvas, port: channel.port1 }, [transferable, channel.port1]);
     }, []);
     react_1.useEffect(() => {
-        if (props.frames != undefined && offScreenCanvasWorker != undefined) {
-            offScreenCanvasWorker.postMessage({ frames: props.frames });
+        if (props.frames != undefined && offScreenCanvasWorker != undefined && pictureWorker != undefined) {
+            pictureWorker.postMessage({ frames: props.frames });
         }
-    }, [props.frames, offScreenCanvasWorker]);
+    }, [props.frames, offScreenCanvasWorker, pictureWorker]);
     var onKeyPress = (event) => {
         console.log(event.keyCode);
         if (props.proxy != undefined) {

@@ -40,6 +40,9 @@ namespace ScummVMBrowser
             bundles.Add(new StyleBundle("~/Content/react").Include(
                       "~/dist/Scripts/dist/bundle.js"));
 
-        }
+			bundles.Add(new StyleBundle("~/Content/pako").Include(
+				   "~/dist/Scripts/dist/pako_inflate.min.js"));
+
+		}
     }
 }

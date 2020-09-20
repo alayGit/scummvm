@@ -13,11 +13,11 @@ exports.GameScreen = void 0;
 const React = require("react");
 const react_1 = require("react");
 const react_router_dom_1 = require("react-router-dom");
-const utilities_1 = require("../utilities/utilities");
 const gameFrame_1 = require("./gameFrame");
 const webAudioStreamer_1 = require("./webAudioStreamer");
 const scummWebServerRpcProxy_1 = require("./scummWebServerRpcProxy");
 const IceConfig = require("../../../../JsonResxConfigureStore/Resources/Dev/IceRemoteProcFrontEnd.json");
+const WebServerSettings = require("../../../../JsonResxConfigureStore/Resources/Dev/WebServerSettings.json");
 const RegexGuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
 exports.GameScreen = (props) => {
     const [proxy, setProxy] = react_1.useState();
@@ -26,6 +26,7 @@ exports.GameScreen = (props) => {
     const [frames, setFrame] = react_1.useState(undefined);
     const [availableGame, setAvailableGame] = react_1.useState("");
     //const [saveStorage, setSaveStorage] = useState<object>(undefined);
+    let [soundWorker, setSoundWorker] = react_1.useState(undefined);
     const [webAudioStreamer, setWebAudioStreamer] = react_1.useState(undefined);
     const [nextAudioSample, setNextAudioSample] = react_1.useState(undefined);
     const GetSaveStorage = (gameName) => {
@@ -56,9 +57,14 @@ exports.GameScreen = (props) => {
             hubServer.on('NextFrame', function (pictureUpdates) {
                 setFrame(pictureUpdates);
             });
+            soundWorker = new Worker(`${WebServerSettings.ServerProtocol}://${WebServerSettings.ServerRoot}:${WebServerSettings.ServerPort}/Scripts/soundProcessorWorker.js`);
             hubServer.on('PlaySound', function (yEncodedData) {
-                setNextAudioSample(utilities_1.DecodeYEncode(yEncodedData));
+                soundWorker.postMessage(yEncodedData);
+                //setNextAudioSample(DecodeYEncode(yEncodedData));
             });
+            soundWorker.onmessage = function (e) {
+                setNextAudioSample(e.data);
+            };
             //connection.start()
             //    .then(function () {
             //        InitProxy("ScummWebServerHub", 5632);

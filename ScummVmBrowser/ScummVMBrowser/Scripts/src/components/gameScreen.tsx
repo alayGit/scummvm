@@ -6,6 +6,7 @@ import { GameFrame, GameFrameProps, PictureUpdate } from "./gameFrame";
 import { WebAudioStreamer } from "./webAudioStreamer";
 import { Init, InitProxy, Quit, RunGame, AddClient } from "./scummWebServerRpcProxy"
 import * as IceConfig from '../../../../JsonResxConfigureStore/Resources/Dev/IceRemoteProcFrontEnd.json'
+import * as WebServerSettings from "../../../../JsonResxConfigureStore/Resources/Dev/WebServerSettings.json"
 
 
 
@@ -22,6 +23,7 @@ export const GameScreen = (props: GameScreenProps) => {
     const [frames, setFrame] = useState<PictureUpdate[]>(undefined);
     const [availableGame, setAvailableGame] = useState<string>("");
     //const [saveStorage, setSaveStorage] = useState<object>(undefined);
+	let [soundWorker, setSoundWorker] = useState<Worker>(undefined);
     const [webAudioStreamer, setWebAudioStreamer] = useState<WebAudioStreamer>(undefined);
     const [nextAudioSample, setNextAudioSample] = useState<number[]>(undefined);
 
@@ -65,13 +67,20 @@ export const GameScreen = (props: GameScreenProps) => {
                     function (pictureUpdates: PictureUpdate[]) {
                         setFrame(pictureUpdates);
                     }
-                );
+				);
+
+				soundWorker = new Worker(`${WebServerSettings.ServerProtocol}://${WebServerSettings.ServerRoot}:${WebServerSettings.ServerPort}/Scripts/soundProcessorWorker.js`);
 
                 hubServer.on('PlaySound',
                     function (yEncodedData: string) {
-                        setNextAudioSample(DecodeYEncode(yEncodedData));
+						soundWorker.postMessage(yEncodedData);
+						//setNextAudioSample(DecodeYEncode(yEncodedData));
                     }
-                );
+				);
+
+				soundWorker.onmessage = function(e) {
+					setNextAudioSample(e.data);
+                 }
 
                 //connection.start()
                 //    .then(function () {

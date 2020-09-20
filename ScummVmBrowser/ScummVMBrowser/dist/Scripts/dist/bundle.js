@@ -201,19 +201,24 @@ const react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js"
 const WebServerSettings = __webpack_require__(/*! ../../../../JsonResxConfigureStore/Resources/Dev/WebServerSettings.json */ "../JsonResxConfigureStore/Resources/Dev/WebServerSettings.json");
 exports.GameFrame = (props) => {
     let [offScreenCanvasWorker, setOffScreenCanvasWorker] = react_1.useState(undefined);
+    let [pictureWorker, setPictureWorker] = react_1.useState(undefined);
     react_1.useEffect(() => {
+        var channel = new MessageChannel();
         let canvas = document.getElementById("canvas");
-        let offScreenCanvasWorker = new Worker(`${WebServerSettings.ServerProtocol}://${WebServerSettings.ServerRoot}:${WebServerSettings.ServerPort}/Scripts/offScreenCanvasWorker.js`); //TODO: Get url don't hardcode
+        let pictureWorker = new Worker(`${WebServerSettings.ServerProtocol}://${WebServerSettings.ServerRoot}:${WebServerSettings.ServerPort}/Scripts/dataProcessorWorker.js`);
+        let offScreenCanvasWorker = new Worker(`${WebServerSettings.ServerProtocol}://${WebServerSettings.ServerRoot}:${WebServerSettings.ServerPort}/Scripts/offScreenCanvasWorker.js`);
+        pictureWorker.postMessage({ workerPort: channel.port2 }, [channel.port2]);
         let offScreenCanvas = canvas.transferControlToOffscreen();
+        setPictureWorker(pictureWorker);
         setOffScreenCanvasWorker(offScreenCanvasWorker);
         const transferable = offScreenCanvas; //To get around a known type script bug
-        offScreenCanvasWorker.postMessage({ offScreenCanvas: offScreenCanvas }, [transferable]);
+        offScreenCanvasWorker.postMessage({ offScreenCanvas: offScreenCanvas, port: channel.port1 }, [transferable, channel.port1]);
     }, []);
     react_1.useEffect(() => {
-        if (props.frames != undefined && offScreenCanvasWorker != undefined) {
-            offScreenCanvasWorker.postMessage({ frames: props.frames });
+        if (props.frames != undefined && offScreenCanvasWorker != undefined && pictureWorker != undefined) {
+            pictureWorker.postMessage({ frames: props.frames });
         }
-    }, [props.frames, offScreenCanvasWorker]);
+    }, [props.frames, offScreenCanvasWorker, pictureWorker]);
     var onKeyPress = (event) => {
         console.log(event.keyCode);
         if (props.proxy != undefined) {
@@ -269,11 +274,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 const react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 const react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-const utilities_1 = __webpack_require__(/*! ../utilities/utilities */ "./Scripts/src/utilities/utilities.tsx");
 const gameFrame_1 = __webpack_require__(/*! ./gameFrame */ "./Scripts/src/components/gameFrame.tsx");
 const webAudioStreamer_1 = __webpack_require__(/*! ./webAudioStreamer */ "./Scripts/src/components/webAudioStreamer.tsx");
 const scummWebServerRpcProxy_1 = __webpack_require__(/*! ./scummWebServerRpcProxy */ "./Scripts/src/components/scummWebServerRpcProxy.ts");
 const IceConfig = __webpack_require__(/*! ../../../../JsonResxConfigureStore/Resources/Dev/IceRemoteProcFrontEnd.json */ "../JsonResxConfigureStore/Resources/Dev/IceRemoteProcFrontEnd.json");
+const WebServerSettings = __webpack_require__(/*! ../../../../JsonResxConfigureStore/Resources/Dev/WebServerSettings.json */ "../JsonResxConfigureStore/Resources/Dev/WebServerSettings.json");
 const RegexGuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
 exports.GameScreen = (props) => {
     const [proxy, setProxy] = react_1.useState();
@@ -282,6 +287,7 @@ exports.GameScreen = (props) => {
     const [frames, setFrame] = react_1.useState(undefined);
     const [availableGame, setAvailableGame] = react_1.useState("");
     //const [saveStorage, setSaveStorage] = useState<object>(undefined);
+    let [soundWorker, setSoundWorker] = react_1.useState(undefined);
     const [webAudioStreamer, setWebAudioStreamer] = react_1.useState(undefined);
     const [nextAudioSample, setNextAudioSample] = react_1.useState(undefined);
     const GetSaveStorage = (gameName) => {
@@ -312,9 +318,14 @@ exports.GameScreen = (props) => {
             hubServer.on('NextFrame', function (pictureUpdates) {
                 setFrame(pictureUpdates);
             });
+            soundWorker = new Worker(`${WebServerSettings.ServerProtocol}://${WebServerSettings.ServerRoot}:${WebServerSettings.ServerPort}/Scripts/soundProcessorWorker.js`);
             hubServer.on('PlaySound', function (yEncodedData) {
-                setNextAudioSample(utilities_1.DecodeYEncode(yEncodedData));
+                soundWorker.postMessage(yEncodedData);
+                //setNextAudioSample(DecodeYEncode(yEncodedData));
             });
+            soundWorker.onmessage = function (e) {
+                setNextAudioSample(e.data);
+            };
             //connection.start()
             //    .then(function () {
             //        InitProxy("ScummWebServerHub", 5632);

@@ -17,26 +17,31 @@ export interface PictureUpdate {
 
 export const GameFrame = (props: GameFrameProps) => {
 
-    let [offScreenCanvasWorker, setOffScreenCanvasWorker] = useState<Worker>(undefined);
+	let [offScreenCanvasWorker, setOffScreenCanvasWorker] = useState<Worker>(undefined);
+	let [pictureWorker, setPictureWorker] = useState<Worker>(undefined);
     useEffect(
-        () => {
-            let canvas = document.getElementById("canvas") as HTMLCanvasElement;
-            let offScreenCanvasWorker = new Worker(`${WebServerSettings.ServerProtocol}://${WebServerSettings.ServerRoot}:${WebServerSettings.ServerPort}/Scripts/offScreenCanvasWorker.js`); //TODO: Get url don't hardcode
+		() => {
+			var channel = new MessageChannel();
+			let canvas = document.getElementById("canvas") as HTMLCanvasElement;
+			let pictureWorker = new Worker(`${WebServerSettings.ServerProtocol}://${WebServerSettings.ServerRoot}:${WebServerSettings.ServerPort}/Scripts/dataProcessorWorker.js`);
+			let offScreenCanvasWorker = new Worker(`${WebServerSettings.ServerProtocol}://${WebServerSettings.ServerRoot}:${WebServerSettings.ServerPort}/Scripts/offScreenCanvasWorker.js`);
+			pictureWorker.postMessage({ workerPort: channel.port2 }, [channel.port2]);
             let offScreenCanvas = canvas.transferControlToOffscreen();
-            setOffScreenCanvasWorker(offScreenCanvasWorker);
+			setPictureWorker(pictureWorker);
+			setOffScreenCanvasWorker(offScreenCanvasWorker);
 
             const transferable: unknown = offScreenCanvas; //To get around a known type script bug
-            offScreenCanvasWorker.postMessage({ offScreenCanvas: offScreenCanvas }, [transferable as Transferable])
+            offScreenCanvasWorker.postMessage({ offScreenCanvas: offScreenCanvas, port: channel.port1 }, [transferable as Transferable, channel.port1])
 
         }, []);
 
     useEffect(
         () => {
-            if (props.frames != undefined && offScreenCanvasWorker != undefined) {
-                offScreenCanvasWorker.postMessage({ frames: props.frames })
+            if (props.frames != undefined && offScreenCanvasWorker != undefined && pictureWorker != undefined) {
+                pictureWorker.postMessage({ frames: props.frames })
             }
         }
-        , [props.frames, offScreenCanvasWorker]);
+        , [props.frames, offScreenCanvasWorker, pictureWorker]);
 
 
     var onKeyPress = (event: any) => {
