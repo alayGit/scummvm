@@ -4,7 +4,7 @@ self.onmessage = function (e) {
 	var deencoded = DecodeYEncode(e.data);
 	var compressedUInt8 = Uint8Array.from(deencoded);
 
-	postMessage(pako.inflate(compressedUInt8));
+	postMessage(Array.from(pako.inflate(compressedUInt8)));
 };
 
 
