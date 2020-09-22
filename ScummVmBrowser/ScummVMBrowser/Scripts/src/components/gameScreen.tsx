@@ -1,7 +1,6 @@
 ﻿import * as React from "react";
 import { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
-import { GetResponseFromServer, DecodeYEncode } from "../utilities/utilities";
 import { GameFrame, GameFrameProps, PictureUpdate } from "./gameFrame";
 import { WebAudioStreamer } from "./webAudioStreamer";
 import { Init, InitProxy, Quit, RunGame, AddClient } from "./scummWebServerRpcProxy"
@@ -74,30 +73,12 @@ export const GameScreen = (props: GameScreenProps) => {
                 hubServer.on('PlaySound',
                     function (yEncodedData: string) {
 						soundWorker.postMessage(yEncodedData);
-						//setNextAudioSample(DecodeYEncode(yEncodedData));
                     }
 				);
 
 				soundWorker.onmessage = function(e) {
 					setNextAudioSample(e.data);
                  }
-
-                //connection.start()
-                //    .then(function () {
-                //        InitProxy("ScummWebServerHub", 5632);
-                //    }).then(function () {
-                //        Init(gameId);
-                //    }).then(function () {
-                //        setProxy(hubServer);
-                //    }).then(function () {
-                //        hubServer.invoke('Init', gameId);
-                //    }).then(function () {
-                //        RunGame(availableGame, hubServer.connectionId, GetSaveStorage(availableGame));
-                //    }).then(function () {
-                //        setGameState('running');
-                //    }).fail(function (error: string) {
-                //        setGameState('error');
-                //    });
 
                 async function ConnectionAndStart() {
                     await connection.start();

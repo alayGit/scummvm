@@ -60,27 +60,10 @@ exports.GameScreen = (props) => {
             soundWorker = new Worker(`${WebServerSettings.ServerProtocol}://${WebServerSettings.ServerRoot}:${WebServerSettings.ServerPort}/Scripts/soundProcessorWorker.js`);
             hubServer.on('PlaySound', function (yEncodedData) {
                 soundWorker.postMessage(yEncodedData);
-                //setNextAudioSample(DecodeYEncode(yEncodedData));
             });
             soundWorker.onmessage = function (e) {
                 setNextAudioSample(e.data);
             };
-            //connection.start()
-            //    .then(function () {
-            //        InitProxy("ScummWebServerHub", 5632);
-            //    }).then(function () {
-            //        Init(gameId);
-            //    }).then(function () {
-            //        setProxy(hubServer);
-            //    }).then(function () {
-            //        hubServer.invoke('Init', gameId);
-            //    }).then(function () {
-            //        RunGame(availableGame, hubServer.connectionId, GetSaveStorage(availableGame));
-            //    }).then(function () {
-            //        setGameState('running');
-            //    }).fail(function (error: string) {
-            //        setGameState('error');
-            //    });
             function ConnectionAndStart() {
                 return __awaiter(this, void 0, void 0, function* () {
                     yield connection.start();

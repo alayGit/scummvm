@@ -274,6 +274,7 @@
     <Content Include="Scripts\offscreenCanvasWorker.js" />
     <Content Include="Scripts\Proxies\ScummWebServer.js" />
     <Content Include="Scripts\src\components\pcm.js" />
+    <Content Include="Scripts\yEncoding.js" />
     <Content Include="webpack.config.js" />
     <Content Include="dist\Scripts\dist\bundle.js.map" />
     <Content Include="package.json" />
