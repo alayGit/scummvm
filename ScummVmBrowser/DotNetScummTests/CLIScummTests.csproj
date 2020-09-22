@@ -73,6 +73,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SignalRFrameTests.cs" />
+    <Compile Include="SoundTests.cs" />
     <Compile Include="WrapperFrameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WrapperMultiStartTests.cs" />
