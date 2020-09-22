@@ -49,7 +49,6 @@ namespace DotNetScummTests
 		[TestCleanup]
 		public void Cleanup()
 		{
-			_wrapper.Quit();
 			_wrapper.Dispose();
 		}
 
@@ -64,6 +63,8 @@ namespace DotNetScummTests
 			_wrapper.Quit();
 
 			Assert.IsTrue(_allBeginWithPreamble.HasValue && _allBeginWithPreamble.Value);
+
+			await _gameTask;
 		}
 
 		private void RunGame()
