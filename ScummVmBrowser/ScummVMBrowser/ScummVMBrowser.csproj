@@ -417,8 +417,9 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PreBuildEvent>slice2js  $(ProjectDir)..\IceRpc\Slices\ScummWebServer.ice  --output-dir  $(ProjectDir)Scripts\Proxies
+cd $(ProjectDir)
+webpack</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>
