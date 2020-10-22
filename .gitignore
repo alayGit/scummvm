@@ -165,8 +165,13 @@ project.xcworkspace
 /devtools/skycpt/skycpt
 /ScummVmBrowser/CLIScumm/Debugx86
 /ScummVmBrowser/CLIScumm/Releasex86
-/ScummVmBrowser/bin
+/ScummVmBrowser/nativeScummWrapper/Debugx86/nativeScummWrapper
 /ScummVmBrowser/scripts/source
+/ScummVmBrowser/IceRpc/generated/
+/ScummVmBrowser/ScummVMBrowser/bin/
+/ScummVmBrowser/ScummVMBrowser/Scripts/JsonResxConfigureStore/Resources
+/ScummVmBrowser/ScummVMBrowser/Scripts/ScummVMBrowser/Scripts/src
+
 
 #ignore thumbnails created by windows
 Thumbs.db

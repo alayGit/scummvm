@@ -1,4 +1,0 @@
-C:\ScummVmBrowser\ScummVmBrowser\nativeScummWrapper\Debugx86\nativeScummWrapper\nativeScummWrapper.pdb
-C:\ScummVmBrowser\ScummVmBrowser\nativeScummWrapper\Debugx86\nativeScummWrapper.pdb
-C:\scummGit\ScummVmBrowser\nativeScummWrapper\Debugx86\nativeScummWrapper\nativeScummWrapper.pdb
-C:\scummGit\ScummVmBrowser\nativeScummWrapper\Debugx86\nativeScummWrapper.pdb
