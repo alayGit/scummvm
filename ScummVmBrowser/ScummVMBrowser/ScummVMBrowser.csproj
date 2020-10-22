@@ -417,13 +417,14 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PreBuildEvent>slice2js  $(ProjectDir)..\IceRpc\Slices\ScummWebServer.ice  --output-dir  $(ProjectDir)Scripts\Proxies
-cd $(ProjectDir)
-webpack</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>echo on 
+slice2js  $(ProjectDir)..\IceRpc\Slices\ScummWebServer.ice  --output-dir  $(ProjectDir)Scripts\Proxies
+cd $(ProjectDir)
+webpack</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
