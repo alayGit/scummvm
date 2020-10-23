@@ -170,6 +170,7 @@ project.xcworkspace
 /ScummVmBrowser/IceRpc/generated/
 /ScummVmBrowser/ScummVMBrowser/bin/
 /ScummVmBrowser/ScummVMBrowser/dist/scripts/dist
+/ScummVmBrowser/ScummVMBrowser/node_modules
 /ScummVmBrowser/ScummVMBrowser/Scripts/JsonResxConfigureStore/Resources
 /ScummVmBrowser/ScummVMBrowser/Scripts/ScummVMBrowser/Scripts/src
 

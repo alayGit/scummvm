@@ -1,0 +1,12 @@
+//Lists each buffer name and its size
+{
+  "DisplayFrame": 5000,
+  "PlaySound": 1000,
+  "StartSound": 300,
+  "StopSound": 300,
+  "EnqueueString": 500,
+  "EnqueueControlKey": 400,
+  "EnqueueMouseMove": 400,
+  "EnqueueMouseClick": 400,
+  "GetWholeScreenBuffer": 5000
+}

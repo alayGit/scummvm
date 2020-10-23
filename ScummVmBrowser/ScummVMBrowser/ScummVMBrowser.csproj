@@ -308,6 +308,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="decs.d.ts" />
+    <TypeScriptCompile Include="Scripts\src\components\configManager.ts" />
     <TypeScriptCompile Include="Scripts\src\components\gameFrame.tsx" />
     <TypeScriptCompile Include="Scripts\src\components\gameScreen.tsx" />
     <TypeScriptCompile Include="Scripts\src\components\ScummHubClientI.ts" />
