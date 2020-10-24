@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Resources\Mode.json" />
     <None Include="Resources\Prod\AvailableGames.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
