@@ -1,5 +1,5 @@
 ﻿import { ScummWebServerClientI, ISaveCallback } from "./ScummHubClientI";
-import * as WebServerSettings from '../../../../JsonResxConfigureStore/Resources/Dev/WebServerSettings.json'
+import { WebServerSettings } from "./configManager";
 
 
 declare var Ice: any;
@@ -11,7 +11,7 @@ let _scummWebServer: any;
 export async function InitProxy(hubName:string, port:number) {
     try {
         _communicator = Ice.initialize();
-        _base = _communicator.stringToProxy(`${hubName}${port}:ws -h ${WebServerSettings.ServerRoot} -p ${port}`); //ToDo: Not local host
+        _base = _communicator.stringToProxy(`${hubName}${port}:ws -h ${WebServerSettings().ServerRoot} -p ${port}`); //ToDo: Not local host
         _scummWebServer = await ScummWebsServerVMSlices.ScummWebServerPrx.checkedCast(_base);
         return _scummWebServer;
     }

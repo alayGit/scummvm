@@ -256,9 +256,11 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\pako_inflate.min.js" />
     <Content Include="Scripts\soundProcessorWorker.js" />
     <Content Include="Scripts\dataProcessorWorker.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -278,7 +280,6 @@
     <Content Include="webpack.config.js" />
     <Content Include="dist\Scripts\dist\bundle.js.map" />
     <Content Include="package.json" />
-    <Content Include="KillSignalR.bat" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\ScummVMWebBrowser - Web Deploy.pubxml" />
     <Content Include="Web.config" />

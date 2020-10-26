@@ -1,5 +1,5 @@
 {
-  "ServerProtocol": "http",
-  "ServerRoot": "localhost",
-  "ServerPort": "44365"
+	"ServerProtocol": "http",
+	"ServerRoot": "45.126.125.127",
+	"ServerPort": "80"
 }
