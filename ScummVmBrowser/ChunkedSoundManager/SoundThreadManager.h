@@ -21,7 +21,6 @@ namespace SoundManagement
 		bool SoundIsRunning();
 	private:
 		SoundConverter* _soundConverter;
-		f_SoundConverted _playSound;
 		f_GetSoundSample _getSoundSample;
 		bool _soundIsRunning;
 		bool _soundIsStoppedForeverPriorToDestructor;
@@ -29,6 +28,5 @@ namespace SoundManagement
 		HANDLE _stopSoundMutex;
 		SoundOptions _soundOptions;
 		void* _user;
-		void* _recursiveMutex; //Cannot use 'recursiveMutex' as the type, due to a string quirk between C++ CLI and Mutexs
 	};
 }

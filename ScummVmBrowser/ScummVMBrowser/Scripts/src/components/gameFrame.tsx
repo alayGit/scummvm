@@ -4,7 +4,7 @@ import * as React from "react";
 import ReactDOM = require("react-dom");
 import { useState, useEffect } from "react";
 import { isNullOrUndefined } from "util";
-import * as WebServerSettings from "../../../../JsonResxConfigureStore/Resources/Dev/WebServerSettings.json"
+import { WebServerSettings } from "./configManager";
 
 export interface PictureUpdate {
     Buffer: string,
@@ -12,7 +12,6 @@ export interface PictureUpdate {
     Y: number,
     W: number,
     H: number,
-    DrawingAction:string
 }
 
 export const GameFrame = (props: GameFrameProps) => {
@@ -23,8 +22,8 @@ export const GameFrame = (props: GameFrameProps) => {
 		() => {
 			var channel = new MessageChannel();
 			let canvas = document.getElementById("canvas") as HTMLCanvasElement;
-			let pictureWorker = new Worker(`${WebServerSettings.ServerProtocol}://${WebServerSettings.ServerRoot}:${WebServerSettings.ServerPort}/Scripts/dataProcessorWorker.js`);
-			let offScreenCanvasWorker = new Worker(`${WebServerSettings.ServerProtocol}://${WebServerSettings.ServerRoot}:${WebServerSettings.ServerPort}/Scripts/offScreenCanvasWorker.js`);
+			let pictureWorker = new Worker(`${WebServerSettings().ServerProtocol}://${WebServerSettings().ServerRoot}:${WebServerSettings().ServerPort}/Scripts/dataProcessorWorker.js`);
+			let offScreenCanvasWorker = new Worker(`${WebServerSettings().ServerProtocol}://${WebServerSettings().ServerRoot}:${WebServerSettings().ServerPort}/Scripts/offScreenCanvasWorker.js`);
 			pictureWorker.postMessage({ workerPort: channel.port2 }, [channel.port2]);
             let offScreenCanvas = canvas.transferControlToOffscreen();
 			setPictureWorker(pictureWorker);

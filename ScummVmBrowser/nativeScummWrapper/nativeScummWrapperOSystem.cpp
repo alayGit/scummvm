@@ -5,12 +5,9 @@
 #include "nativeScummWrapperOSystem.h"
 
 NativeScummWrapper::NativeScummWrapperOSystem::NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, f_CopyRect copyRect, f_PollEvent queueEvent, f_SaveFileData saveData, SoundManagement::f_SoundConverted playSound, f_Blot blotScreen) : ModularBackend() {
+	_mixerImpl = nullptr;	
 	_soundOptions = soundOptions;
 	_fsFactory = new WindowsFilesystemFactory();
-	copyRect = copyRect;
-	queueEvent = queueEvent;
-	//NativeScummWrapper::NativeScummWrapperOSystem::startSound = startSound;
-	//NativeScummWrapper::NativeScummWrapperOSystem::stopSound = stopSound;
 	_cliGraphicsManager = new NativeScummWrapperGraphics(copyRect, blotScreen);
 	_eventSource = new NativeScummWrapperEvents(queueEvent, [this](int x, int y) {
 		_graphicsManager->warpMouse(x, y);
@@ -42,9 +39,6 @@ void NativeScummWrapper::NativeScummWrapperOSystem::initBackend() {
 	_soundThreadManager->Init(mixCallBack, _playSound, _soundOptions);
 	_timerManager = new DefaultTimerManager();
 	ModularBackend::initBackend();
-	//delete OSystem_Win32::_graphicsManager;
-	//getEventManager()->getEventDispatcher()->registerSource(eventSource, true);
-	//Common::EventDispatcher::registerSource(_eventSource, true);
 }
 
 uint32 NativeScummWrapper::NativeScummWrapperOSystem::getMillis(bool skipRecord) {

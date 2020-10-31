@@ -34,8 +34,6 @@ namespace NativeScummWrapper {
 
 	private:
 		SoundManagement::SoundOptions _soundOptions;
-		f_CopyRect copyRect;
-		f_PollEvent queueEvent;
 		SoundManagement::f_SoundConverted _playSound;
 		Audio::MixerImpl *_mixerImpl;
 		SoundManagement::SoundThreadManager *_soundThreadManager;

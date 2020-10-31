@@ -11,6 +11,9 @@ lib*.a
 *.tlog
 *.idb
 *.lastbuildstate
+*.FileListAbsolute.txt
+*.lib
+
 
 
 /config.log
@@ -160,6 +163,17 @@ project.xcworkspace
 /devtools/extract_mort/extract_mort
 /devtools/qtable/qtable
 /devtools/skycpt/skycpt
+/ScummVmBrowser/CLIScumm/Debugx86
+/ScummVmBrowser/CLIScumm/Releasex86
+/ScummVmBrowser/nativeScummWrapper/Debugx86/nativeScummWrapper
+/ScummVmBrowser/scripts/source
+/ScummVmBrowser/IceRpc/generated/
+/ScummVmBrowser/ScummVMBrowser/bin/
+/ScummVmBrowser/ScummVMBrowser/dist/scripts/dist
+/ScummVmBrowser/ScummVMBrowser/node_modules
+/ScummVmBrowser/ScummVMBrowser/Scripts/JsonResxConfigureStore/Resources
+/ScummVmBrowser/ScummVMBrowser/Scripts/ScummVMBrowser/Scripts/src
+
 
 #ignore thumbnails created by windows
 Thumbs.db

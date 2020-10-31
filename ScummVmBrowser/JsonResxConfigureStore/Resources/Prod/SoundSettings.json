@@ -1,0 +1,8 @@
+{
+	"SampleSize": 576,
+	"SampleRate": 12000,
+	"SoundPollingFrequencyMs": 10,
+	"MaxQueuedToStopAudio": 40,
+	"MinQueuedToResumeAudio": 33,
+	"FeedSize": 5
+}

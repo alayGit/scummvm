@@ -20,6 +20,9 @@ namespace NativeScummWrapper {
 		byte keyColor;
 
 		MouseState() {
+		    fullHeight = 0;
+		    fullWidth = 0;
+		    keyColor = 0;
 			x = -1;
 			y = -1;
 			width = -1;

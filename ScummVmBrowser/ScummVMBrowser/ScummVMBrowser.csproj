@@ -256,9 +256,11 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\pako_inflate.min.js" />
     <Content Include="Scripts\soundProcessorWorker.js" />
     <Content Include="Scripts\dataProcessorWorker.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -278,7 +280,6 @@
     <Content Include="webpack.config.js" />
     <Content Include="dist\Scripts\dist\bundle.js.map" />
     <Content Include="package.json" />
-    <Content Include="KillSignalR.bat" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\ScummVMWebBrowser - Web Deploy.pubxml" />
     <Content Include="Web.config" />
@@ -308,6 +309,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="decs.d.ts" />
+    <TypeScriptCompile Include="Scripts\src\components\configManager.ts" />
     <TypeScriptCompile Include="Scripts\src\components\gameFrame.tsx" />
     <TypeScriptCompile Include="Scripts\src\components\gameScreen.tsx" />
     <TypeScriptCompile Include="Scripts\src\components\ScummHubClientI.ts" />
@@ -421,8 +423,10 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>echo on 
+slice2js  $(ProjectDir)..\IceRpc\Slices\ScummWebServer.ice  --output-dir  $(ProjectDir)Scripts\Proxies
+cd $(ProjectDir)
+webpack</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

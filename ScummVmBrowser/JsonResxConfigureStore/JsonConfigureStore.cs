@@ -9,8 +9,25 @@ namespace ConfigStore
 {
     public class JsonConfigStore: IConfigurationStore<System.Enum> 
     {
-        Dictionary<string, Dictionary<Enum, string>> _cache;
-        public JsonConfigStore()
+		static readonly string _configFolderName;
+
+		Dictionary<string, Dictionary<Enum, string>> _cache;
+
+		static JsonConfigStore()
+		{
+			Dictionary<string, bool> modeSettings = JsonConvert.DeserializeObject<Dictionary<string, bool>>(File.ReadAllText(Path.Combine(ConfigurationManager.AppSettings.Get(Constants.ConfigFilesLocationConfigKey), $"{Constants.ModeFileName}")));
+
+			if (modeSettings[Constants.ProductionModeKey])
+			{
+				_configFolderName = Constants.ProdConfigFolder;
+			}
+			else
+			{
+				_configFolderName = Constants.DevConfigFolder;
+			}
+		}
+
+		public JsonConfigStore()
         {
             _cache = new Dictionary<string, Dictionary<Enum, string>>();
         }
@@ -53,7 +70,7 @@ namespace ConfigStore
 
         private string GetConfigJson(string store)
         {
-            string result = File.ReadAllText(Path.Combine(ConfigurationManager.AppSettings.Get(Constants.ConfigFilesLocationConfigKey), $"{store}.json"));
+			string result = File.ReadAllText(Path.Combine(ConfigurationManager.AppSettings.Get(Constants.ConfigFilesLocationConfigKey),_configFolderName, $"{store}.json"));
 
             if(result == null)
             {

@@ -4,8 +4,7 @@ import { Redirect } from "react-router-dom";
 import { GameFrame, GameFrameProps, PictureUpdate } from "./gameFrame";
 import { WebAudioStreamer } from "./webAudioStreamer";
 import { Init, InitProxy, Quit, RunGame, AddClient } from "./scummWebServerRpcProxy"
-import * as IceConfig from '../../../../JsonResxConfigureStore/Resources/Dev/IceRemoteProcFrontEnd.json'
-import * as WebServerSettings from "../../../../JsonResxConfigureStore/Resources/Dev/WebServerSettings.json"
+import { IceConfigFrontEnd, WebServerSettings } from "./configManager";
 
 
 
@@ -68,7 +67,7 @@ export const GameScreen = (props: GameScreenProps) => {
                     }
 				);
 
-				soundWorker = new Worker(`${WebServerSettings.ServerProtocol}://${WebServerSettings.ServerRoot}:${WebServerSettings.ServerPort}/Scripts/soundProcessorWorker.js`);
+				soundWorker = new Worker(`${WebServerSettings().ServerProtocol}://${WebServerSettings().ServerRoot}:${WebServerSettings().ServerPort}/Scripts/soundProcessorWorker.js`);
 
                 hubServer.on('PlaySound',
                     function (yEncodedData: string) {
@@ -82,7 +81,7 @@ export const GameScreen = (props: GameScreenProps) => {
 
                 async function ConnectionAndStart() {
                     await connection.start();
-                    await InitProxy(IceConfig.HubName, IceConfig.Port);
+                    await InitProxy(IceConfigFrontEnd().HubName, IceConfigFrontEnd().Port);
                     await AddClient(gameId, saveFunc)
                     await Init(gameId);
                     setProxy(hubServer);

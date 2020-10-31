@@ -81,7 +81,7 @@ namespace CLIScumm {
 		byte* GetSoundSample(byte* buffer, int size);
 		Common::String GetGamePath(AvailableGames game);
 		System::Collections::Generic::List<ScreenBuffer^>^ GetListOfScreenBufferFromSinglePictureArray(cli::array<Byte>^ pictureArray, int x, int y, int w, int h);
-		void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(cli::array<Byte>^ pictureArray, int noUpdates, int x, int y, int w, int h, ManagedCommon::Enums::Actions::DrawingAction drawingAction);
+		void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(cli::array<Byte>^ pictureArray, int noUpdates, int x, int y, int w, int h);
 		ConcurrentQueue<IGameEvent^>^ eventQueue;
 		delegate void delCopyRectToScreen(const void* buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor* color, byte ignore, bool isMouseUpdate, int noUpdates);
 	    array<byte>^ MarshalBuffer(byte *buffer, int length);
