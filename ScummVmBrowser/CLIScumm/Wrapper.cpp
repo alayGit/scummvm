@@ -186,7 +186,7 @@ array<byte> ^ CLIScumm::Wrapper::MarshalBuffer(byte *buffer, int length) {
 	}
 }
 
-void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(cli::array<Byte> ^ pictureArray, int noUpdates, int x, int y, int w, int h, ManagedCommon::Enums::Actions::DrawingAction drawingAction) {
+void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(cli::array<Byte> ^ pictureArray, int noUpdates, int x, int y, int w, int h) {
 
 	ScreenBuffer ^ buffer = gcnew ScreenBuffer();
 	buffer->Buffer = pictureArray;
@@ -194,7 +194,6 @@ void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(cli::array<Byte> ^ pictureA
 	buffer->W = w;
 	buffer->X = x;
 	buffer->Y = y;
-	buffer->DrawingAction = drawingAction;
 
 	if (_picturesToBeSentBuffer->Count >= noUpdates) {
 		throw gcnew System::Exception("Pictures to be sent buffer already is already size no updates but has not being sent");
@@ -262,7 +261,7 @@ void CLIScumm::Wrapper::ScreenUpdated(const void *buf, int pitch, int x, int y, 
 
 		cli::array<byte> ^ managedCompressedPictureArray = MarshalBuffer(pictureArray, pictureArrayLength);
 
-		UpdatePicturesToBeSentBuffer(managedCompressedPictureArray, noUpdates, x, y, w, h, isMouseUpdate ? ManagedCommon::Enums::Actions::DrawingAction::DrawMouse : ManagedCommon::Enums::Actions::DrawingAction::DrawPicture);
+		UpdatePicturesToBeSentBuffer(managedCompressedPictureArray, noUpdates, x, y, w, h);
 	} finally {
 		if (pictureArray != nullptr) {
 			delete[] pictureArray;
@@ -303,7 +302,7 @@ void CLIScumm::Wrapper::Blot(int x, int y, int w, int h, int noUpdates) {
 
 		cli::array<byte> ^ compressedPictureArray = MarshalBuffer(unCompressedPictureArray, pictureArrayLength);
 
-		UpdatePicturesToBeSentBuffer(compressedPictureArray, noUpdates, x, y, w, h, ManagedCommon::Enums::Actions::DrawingAction::Blot);
+		UpdatePicturesToBeSentBuffer(compressedPictureArray, noUpdates, x, y, w, h);
 	} finally {
 		if (unCompressedPictureArray != nullptr) {
 			delete[] unCompressedPictureArray;

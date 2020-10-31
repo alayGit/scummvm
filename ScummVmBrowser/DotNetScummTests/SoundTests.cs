@@ -62,9 +62,9 @@ namespace DotNetScummTests
 
 			_wrapper.Quit();
 
-			Assert.IsTrue(_allBeginWithPreamble.HasValue && _allBeginWithPreamble.Value);
-
 			await _gameTask;
+
+			Assert.IsTrue(_allBeginWithPreamble.HasValue && _allBeginWithPreamble.Value);
 		}
 
 		private void RunGame()

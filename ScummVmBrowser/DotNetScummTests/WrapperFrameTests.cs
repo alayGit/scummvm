@@ -46,7 +46,7 @@ namespace DotNetScummTests
 			_wrapper.OnCopyRectToScreen += (List<ScreenBuffer> l) => copyRectToScreen(
 				l.Select(d => new ScreenBuffer()
 				    {
-						Buffer = managedZLibCompression.Decompress(d.Buffer), DrawingAction = d.DrawingAction, H = d.H, No = d.No, W = d.W, X = d.X, Y = d.Y
+						Buffer = managedZLibCompression.Decompress(d.Buffer), H = d.H, W = d.W, X = d.X, Y = d.Y
 					}
 		      ).ToList()
 			);

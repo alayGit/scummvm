@@ -165,7 +165,6 @@
     <Compile Include="Interfaces\IRealTimeDataEndpointServer.cs" />
     <Compile Include="Interfaces\IRealTimeDataEndpointClient.cs" />
     <Compile Include="Delegates\Delegates.cs" />
-    <Compile Include="Enums\Actions\DrawingAction.cs" />
     <Compile Include="Enums\Actions\MouseClick.cs" />
     <Compile Include="Enums\Settings\RpcBufferNames.cs" />
     <Compile Include="Enums\Settings\ScummConnection.cs" />

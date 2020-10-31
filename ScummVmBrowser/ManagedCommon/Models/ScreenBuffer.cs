@@ -12,18 +12,12 @@ namespace ManagedCommon.Interfaces
     {
         public ScreenBuffer()
         {
-            No = Counter++;
         }
-
-        static int Counter = 0;
-
-        public int No { get; set; }
 
         public int X { get; set; }
         public int Y { get; set; }
         public int W { get; set; }
         public int H { get; set; }
         public byte[] Buffer { get; set; }
-        public DrawingAction DrawingAction { get; set; }
     }
 }

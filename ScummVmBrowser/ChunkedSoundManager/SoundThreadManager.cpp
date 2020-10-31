@@ -10,6 +10,10 @@ SoundManagement::SoundThreadManager::SoundThreadManager()
 		NULL);          // unnamed semaphore
 	_soundIsRunning = false;
 	_soundIsStoppedForeverPriorToDestructor = false;
+	_soundConverter = nullptr;
+	_soundOptions = SoundOptions();
+	_soundThread = nullptr;
+	_user = nullptr;
 }
 
 SoundManagement::SoundThreadManager::~SoundThreadManager()
@@ -46,10 +50,10 @@ void SoundManagement::SoundThreadManager::StartSound()
 					{
 						try
 						{
+				
 							if (_soundIsRunning && _getSoundSample != nullptr) //TODO: We really want to throw an exception in 'StartSound' is 'getSoundSample' is null but we can't as SignalR does not guarantee the order of the Init and StartSound calls. When we have an RPC framework in place we will
 							{
 								WaitForSingleObject(_stopSoundMutex, INFINITE);
-
 								if (_soundIsRunning && _getSoundSample != nullptr)
 								{
 									byte* samples = new byte[_soundOptions.sampleSize];
@@ -57,7 +61,7 @@ void SoundManagement::SoundThreadManager::StartSound()
 									samples = _getSoundSample(samples, _soundOptions.sampleSize);
 
 									_soundConverter->ConvertPcmToFlac(samples, NO_CHANNELS, _user);
-
+		
 									delete[] samples;
 								}
 								ReleaseSemaphore(_stopSoundMutex, 1, NULL);

@@ -12,7 +12,6 @@ export interface PictureUpdate {
     Y: number,
     W: number,
     H: number,
-    DrawingAction:string
 }
 
 export const GameFrame = (props: GameFrameProps) => {
