@@ -61,7 +61,7 @@ namespace CLIScumm {
 		}
 		virtual void StartSound();
 		virtual void StopSound();
-		virtual System::Drawing::Point GetCurrentMousePosition();
+	    virtual System::Drawing::Point GetCurrentMousePosition();
 	private:
 		void Init(AvailableGames game, Dictionary<System::String^, cli::array<Byte>^>^);
 		bool SaveData(byte* data, int size, Common::String fileName);
@@ -69,7 +69,6 @@ namespace CLIScumm {
 		void PlaySound(byte* buffer, int size, void* user);
 		byte* GetSoundSample(byte* buffer, int size);
 		Common::String GetGamePath(AvailableGames game);
-		System::Collections::Generic::List<ScreenBuffer^>^ GetListOfScreenBufferFromSinglePictureArray(cli::array<Byte>^ pictureArray, int x, int y, int w, int h);
 	    void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(NativeScummWrapper::ScreenBuffer *unmanagedScreenBuffers, int length);
 		ConcurrentQueue<IGameEvent^>^ eventQueue;
 		delegate void delCopyRectToScreen(NativeScummWrapper::ScreenBuffer*, int length);
@@ -78,13 +77,11 @@ namespace CLIScumm {
 		delegate bool delSaveData(byte* saveData, int, Common::String fileName);
 		delegate void delPlaySound(byte* buffer, int size, void* user);
 		delegate byte* delGetSound(byte* buffer, int size);
-		delegate void  delBlot(int, int, int, int, int);
 		delCopyRectToScreen^ imageUpdated;
 		delPollEvent^ pollEvent;
 		delSaveData^ saveData;
 		Object^ gameEventLock;
 		Object^ startLock;
-		Object^ _wholeScreenBufferLock;
 		bool hasStarted;
 		CopyRectToScreen^ copyRectToScreen;
 		ManagedCommon::Delegates::SaveData^ _saveData;

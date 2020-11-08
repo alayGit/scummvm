@@ -12,7 +12,7 @@ CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum ^> ^ configureStore)
 	hasStarted = false;
 	gameEventLock = gcnew Object();
 	startLock = gcnew Object();
-	_wholeScreenBufferLock = gcnew Object();
+
 
 	SoundManagement::SoundOptions soundOptions = SoundManagement::SoundOptions();
 
@@ -51,7 +51,6 @@ void CLIScumm::Wrapper::StartSound() {
 void CLIScumm::Wrapper::StopSound() {
 	_gSystemCli->StopSound();
 }
-
 System::Drawing::Point CLIScumm::Wrapper::GetCurrentMousePosition() {
 	NativeScummWrapper::MouseState mouseState = _gSystemCli->getGraphicsManager()->getMouseState();
 
@@ -134,22 +133,6 @@ Common::String CLIScumm::Wrapper::GetGamePath(AvailableGames game) {
 	return Utilities::Converters::ManagedStringToCommonString(_configureStore->GetValue(game));
 }
 
-System::Collections::Generic::List<ScreenBuffer ^> ^ CLIScumm::Wrapper::GetListOfScreenBufferFromSinglePictureArray(cli::array<Byte> ^ pictureArray, int x, int y, int w, int h) {
-	System::Collections::Generic::List<ScreenBuffer ^> ^ updates = gcnew System::Collections::Generic::List<ScreenBuffer ^>();
-
-	ScreenBuffer ^ screenBuffer = gcnew ScreenBuffer();
-
-	screenBuffer->Buffer = pictureArray;
-	screenBuffer->X = x;
-	screenBuffer->Y = y;
-	screenBuffer->W = w;
-	screenBuffer->H = h;
-
-	updates->Add(screenBuffer);
-
-	return updates;
-}
-
 array<byte> ^ CLIScumm::Wrapper::MarshalBuffer(byte *buffer, int length) {
 
 	byte *unmanagedCompressedWholeScreenBuffer = nullptr;
@@ -180,6 +163,8 @@ void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(NativeScummWrapper::ScreenB
 		managedBuffer->W = unmanagedScreenBuffers[i].w;
 		managedBuffer->X = unmanagedScreenBuffers[i].x;
 		managedBuffer->Y = unmanagedScreenBuffers[i].y;
+
+		managedScreenScreenBuffers->Add(managedBuffer);
 	}
 
 	if (OnCopyRectToScreen != nullptr) {
@@ -271,7 +256,6 @@ array<Byte> ^ CLIScumm::Wrapper::GetWholeScreen(int % width, int % height) {
 	}
 
 	try {
-		Monitor::Enter(_wholeScreenBufferLock);
 
 		int unmanagedWidth;
 		int unmanagedHeight;
@@ -290,6 +274,5 @@ array<Byte> ^ CLIScumm::Wrapper::GetWholeScreen(int % width, int % height) {
 			delete[] wholeScreenBuffer;
 		}
 
-		Monitor::Exit(_wholeScreenBufferLock);
 	}
 }

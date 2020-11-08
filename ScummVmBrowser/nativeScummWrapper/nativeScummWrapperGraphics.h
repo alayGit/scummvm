@@ -26,6 +26,7 @@
 #include "mouseState.h"
 #include <functional>
 #include <windows.h>
+#include <vector>
 
 class NativeScummWrapperEvents;
 
@@ -124,14 +125,13 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 		int restrictHeightToScreenBounds(int y, int height);
 		void setCurrentMouseStateToPrevious();
 	    byte* GetBlottedBuffer(int x, int y, int w, int h);
-	    void NativeScummWrapper::NativeScummWrapperGraphics::ScreenUpdated(const void *buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor *color, byte ignore, bool isMouseUpdate, int noUpdates);
+	    byte* NativeScummWrapper::NativeScummWrapperGraphics::ScreenUpdated(const void *buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor *color, byte ignore, bool isMouseUpdate);
 	    void NativeScummWrapper::NativeScummWrapperGraphics::UpdatePictureBuffer(byte *pictureArray, const void *buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor *color, byte ignore);
 	    void NativeScummWrapper::NativeScummWrapperGraphics::UpdateWholeScreenBuffer(byte *pictureArray, byte *wholeScreenBuffer, int x, int y, int w, int h);
 	    ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics::GetScreenBuffer(const void *buf, int x, int y, int w, int h);
 	    void NativeScummWrapper::NativeScummWrapperGraphics::InitScreen();
 	    byte *_wholeScreenBuffer;
 	    byte *_wholeScreenBufferNoMouse;
-	    int _wholeScreenBufferLength;
 	    HANDLE _wholeScreenMutex;
 	};
 } // namespace NativeScummWrapper
