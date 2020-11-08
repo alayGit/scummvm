@@ -107,7 +107,7 @@ namespace TestCustomScummVMSubclasses
 
 		NativeScummWrapperGraphics _graphicsManager;
 		int _callOrder;
-		MouseTest() :_graphicsManager((f_CopyRect)&CopyRect, (f_Blot)&Blot)
+		MouseTest() :_graphicsManager((f_SendScreenBuffers)&CopyRect, (f_Blot)&Blot)
 		{
 			RandomiseContentsOfPallette(pallette, NO_IN_PALLETTE);
 			RandomiseContentsOfPallette(mousePallette, NO_IN_MOUSE_PALLETTE);
