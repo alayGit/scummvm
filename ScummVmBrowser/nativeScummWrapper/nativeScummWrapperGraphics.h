@@ -27,6 +27,7 @@
 #include "mouseState.h"
 #include <functional>
 #include <vector>
+//#include "C:\\scumm\\ScummVmBrowser\\LaunchDebugger\\LaunchDebugger.h"
 
 class NativeScummWrapperEvents;
 

@@ -222,7 +222,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::warpMouse(int x, int y) {
 			}
 
 			if (shouldSendNewMouseExample) {
-				screenBuffers[noMessages - 1] = GetScreenBuffer(_cliMouse.buffer, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height);
+				screenBuffers[noMessages - 1] = GetScreenBuffer(ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette, _cliMouse.keyColor, true), _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height);
 			}
 
 			if (noMessages > 0) {

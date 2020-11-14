@@ -138,7 +138,7 @@ array<byte> ^ CLIScumm::Wrapper::MarshalBuffer(byte *buffer, int length) {
 	byte *unmanagedCompressedWholeScreenBuffer = nullptr;
 	try {
 
-		int compressedLength;
+		int compressedLength = 0;
 		unmanagedCompressedWholeScreenBuffer = ZLibCompression::ZLibCompression().Compress(buffer, length, compressedLength);
 
 		cli::array<byte> ^ managedCompressedWholeScreenBuffer = gcnew cli::array<byte>(compressedLength);
@@ -153,7 +153,6 @@ array<byte> ^ CLIScumm::Wrapper::MarshalBuffer(byte *buffer, int length) {
 }
 
 void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(NativeScummWrapper::ScreenBuffer *unmanagedScreenBuffers, int length) {
-
 	System::Collections::Generic::List<ScreenBuffer ^> ^ managedScreenScreenBuffers = gcnew System::Collections::Generic::List<ScreenBuffer ^>();
 
 	for (int i = 0; i < length; i++) {
