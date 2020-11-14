@@ -27,6 +27,8 @@
 #include "mouseState.h"
 #include <functional>
 #include <vector>
+#include "./ScummVmBrowser/ZLibCompression/ZLibCompression.h"
+
 //#include "C:\\scumm\\ScummVmBrowser\\LaunchDebugger\\LaunchDebugger.h"
 
 class NativeScummWrapperEvents;
@@ -54,6 +56,7 @@ namespace NativeScummWrapper {
 	    int y;
 	    int w;
 	    int h;
+	    int length;
 	    byte *buffer;
     };
 

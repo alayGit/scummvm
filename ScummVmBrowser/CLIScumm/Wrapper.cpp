@@ -13,7 +13,6 @@ CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum ^> ^ configureStore)
 	gameEventLock = gcnew Object();
 	startLock = gcnew Object();
 
-
 	SoundManagement::SoundOptions soundOptions = SoundManagement::SoundOptions();
 
 	soundOptions.sampleRate = configureStore->GetValue<int>(SoundSettings::SampleRate);
@@ -135,21 +134,10 @@ Common::String CLIScumm::Wrapper::GetGamePath(AvailableGames game) {
 
 array<byte> ^ CLIScumm::Wrapper::MarshalBuffer(byte *buffer, int length) {
 
-	byte *unmanagedCompressedWholeScreenBuffer = nullptr;
-	try {
+	cli::array<byte> ^ managedCompressedWholeScreenBuffer = gcnew cli::array<byte>(length);
+	Marshal::Copy((System::IntPtr)buffer, managedCompressedWholeScreenBuffer, 0, length);
 
-		int compressedLength = 0;
-		unmanagedCompressedWholeScreenBuffer = ZLibCompression::ZLibCompression().Compress(buffer, length, compressedLength);
-
-		cli::array<byte> ^ managedCompressedWholeScreenBuffer = gcnew cli::array<byte>(compressedLength);
-		Marshal::Copy((System::IntPtr)unmanagedCompressedWholeScreenBuffer, managedCompressedWholeScreenBuffer, 0, compressedLength);
-
-		return managedCompressedWholeScreenBuffer;
-	} finally {
-		if (unmanagedCompressedWholeScreenBuffer != nullptr) {
-			delete[] unmanagedCompressedWholeScreenBuffer;
-		}
-	}
+	return managedCompressedWholeScreenBuffer;
 }
 
 void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(NativeScummWrapper::ScreenBuffer *unmanagedScreenBuffers, int length) {
@@ -157,7 +145,7 @@ void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(NativeScummWrapper::ScreenB
 
 	for (int i = 0; i < length; i++) {
 		ScreenBuffer ^ managedBuffer = gcnew ScreenBuffer();
-		managedBuffer->Buffer = MarshalBuffer(unmanagedScreenBuffers[i].buffer, unmanagedScreenBuffers[i].w * unmanagedScreenBuffers[i].h * NO_BYTES_PER_PIXEL);
+		managedBuffer->Buffer = MarshalBuffer(unmanagedScreenBuffers[i].buffer, unmanagedScreenBuffers[i].length);
 		managedBuffer->H = unmanagedScreenBuffers[i].h;
 		managedBuffer->W = unmanagedScreenBuffers[i].w;
 		managedBuffer->X = unmanagedScreenBuffers[i].x;
@@ -248,7 +236,7 @@ void CLIScumm::Wrapper::Quit() {
 
 array<Byte> ^ CLIScumm::Wrapper::GetWholeScreen(int % width, int % height) {
 
-	byte *wholeScreenBuffer = nullptr;
+	byte *compressedWholeScreenBuffer = nullptr;
 
 	if (!hasStarted) {
 		throw gcnew System::Exception("Cannot get the whole screen without first starting the game");
@@ -260,18 +248,17 @@ array<Byte> ^ CLIScumm::Wrapper::GetWholeScreen(int % width, int % height) {
 		int unmanagedHeight;
 		int bufferSize;
 
-		wholeScreenBuffer = _gSystemCli->getGraphicsManager()->GetWholeScreenBuffer(unmanagedWidth, unmanagedHeight, bufferSize);
+		compressedWholeScreenBuffer = _gSystemCli->getGraphicsManager()->GetWholeScreenBuffer(unmanagedWidth, unmanagedHeight, bufferSize);
 
 		width = unmanagedWidth;
 		height = unmanagedHeight;
 
-		return MarshalBuffer(wholeScreenBuffer, bufferSize);
+		return MarshalBuffer(compressedWholeScreenBuffer, bufferSize);
 
 	} finally {
 
-		if (wholeScreenBuffer != nullptr) {
-			delete[] wholeScreenBuffer;
+		if (compressedWholeScreenBuffer != nullptr) {
+			delete[] compressedWholeScreenBuffer;
 		}
-
 	}
 }

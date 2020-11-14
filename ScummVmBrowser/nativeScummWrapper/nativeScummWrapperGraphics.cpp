@@ -33,22 +33,28 @@ void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void
 
 	std::vector<ScreenBuffer> buffersVector;
 
-
+	//TODO: Double Compression Fix
 	if (!_screenInited) {
 		_screenInited = true;
 		int _;
-		byte *wholeScreenBufferCpy = GetWholeScreenBuffer(_, _, _);
+		byte *compressedWholeScreenBuffer = GetWholeScreenBuffer(_, _, _);
 
-		ScreenBuffer initScreen = GetScreenBuffer(wholeScreenBufferCpy, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT);
+		ScreenBuffer initScreen = GetScreenBuffer(compressedWholeScreenBuffer, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT);
 
 		buffersVector.push_back(initScreen);
 	}
+	byte *uncompressedBuffer = ScreenUpdated(buf, DISPLAY_DEFAULT_WIDTH, x, y, w, h, _picturePalette, IGNORE_COLOR, false);
 
-	buffersVector.push_back(GetScreenBuffer(ScreenUpdated(buf, DISPLAY_DEFAULT_WIDTH, x, y, w, h, _picturePalette, IGNORE_COLOR, false), x, y, w, h));
+	buffersVector.push_back(GetScreenBuffer(uncompressedBuffer, x, y, w, h));
+
+    delete[] uncompressedBuffer;
 
 	if (_cliMouse.x < DISPLAY_DEFAULT_WIDTH && _cliMouse.y < DISPLAY_DEFAULT_WIDTH && _cliMouse.width > 0 && _cliMouse.height > 0) {
 		if (_cliMouse.width > 0 && _cliMouse.height > 0) {
-			buffersVector.push_back(GetScreenBuffer(ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette, _cliMouse.keyColor, true), _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height));
+			byte *uncompressedBuffer = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette, _cliMouse.keyColor, true);
+			buffersVector.push_back(GetScreenBuffer(uncompressedBuffer, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height));
+
+			delete[] uncompressedBuffer;
 		}
 	}
 
@@ -218,11 +224,17 @@ void NativeScummWrapper::NativeScummWrapperGraphics::warpMouse(int x, int y) {
 			ScreenBuffer *screenBuffers = new ScreenBuffer[noMessages];
 
 			if (shouldBlot) {
-				screenBuffers[0] = GetScreenBuffer(GetBlottedBuffer(_cliMouse.prevX, _cliMouse.prevY, _cliMouse.prevW, _cliMouse.prevH), _cliMouse.prevX, _cliMouse.prevY, _cliMouse.prevW, _cliMouse.prevH);
+				byte *uncompressedBuffer = GetBlottedBuffer(_cliMouse.prevX, _cliMouse.prevY, _cliMouse.prevW, _cliMouse.prevH);
+				screenBuffers[0] = GetScreenBuffer(uncompressedBuffer, _cliMouse.prevX, _cliMouse.prevY, _cliMouse.prevW, _cliMouse.prevH);
+
+				delete[] uncompressedBuffer;
 			}
 
 			if (shouldSendNewMouseExample) {
-				screenBuffers[noMessages - 1] = GetScreenBuffer(ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette, _cliMouse.keyColor, true), _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height);
+				byte *uncompressedBuffer = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette, _cliMouse.keyColor, true);
+				screenBuffers[noMessages - 1] = GetScreenBuffer(uncompressedBuffer, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height);
+
+				delete[] uncompressedBuffer;
 			}
 
 			if (noMessages > 0) {
@@ -347,15 +359,21 @@ byte* NativeScummWrapper::NativeScummWrapperGraphics::GetWholeScreenBuffer(int &
 
 	width = DISPLAY_DEFAULT_WIDTH;
 	height = DISPLAY_DEFAULT_HEIGHT;
-	bufferSize = WHOLE_SCREEN_BUFFER_LENGTH;
 
-	byte *cpyWholeScreenBuffer = new byte[WHOLE_SCREEN_BUFFER_LENGTH];
+	byte* cpyWholeScreenBuffer = new byte[WHOLE_SCREEN_BUFFER_LENGTH];
 
 	memcpy(cpyWholeScreenBuffer, _wholeScreenBuffer, WHOLE_SCREEN_BUFFER_LENGTH);
 
 	ReleaseSemaphore(_wholeScreenMutex, 1, NULL);
 
-	return cpyWholeScreenBuffer;
+	int compressedLength;
+	byte *compressedWholeScreenBuffer = ZLibCompression::ZLibCompression().Compress(cpyWholeScreenBuffer, WHOLE_SCREEN_BUFFER_LENGTH, compressedLength);
+
+	bufferSize = compressedLength;
+
+	delete[] cpyWholeScreenBuffer;
+
+	return compressedWholeScreenBuffer;
 }
 
 byte* NativeScummWrapper::NativeScummWrapperGraphics::ScreenUpdated(const void *buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor *color, byte ignore, bool isMouseUpdate) {
@@ -412,7 +430,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::UpdateWholeScreenBuffer(byt
 
 NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics::GetScreenBuffer(const void *buf, int x, int y, int w, int h) {
 	NativeScummWrapper::ScreenBuffer screenBuffer;
-	screenBuffer.buffer = (byte *)buf;
+	screenBuffer.buffer = (byte *)ZLibCompression::ZLibCompression().Compress((byte *)buf, w * h * NO_BYTES_PER_PIXEL, screenBuffer.length);
 	screenBuffer.x = x;
 	screenBuffer.y = y;
 	screenBuffer.h = h;

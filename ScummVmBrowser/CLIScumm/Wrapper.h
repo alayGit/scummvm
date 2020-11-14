@@ -18,7 +18,6 @@
 #include "../ChunkedSoundManager/SoundThreadManager.h"
 #include "../ChunkedSoundManager/SoundOptions.h"
 #include <string.h>
-#include "../ZLibCompression/ZLibCompression.h"
 
 
 
