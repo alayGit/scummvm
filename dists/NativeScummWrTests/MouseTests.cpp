@@ -211,7 +211,7 @@ namespace TestCustomScummVMSubclasses
 
 	void AssertCopyRectStateCalledwithCorrectPositionAndSize(int expectedX, int expectedY, int expectedWidth, int expectedHeight)
 	{
-		AssertCopyRectStateCalledwithCorrectPositionAndSize(expectedX, expectedY, expectedWidth, expectedHeight, expectedWidth, (void*)&_mouseTest->mouseBuffer, 1, true);
+		AssertCopyRectStateCalledwithCorrectPositionAndSize(expectedX, expectedY, expectedWidth, expectedHeight, expectedWidth, (void*)&_mouseTest->mouseBuffer, 1, false);
 	}
 
 	//void AssertCopyRectStateCalledwithCorrectPositionAndSize(int expectedX, int expectedY, int expectedWidth, int expectedHeight) {
@@ -230,7 +230,7 @@ namespace TestCustomScummVMSubclasses
 		_graphicsManager.warpMouse(X, Y);
 
 		AssertBlotCalledWithCorrectPositionAndSize(0, 0, START_MOUSE_W, START_MOUSE_H);
-		AssertCopyRectStateCalledwithCorrectPositionAndSize(X, Y, START_MOUSE_W, START_MOUSE_H);
+		AssertCopyRectStateCalledwithCorrectPositionAndSize(X, Y, START_MOUSE_W, START_MOUSE_H, false);
 		MouseStateUpdatedCorrectly(X, Y, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
 
 		ResetTestState();
@@ -240,7 +240,7 @@ namespace TestCustomScummVMSubclasses
 		_graphicsManager.warpMouse(X3, Y2);
 
 		AssertBlotCalledWithCorrectPositionAndSize(X, Y, START_MOUSE_W, START_MOUSE_H);
-		AssertCopyRectStateCalledwithCorrectPositionAndSize(X3, Y2, START_MOUSE_W, START_MOUSE_H);
+		AssertCopyRectStateCalledwithCorrectPositionAndSize(X3, Y2, START_MOUSE_W, START_MOUSE_H, false);
 		MouseStateUpdatedCorrectly(X3, Y2, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
 
 		CheckQueuesAreEmpty();
@@ -314,7 +314,7 @@ namespace TestCustomScummVMSubclasses
 		_graphicsManager.warpMouse(X, Y);
 
 		AssertBlotCalledWithCorrectPositionAndSize(0, 0, START_MOUSE_W, START_MOUSE_H);
-		AssertCopyRectStateCalledwithCorrectPositionAndSize(X, Y, START_MOUSE_W, START_MOUSE_H);
+		AssertCopyRectStateCalledwithCorrectPositionAndSize(X, Y, START_MOUSE_W, START_MOUSE_H, false);
 		MouseStateUpdatedCorrectly(X, Y, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
 
 		EXPECT_TRUE(_copyRectStateQueue.empty());
@@ -327,7 +327,7 @@ namespace TestCustomScummVMSubclasses
 		_graphicsManager.warpMouse(X, Y);
 
 		AssertBlotCalledWithCorrectPositionAndSize(0, 0, START_MOUSE_W, START_MOUSE_H);
-		AssertCopyRectStateCalledwithCorrectPositionAndSize(X, Y, START_MOUSE_W - 2, START_MOUSE_H, START_MOUSE_W, &mouseBuffer, 1);
+		AssertCopyRectStateCalledwithCorrectPositionAndSize(X, Y, START_MOUSE_W - 2, START_MOUSE_H, START_MOUSE_W, &mouseBuffer, 1, false);
 		MouseStateUpdatedCorrectly(X, Y, START_MOUSE_W - 2, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
 
 		ResetTestState();
@@ -350,7 +350,7 @@ namespace TestCustomScummVMSubclasses
 		_graphicsManager.warpMouse(X, Y);
 
 		AssertBlotCalledWithCorrectPositionAndSize(0, 0, START_MOUSE_W, START_MOUSE_H);
-		AssertCopyRectStateCalledwithCorrectPositionAndSize(X, Y, START_MOUSE_W, START_MOUSE_H - 2, START_MOUSE_W, &mouseBuffer, 1, true);
+		AssertCopyRectStateCalledwithCorrectPositionAndSize(X, Y, START_MOUSE_W, START_MOUSE_H - 2, START_MOUSE_W, &mouseBuffer, 1, false);
 		MouseStateUpdatedCorrectly(X, Y, START_MOUSE_W, START_MOUSE_H - 2, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
 
 		ResetTestState();

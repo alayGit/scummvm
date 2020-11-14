@@ -8,10 +8,10 @@
     <TestDuration Test="MouseTest.CannotMoveMouseOutOfBoundsXNeg" Duration="5" />
     <TestDuration Test="MouseTest.CannotMoveMouseOutOfBoundsYPos" Duration="5" />
     <TestDuration Test="MouseTest.CannotMoveMouseOutOfBoundsYNeg" Duration="5" />
-    <TestDuration Test="MouseTest.WidthDoesNotShrinkOnXBoundry" Duration="5" />
-    <TestDuration Test="MouseTest.WidthShrinksOverXBoundry" Duration="6" />
-    <TestDuration Test="MouseTest.WidthShrinksOverYBoundry" Duration="5" />
-    <TestDuration Test="MouseTest.CanChangeCursor" Duration="6" />
+    <TestDuration Test="MouseTest.WidthDoesNotShrinkOnXBoundry" Duration="6" />
+    <TestDuration Test="MouseTest.WidthShrinksOverXBoundry" Duration="5" />
+    <TestDuration Test="MouseTest.WidthShrinksOverYBoundry" Duration="6" />
+    <TestDuration Test="MouseTest.CanChangeCursor" Duration="5" />
     <TestDuration Test="MouseTest.CanDrawRectangleOnScreen" Duration="6" />
   </TestDurations>
 </GtaTestDurations>

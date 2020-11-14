@@ -343,7 +343,24 @@ namespace DotNetScummTests
             await CheckForExpectedFrame(expectedFrameName, noFrames);
         }
 
-        [TestMethod]
+		[TestMethod]
+		public async Task CanMoveMouseMultipleTimes()
+		{
+			Cropping = new Rectangle(93, 162, 15, 15);
+			const string expectedFrameName = "CanMoveMouseMultipleTimes";
+			const int noFrames = 100;
+
+			Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers, noFrames, expectedFrameName));
+			await WaitForFrame(10);
+			_wrapper.EnqueueGameEvent(new SendMouseMove(44, 15));
+			_wrapper.EnqueueGameEvent(new SendMouseMove(12, 35));
+			_wrapper.EnqueueGameEvent(new SendMouseMove(72, 55));
+			_wrapper.EnqueueGameEvent(new SendMouseMove(100, 160));
+
+			await CheckForExpectedFrame(expectedFrameName, noFrames);
+		}
+
+		[TestMethod]
         public async Task CanMoveMouseFarLeft()
         {
             Cropping = new Rectangle(0,0,30,55);
