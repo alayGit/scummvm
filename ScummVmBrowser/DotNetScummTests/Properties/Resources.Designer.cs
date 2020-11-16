@@ -271,6 +271,16 @@ namespace DotNetScummTests.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DoesDisplayBlackFirstFrame {
+            get {
+                object obj = ResourceManager.GetObject("DoesDisplayBlackFirstFrame", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {&quot;kq3.001&quot;:
         ///[65,71,73,58,97,98,99,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,204,205,212,56,204,204,204,0,0,0,5,2,75,81,51,0,73,68,88,0,49,56,97,97,100,56,102,55,97,99,97,97,102,102,55,54,48,55,50,48,99,53,99,54,56,56,53,98,54,98,97,98,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,74,0,0,4,128,1,0,0,0,0,0,4,0,0,64,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,34,0,0,0,0,0,210,180,0,2,5,0,0,0,0,0,0,0,0,0,0,1,4,38,0,3,0,0,0,0,92,39,0,0,0,3,55,57,0,95,165,95,165,0,0,0,0,0,0,0,0,0,0,0,0 [rest of string was truncated]&quot;;.
         /// </summary>

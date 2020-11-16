@@ -33,11 +33,10 @@ void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void
 
 	std::vector<ScreenBuffer> buffersVector;
 
-	//TODO: Double Compression Fix
 	if (!_screenInited) {
 		_screenInited = true;
 		int _;
-		byte *compressedWholeScreenBuffer = GetWholeScreenBuffer(_, _, _);
+		byte *compressedWholeScreenBuffer = GetWholeScreenBufferRaw(_, _, _);
 
 		ScreenBuffer initScreen = GetScreenBuffer(compressedWholeScreenBuffer, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT);
 
@@ -354,7 +353,7 @@ byte *NativeScummWrapper::NativeScummWrapperGraphics::GetBlottedBuffer(int x, in
 	return unCompressedPictureArray;
 }
 
-byte* NativeScummWrapper::NativeScummWrapperGraphics::GetWholeScreenBuffer(int &width, int &height, int &bufferSize) {
+byte* NativeScummWrapper::NativeScummWrapperGraphics::GetWholeScreenBufferCompressed(int &width, int &height, int &bufferSize) {
 	WaitForSingleObject(_wholeScreenMutex, INFINITE);
 
 	width = DISPLAY_DEFAULT_WIDTH;
@@ -374,6 +373,18 @@ byte* NativeScummWrapper::NativeScummWrapperGraphics::GetWholeScreenBuffer(int &
 	delete[] cpyWholeScreenBuffer;
 
 	return compressedWholeScreenBuffer;
+}
+
+byte *NativeScummWrapper::NativeScummWrapperGraphics::GetWholeScreenBufferRaw(int &width, int &height, int &bufferSize) {
+	byte *cpyWholeScreenBuffer = new byte[WHOLE_SCREEN_BUFFER_LENGTH];
+
+	memcpy(cpyWholeScreenBuffer, _wholeScreenBuffer, WHOLE_SCREEN_BUFFER_LENGTH);
+
+	width = DISPLAY_DEFAULT_WIDTH;
+	height = DISPLAY_DEFAULT_HEIGHT;
+	bufferSize = WHOLE_SCREEN_BUFFER_LENGTH;
+
+	return cpyWholeScreenBuffer;
 }
 
 byte* NativeScummWrapper::NativeScummWrapperGraphics::ScreenUpdated(const void *buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor *color, byte ignore, bool isMouseUpdate) {

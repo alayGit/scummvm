@@ -248,7 +248,7 @@ array<Byte> ^ CLIScumm::Wrapper::GetWholeScreen(int % width, int % height) {
 		int unmanagedHeight;
 		int bufferSize;
 
-		compressedWholeScreenBuffer = _gSystemCli->getGraphicsManager()->GetWholeScreenBuffer(unmanagedWidth, unmanagedHeight, bufferSize);
+		compressedWholeScreenBuffer = _gSystemCli->getGraphicsManager()->GetWholeScreenBufferCompressed(unmanagedWidth, unmanagedHeight, bufferSize);
 
 		width = unmanagedWidth;
 		height = unmanagedHeight;

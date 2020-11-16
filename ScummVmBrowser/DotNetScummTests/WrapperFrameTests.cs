@@ -69,7 +69,18 @@ namespace DotNetScummTests
             await CheckForExpectedFrame(expectedFrameName, noFrames);
         }
 
-        [TestMethod]
+		[TestMethod]
+		public async Task DoesDisplayBlackFirstFrame()
+		{
+			Cropping = null;
+			const string expectedFrameName = "DoesDisplayBlackFirstFrame";
+			const int noFrames = 1;
+			//DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
+			Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers, noFrames, expectedFrameName));
+			await CheckForExpectedFrame(expectedFrameName, noFrames);
+		}
+
+		[TestMethod]
         public async Task CanStartWholeFrame()
         {
             Cropping = null;

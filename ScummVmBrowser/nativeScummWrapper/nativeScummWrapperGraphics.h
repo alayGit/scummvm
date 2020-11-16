@@ -115,7 +115,8 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 		bool screenUpdateOverlapsMouse(int x, int y, int w, int h);
 		bool positionInRange(int x, int y);
 		MouseState getMouseState();
-	    byte* GetWholeScreenBuffer(int &width, int &height, int &bufferSize);
+	    byte* GetWholeScreenBufferCompressed(int &width, int &height, int &bufferSize);
+	    byte* GetWholeScreenBufferRaw(int &width, int &height, int &bufferSize);
 
 	private:
 		f_SendScreenBuffers _copyRect;
