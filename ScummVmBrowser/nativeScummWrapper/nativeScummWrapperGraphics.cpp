@@ -31,8 +31,6 @@ NativeScummWrapper::NativeScummWrapperGraphics::~NativeScummWrapperGraphics() {
 
 void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void *buf, int pitch, int x, int y, int w, int h) {
 
-	std::vector<ScreenBuffer> buffersVector;
-
 	if (!_screenInited) {
 		_screenInited = true;
 		int _;
@@ -40,33 +38,22 @@ void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void
 
 		ScreenBuffer initScreen = GetScreenBuffer(compressedWholeScreenBuffer, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT);
 
-		buffersVector.push_back(initScreen);
+		_drawingCommands.push_back(initScreen);
 	}
-	byte *uncompressedBuffer = ScreenUpdated(buf, DISPLAY_DEFAULT_WIDTH, x, y, w, h, _picturePalette, IGNORE_COLOR, false);
+	byte *uncompressedBuffer = ScreenUpdated(buf, pitch, x, y, w, h, _picturePalette, IGNORE_COLOR, false);
 
-	buffersVector.push_back(GetScreenBuffer(uncompressedBuffer, x, y, w, h));
+	_drawingCommands.push_back(GetScreenBuffer(uncompressedBuffer, x, y, w, h));
 
     delete[] uncompressedBuffer;
 
 	if (_cliMouse.x < DISPLAY_DEFAULT_WIDTH && _cliMouse.y < DISPLAY_DEFAULT_WIDTH && _cliMouse.width > 0 && _cliMouse.height > 0) {
 		if (_cliMouse.width > 0 && _cliMouse.height > 0) {
 			byte *uncompressedBuffer = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette, _cliMouse.keyColor, true);
-			buffersVector.push_back(GetScreenBuffer(uncompressedBuffer, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height));
+			_drawingCommands.push_back(GetScreenBuffer(uncompressedBuffer, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height));
 
 			delete[] uncompressedBuffer;
 		}
 	}
-
-	ScreenBuffer *buffers = new ScreenBuffer[buffersVector.size()];
-	std::copy(buffersVector.begin(), buffersVector.end(), buffers);
-
-	NativeScummWrapper::NativeScummWrapperGraphics::_copyRect(buffers, buffersVector.size());
-
-	for (int i = 0; i < buffersVector.size(); i++) {
-		delete[] buffersVector.at(i).buffer;
-	}
-
-	delete[] buffers;
 }
 
 bool NativeScummWrapper::NativeScummWrapperGraphics::hasFeature(OSystem::Feature f) const {
@@ -152,6 +139,19 @@ void NativeScummWrapper::NativeScummWrapperGraphics::fillScreen(uint32 col) {
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::updateScreen() {
+	if (!_drawingCommands.empty()) {
+
+		ScreenBuffer *buffers = new ScreenBuffer[_drawingCommands.size()];
+		std::copy(_drawingCommands.begin(), _drawingCommands.end(), buffers);
+
+		NativeScummWrapper::NativeScummWrapperGraphics::_copyRect(buffers, _drawingCommands.size());
+
+		for (int i = 0; i < _drawingCommands.size(); i++) {
+			delete[] _drawingCommands.at(i).buffer;
+		}
+		delete[] buffers;
+		_drawingCommands.clear();
+	}
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::setShakePos(int shakeXOffset, int shakeYOffset) {

@@ -181,6 +181,9 @@
     <ClCompile Include="saveCache.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LaunchDebugger\LaunchDebugger.vcxproj">
+      <Project>{3e61b71a-9d88-4bd8-b629-575b84c2b3a0}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\msvc\scummvm.vcxproj">
       <Project>{ecea4af3-126a-31e0-aef8-e6f45e92de9c}</Project>
     </ProjectReference>

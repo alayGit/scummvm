@@ -29,7 +29,7 @@
 #include <vector>
 #include "./ScummVmBrowser/ZLibCompression/ZLibCompression.h"
 
-//#include "C:\\scumm\\ScummVmBrowser\\LaunchDebugger\\LaunchDebugger.h"
+#include "C:\\scumm\\ScummVmBrowser\\LaunchDebugger\\LaunchDebugger.h"
 
 class NativeScummWrapperEvents;
 
@@ -119,6 +119,7 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 	    byte* GetWholeScreenBufferRaw(int &width, int &height, int &bufferSize);
 
 	private:
+	    std::vector<ScreenBuffer> _drawingCommands;
 		f_SendScreenBuffers _copyRect;
 		PalletteColor *_picturePalette;
 		PalletteColor *_cursorPalette;
