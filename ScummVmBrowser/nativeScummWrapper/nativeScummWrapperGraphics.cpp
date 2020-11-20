@@ -209,7 +209,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::warpMouse(int x, int y) {
 			_cliMouse.height = restrictHeightToScreenBounds(y, _cliMouse.fullHeight);
 			_cliMouse.width = restrictWidthToScreenBounds(x, _cliMouse.fullWidth);
 
-			bool shouldBlot = positionInRange(_cliMouse.prevX, _cliMouse.prevY) && _cliMouse.width > 0 && _cliMouse.height > 0;
+			bool shouldBlot = positionInRange(_cliMouse.prevX, _cliMouse.prevY) && _cliMouse.prevW > 0 && _cliMouse.prevH > 0;
 			bool shouldSendNewMouseExample = x < DISPLAY_DEFAULT_WIDTH && y < DISPLAY_DEFAULT_WIDTH && x < DISPLAY_DEFAULT_WIDTH && y < DISPLAY_DEFAULT_WIDTH && _cliMouse.width > 0 && _cliMouse.height > 0;
 
 			if (shouldBlot) {
@@ -220,24 +220,18 @@ void NativeScummWrapper::NativeScummWrapperGraphics::warpMouse(int x, int y) {
 				noMessages++;
 			}
 
-			ScreenBuffer *screenBuffers = new ScreenBuffer[noMessages];
-
 			if (shouldBlot) {
 				byte *uncompressedBuffer = GetBlottedBuffer(_cliMouse.prevX, _cliMouse.prevY, _cliMouse.prevW, _cliMouse.prevH);
-				screenBuffers[0] = GetScreenBuffer(uncompressedBuffer, _cliMouse.prevX, _cliMouse.prevY, _cliMouse.prevW, _cliMouse.prevH);
+				_drawingCommands.push_back(GetScreenBuffer(uncompressedBuffer, _cliMouse.prevX, _cliMouse.prevY, _cliMouse.prevW, _cliMouse.prevH));
 
 				delete[] uncompressedBuffer;
 			}
 
 			if (shouldSendNewMouseExample) {
 				byte *uncompressedBuffer = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette, _cliMouse.keyColor, true);
-				screenBuffers[noMessages - 1] = GetScreenBuffer(uncompressedBuffer, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height);
+				_drawingCommands.push_back(GetScreenBuffer(uncompressedBuffer, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height));
 
 				delete[] uncompressedBuffer;
-			}
-
-			if (noMessages > 0) {
-				NativeScummWrapper::NativeScummWrapperGraphics::_copyRect(screenBuffers, noMessages);
 			}
 		}
 		setCurrentMouseStateToPrevious();
