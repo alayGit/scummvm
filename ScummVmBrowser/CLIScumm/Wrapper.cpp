@@ -97,7 +97,6 @@ void CLIScumm::Wrapper::RunGame(AvailableGames game, cli::array<System::Byte> ^ 
 	if (!hasStarted) {
 		Monitor::Enter(startLock);
 		try {
-
 			try {
 				if (!hasStarted) {
 					hasStarted = true;

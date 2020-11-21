@@ -199,11 +199,7 @@ bool NativeScummWrapper::NativeScummWrapperGraphics::showMouse(bool visible) {
 
 void NativeScummWrapper::NativeScummWrapperGraphics::warpMouse(int x, int y) {
 	if (positionInRange(x, y)) {
-
 		if (_screenInited) {
-
-			int noMessages = 0;
-
 			_cliMouse.x = x;
 			_cliMouse.y = y;
 			_cliMouse.height = restrictHeightToScreenBounds(y, _cliMouse.fullHeight);
@@ -211,14 +207,6 @@ void NativeScummWrapper::NativeScummWrapperGraphics::warpMouse(int x, int y) {
 
 			bool shouldBlot = positionInRange(_cliMouse.prevX, _cliMouse.prevY) && _cliMouse.prevW > 0 && _cliMouse.prevH > 0;
 			bool shouldSendNewMouseExample = x < DISPLAY_DEFAULT_WIDTH && y < DISPLAY_DEFAULT_WIDTH && x < DISPLAY_DEFAULT_WIDTH && y < DISPLAY_DEFAULT_WIDTH && _cliMouse.width > 0 && _cliMouse.height > 0;
-
-			if (shouldBlot) {
-				noMessages++;
-			}
-
-			if (shouldSendNewMouseExample) {
-				noMessages++;
-			}
 
 			if (shouldBlot) {
 				byte *uncompressedBuffer = GetBlottedBuffer(_cliMouse.prevX, _cliMouse.prevY, _cliMouse.prevW, _cliMouse.prevH);

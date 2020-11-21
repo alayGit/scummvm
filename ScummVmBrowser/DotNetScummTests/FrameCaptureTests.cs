@@ -40,11 +40,11 @@ namespace DotNetScummTests
 
         protected Rectangle? Cropping { get; set; }
 
-        public static Rectangle? AgiNoTitle
+        public static Rectangle? AgiNoTitleNoMouse //Mouse is up the top and gets cropped
         {
             get
             {
-                return new Rectangle(0, 8, 320, 192);
+                return new Rectangle(0, 20, 320, 180);
             }
         }
 
@@ -61,7 +61,7 @@ namespace DotNetScummTests
         {
             _capturedFrames = new ConcurrentQueue<Bitmap>();
             hasSentQuit = false;
-            Cropping = AgiNoTitle;
+            Cropping = AgiNoTitleNoMouse;
         }
 
 
@@ -140,33 +140,33 @@ namespace DotNetScummTests
         protected virtual void CaptureAndQuitWholeFrame(byte[] picBuff, int x, int y, int w, int h, int noFrames, string expectedFrameName)
         {
             _b = new Bitmap(DisplayDefaultWidth, DisplayDefaultHeight);
-            CapturedAndQuit(picBuff, x, y, w, h, noFrames, expectedFrameName);
+            CaptureAndQuit(picBuff, x, y, w, h, noFrames, expectedFrameName);
         }
 
-        protected unsafe virtual void CapturedAndQuit(byte[] picBuff, int x, int y, int w, int h, int noFrames, string expectedFrameName)
+        protected unsafe virtual void CaptureAndQuit(byte[] picBuff, int x, int y, int w, int h, int noFrames, string expectedFrameName)
         {
             BitmapData bitmapData = null;
             try
             {
                 if (w > 0 && h > 0)
                 {
-                    int byteNo = 0;
-                    bitmapData = _b.LockBits(new Rectangle(x, y, w, h), ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
-                    byte* scan0 = (byte*)bitmapData.Scan0.ToPointer();
-                    for (int heightCounter = 0; heightCounter < h; heightCounter++)
-                    {
-                        for (int widthCounter = 0; widthCounter < w; widthCounter++)
-                        {
-                            byte* data = scan0 + heightCounter * bitmapData.Stride + widthCounter * 4;
-                            *(data) = picBuff[byteNo + 2];
-                            *(data + 1) = picBuff[byteNo + 1];
-                            *(data + 2) = picBuff[byteNo];
-                            *(data + 3) = picBuff[byteNo + 3];
-                            byteNo += 4;
-                        }
-                    }
-                    CaptureAndQuit(_b, noFrames, expectedFrameName);
-                }
+					int byteNo = 0;
+					bitmapData = _b.LockBits(new Rectangle(x, y, w, h), ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
+					byte* scan0 = (byte*)bitmapData.Scan0.ToPointer();
+					for (int heightCounter = 0; heightCounter < h; heightCounter++)
+					{
+						for (int widthCounter = 0; widthCounter < w; widthCounter++)
+						{
+							byte* data = scan0 + heightCounter * bitmapData.Stride + widthCounter * 4;
+							*(data) = picBuff[byteNo + 2];
+							*(data + 1) = picBuff[byteNo + 1];
+							*(data + 2) = picBuff[byteNo];
+							*(data + 3) = picBuff[byteNo + 3];
+							byteNo += 4;
+						}
+					}
+					CaptureAndQuit(_b, noFrames, expectedFrameName);
+				}
             }
 			catch(Exception e)
 			{
@@ -207,7 +207,7 @@ namespace DotNetScummTests
         {
             foreach (ScreenBuffer screenBuffer in screenBuffers)
             {
-                CapturedAndQuit(screenBuffer.Buffer, screenBuffer.X, screenBuffer.Y, screenBuffer.W, screenBuffer.H, noFrames, expectedFrameName);
+                CaptureAndQuit(screenBuffer.Buffer, screenBuffer.X, screenBuffer.Y, screenBuffer.W, screenBuffer.H, noFrames, expectedFrameName);
             }
         }
 
@@ -269,10 +269,10 @@ namespace DotNetScummTests
 
         protected ConcurrentDictionary<string, byte[]> GetSaveDataFromResourceFile()
         {
-            string jsonData = GetJsonData();
+			string jsonData = GetJsonData();
 
-            return JsonConvert.DeserializeObject<ConcurrentDictionary<string, byte[]>>(jsonData);
-        }
+			return JsonConvert.DeserializeObject<ConcurrentDictionary<string, byte[]>>(jsonData);
+		}
 
         protected string GetJsonData()
         {

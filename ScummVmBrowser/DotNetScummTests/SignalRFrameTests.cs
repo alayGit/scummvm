@@ -37,7 +37,7 @@ namespace DotNetScummTests
   
             _connection = new HubConnection($"http://localhost:{0}/");
             _proxy = _connection.CreateHubProxy("ScummHub");
-            _proxy.On("NextFrame", (byte[] picBuff, int x, int y, int w, int h) => CapturedAndQuit(picBuff, x, y, w, h, _noFrames, _expectedFrameName));
+            _proxy.On("NextFrame", (byte[] picBuff, int x, int y, int w, int h) => CaptureAndQuit(picBuff, x, y, w, h, _noFrames, _expectedFrameName));
             _connection.Start().Wait();
         }
 

@@ -36,6 +36,11 @@ namespace DotNetScummTests
 
         byte[] ExpectedAGISaveDataPrefix = new byte[] { 65, 71, 73, 58 }; //All AGI saves start with this
 
+		public void Setup(String gameFolderLocation, int noFrames, string expectedFrameName)
+		{
+			Setup(gameFolderLocation, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers, noFrames, expectedFrameName));
+		}
+
 		public void Setup(String gameFolderLocation, CopyRectToScreen copyRectToScreen)
 		{
 			ManagedZLibCompression.ManagedZLibCompression managedZLibCompression = new ManagedZLibCompression.ManagedZLibCompression();
@@ -87,7 +92,7 @@ namespace DotNetScummTests
             const string expectedFrameName = "CanStart";
             const int noFrames = 100;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
-            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CapturedAndQuitWholeFrame(noFrames, expectedFrameName));
+            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CaptureAndQuitWholeFrame(noFrames, expectedFrameName));
             await CheckForExpectedFrame(expectedFrameName, noFrames);
         }
 
@@ -95,9 +100,9 @@ namespace DotNetScummTests
         public async Task CanSendEnter()
         {
             const string expectedFrameName = "CanSendEnter";
-            const int noFrames = 100;
+            const int noFrames = 150;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
-            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CapturedAndQuit(screenBuffers[0].Buffer, screenBuffers[0].X, screenBuffers[0].Y, screenBuffers[0].W, screenBuffers[0].H, noFrames, expectedFrameName));
+            Setup(gameDirectory, noFrames, expectedFrameName);
             await WaitForFrame(10);
             _wrapper.EnqueueGameEvent(new SendString("\r"));
             await CheckForExpectedFrame(expectedFrameName, noFrames);
@@ -106,12 +111,12 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanSendEsc()
         {
-            Cropping = new Rectangle(0, 0, 98, 35);
+            Cropping = new Rectangle(0, 20, 98, 35);
             const string expectedFrameName = "CanSendEsc";
-            const int noFrames = 175;
+            const int noFrames = 512;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
-            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CapturedAndQuit(screenBuffers[0].Buffer, screenBuffers[0].X, screenBuffers[0].Y, screenBuffers[0].W, screenBuffers[0].H, noFrames, expectedFrameName));
-            await WaitForFrame(10);
+            Setup(gameDirectory, noFrames, expectedFrameName);
+            await WaitForFrame(180);
             _wrapper.EnqueueGameEvent(new SendString("\r"));
             _wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.Escape));
 
@@ -124,12 +129,11 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanSendF1_Help()
         {
-            Cropping = null;
             const string expectedFrameName = "CanSendF1";
-            const int noFrames = 100;
+            const int noFrames = 700;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
-            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CapturedAndQuit(screenBuffers[0].Buffer, screenBuffers[0].X, screenBuffers[0].Y, screenBuffers[0].W, screenBuffers[0].H, noFrames, expectedFrameName));
-            await WaitForFrame(10);
+            Setup(gameDirectory, noFrames, expectedFrameName);
+            await WaitForFrame(180);
             _wrapper.EnqueueGameEvent(new SendString("\r"));
             _wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.F1));
 
@@ -144,11 +148,12 @@ namespace DotNetScummTests
         {
             Cropping = AgiTitleOnly;
             const string expectedFrameName = "CanSendF2";
-            const int noFrames = 100;
+            const int noFrames = 500;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
-            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CapturedAndQuit(screenBuffers[0].Buffer, screenBuffers[0].X, screenBuffers[0].Y, screenBuffers[0].W, screenBuffers[0].H, noFrames, expectedFrameName));
-            await WaitForFrame(10, false);
-            _wrapper.EnqueueGameEvent(new SendString("\r"));
+            Setup(gameDirectory, noFrames, expectedFrameName);
+            await WaitForFrame(180, false);
+			_wrapper.EnqueueGameEvent(new SendMouseMove(100,100)); //Mouse is in the way
+			_wrapper.EnqueueGameEvent(new SendString("\r"));
             _wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.F2));
             await CheckForExpectedFrame(expectedFrameName, noFrames);
         }
@@ -158,14 +163,14 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanSendF4_Inventory()
         {
-            Cropping = null;
             const string expectedFrameName = "CanSendF4";
-            const int noFrames = 100;
+            const int noFrames = 650;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
-            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CapturedAndQuit(screenBuffers[0].Buffer, screenBuffers[0].X, screenBuffers[0].Y, screenBuffers[0].W, screenBuffers[0].H, noFrames, expectedFrameName));
-            await WaitForFrame(10);
+            Setup(gameDirectory, noFrames, expectedFrameName);
+            await WaitForFrame(250);
             _wrapper.EnqueueGameEvent(new SendString("\r"));
-            _wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.F4));
+			await WaitForFrame(510);
+			_wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.F4));
 
             await Task.Delay(1000);
             _wrapper.EnqueueGameEvent(new SendString("\r"));
@@ -180,7 +185,7 @@ namespace DotNetScummTests
             const string expectedFrameName = "CanSendString";
             const int noFrames = 240;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
-            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CapturedAndQuit(screenBuffers[0].Buffer, screenBuffers[0].X, screenBuffers[0].Y, screenBuffers[0].W, screenBuffers[0].H, noFrames, expectedFrameName));
+            Setup(gameDirectory, noFrames, expectedFrameName);
             await WaitForFrame(10);
             _wrapper.EnqueueGameEvent(new SendString("\r"));
             _wrapper.EnqueueGameEvent(new SendString("AbcdEFg"));
@@ -199,9 +204,9 @@ namespace DotNetScummTests
         {
             Cropping = new Rectangle(55, 78, 30, 9);
             const string expectedFrameName = "CanSendDownArrow";
-            const int noFrames = 125;
+            const int noFrames = 200;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
-            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CapturedAndQuit(screenBuffers[0].Buffer, screenBuffers[0].X, screenBuffers[0].Y, screenBuffers[0].W, screenBuffers[0].H, noFrames, expectedFrameName));
+            Setup(gameDirectory, noFrames, expectedFrameName);
             await WaitForFrame(10);
             _wrapper.EnqueueGameEvent(new SendString("\r"));
             _wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.ArrowDown));
@@ -211,34 +216,32 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanSendUp()
         {
-            Cropping = null;
-            Cropping = new Rectangle(0, 0, 320, 41);
-            const string expectedFrameName = "CanSendUp";
-            const int noFrames = 400;
+			Cropping = new Rectangle(21, 43, 20, 20);
+			const string expectedFrameName = "CanSendUp";
+            const int noFrames = 1100;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
-            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CapturedAndQuit(screenBuffers[0].Buffer, screenBuffers[0].X, screenBuffers[0].Y, screenBuffers[0].W, screenBuffers[0].H, noFrames, expectedFrameName));
-            await WaitForFrame(10);
+            Setup(gameDirectory, noFrames, expectedFrameName);
+            await WaitForFrame(300);
             _wrapper.EnqueueGameEvent(new SendString("\r"));
-            _wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.ArrowUp));
-            await WaitForFrame(100);
+            await WaitForFrame(430);
+			_wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.ArrowUp));
 
-            await CheckForExpectedFrame(expectedFrameName, noFrames);
+			await CheckForExpectedFrame(expectedFrameName, noFrames);
         }
 
         [TestMethod]
         public async Task CanSendLeft()
         {
-            Cropping = null;
             //Cropping = new Rectangle(0, 8,320, 42);
             const string expectedFrameName = "CanSendLeft";
-            const int noFrames = 300;
+            const int noFrames = 470;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
-            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CapturedAndQuit(screenBuffers[0].Buffer, screenBuffers[0].X, screenBuffers[0].Y, screenBuffers[0].W, screenBuffers[0].H, noFrames, expectedFrameName));
-            await WaitForFrame(10);
+            Setup(gameDirectory, noFrames, expectedFrameName);
+            await WaitForFrame(180);
             _wrapper.EnqueueGameEvent(new SendString("\r"));
             await WaitAdditionalFrames(10);
             _wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.Escape));
-            await WaitForFrame(25);
+            await WaitForFrame(300);
             _wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.ArrowLeft));
 
             await Task.Delay(1000);
@@ -252,10 +255,11 @@ namespace DotNetScummTests
         {
             Cropping = new Rectangle(55, 0, 155, 80);
             const string expectedFrameName = "CanSendRight";
-            const int noFrames = 300;
+            const int noFrames = 1000;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
-            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CapturedAndQuit(screenBuffers[0].Buffer, screenBuffers[0].X, screenBuffers[0].Y, screenBuffers[0].W, screenBuffers[0].H, noFrames, expectedFrameName));
-            await WaitForFrame(10);
+            Setup(gameDirectory, noFrames, expectedFrameName);
+			_wrapper.EnqueueGameEvent(new SendMouseMove(100,100)); //Move mouse out of the way
+			await WaitForFrame(180);
             _wrapper.EnqueueGameEvent(new SendString("\r"));
             await WaitAdditionalFrames(10);
             _wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.Escape));
@@ -273,11 +277,11 @@ namespace DotNetScummTests
         {
             Cropping = new Rectangle(86, 83, 138, 18);
             const string expectedFrameName = "CanSendBackspace";
-            const int noFrames = 140;
+            const int noFrames = 500;
 
-            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CapturedAndQuit(screenBuffers[0].Buffer, screenBuffers[0].X, screenBuffers[0].Y, screenBuffers[0].W, screenBuffers[0].H, noFrames, expectedFrameName));
+            Setup(gameDirectory, noFrames, expectedFrameName);
 
-            await WaitForFrame(10);
+            await WaitForFrame(180);
             _wrapper.EnqueueGameEvent(new SendString("\r"));
 
             await WaitAdditionalFrames(10);
@@ -298,9 +302,9 @@ namespace DotNetScummTests
         {
             Cropping = new Rectangle(86, 83, 138, 18);
             const string expectedFrameName = "CanSendBackspace";
-            const int noFrames = 140;
+            const int noFrames = 300;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
-            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CapturedAndQuit(screenBuffers[0].Buffer, screenBuffers[0].X, screenBuffers[0].Y, screenBuffers[0].W, screenBuffers[0].H, noFrames, expectedFrameName));
+            Setup(gameDirectory, noFrames, expectedFrameName);
             await WaitForFrame(10);
             _wrapper.EnqueueGameEvent(new SendString("\r"));
             await WaitAdditionalFrames(10);
@@ -319,14 +323,13 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanSendTab()
         {
-            Cropping = null;
             const string expectedFrameName = "CanSendTab";
-            const int noFrames = 150;
+            const int noFrames = 500;
 
-            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CapturedAndQuit(screenBuffers[0].Buffer, screenBuffers[0].X, screenBuffers[0].Y, screenBuffers[0].W, screenBuffers[0].H, noFrames, expectedFrameName));
-            await WaitForFrame(10);
+            Setup(gameDirectory, noFrames, expectedFrameName);
+            await WaitForFrame(180);
             _wrapper.EnqueueGameEvent(new SendString("\r"));
-            await WaitAdditionalFrames(10);
+            await WaitAdditionalFrames(50);
             _wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.Tab));
 
             await Task.Delay(1000);
@@ -458,12 +461,11 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanClick()
         {
-            Cropping = null;
             const string expectedFrameName = "CanSendEnter";
-            const int noFrames = 200;
+            const int noFrames = 380;
 
-            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CapturedAndQuit(screenBuffers[0].Buffer, screenBuffers[0].X, screenBuffers[0].Y, screenBuffers[0].W, screenBuffers[0].H, noFrames, expectedFrameName));
-            await WaitForFrame(10);
+            Setup(gameDirectory, noFrames, expectedFrameName);
+            await WaitForFrame(180);
             _wrapper.EnqueueGameEvent(new SendMouseClick(ManagedCommon.Enums.Actions.MouseClick.Left, new GetCurrentMousePosition(() => _wrapper.GetCurrentMousePosition())));
 
             await CheckForExpectedFrame(expectedFrameName, noFrames);
@@ -474,7 +476,7 @@ namespace DotNetScummTests
         public async Task CanSave()
         {
             const int noFrames = 1000;
-            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CapturedAndQuit(screenBuffers[0].Buffer, screenBuffers[0].X, screenBuffers[0].Y, screenBuffers[0].W, screenBuffers[0].H, noFrames, "_"));//Not checking against the capture frames
+            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers[0].Buffer, screenBuffers[0].X, screenBuffers[0].Y, screenBuffers[0].W, screenBuffers[0].H, noFrames, "_"));//Not checking against the capture frames
 
             await WaitForFrame(10);
 
@@ -503,17 +505,17 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanRestore()
         {
-            Cropping = new Rectangle(0, 10, 100, 30);
+			Cropping = new Rectangle(0, 20, 100, 30);
             const int noFrames = 1000;
             const string expectedFrameName = "CanRestore";
 
-            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CapturedAndQuit(screenBuffers[0].Buffer, screenBuffers[0].X, screenBuffers[0].Y, screenBuffers[0].W, screenBuffers[0].H, noFrames, expectedFrameName));//Not checking against the capture frames
+            Setup(gameDirectory, noFrames, expectedFrameName);
 
-            await WaitForFrame(10);
+            await WaitForFrame(20);
 
             _wrapper.EnqueueGameEvent(new SendString("\r"));
 
-            await WaitAdditionalFrames(10);
+            await WaitAdditionalFrames(160);
 
             await Restore();
             await CheckForExpectedFrame(expectedFrameName, noFrames);
@@ -547,7 +549,7 @@ namespace DotNetScummTests
             _wrapper.EnqueueGameEvent(new SendString("\r"));
         }
 
-        private async Task CheckForExpectedFrame(string expectedFrameName, int noFrames, int delay = 20000)
+        private async Task CheckForExpectedFrame(string expectedFrameName, int noFrames, int delay = 30000)
         {
             await WaitForExpectedFrameAndQuit(expectedFrameName, noFrames, gameTask, delay);
         }
@@ -569,7 +571,7 @@ namespace DotNetScummTests
             await gameTask;
         }
 
-        protected void CapturedAndQuitWholeFrame(int noFrames, string expectedFrameName)
+        protected void CaptureAndQuitWholeFrame(int noFrames, string expectedFrameName)
         {
             int width = 0, height = 0;
 
