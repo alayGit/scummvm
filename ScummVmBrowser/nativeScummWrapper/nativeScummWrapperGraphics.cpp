@@ -7,7 +7,7 @@ NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_Sen
 	_copyRect = copyRect;
 	_picturePalette = allocatePallette();
 	_cursorPalette = allocatePallette();
-	_wholeScreenBuffer = new byte[DISPLAY_DEFAULT_WIDTH * DISPLAY_DEFAULT_HEIGHT * NO_BYTES_PER_PIXEL];
+	_wholeScreenBuffer = new byte[WHOLE_SCREEN_BUFFER_LENGTH];
 	_wholeScreenBufferNoMouse = new byte[WHOLE_SCREEN_BUFFER_LENGTH];
 
 	_wholeScreenMutex = CreateSemaphore( //Cannot use 'std::mutex due to an iteration issue with CLR
@@ -17,7 +17,6 @@ NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_Sen
 	    NULL);                           // unnamed semaphore
 	_currentPaletteHash = 0;
 	_currentCursorPaletteHash = 0;
-
 	InitScreen();
 }
 
@@ -39,18 +38,14 @@ void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void
 
 		_drawingCommands.push_back(initScreen);
 	}
-	byte *uncompressedBuffer = ScreenUpdated(buf, pitch, x, y, w, h, _picturePalette, IGNORE_COLOR, false);
+	ScreenUpdated(buf, pitch, x, y, w, h, _picturePalette, IGNORE_COLOR, false);
 
-	_drawingCommands.push_back(GetScreenBuffer(uncompressedBuffer, x, y, w, h, _currentPaletteHash));
-
-    delete[] uncompressedBuffer;
+	_drawingCommands.push_back(GetScreenBuffer((byte *)buf, x, y, w, h, _currentPaletteHash));
 
 	if (_cliMouse.x < DISPLAY_DEFAULT_WIDTH && _cliMouse.y < DISPLAY_DEFAULT_WIDTH && _cliMouse.width > 0 && _cliMouse.height > 0) {
 		if (_cliMouse.width > 0 && _cliMouse.height > 0) {
-			byte *uncompressedBuffer = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette, _cliMouse.keyColor, true);
-			_drawingCommands.push_back(GetScreenBuffer(uncompressedBuffer, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _currentCursorPaletteHash));
-
-			delete[] uncompressedBuffer;
+			ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette, _cliMouse.keyColor, true);
+			_drawingCommands.push_back(GetScreenBuffer(_cliMouse.buffer, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _currentCursorPaletteHash));
 		}
 	}
 }
@@ -123,7 +118,7 @@ int16 NativeScummWrapper::NativeScummWrapperGraphics::getWidth() const {
 void NativeScummWrapper::NativeScummWrapperGraphics::setPalette(const byte *colors, uint start, uint num) {
 	populatePalette(_picturePalette, colors, start, num);
 
-	_currentPaletteHash = RememberPalette(_picturePalette, num);
+	_currentPaletteHash = RememberPalette(_picturePalette, NO_COLOURS);
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::grabPalette(byte *colors, uint start, uint num) const {
@@ -139,6 +134,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::unlockScreen() {
 void NativeScummWrapper::NativeScummWrapperGraphics::fillScreen(uint32 col) {
 }
 
+int counter = 0;
 void NativeScummWrapper::NativeScummWrapperGraphics::updateScreen() {
 	if (!_drawingCommands.empty()) {
 
@@ -157,6 +153,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::updateScreen() {
 		}
 		delete[] buffers;
 		_drawingCommands.clear();
+		counter++;
 	}
 }
 
@@ -222,10 +219,8 @@ void NativeScummWrapper::NativeScummWrapperGraphics::warpMouse(int x, int y) {
 			}
 
 			if (shouldSendNewMouseExample) {
-				byte *uncompressedBuffer = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette, _cliMouse.keyColor, true);
-				_drawingCommands.push_back(GetScreenBuffer(uncompressedBuffer, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _currentCursorPaletteHash));
-
-				delete[] uncompressedBuffer;
+				ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette, _cliMouse.keyColor, true);
+				_drawingCommands.push_back(GetScreenBuffer(_cliMouse.buffer, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _currentCursorPaletteHash));
 			}
 		}
 		setCurrentMouseStateToPrevious();
@@ -249,7 +244,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::setMouseCursor(const void *
 void NativeScummWrapper::NativeScummWrapperGraphics::setCursorPalette(const byte *colors, uint start, uint num) {
 	populatePalette(_cursorPalette, colors, start, num);
 
-	_currentCursorPaletteHash = RememberPalette(_cursorPalette, num);
+	_currentCursorPaletteHash = RememberPalette(_cursorPalette, NO_COLOURS);
 }
 
 Graphics::PixelFormat NativeScummWrapper::NativeScummWrapperGraphics::getScreenFormat() const {
@@ -333,11 +328,11 @@ NativeScummWrapper::MouseState NativeScummWrapper::NativeScummWrapperGraphics::g
 byte *NativeScummWrapper::NativeScummWrapperGraphics::GetBlottedBuffer(int x, int y, int w, int h) {
 	byte *unCompressedPictureArray = nullptr;
 
-	int pictureArrayLength = w * h * NO_BYTES_PER_PIXEL;
+	int pictureArrayLength = w * h;
 	unCompressedPictureArray = new byte[pictureArrayLength];
 
 	for (int yCounter = 0; yCounter < h; yCounter++) {
-		memcpy(&unCompressedPictureArray[yCounter * w * NO_BYTES_PER_PIXEL], &_wholeScreenBufferNoMouse[(y * DISPLAY_DEFAULT_WIDTH + x + yCounter * DISPLAY_DEFAULT_WIDTH) * NO_BYTES_PER_PIXEL], w * NO_BYTES_PER_PIXEL);
+		memcpy(&unCompressedPictureArray[yCounter * w], &_wholeScreenBufferNoMouse[(y * DISPLAY_DEFAULT_WIDTH + x + yCounter * DISPLAY_DEFAULT_WIDTH)], w);
 	}
 
 	return unCompressedPictureArray;
@@ -377,53 +372,20 @@ byte *NativeScummWrapper::NativeScummWrapperGraphics::GetWholeScreenBufferRaw(in
 	return cpyWholeScreenBuffer;
 }
 
-byte* NativeScummWrapper::NativeScummWrapperGraphics::ScreenUpdated(const void *buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor *color, byte ignore, bool isMouseUpdate) {
-	byte *pictureArray = nullptr;
-
-	int pictureArrayLength = w * h * NO_BYTES_PER_PIXEL;
-	pictureArray = new byte[pictureArrayLength];
-
-	UpdatePictureBuffer(pictureArray, buf, pitch, x, y, w, h, color, ignore);
+void NativeScummWrapper::NativeScummWrapperGraphics::ScreenUpdated(const void *buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor *color, byte ignore, bool isMouseUpdate) {
 
 	if (!isMouseUpdate) {
-		UpdateWholeScreenBuffer(pictureArray, _wholeScreenBufferNoMouse, x, y, w, h);
+		UpdateWholeScreenBuffer((byte*) buf, _wholeScreenBufferNoMouse, x, y, w, h);
 	}
 
-	UpdateWholeScreenBuffer(pictureArray, _wholeScreenBuffer, x, y, w, h);
-
-	return pictureArray;
-}
-
-void NativeScummWrapper::NativeScummWrapperGraphics::UpdatePictureBuffer(byte *pictureArray, const void *buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor *color, byte ignore) {
-	int currentPixel = 0;
-
-	const unsigned char *bufCounter = static_cast<const unsigned char *>(buf);
-
-	for (int heightCounter = 0; heightCounter < h; heightCounter++, bufCounter = bufCounter + pitch) {
-		for (int widthCounter = 0; widthCounter < w; widthCounter++) {
-			byte palletteReference = *(bufCounter + widthCounter);
-			NativeScummWrapper::PalletteColor currentColor = *(color + palletteReference);
-
-			if (ignore == 255 || palletteReference != ignore) {
-				pictureArray[currentPixel++] = currentColor.r;
-				pictureArray[currentPixel++] = currentColor.g;
-				pictureArray[currentPixel++] = currentColor.b;
-				pictureArray[currentPixel++] = currentColor.a;
-
-			} else {
-				for (int i = 0, wholeScreenBufferCounter = ((y + heightCounter) * DISPLAY_DEFAULT_WIDTH + x + widthCounter) * 4; i < NO_BYTES_PER_PIXEL && wholeScreenBufferCounter < WHOLE_SCREEN_BUFFER_LENGTH; i++) {
-					pictureArray[currentPixel++] = _wholeScreenBufferNoMouse[wholeScreenBufferCounter++];
-				}
-			}
-		}
-	}
+	UpdateWholeScreenBuffer((byte*) buf, _wholeScreenBuffer, x, y, w, h);
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::UpdateWholeScreenBuffer(byte *pictureArray, byte *wholeScreenBuffer, int x, int y, int w, int h) {
 	WaitForSingleObject(_wholeScreenMutex, INFINITE);
 
 	for (int row = 0; row < h; row++) {
-		std::memcpy(&wholeScreenBuffer[((y + row) * DISPLAY_DEFAULT_WIDTH + x) * NO_BYTES_PER_PIXEL], &pictureArray[row * w * NO_BYTES_PER_PIXEL], w * NO_BYTES_PER_PIXEL);
+		std::memcpy(&wholeScreenBuffer[((y + row) * DISPLAY_DEFAULT_WIDTH + x)], &pictureArray[row * w], w);
 	}
 
 	ReleaseSemaphore(_wholeScreenMutex, 1, NULL);
@@ -431,7 +393,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::UpdateWholeScreenBuffer(byt
 
 NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics::GetScreenBuffer(const void *buf, int x, int y, int w, int h, uint32 paletteHash) {
 	NativeScummWrapper::ScreenBuffer screenBuffer;
-	screenBuffer.buffer = (byte *)ZLibCompression::ZLibCompression().Compress((byte *)buf, w * h * NO_BYTES_PER_PIXEL, screenBuffer.length);
+	screenBuffer.buffer = (byte *)ZLibCompression::ZLibCompression().Compress((byte *)buf, w * h, screenBuffer.length);
 	screenBuffer.x = x;
 	screenBuffer.y = y;
 	screenBuffer.h = h;
@@ -440,7 +402,7 @@ NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics:
 	screenBuffer.compressedPalletteLength = 0;
 	if (!palettesSeen[paletteHash])
 	{
-		screenBuffer.compressedPalette = (byte *)ZLibCompression::ZLibCompression().Compress((byte *)palettes[paletteHash].c_str(), NO_BYTES_PER_PIXEL * NO_DIGITS_IN_PALETTE_VALUE * NO_COLOURS, screenBuffer.compressedPalletteLength);
+		screenBuffer.compressedPalette = (byte *)ZLibCompression::ZLibCompression().Compress((byte *)palettes[paletteHash].c_str(), NO_DIGITS_IN_PALETTE_VALUE * NO_COLOURS, screenBuffer.compressedPalletteLength);
 	}
 	screenBuffer.paletteHash = paletteHash;
 	palettesSeen[paletteHash] = true;
@@ -449,7 +411,7 @@ NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics:
 }
 
 uint32 NativeScummWrapper::NativeScummWrapperGraphics::RememberPalette(PalletteColor* pallette, int length) {
-	std::string paletteString = NativeScummWrapper::GetPalettesAsString(_picturePalette, length);
+	std::string paletteString = NativeScummWrapper::GetPalettesAsString(pallette, length);
 	std::hash<std::string> str_hash;
 
 	uint32 paletteHash = std::hash<std::string>()(paletteString);
@@ -460,13 +422,6 @@ uint32 NativeScummWrapper::NativeScummWrapperGraphics::RememberPalette(PalletteC
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::InitScreen() {
-	for (int i = 0; i < WHOLE_SCREEN_BUFFER_LENGTH; i++) {
-		if ((i + 1) % 4 == 0) {
-			_wholeScreenBuffer[i] = 255;
-			_wholeScreenBufferNoMouse[i] = 255;
-		} else {
-			_wholeScreenBuffer[i] = 0;
-			_wholeScreenBufferNoMouse[i] = 0;
-		}
-	}
+	memset(_wholeScreenBuffer, 0, WHOLE_SCREEN_BUFFER_LENGTH);
+	memset(_wholeScreenBufferNoMouse, 0, WHOLE_SCREEN_BUFFER_LENGTH);
 }

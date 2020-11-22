@@ -40,7 +40,7 @@ RandomSource::RandomSource(const String &name) {
 }
 
 void RandomSource::setSeed(uint32 seed) {
-	_randSeed = seed;
+	_randSeed = 33; //TODO Put in proper seeding
 }
 
 uint RandomSource::getRandomNumber(uint max) {

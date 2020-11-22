@@ -48,13 +48,7 @@ namespace DotNetScummTests
 			_saveData = new ConcurrentDictionary<string, byte[]>();
 			_wrapper = new Wrapper(new JsonConfigStore());
 
-			_wrapper.OnCopyRectToScreen += (List<ScreenBuffer> l) => copyRectToScreen(
-				l.Select(d => new ScreenBuffer()
-				    {
-						Buffer = managedZLibCompression.Decompress(d.Buffer), H = d.H, W = d.W, X = d.X, Y = d.Y
-					}
-		      ).ToList()
-			);
+			_wrapper.OnCopyRectToScreen += (List<ScreenBuffer> l) => copyRectToScreen(l);
 
             _wrapper.OnSaveData += (byte[] data, string fileName) => {
                 _saveData[fileName] = data;
@@ -99,6 +93,7 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanSendEnter()
         {
+			Cropping = null;
             const string expectedFrameName = "CanSendEnter";
             const int noFrames = 150;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
@@ -476,9 +471,9 @@ namespace DotNetScummTests
         public async Task CanSave()
         {
             const int noFrames = 1000;
-            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers[0].Buffer, screenBuffers[0].X, screenBuffers[0].Y, screenBuffers[0].W, screenBuffers[0].H, noFrames, "_"));//Not checking against the capture frames
+			Setup(gameDirectory, noFrames, "_");//Not checking against the capture frames
 
-            await WaitForFrame(10);
+			await WaitForFrame(10);
 
             _wrapper.EnqueueGameEvent(new SendString("\r"));
             _wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.ArrowLeft));
@@ -575,7 +570,7 @@ namespace DotNetScummTests
         {
             int width = 0, height = 0;
 
-            base.CaptureAndQuitWholeFrame(new ManagedZLibCompression.ManagedZLibCompression().Decompress(_wrapper.GetWholeScreen(ref width, ref height)), 0, 0, width, height, noFrames, expectedFrameName);
+            base.CaptureAndQuitWholeFrame(new ManagedZLibCompression.ManagedZLibCompression().Decompress(_wrapper.GetWholeScreen(ref width, ref height)), 0, 0, 0, width, height, noFrames, expectedFrameName); //TODO Proper PaletteHash
         }
     }
 }

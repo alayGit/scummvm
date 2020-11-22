@@ -142,7 +142,7 @@ void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(NativeScummWrapper::ScreenB
 
 	for (int i = 0; i < length; i++) {
 		ScreenBuffer ^ managedBuffer = gcnew ScreenBuffer();
-		managedBuffer->Buffer = MarshalByteBuffer(unmanagedScreenBuffers[i].buffer, unmanagedScreenBuffers[i].length);
+		managedBuffer->CompressedBuffer = MarshalByteBuffer(unmanagedScreenBuffers[i].buffer, unmanagedScreenBuffers[i].length);
 		managedBuffer->H = unmanagedScreenBuffers[i].h;
 		managedBuffer->W = unmanagedScreenBuffers[i].w;
 		managedBuffer->X = unmanagedScreenBuffers[i].x;

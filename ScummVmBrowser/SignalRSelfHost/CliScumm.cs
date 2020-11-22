@@ -208,7 +208,7 @@ namespace SignalRSelfHost
             ScreenBuffer result = new ScreenBuffer();
             int width = 0, height = 0;
 
-            result.Buffer = _wrapper.GetWholeScreen(ref width, ref height);
+            result.CompressedBuffer = _wrapper.GetWholeScreen(ref width, ref height);
             result.W = width;
             result.H = height;
 
