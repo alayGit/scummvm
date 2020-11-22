@@ -19,5 +19,7 @@ namespace ManagedCommon.Interfaces
         public int W { get; set; }
         public int H { get; set; }
         public byte[] Buffer { get; set; }
+		public byte[] CompressedPaletteBuffer { get; set; }
+		public uint PaletteHash { get; set; }
     }
 }

@@ -23,13 +23,11 @@
 
 #include <windows.h>
 #include "scummVm.h"
-#include "palletteColor.h"
 #include "mouseState.h"
 #include <functional>
 #include <vector>
 #include "./ScummVmBrowser/ZLibCompression/ZLibCompression.h"
-
-#include "C:\\scumm\\ScummVmBrowser\\LaunchDebugger\\LaunchDebugger.h"
+#include "common.h"
 
 class NativeScummWrapperEvents;
 
@@ -42,24 +40,10 @@ class NativeScummWrapperEvents;
  * Base class for a SDL based graphics manager.
  */
 
-#define DISPLAY_DEFAULT_WIDTH 320
-#define DISPLAY_DEFAULT_HEIGHT 200
-#define DISPLAY_DEFAULT_SIZE 6400
-#define NO_BYTES_PER_PIXEL 4
-
 namespace NativeScummWrapper {
 
 	const int WHOLE_SCREEN_BUFFER_LENGTH = DISPLAY_DEFAULT_WIDTH * DISPLAY_DEFAULT_HEIGHT * NO_BYTES_PER_PIXEL;
-
-	struct ScreenBuffer {
-	    int x;
-	    int y;
-	    int w;
-	    int h;
-	    int length;
-	    byte *buffer;
-    };
-
+	
 	typedef void(__stdcall *f_SendScreenBuffers)(ScreenBuffer*, int);
 
 
@@ -134,10 +118,15 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 	    byte* ScreenUpdated(const void *buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor *color, byte ignore, bool isMouseUpdate);
 	    void UpdatePictureBuffer(byte *pictureArray, const void *buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor *color, byte ignore);
 	    void UpdateWholeScreenBuffer(byte *pictureArray, byte *wholeScreenBuffer, int x, int y, int w, int h);
-	    ScreenBuffer GetScreenBuffer(const void *buf, int x, int y, int w, int h);
+	    ScreenBuffer GetScreenBuffer(const void *buf, int x, int y, int w, int h, uint32 paletteHash);
+	    uint32 RememberPalette(PalletteColor* palette, int length);
 	    void InitScreen();
 	    byte *_wholeScreenBuffer;
 	    byte *_wholeScreenBufferNoMouse;
 	    HANDLE _wholeScreenMutex;
+	    std::unordered_map<int, std::string> palettes;
+	    std::unordered_map<int, bool> palettesSeen;
+	    uint32 _currentPaletteHash;
+	    uint32 _currentCursorPaletteHash;
 	};
 } // namespace NativeScummWrapper

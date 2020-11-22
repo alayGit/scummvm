@@ -131,11 +131,9 @@ Common::String CLIScumm::Wrapper::GetGamePath(AvailableGames game) {
 	return Utilities::Converters::ManagedStringToCommonString(_configureStore->GetValue(game));
 }
 
-array<byte> ^ CLIScumm::Wrapper::MarshalBuffer(byte *buffer, int length) {
-
+array<byte> ^ CLIScumm::Wrapper::MarshalByteBuffer(byte *buffer, int length) {
 	cli::array<byte> ^ managedCompressedWholeScreenBuffer = gcnew cli::array<byte>(length);
 	Marshal::Copy((System::IntPtr)buffer, managedCompressedWholeScreenBuffer, 0, length);
-
 	return managedCompressedWholeScreenBuffer;
 }
 
@@ -144,11 +142,13 @@ void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(NativeScummWrapper::ScreenB
 
 	for (int i = 0; i < length; i++) {
 		ScreenBuffer ^ managedBuffer = gcnew ScreenBuffer();
-		managedBuffer->Buffer = MarshalBuffer(unmanagedScreenBuffers[i].buffer, unmanagedScreenBuffers[i].length);
+		managedBuffer->Buffer = MarshalByteBuffer(unmanagedScreenBuffers[i].buffer, unmanagedScreenBuffers[i].length);
 		managedBuffer->H = unmanagedScreenBuffers[i].h;
 		managedBuffer->W = unmanagedScreenBuffers[i].w;
 		managedBuffer->X = unmanagedScreenBuffers[i].x;
 		managedBuffer->Y = unmanagedScreenBuffers[i].y;
+		managedBuffer->CompressedPaletteBuffer = unmanagedScreenBuffers[i].compressedPalette != nullptr ? MarshalByteBuffer(unmanagedScreenBuffers[i].compressedPalette, unmanagedScreenBuffers[i].compressedPalletteLength) : nullptr;
+		managedBuffer->PaletteHash = unmanagedScreenBuffers[i].paletteHash;
 
 		managedScreenScreenBuffers->Add(managedBuffer);
 	}
@@ -252,7 +252,7 @@ array<Byte> ^ CLIScumm::Wrapper::GetWholeScreen(int % width, int % height) {
 		width = unmanagedWidth;
 		height = unmanagedHeight;
 
-		return MarshalBuffer(compressedWholeScreenBuffer, bufferSize);
+		return MarshalByteBuffer(compressedWholeScreenBuffer, bufferSize);
 
 	} finally {
 

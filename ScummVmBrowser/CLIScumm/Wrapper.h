@@ -71,7 +71,7 @@ namespace CLIScumm {
 	    void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(NativeScummWrapper::ScreenBuffer *unmanagedScreenBuffers, int length);
 		ConcurrentQueue<IGameEvent^>^ eventQueue;
 		delegate void delCopyRectToScreen(NativeScummWrapper::ScreenBuffer*, int length);
-	    array<byte>^ MarshalBuffer(byte *buffer, int length);
+	    array<byte>^ MarshalByteBuffer(byte *buffer, int length);
 		delegate bool delPollEvent(Common::Event& event);
 		delegate bool delSaveData(byte* saveData, int, Common::String fileName);
 		delegate void delPlaySound(byte* buffer, int size, void* user);

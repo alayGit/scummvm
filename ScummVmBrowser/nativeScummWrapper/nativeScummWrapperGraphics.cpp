@@ -1,9 +1,6 @@
 #define FORBIDDEN_SYMBOL_ALLOW_ALL
 #include "nativeScummWrapperGraphics.h"
 
-#define DISPLAY_DEFAULT_WIDTH 320
-#define DISPLAY_DEFAULT_HEIGHT 200
-#define NO_COLOURS 256
 #define IGNORE_COLOR 255
 
 NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_SendScreenBuffers copyRect) : GraphicsManager() {
@@ -18,6 +15,8 @@ NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_Sen
 	    1,                               // initial count
 	    1,                               // maximum count
 	    NULL);                           // unnamed semaphore
+	_currentPaletteHash = 0;
+	_currentCursorPaletteHash = 0;
 
 	InitScreen();
 }
@@ -36,20 +35,20 @@ void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void
 		int _;
 		byte *compressedWholeScreenBuffer = GetWholeScreenBufferRaw(_, _, _);
 
-		ScreenBuffer initScreen = GetScreenBuffer(compressedWholeScreenBuffer, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT);
+		ScreenBuffer initScreen = GetScreenBuffer(compressedWholeScreenBuffer, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT, _currentPaletteHash);
 
 		_drawingCommands.push_back(initScreen);
 	}
 	byte *uncompressedBuffer = ScreenUpdated(buf, pitch, x, y, w, h, _picturePalette, IGNORE_COLOR, false);
 
-	_drawingCommands.push_back(GetScreenBuffer(uncompressedBuffer, x, y, w, h));
+	_drawingCommands.push_back(GetScreenBuffer(uncompressedBuffer, x, y, w, h, _currentPaletteHash));
 
     delete[] uncompressedBuffer;
 
 	if (_cliMouse.x < DISPLAY_DEFAULT_WIDTH && _cliMouse.y < DISPLAY_DEFAULT_WIDTH && _cliMouse.width > 0 && _cliMouse.height > 0) {
 		if (_cliMouse.width > 0 && _cliMouse.height > 0) {
 			byte *uncompressedBuffer = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette, _cliMouse.keyColor, true);
-			_drawingCommands.push_back(GetScreenBuffer(uncompressedBuffer, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height));
+			_drawingCommands.push_back(GetScreenBuffer(uncompressedBuffer, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _currentCursorPaletteHash));
 
 			delete[] uncompressedBuffer;
 		}
@@ -123,6 +122,8 @@ int16 NativeScummWrapper::NativeScummWrapperGraphics::getWidth() const {
 
 void NativeScummWrapper::NativeScummWrapperGraphics::setPalette(const byte *colors, uint start, uint num) {
 	populatePalette(_picturePalette, colors, start, num);
+
+	_currentPaletteHash = RememberPalette(_picturePalette, num);
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::grabPalette(byte *colors, uint start, uint num) const {
@@ -148,6 +149,11 @@ void NativeScummWrapper::NativeScummWrapperGraphics::updateScreen() {
 
 		for (int i = 0; i < _drawingCommands.size(); i++) {
 			delete[] _drawingCommands.at(i).buffer;
+
+			if (_drawingCommands.at(i).compressedPalette != nullptr)
+			{
+				delete[] _drawingCommands.at(i).compressedPalette;
+			}
 		}
 		delete[] buffers;
 		_drawingCommands.clear();
@@ -210,14 +216,14 @@ void NativeScummWrapper::NativeScummWrapperGraphics::warpMouse(int x, int y) {
 
 			if (shouldBlot) {
 				byte *uncompressedBuffer = GetBlottedBuffer(_cliMouse.prevX, _cliMouse.prevY, _cliMouse.prevW, _cliMouse.prevH);
-				_drawingCommands.push_back(GetScreenBuffer(uncompressedBuffer, _cliMouse.prevX, _cliMouse.prevY, _cliMouse.prevW, _cliMouse.prevH));
+				_drawingCommands.push_back(GetScreenBuffer(uncompressedBuffer, _cliMouse.prevX, _cliMouse.prevY, _cliMouse.prevW, _cliMouse.prevH, _currentPaletteHash));
 
 				delete[] uncompressedBuffer;
 			}
 
 			if (shouldSendNewMouseExample) {
 				byte *uncompressedBuffer = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette, _cliMouse.keyColor, true);
-				_drawingCommands.push_back(GetScreenBuffer(uncompressedBuffer, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height));
+				_drawingCommands.push_back(GetScreenBuffer(uncompressedBuffer, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _currentCursorPaletteHash));
 
 				delete[] uncompressedBuffer;
 			}
@@ -242,6 +248,8 @@ void NativeScummWrapper::NativeScummWrapperGraphics::setMouseCursor(const void *
 
 void NativeScummWrapper::NativeScummWrapperGraphics::setCursorPalette(const byte *colors, uint start, uint num) {
 	populatePalette(_cursorPalette, colors, start, num);
+
+	_currentCursorPaletteHash = RememberPalette(_cursorPalette, num);
 }
 
 Graphics::PixelFormat NativeScummWrapper::NativeScummWrapperGraphics::getScreenFormat() const {
@@ -421,15 +429,34 @@ void NativeScummWrapper::NativeScummWrapperGraphics::UpdateWholeScreenBuffer(byt
 	ReleaseSemaphore(_wholeScreenMutex, 1, NULL);
 }
 
-NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics::GetScreenBuffer(const void *buf, int x, int y, int w, int h) {
+NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics::GetScreenBuffer(const void *buf, int x, int y, int w, int h, uint32 paletteHash) {
 	NativeScummWrapper::ScreenBuffer screenBuffer;
 	screenBuffer.buffer = (byte *)ZLibCompression::ZLibCompression().Compress((byte *)buf, w * h * NO_BYTES_PER_PIXEL, screenBuffer.length);
 	screenBuffer.x = x;
 	screenBuffer.y = y;
 	screenBuffer.h = h;
 	screenBuffer.w = w;
+	screenBuffer.compressedPalette = nullptr;
+	screenBuffer.compressedPalletteLength = 0;
+	if (!palettesSeen[paletteHash])
+	{
+		screenBuffer.compressedPalette = (byte *)ZLibCompression::ZLibCompression().Compress((byte *)palettes[paletteHash].c_str(), NO_BYTES_PER_PIXEL * NO_DIGITS_IN_PALETTE_VALUE * NO_COLOURS, screenBuffer.compressedPalletteLength);
+	}
+	screenBuffer.paletteHash = paletteHash;
+	palettesSeen[paletteHash] = true;
 
 	return screenBuffer;
+}
+
+uint32 NativeScummWrapper::NativeScummWrapperGraphics::RememberPalette(PalletteColor* pallette, int length) {
+	std::string paletteString = NativeScummWrapper::GetPalettesAsString(_picturePalette, length);
+	std::hash<std::string> str_hash;
+
+	uint32 paletteHash = std::hash<std::string>()(paletteString);
+
+	palettes.emplace(paletteHash, paletteString); //Doesn't matter if it already exists we are just overwritting with the same value anyway
+
+	return paletteHash;
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::InitScreen() {
