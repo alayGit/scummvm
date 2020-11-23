@@ -1,7 +1,8 @@
 #define FORBIDDEN_SYMBOL_ALLOW_ALL
 #include "nativeScummWrapperGraphics.h"
 
-#define IGNORE_COLOR 255
+#define IGNORE_COLOR 1
+#define DO_NOT_IGNORE_ANY_COLOR -1
 
 NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_SendScreenBuffers copyRect) : GraphicsManager() {
 	_copyRect = copyRect;
@@ -34,19 +35,19 @@ void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void
 		int _;
 		byte *compressedWholeScreenBuffer = GetWholeScreenBufferRaw(_, _, _);
 
-		ScreenBuffer initScreen = GetScreenBuffer(compressedWholeScreenBuffer, DISPLAY_DEFAULT_WIDTH, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT, _currentPaletteHash);
+		ScreenBuffer initScreen = GetScreenBuffer(compressedWholeScreenBuffer, DISPLAY_DEFAULT_WIDTH, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT, _currentPaletteHash, false);
 
 		_drawingCommands.push_back(initScreen);
 	}
 
-	byte* uncompressedpictureArray = ScreenUpdated(buf, pitch, x, y, w, h, _picturePalette, IGNORE_COLOR, false);
-	_drawingCommands.push_back(GetScreenBuffer((byte *)uncompressedpictureArray, pitch, x, y, w, h, _currentPaletteHash));
+	byte* uncompressedpictureArray = ScreenUpdated(buf, pitch, x, y, w, h, false);
+	_drawingCommands.push_back(GetScreenBuffer((byte *)uncompressedpictureArray, pitch, x, y, w, h, _currentPaletteHash, false));
 	delete[] uncompressedpictureArray;
 
 	if (_cliMouse.x < DISPLAY_DEFAULT_WIDTH && _cliMouse.y < DISPLAY_DEFAULT_WIDTH && _cliMouse.width > 0 && _cliMouse.height > 0) {
 		if (_cliMouse.width > 0 && _cliMouse.height > 0) {
-			uncompressedpictureArray = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette, _cliMouse.keyColor, true);
-			_drawingCommands.push_back(GetScreenBuffer(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _currentCursorPaletteHash));
+			uncompressedpictureArray = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette);
+			_drawingCommands.push_back(GetScreenBuffer(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _currentCursorPaletteHash, true));
 			delete[] uncompressedpictureArray;
 		}
 	}
@@ -214,14 +215,14 @@ void NativeScummWrapper::NativeScummWrapperGraphics::warpMouse(int x, int y) {
 
 			if (shouldBlot) {
 				byte *uncompressedBuffer = GetBlottedBuffer(_cliMouse.prevX, _cliMouse.prevY, _cliMouse.prevW, _cliMouse.prevH);
-				_drawingCommands.push_back(GetScreenBuffer(uncompressedBuffer, _cliMouse.fullWidth, _cliMouse.prevX, _cliMouse.prevY, _cliMouse.prevW, _cliMouse.prevH, _currentPaletteHash));
+				_drawingCommands.push_back(GetScreenBuffer(uncompressedBuffer, _cliMouse.fullWidth, _cliMouse.prevX, _cliMouse.prevY, _cliMouse.prevW, _cliMouse.prevH, _currentPaletteHash, false));
 
 				delete[] uncompressedBuffer;
 			}
 
 			if (shouldSendNewMouseExample) {
-				byte* unCompressedPictureUpdate = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette, _cliMouse.keyColor, true);
-				_drawingCommands.push_back(GetScreenBuffer(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _currentCursorPaletteHash));
+				byte* unCompressedPictureUpdate = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette);
+				_drawingCommands.push_back(GetScreenBuffer(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _currentCursorPaletteHash, true));
 				delete unCompressedPictureUpdate;
 			}
 		}
@@ -374,13 +375,13 @@ byte *NativeScummWrapper::NativeScummWrapperGraphics::GetWholeScreenBufferRaw(in
 	return cpyWholeScreenBuffer;
 }
 
-byte *NativeScummWrapper::NativeScummWrapperGraphics::ScreenUpdated(const void *buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor *color, byte ignore, bool isMouseUpdate) {
+byte *NativeScummWrapper::NativeScummWrapperGraphics::ScreenUpdated(const void *buf, int pitch, int x, int y, int w, int h, bool isMouseUpdate) {
 	byte *pictureArray = nullptr;
 
 	int pictureArrayLength = w * h;
 	pictureArray = new byte[pictureArrayLength];
 
-	UpdatePictureBuffer(pictureArray, buf, pitch, x, y, w, h, color, ignore);
+	UpdatePictureBuffer(pictureArray, buf, pitch, x, y, w, h);
 
 	if (!isMouseUpdate) {
 		UpdateWholeScreenBuffer(pictureArray, _wholeScreenBufferNoMouse, x, y, w, h);
@@ -391,7 +392,7 @@ byte *NativeScummWrapper::NativeScummWrapperGraphics::ScreenUpdated(const void *
 	return pictureArray;
 }
 
-void NativeScummWrapper::NativeScummWrapperGraphics::UpdatePictureBuffer(byte *pictureArray, const void *buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor *color, byte ignore) {
+void NativeScummWrapper::NativeScummWrapperGraphics::UpdatePictureBuffer(byte *pictureArray, const void *buf, int pitch, int x, int y, int w, int h) {
 	int currentPixel = 0;
 
 	const unsigned char *bufCounter = static_cast<const unsigned char *>(buf);
@@ -401,6 +402,8 @@ void NativeScummWrapper::NativeScummWrapperGraphics::UpdatePictureBuffer(byte *p
 			byte palletteReference = *(bufCounter + widthCounter);
 			pictureArray[currentPixel++] = palletteReference;
 		}
+
+		//memcpy(pictureArray + (heightCounter * pitch), bufCounter, w);
 	}
 }
 
@@ -414,10 +417,10 @@ void NativeScummWrapper::NativeScummWrapperGraphics::UpdateWholeScreenBuffer(byt
 	ReleaseSemaphore(_wholeScreenMutex, 1, NULL);
 }
 
-NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics::GetScreenBuffer(const void *buf, int pitch, int x, int y, int w, int h, uint32 paletteHash) {
+NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics::GetScreenBuffer(const void *buf, int pitch, int x, int y, int w, int h, uint32 paletteHash, bool isMouseUpdate) {
 	NativeScummWrapper::ScreenBuffer screenBuffer;
 	screenBuffer.buffer = (byte *)ZLibCompression::ZLibCompression().Compress((byte *)buf, w * h, screenBuffer.length);
-	screenBuffer.pitch = pitch;
+	screenBuffer.ignoreColour = isMouseUpdate ? IGNORE_COLOR: DO_NOT_IGNORE_ANY_COLOR;
 	screenBuffer.x = x;
 	screenBuffer.y = y;
 	screenBuffer.h = h;

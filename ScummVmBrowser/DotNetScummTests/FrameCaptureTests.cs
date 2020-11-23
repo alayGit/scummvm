@@ -158,7 +158,7 @@ namespace DotNetScummTests
 		}
 
 		static int counter = 0;
-		protected unsafe virtual void CaptureAndQuit(byte[] picBuff, int pitch, UInt32 paletteHash, int x, int y, int w, int h, int noFrames, string expectedFrameName)
+		protected unsafe virtual void CaptureAndQuit(byte[] picBuff, int ignoreColour, UInt32 paletteHash, int x, int y, int w, int h, int noFrames, string expectedFrameName)
 		{
 			BitmapData bitmapData = null;
 			try
@@ -173,11 +173,15 @@ namespace DotNetScummTests
 						for (int widthCounter = 0; widthCounter < w; widthCounter++, byteNo++)
 						{
 							byte[] colourComponents = _palettes[paletteHash][picBuff[byteNo]];
-							byte* data = scan0 + heightCounter * bitmapData.Stride + widthCounter * 4;
-							*(data + (int)ARBG.A) = colourComponents[0];
-							*(data + (int)ARBG.R) = colourComponents[1];
-							*(data + (int)ARBG.G) = colourComponents[2];
-							*(data + (int)ARBG.B) = colourComponents[3];
+
+							if (picBuff[byteNo] != ignoreColour)
+							{
+								byte* data = scan0 + heightCounter * bitmapData.Stride + widthCounter * 4;
+								*(data + (int)ARBG.A) = colourComponents[0];
+								*(data + (int)ARBG.R) = colourComponents[1];
+								*(data + (int)ARBG.G) = colourComponents[2];
+								*(data + (int)ARBG.B) = colourComponents[3];
+							}
 						}
 					}
 					CaptureAndQuit(_b, noFrames, expectedFrameName);
@@ -225,7 +229,7 @@ namespace DotNetScummTests
 
 			foreach (ScreenBuffer screenBuffer in screenBuffers)
 			{
-				CaptureAndQuit(compression.Decompress(screenBuffer.CompressedBuffer), screenBuffer.Pitch, screenBuffer.PaletteHash, screenBuffer.X, screenBuffer.Y, screenBuffer.W, screenBuffer.H, noFrames, expectedFrameName);
+				CaptureAndQuit(compression.Decompress(screenBuffer.CompressedBuffer), screenBuffer.IgnoreColour, screenBuffer.PaletteHash, screenBuffer.X, screenBuffer.Y, screenBuffer.W, screenBuffer.H, noFrames, expectedFrameName);
 			}
 		}
 

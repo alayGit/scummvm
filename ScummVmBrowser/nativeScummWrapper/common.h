@@ -28,7 +28,7 @@ struct ScreenBuffer {
 	int w;
 	int h;
 	int length;
-	int pitch;
+	int ignoreColour;
 	byte *buffer;
 	uint32 paletteHash;
 	byte* compressedPalette;
