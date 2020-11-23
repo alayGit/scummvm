@@ -28,7 +28,7 @@ struct ScreenBuffer {
 	int w;
 	int h;
 	int length;
-	DrawingCommand command;
+	int pitch;
 	byte *buffer;
 	uint32 paletteHash;
 	byte* compressedPalette;

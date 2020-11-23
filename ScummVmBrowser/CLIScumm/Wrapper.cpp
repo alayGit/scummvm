@@ -149,6 +149,7 @@ void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(NativeScummWrapper::ScreenB
 		managedBuffer->Y = unmanagedScreenBuffers[i].y;
 		managedBuffer->CompressedPaletteBuffer = unmanagedScreenBuffers[i].compressedPalette != nullptr ? MarshalByteBuffer(unmanagedScreenBuffers[i].compressedPalette, unmanagedScreenBuffers[i].compressedPalletteLength) : nullptr;
 		managedBuffer->PaletteHash = unmanagedScreenBuffers[i].paletteHash;
+		managedBuffer->Pitch = unmanagedScreenBuffers[i].pitch;
 
 		managedScreenScreenBuffers->Add(managedBuffer);
 	}

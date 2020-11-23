@@ -176,7 +176,7 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanSendString()
         {
-            Cropping = new Rectangle(78, 86, 32, 14);
+			Cropping = null;
             const string expectedFrameName = "CanSendString";
             const int noFrames = 240;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_

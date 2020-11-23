@@ -154,11 +154,11 @@ namespace DotNetScummTests
 		protected virtual void CaptureAndQuitWholeFrame(byte[] picBuff, UInt32 paletteHash, int x, int y, int w, int h, int noFrames, string expectedFrameName)
 		{
 			_b = new Bitmap(DisplayDefaultWidth, DisplayDefaultHeight);
-			CaptureAndQuit(picBuff, paletteHash, x, y, w, h, noFrames, expectedFrameName);
+			CaptureAndQuit(picBuff, DisplayDefaultWidth, paletteHash, x, y, w, h, noFrames, expectedFrameName);
 		}
 
 		static int counter = 0;
-		protected unsafe virtual void CaptureAndQuit(byte[] picBuff, UInt32 paletteHash, int x, int y, int w, int h, int noFrames, string expectedFrameName)
+		protected unsafe virtual void CaptureAndQuit(byte[] picBuff, int pitch, UInt32 paletteHash, int x, int y, int w, int h, int noFrames, string expectedFrameName)
 		{
 			BitmapData bitmapData = null;
 			try
@@ -225,7 +225,7 @@ namespace DotNetScummTests
 
 			foreach (ScreenBuffer screenBuffer in screenBuffers)
 			{
-				CaptureAndQuit(compression.Decompress(screenBuffer.CompressedBuffer), screenBuffer.PaletteHash, screenBuffer.X, screenBuffer.Y, screenBuffer.W, screenBuffer.H, noFrames, expectedFrameName);
+				CaptureAndQuit(compression.Decompress(screenBuffer.CompressedBuffer), screenBuffer.Pitch, screenBuffer.PaletteHash, screenBuffer.X, screenBuffer.Y, screenBuffer.W, screenBuffer.H, noFrames, expectedFrameName);
 			}
 		}
 
