@@ -93,7 +93,6 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanSendEnter()
         {
-			Cropping = null;
             const string expectedFrameName = "CanSendEnter";
             const int noFrames = 150;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
@@ -176,9 +175,8 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanSendString()
         {
-			Cropping = null;
             const string expectedFrameName = "CanSendString";
-            const int noFrames = 240;
+            const int noFrames = 300;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
             Setup(gameDirectory, noFrames, expectedFrameName);
             await WaitForFrame(10);
@@ -428,7 +426,7 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CursorCropsFarRight()
         {
-            Cropping = new Rectangle(300, 15, 20, 55);
+			Cropping = new Rectangle(300, 15, 20, 55);
             const string expectedFrameName = "CursorCropsFarRight";
             const int noFrames = 100;
 

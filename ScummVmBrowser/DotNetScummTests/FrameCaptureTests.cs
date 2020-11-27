@@ -174,9 +174,12 @@ namespace DotNetScummTests
 						{
 							byte[] colourComponents = _palettes[paletteHash][picBuff[byteNo]];
 
-							if (picBuff[byteNo] != ignoreColour)
+							
+
+							if (picBuff[byteNo] != ignoreColour || ignoreColour == -1)
 							{
 								byte* data = scan0 + heightCounter * bitmapData.Stride + widthCounter * 4;
+
 								*(data + (int)ARBG.A) = colourComponents[0];
 								*(data + (int)ARBG.R) = colourComponents[1];
 								*(data + (int)ARBG.G) = colourComponents[2];
