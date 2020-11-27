@@ -123,7 +123,6 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 	    ScreenBuffer GetMouseScreenBuffer();
 		uint32 RememberPalette(PalletteColor* palette, int length);
 	    void InitScreen();
-	    byte *_wholeScreenBuffer;
 	    byte *_wholeScreenBufferNoMouse;
 	    HANDLE _wholeScreenMutex;
 	    std::unordered_map<int, std::string> palettes;

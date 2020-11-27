@@ -8,7 +8,6 @@ NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_Sen
 	_copyRect = copyRect;
 	_picturePalette = allocatePallette();
 	_cursorPalette = allocatePallette();
-	_wholeScreenBuffer = new byte[WHOLE_SCREEN_BUFFER_LENGTH];
 	_wholeScreenBufferNoMouse = new byte[WHOLE_SCREEN_BUFFER_LENGTH];
 
 	_wholeScreenMutex = CreateSemaphore( //Cannot use 'std::mutex due to an iteration issue with CLR
@@ -22,7 +21,6 @@ NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_Sen
 }
 
 NativeScummWrapper::NativeScummWrapperGraphics::~NativeScummWrapperGraphics() {
-	delete[] _wholeScreenBuffer;
 	delete[] _wholeScreenBufferNoMouse;
 
 	CloseHandle(_wholeScreenMutex);
@@ -342,7 +340,7 @@ std::vector<NativeScummWrapper::ScreenBuffer> NativeScummWrapper::NativeScummWra
 
 	byte *cpyWholeScreenBuffer = new byte[WHOLE_SCREEN_BUFFER_LENGTH];
 
-	memcpy(cpyWholeScreenBuffer, _wholeScreenBuffer, WHOLE_SCREEN_BUFFER_LENGTH);
+	memcpy(cpyWholeScreenBuffer, _wholeScreenBufferNoMouse, WHOLE_SCREEN_BUFFER_LENGTH);
 
 	palettesSeen.clear();
 
@@ -361,7 +359,7 @@ std::vector<NativeScummWrapper::ScreenBuffer> NativeScummWrapper::NativeScummWra
 byte *NativeScummWrapper::NativeScummWrapperGraphics::GetWholeScreenBufferRaw(int &width, int &height, int &bufferSize) {
 	byte *cpyWholeScreenBuffer = new byte[WHOLE_SCREEN_BUFFER_LENGTH];
 
-	memcpy(cpyWholeScreenBuffer, _wholeScreenBuffer, WHOLE_SCREEN_BUFFER_LENGTH);
+	memcpy(cpyWholeScreenBuffer, _wholeScreenBufferNoMouse, WHOLE_SCREEN_BUFFER_LENGTH);
 
 	width = DISPLAY_DEFAULT_WIDTH;
 	height = DISPLAY_DEFAULT_HEIGHT;
@@ -381,8 +379,6 @@ byte *NativeScummWrapper::NativeScummWrapperGraphics::ScreenUpdated(const void *
 	if (!isMouseUpdate) {
 		UpdateWholeScreenBuffer(pictureArray, _wholeScreenBufferNoMouse, x, y, w, h);
 	}
-
-	UpdateWholeScreenBuffer(pictureArray, _wholeScreenBuffer, x, y, w, h);
 
 	return pictureArray;
 }
@@ -457,6 +453,5 @@ uint32 NativeScummWrapper::NativeScummWrapperGraphics::RememberPalette(PalletteC
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::InitScreen() {
-	memset(_wholeScreenBuffer, 0, WHOLE_SCREEN_BUFFER_LENGTH);
 	memset(_wholeScreenBufferNoMouse, 0, WHOLE_SCREEN_BUFFER_LENGTH);
 }
