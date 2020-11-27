@@ -119,7 +119,8 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 	    void UpdatePictureBuffer(byte *pictureArray, const void *buf, int pitch, int x, int y, int w, int h);
 	    void UpdateWholeScreenBuffer(byte *pictureArray, byte *wholeScreenBuffer, int x, int y, int w, int h);
 	    ScreenBuffer GetScreenBuffer(const void *buf, int pitch, int x, int y, int w, int h, uint32 paletteHash, bool isMouseUpdate);
-	    uint32 RememberPalette(PalletteColor* palette, int length);
+	    ScreenBuffer GetMouseScreenBuffer();
+		uint32 RememberPalette(PalletteColor* palette, int length);
 	    void InitScreen();
 	    byte *_wholeScreenBuffer;
 	    byte *_wholeScreenBufferNoMouse;

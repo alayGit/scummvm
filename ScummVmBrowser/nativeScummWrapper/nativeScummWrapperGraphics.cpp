@@ -46,9 +46,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void
 
 	if (_cliMouse.x < DISPLAY_DEFAULT_WIDTH && _cliMouse.y < DISPLAY_DEFAULT_WIDTH && _cliMouse.width > 0 && _cliMouse.height > 0) {
 		if (_cliMouse.width > 0 && _cliMouse.height > 0) {
-			uncompressedpictureArray = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette);
-			_drawingCommands.push_back(GetScreenBuffer(uncompressedpictureArray, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _currentCursorPaletteHash, true));
-			delete[] uncompressedpictureArray;
+			_drawingCommands.push_back(GetMouseScreenBuffer());
 		}
 	}
 }
@@ -221,9 +219,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::warpMouse(int x, int y) {
 			}
 
 			if (shouldSendNewMouseExample) {
-				byte* unCompressedPictureUpdate = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette);
-				_drawingCommands.push_back(GetScreenBuffer(unCompressedPictureUpdate, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _currentCursorPaletteHash, true));
-				delete unCompressedPictureUpdate;
+				_drawingCommands.push_back(GetMouseScreenBuffer());
 			}
 		}
 		setCurrentMouseStateToPrevious();
@@ -434,6 +430,15 @@ NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics:
 	palettesSeen[paletteHash] = true;
 
 	return screenBuffer;
+}
+
+NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics::GetMouseScreenBuffer() {
+	byte *unCompressedPictureUpdate = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _cursorPalette);
+	ScreenBuffer result = GetScreenBuffer(unCompressedPictureUpdate, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, _currentCursorPaletteHash, true);
+
+	delete unCompressedPictureUpdate;
+
+	return result;
 }
 
 uint32 NativeScummWrapper::NativeScummWrapperGraphics::RememberPalette(PalletteColor *pallette, int length) {

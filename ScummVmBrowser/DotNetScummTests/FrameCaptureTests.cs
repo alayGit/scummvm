@@ -29,6 +29,7 @@ namespace DotNetScummTests
 		public const string GameDirectory = "C:\\scumm\\GamesKQ3";
 		public const int NoBytesPerPixel = 4;
 		public const int NoColors = 256;
+		public const int NoIgnoreColor = -1;
 
 		const string SaveDataResourceName = "SaveData";
 		protected static ResourceManager ResourceManager = DotNetScummTests.Properties.Resources.ResourceManager;
@@ -176,7 +177,7 @@ namespace DotNetScummTests
 
 							
 
-							if (picBuff[byteNo] != ignoreColour || ignoreColour == -1)
+							if (picBuff[byteNo] != ignoreColour || ignoreColour == NoIgnoreColor)
 							{
 								byte* data = scan0 + heightCounter * bitmapData.Stride + widthCounter * 4;
 
