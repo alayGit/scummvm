@@ -137,19 +137,25 @@ array<byte> ^ CLIScumm::Wrapper::MarshalByteBuffer(byte *buffer, int length) {
 	return managedCompressedWholeScreenBuffer;
 }
 
+ScreenBuffer ^ CLIScumm::Wrapper::MarshalScreenBuffer(NativeScummWrapper::ScreenBuffer screenBuffer) {
+	ScreenBuffer ^ result = gcnew ScreenBuffer();
+	result->CompressedBuffer = MarshalByteBuffer(screenBuffer.buffer, screenBuffer.length);
+	result->H = screenBuffer.h;
+	result->W = screenBuffer.w;
+	result->X = screenBuffer.x;
+	result->Y = screenBuffer.y;
+	result->CompressedPaletteBuffer = screenBuffer.compressedPalette != nullptr ? MarshalByteBuffer(screenBuffer.compressedPalette, screenBuffer.compressedPalletteLength) : nullptr;
+	result->PaletteHash = screenBuffer.paletteHash;
+	result->IgnoreColour = screenBuffer.ignoreColour;
+
+	return result;
+}
+
 void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(NativeScummWrapper::ScreenBuffer *unmanagedScreenBuffers, int length) {
 	System::Collections::Generic::List<ScreenBuffer ^> ^ managedScreenScreenBuffers = gcnew System::Collections::Generic::List<ScreenBuffer ^>();
 
 	for (int i = 0; i < length; i++) {
-		ScreenBuffer ^ managedBuffer = gcnew ScreenBuffer();
-		managedBuffer->CompressedBuffer = MarshalByteBuffer(unmanagedScreenBuffers[i].buffer, unmanagedScreenBuffers[i].length);
-		managedBuffer->H = unmanagedScreenBuffers[i].h;
-		managedBuffer->W = unmanagedScreenBuffers[i].w;
-		managedBuffer->X = unmanagedScreenBuffers[i].x;
-		managedBuffer->Y = unmanagedScreenBuffers[i].y;
-		managedBuffer->CompressedPaletteBuffer = unmanagedScreenBuffers[i].compressedPalette != nullptr ? MarshalByteBuffer(unmanagedScreenBuffers[i].compressedPalette, unmanagedScreenBuffers[i].compressedPalletteLength) : nullptr;
-		managedBuffer->PaletteHash = unmanagedScreenBuffers[i].paletteHash;
-		managedBuffer->IgnoreColour = unmanagedScreenBuffers[i].ignoreColour;
+		ScreenBuffer ^ managedBuffer = MarshalScreenBuffer(unmanagedScreenBuffers[i]);
 
 		managedScreenScreenBuffers->Add(managedBuffer);
 	}
@@ -234,31 +240,25 @@ void CLIScumm::Wrapper::Quit() {
 	EnqueueGameEvent(gameEvent);
 }
 
-array<Byte> ^ CLIScumm::Wrapper::GetWholeScreen(int % width, int % height) {
+System::Collections::Generic::List<ScreenBuffer ^> ^ CLIScumm::Wrapper::GetRedrawWholeScreenBuffersCompressed() {
 
-	byte *compressedWholeScreenBuffer = nullptr;
+	std::vector<NativeScummWrapper::ScreenBuffer> unmanagedWholeScreenBuffers;
 
 	if (!hasStarted) {
 		throw gcnew System::Exception("Cannot get the whole screen without first starting the game");
 	}
 
-	try {
+	unmanagedWholeScreenBuffers = _gSystemCli->getGraphicsManager()->GetRedrawWholeScreenBuffersCompressed();
+	System::Collections::Generic::List<ScreenBuffer ^>^ result = gcnew System::Collections::Generic::List<ScreenBuffer ^>();
 
-		int unmanagedWidth;
-		int unmanagedHeight;
-		int bufferSize;
-
-		compressedWholeScreenBuffer = _gSystemCli->getGraphicsManager()->GetWholeScreenBufferCompressed(unmanagedWidth, unmanagedHeight, bufferSize);
-
-		width = unmanagedWidth;
-		height = unmanagedHeight;
-
-		return MarshalByteBuffer(compressedWholeScreenBuffer, bufferSize);
-
-	} finally {
-
-		if (compressedWholeScreenBuffer != nullptr) {
-			delete[] compressedWholeScreenBuffer;
+	for (int i = 0; i < unmanagedWholeScreenBuffers.size(); i++) {
+		try {
+			result->Add(MarshalScreenBuffer(unmanagedWholeScreenBuffers[i]));
+		} finally {
+			delete[] unmanagedWholeScreenBuffers[i].buffer;
+			delete[] unmanagedWholeScreenBuffers[i].compressedPalette; //Cannot be null as it never is from GetRedrawWholeScreenBuffersCompressed
 		}
 	}
+
+	return result;
 }

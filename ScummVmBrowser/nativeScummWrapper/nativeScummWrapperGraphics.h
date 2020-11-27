@@ -99,11 +99,11 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 		bool screenUpdateOverlapsMouse(int x, int y, int w, int h);
 		bool positionInRange(int x, int y);
 		MouseState getMouseState();
-	    byte* GetWholeScreenBufferCompressed(int &width, int &height, int &bufferSize);
+	    std::vector<NativeScummWrapper::ScreenBuffer> GetRedrawWholeScreenBuffersCompressed();
 	    byte* GetWholeScreenBufferRaw(int &width, int &height, int &bufferSize);
 
 	private:
-	    std::vector<ScreenBuffer> _drawingCommands;
+	    std::vector<ScreenBuffer> _drawingBuffers;
 		f_SendScreenBuffers _copyRect;
 		PalletteColor *_picturePalette;
 		PalletteColor *_cursorPalette;
@@ -118,6 +118,7 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 	    byte *ScreenUpdated(const void *buf, int pitch, int x, int y, int w, int h, bool isMouseUpdate);
 	    void UpdatePictureBuffer(byte *pictureArray, const void *buf, int pitch, int x, int y, int w, int h);
 	    void UpdateWholeScreenBuffer(byte *pictureArray, byte *wholeScreenBuffer, int x, int y, int w, int h);
+	    byte *GetCurrentPaletteCompressed(uint32 paletteHash, int &length);
 	    ScreenBuffer GetScreenBuffer(const void *buf, int pitch, int x, int y, int w, int h, uint32 paletteHash, bool isMouseUpdate);
 	    ScreenBuffer GetMouseScreenBuffer();
 		uint32 RememberPalette(PalletteColor* palette, int length);

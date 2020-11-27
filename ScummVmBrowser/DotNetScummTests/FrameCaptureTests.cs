@@ -152,10 +152,10 @@ namespace DotNetScummTests
 			}
 		}
 
-		protected virtual void CaptureAndQuitWholeFrame(byte[] picBuff, UInt32 paletteHash, int x, int y, int w, int h, int noFrames, string expectedFrameName)
+		protected virtual void CaptureAndQuitWholeFrame(List<ScreenBuffer> screenBuffers, int noFrames, string expectedFrameName)
 		{
 			_b = new Bitmap(DisplayDefaultWidth, DisplayDefaultHeight);
-			CaptureAndQuit(picBuff, DisplayDefaultWidth, paletteHash, x, y, w, h, noFrames, expectedFrameName);
+			CaptureAndQuit(screenBuffers, noFrames, expectedFrameName);
 		}
 
 		static int counter = 0;
@@ -173,9 +173,7 @@ namespace DotNetScummTests
 					{
 						for (int widthCounter = 0; widthCounter < w; widthCounter++, byteNo++)
 						{
-							byte[] colourComponents = _palettes[paletteHash][picBuff[byteNo]];
-
-							
+							byte[] colourComponents = _palettes[paletteHash][picBuff[byteNo]];						
 
 							if (picBuff[byteNo] != ignoreColour || ignoreColour == NoIgnoreColor)
 							{

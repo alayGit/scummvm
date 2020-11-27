@@ -51,9 +51,9 @@ namespace SignalRSelfHost
             _realTimeEndPointCallbackRepo.EnqueueString(stringToEnqueue);
         }
 
-        public ScreenBuffer GetWholeScreenBuffer()
+        public List<ScreenBuffer> GetWholeScreenBuffer()
         {
-            return _realTimeEndPointCallbackRepo.GetWholeScreenBuffer();
+            return _realTimeEndPointCallbackRepo.GetRedrawWholeScreenBuffersCompressed();
         }
 
         public void StartSound()

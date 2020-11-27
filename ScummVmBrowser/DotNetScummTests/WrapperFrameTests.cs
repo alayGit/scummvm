@@ -566,9 +566,7 @@ namespace DotNetScummTests
 
         protected void CaptureAndQuitWholeFrame(int noFrames, string expectedFrameName)
         {
-            int width = 0, height = 0;
-
-            base.CaptureAndQuitWholeFrame(new ManagedZLibCompression.ManagedZLibCompression().Decompress(_wrapper.GetWholeScreen(ref width, ref height)), 0, 0, 0, width, height, noFrames, expectedFrameName); //TODO Proper PaletteHash
+            base.CaptureAndQuitWholeFrame(_wrapper.GetRedrawWholeScreenBuffersCompressed(), noFrames, expectedFrameName); //TODO Proper PaletteHash
         }
     }
 }

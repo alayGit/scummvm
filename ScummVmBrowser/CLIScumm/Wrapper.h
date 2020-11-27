@@ -49,7 +49,7 @@ namespace CLIScumm {
 		virtual void EnqueueGameEvent(IGameEvent^ keyboardEvent);
 		virtual void Quit();
 		virtual void CLIScumm::Wrapper::RunGame(AvailableGames game, cli::array<Byte>^ gameData, Dictionary<System::String^, cli::array<Byte>^>^ gameSaveData, PlayAudio^ playSound);
-		virtual array<Byte>^ CLIScumm::Wrapper::GetWholeScreen(int% width, int% height);
+		virtual System::Collections::Generic::List<ScreenBuffer^>^ CLIScumm::Wrapper::GetRedrawWholeScreenBuffersCompressed();
 		virtual property CopyRectToScreen^ OnCopyRectToScreen {
 			CopyRectToScreen^ get();
 			void set(CopyRectToScreen^ copyRectToScreen);
@@ -72,6 +72,7 @@ namespace CLIScumm {
 		ConcurrentQueue<IGameEvent^>^ eventQueue;
 		delegate void delCopyRectToScreen(NativeScummWrapper::ScreenBuffer*, int length);
 	    array<byte>^ MarshalByteBuffer(byte *buffer, int length);
+	    ScreenBuffer^ MarshalScreenBuffer(NativeScummWrapper::ScreenBuffer screenBuffer);
 		delegate bool delPollEvent(Common::Event& event);
 		delegate bool delSaveData(byte* saveData, int, Common::String fileName);
 		delegate void delPlaySound(byte* buffer, int size, void* user);

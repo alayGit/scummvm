@@ -27,7 +27,7 @@ namespace SignalR
 
         public StopSound StopSound { get; private set; }
 
-        public GetWholeScreenBuffer GetWholeScreenBuffer { get; private set; }
+        public GetRedrawWholeScreenBuffersCompressed GetRedrawWholeScreenBuffersCompressed { get; private set; }
 
         public EnqueueMouseClick EnqueueMouseClick { get; private set; }
 
@@ -98,9 +98,9 @@ namespace SignalR
             EnqueueString = enqueueString;
         }
 
-        public void OnGetWholeScreenBuffer(GetWholeScreenBuffer getWholeScreenBuffer)
+        public void OnGetRedrawWholeScreenBuffersCompressed(GetRedrawWholeScreenBuffersCompressed getWholeScreenBuffer)
         {
-            GetWholeScreenBuffer = getWholeScreenBuffer;
+			GetRedrawWholeScreenBuffersCompressed = getWholeScreenBuffer;
         }
 
         public void OnStartSound(StartSound startSound)

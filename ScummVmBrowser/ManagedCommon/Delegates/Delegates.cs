@@ -24,7 +24,7 @@ namespace ManagedCommon.Delegates
     public delegate void EnqueueMouseClick(MouseClick mouseClick);
     public delegate void StartSound();
     public delegate void StopSound();
-    public delegate ScreenBuffer GetWholeScreenBuffer();
+    public delegate List<ScreenBuffer> GetRedrawWholeScreenBuffersCompressed();
     public delegate bool StartConnection(int port);
     public class Delegates
     {
