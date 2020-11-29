@@ -179,10 +179,10 @@ namespace DotNetScummTests
 							{
 								byte* data = scan0 + heightCounter * bitmapData.Stride + widthCounter * 4;
 
-								*(data + (int)ARBG.A) = colourComponents[0];
-								*(data + (int)ARBG.R) = colourComponents[1];
-								*(data + (int)ARBG.G) = colourComponents[2];
-								*(data + (int)ARBG.B) = colourComponents[3];
+								*(data + (int)ARBG.R) = colourComponents[0];
+								*(data + (int)ARBG.G) = colourComponents[1];
+								*(data + (int)ARBG.B) = colourComponents[2];
+								*(data + (int)ARBG.A) = colourComponents[3];
 							}
 						}
 					}

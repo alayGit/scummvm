@@ -7,7 +7,10 @@ import { isNullOrUndefined } from "util";
 import { WebServerSettings } from "./configManager";
 
 export interface PictureUpdate {
-    Buffer: string,
+	CompressedBuffer: string,
+	CompressedPaletteBuffer: string,
+	paletteHash: number,
+	ignoreColor: number,
     X: number,
     Y: number,
     W: number,

@@ -15,6 +15,7 @@ const Height = 200;
 class OffScreenCanvasManager {
 	constructor(canvas) {
 		this.Canvas = canvas;
+		this.PaletteMap = new Map();
 	}
 
 	Init() {
@@ -28,18 +29,23 @@ class OffScreenCanvasManager {
 		for (let i = 0; i < frames.length; i++) {
 			let byteNo = 0;
 			const frame = frames[i];
+			if (frame.UncompressedPaletteBuffer) {
+				this.PaletteMap[frame.PaletteHash] = frame.UncompressedPaletteBuffer;
+			}
 
 			for (let heightCounter = frame.Y; heightCounter < frame.H + frame.Y; heightCounter++) {
 				for (let widthCounter = frame.X; widthCounter < frame.W + frame.X; widthCounter++) {
-					for (let colorComponent = 0; colorComponent < NoBytesPerPixel; colorComponent++) {
-						this.ImageData.data[heightCounter * NoBytesPerPixel * Width + widthCounter * NoBytesPerPixel + colorComponent] = frame.Buffer[byteNo + colorComponent];
-					}
-					byteNo += NoBytesPerPixel;
+					if (frame.UncompressedPictureBuffer[byteNo] !== frame.IgnoreColour || frame.ignoreColour === -1)
+						for (let colorComponent = 0; colorComponent < NoBytesPerPixel; colorComponent++) {
+							this.ImageData.data[heightCounter * NoBytesPerPixel * Width + widthCounter * NoBytesPerPixel + colorComponent] = this.PaletteMap[frame.PaletteHash][frame.UncompressedPictureBuffer[byteNo]][colorComponent];
+						}
+					byteNo++;
 				}
 			}
 		}
 
 		ctx.putImageData(this.ImageData, 0, 0);
 	}
+
 }
 

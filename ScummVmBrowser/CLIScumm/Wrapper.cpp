@@ -241,7 +241,6 @@ void CLIScumm::Wrapper::Quit() {
 }
 
 System::Collections::Generic::List<ScreenBuffer ^> ^ CLIScumm::Wrapper::GetRedrawWholeScreenBuffersCompressed() {
-
 	std::vector<NativeScummWrapper::ScreenBuffer> unmanagedWholeScreenBuffers;
 
 	if (!hasStarted) {

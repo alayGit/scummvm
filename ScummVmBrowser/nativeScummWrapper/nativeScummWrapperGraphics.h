@@ -28,6 +28,7 @@
 #include <vector>
 #include "./ScummVmBrowser/ZLibCompression/ZLibCompression.h"
 #include "common.h"
+#include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
 
 class NativeScummWrapperEvents;
 
@@ -119,8 +120,8 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 	    void UpdatePictureBuffer(byte *pictureArray, const void *buf, int pitch, int x, int y, int w, int h);
 	    void UpdateWholeScreenBuffer(byte *pictureArray, byte *wholeScreenBuffer, int x, int y, int w, int h);
 	    byte *GetCurrentPaletteCompressed(uint32 paletteHash, int &length);
-	    ScreenBuffer GetScreenBuffer(const void *buf, int pitch, int x, int y, int w, int h, uint32 paletteHash, bool isMouseUpdate);
-	    ScreenBuffer GetMouseScreenBuffer();
+		ScreenBuffer GetScreenBuffer(const void *buf, int pitch, int x, int y, int w, int h, uint32 paletteHash, bool isMouseUpdate, bool forcePaletteToBeSent);
+	    ScreenBuffer GetMouseScreenBuffer(bool forcePalettesToBeSent);
 		uint32 RememberPalette(PalletteColor* palette, int length);
 	    void InitScreen();
 	    byte *_wholeScreenBufferNoMouse;

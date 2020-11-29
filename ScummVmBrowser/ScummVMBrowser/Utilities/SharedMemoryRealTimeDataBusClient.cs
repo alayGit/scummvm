@@ -71,11 +71,11 @@ namespace ScummVMBrowser.Utilities
             return _enqueueMouseClickMasterBuffer.RemoteRequestAsync(mouseClick.ToBinary());
         }
 
-        public async Task<ScreenBuffer> GetWholeScreenBuffer()
+        public async Task<List<ScreenBuffer>> GetRedrawWholeScreenBuffersCompressed()
         {
           RpcResponse response = await _getWholeScreenBufferBuffer.RemoteRequestAsync();
           
-            return response.Data.FromBinary<ScreenBuffer>();
+            return response.Data.FromBinary<List<ScreenBuffer>>();
         }
 
         #region IDisposable Support

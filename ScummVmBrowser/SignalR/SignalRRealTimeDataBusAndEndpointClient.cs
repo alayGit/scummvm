@@ -84,9 +84,9 @@ namespace ScummVMBrowser.Utilities
             await _proxy.Invoke("EnqueueMouseClick", mouseClick);
         }
 
-        public async Task<ScreenBuffer> GetWholeScreenBuffer()
+        public async Task<List<ScreenBuffer>> GetRedrawWholeScreenBuffersCompressed()
         {
-          return await _proxy.Invoke<ScreenBuffer>("GetWholeScreenBuffer");
+          return await _proxy.Invoke<List<ScreenBuffer>>("GetRedrawWholeScreenBuffersCompressed");
         }
 
         public void OnAudioReceived(PlayAudioAsync playAudio, int instanceId)

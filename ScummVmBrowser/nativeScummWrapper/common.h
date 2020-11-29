@@ -8,6 +8,7 @@
 #define DISPLAY_DEFAULT_SIZE 6400
 #define NO_BYTES_PER_PIXEL 4
 #define NO_COLOURS 256
+#define NO_COLOUR_COMPONENTS_SCUMM_VM 3 //ScummVM provides colours in the form RGB, but we change it to ARGB
 #define NO_DIGITS_IN_PALETTE_VALUE 3
 
 namespace NativeScummWrapper {
@@ -46,7 +47,7 @@ inline std::string PadPaletteValue(uint value) {
 }
 
 inline std::string GetPaletteAsString(PalletteColor color) {
-	return PadPaletteValue(color.a) + PadPaletteValue(color.r) + PadPaletteValue(color.g) + PadPaletteValue(color.b);
+	return PadPaletteValue(color.r) + PadPaletteValue(color.g) + PadPaletteValue(color.b) + PadPaletteValue(color.a);
 }
 
 inline std::string GetPalettesAsString(PalletteColor* pallette, int length)
