@@ -14,7 +14,7 @@ namespace ManagedCommon.Interfaces
 		void EnqueueGameEvent(IGameEvent keyboardEvent);
 		void Quit();
 		void RunGame(AvailableGames game, byte[] gameData, Dictionary<string, byte[]> saveData, PlayAudio playSound);
-		List<ScreenBuffer> GetRedrawWholeScreenBuffersCompressed();
+		void ScheduleRedrawWholeScreen();
 		CopyRectToScreen OnCopyRectToScreen { get; set; }
 		SaveData OnSaveData { get; set; }
 		void StartSound();

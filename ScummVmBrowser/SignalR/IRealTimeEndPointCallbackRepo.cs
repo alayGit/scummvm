@@ -16,6 +16,6 @@ namespace SignalR
         EnqueueMouseClick EnqueueMouseClick { get; }
         StartSound StartSound { get; }
         StopSound StopSound { get; }
-        GetRedrawWholeScreenBuffersCompressed GetRedrawWholeScreenBuffersCompressed { get; }
+        ScheduleRedrawWholeScreen ScheduleRedrawWholeScreen { get; }
     }
 }

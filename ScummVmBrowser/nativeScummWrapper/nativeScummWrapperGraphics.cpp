@@ -5,8 +5,6 @@
 #define DO_NOT_IGNORE_ANY_COLOR -1
 
 NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_SendScreenBuffers copyRect) : GraphicsManager() {
-	//DebuggerTools::DebuggerLauncher d;
-	//d.launchDebugger();
 	_copyRect = copyRect;
 	_picturePalette = allocatePallette();
 	_cursorPalette = allocatePallette();
@@ -337,7 +335,7 @@ byte *NativeScummWrapper::NativeScummWrapperGraphics::GetBlottedBuffer(int x, in
 	return unCompressedPictureArray;
 }
 
-std::vector<NativeScummWrapper::ScreenBuffer> NativeScummWrapper::NativeScummWrapperGraphics::GetRedrawWholeScreenBuffersCompressed() {
+void NativeScummWrapper::NativeScummWrapperGraphics::ScheduleRedrawWholeScreen() {
 	WaitForSingleObject(_wholeScreenMutex, INFINITE);
 
 	byte *cpyWholeScreenBuffer = new byte[WHOLE_SCREEN_BUFFER_LENGTH];
@@ -348,14 +346,8 @@ std::vector<NativeScummWrapper::ScreenBuffer> NativeScummWrapper::NativeScummWra
 
 	ReleaseSemaphore(_wholeScreenMutex, 1, NULL);
 
-	std::vector<NativeScummWrapper::ScreenBuffer> result;
-
-	result.push_back(GetScreenBuffer(cpyWholeScreenBuffer, DISPLAY_DEFAULT_WIDTH, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT, _currentPaletteHash, false, true));
-	result.push_back(GetMouseScreenBuffer(true));
-
-	delete[] cpyWholeScreenBuffer;
-
-	return result;
+	_drawingBuffers.push_back(GetScreenBuffer(cpyWholeScreenBuffer, DISPLAY_DEFAULT_WIDTH, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT, _currentPaletteHash, false, true));
+	_drawingBuffers.push_back(GetMouseScreenBuffer(true));
 }
 
 byte *NativeScummWrapper::NativeScummWrapperGraphics::GetWholeScreenBufferRaw(int &width, int &height, int &bufferSize) {

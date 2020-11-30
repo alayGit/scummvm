@@ -100,7 +100,7 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 		bool screenUpdateOverlapsMouse(int x, int y, int w, int h);
 		bool positionInRange(int x, int y);
 		MouseState getMouseState();
-	    std::vector<NativeScummWrapper::ScreenBuffer> GetRedrawWholeScreenBuffersCompressed();
+	    void ScheduleRedrawWholeScreen();
 	    byte* GetWholeScreenBufferRaw(int &width, int &height, int &bufferSize);
 
 	private:

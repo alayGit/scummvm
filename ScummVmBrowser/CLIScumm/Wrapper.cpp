@@ -240,24 +240,12 @@ void CLIScumm::Wrapper::Quit() {
 	EnqueueGameEvent(gameEvent);
 }
 
-System::Collections::Generic::List<ScreenBuffer ^> ^ CLIScumm::Wrapper::GetRedrawWholeScreenBuffersCompressed() {
+void CLIScumm::Wrapper::ScheduleRedrawWholeScreen() {
 	std::vector<NativeScummWrapper::ScreenBuffer> unmanagedWholeScreenBuffers;
 
 	if (!hasStarted) {
 		throw gcnew System::Exception("Cannot get the whole screen without first starting the game");
 	}
 
-	unmanagedWholeScreenBuffers = _gSystemCli->getGraphicsManager()->GetRedrawWholeScreenBuffersCompressed();
-	System::Collections::Generic::List<ScreenBuffer ^>^ result = gcnew System::Collections::Generic::List<ScreenBuffer ^>();
-
-	for (int i = 0; i < unmanagedWholeScreenBuffers.size(); i++) {
-		try {
-			result->Add(MarshalScreenBuffer(unmanagedWholeScreenBuffers[i]));
-		} finally {
-			delete[] unmanagedWholeScreenBuffers[i].buffer;
-			delete[] unmanagedWholeScreenBuffers[i].compressedPalette; //Cannot be null as it never is from GetRedrawWholeScreenBuffersCompressed
-		}
-	}
-
-	return result;
+	_gSystemCli->getGraphicsManager()->ScheduleRedrawWholeScreen();
 }

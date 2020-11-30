@@ -49,7 +49,7 @@ namespace CLIScumm {
 		virtual void EnqueueGameEvent(IGameEvent^ keyboardEvent);
 		virtual void Quit();
 		virtual void CLIScumm::Wrapper::RunGame(AvailableGames game, cli::array<Byte>^ gameData, Dictionary<System::String^, cli::array<Byte>^>^ gameSaveData, PlayAudio^ playSound);
-		virtual System::Collections::Generic::List<ScreenBuffer^>^ CLIScumm::Wrapper::GetRedrawWholeScreenBuffersCompressed();
+		virtual void CLIScumm::Wrapper::ScheduleRedrawWholeScreen();
 		virtual property CopyRectToScreen^ OnCopyRectToScreen {
 			CopyRectToScreen^ get();
 			void set(CopyRectToScreen^ copyRectToScreen);

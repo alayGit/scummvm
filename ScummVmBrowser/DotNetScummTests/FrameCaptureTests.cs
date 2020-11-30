@@ -134,7 +134,7 @@ namespace DotNetScummTests
 			}
 		}
 
-		protected async Task WaitForFrame(int frame, bool soundOff = true)
+		protected async Task WaitForFrame(int frame)
 		{
 			while (_capturedFrames.Count < frame)
 			{
@@ -173,7 +173,7 @@ namespace DotNetScummTests
 					{
 						for (int widthCounter = 0; widthCounter < w; widthCounter++, byteNo++)
 						{
-							byte[] colourComponents = _palettes[paletteHash][picBuff[byteNo]];						
+							byte[] colourComponents = _palettes[paletteHash][picBuff[byteNo]];
 
 							if (picBuff[byteNo] != ignoreColour || ignoreColour == NoIgnoreColor)
 							{
@@ -188,10 +188,6 @@ namespace DotNetScummTests
 					}
 					CaptureAndQuit(_b, noFrames, expectedFrameName);
 				}
-			}
-			catch (Exception e)
-			{
-				int ax = 4;
 			}
 			finally
 			{
@@ -261,40 +257,33 @@ namespace DotNetScummTests
 			int colourComponent = 0;
 			foreach (char c in paletteString)
 			{
-				try
+				if (digit.Length < 3)
 				{
-					if (digit.Length < 3)
-					{
-						digit += c.ToString();
-					}
-					else
-					{
-						int iDigit = int.Parse(digit);
-
-						if (iDigit < Byte.MinValue || iDigit > Byte.MaxValue)
-						{
-							throw new Exception("Fail out of range digit");
-						}
-
-						_palettes[paletteHash][paletteNo][colourComponent] = Byte.Parse(digit);
-
-						colourComponent = (colourComponent + 1) % NoBytesPerPixel;
-
-						if (colourComponent == 0)
-						{
-							paletteNo = (paletteNo + 1) % NoColors;
-						}
-
-						digit = c.ToString();
-					}
+					digit += c.ToString();
 				}
-				catch (Exception e)
+				else
 				{
-					int x = 4;
+					int iDigit = int.Parse(digit);
+
+					if (iDigit < Byte.MinValue || iDigit > Byte.MaxValue)
+					{
+						throw new Exception("Fail out of range digit");
+					}
+
+					_palettes[paletteHash][paletteNo][colourComponent] = Byte.Parse(digit);
+
+					colourComponent = (colourComponent + 1) % NoBytesPerPixel;
+
+					if (colourComponent == 0)
+					{
+						paletteNo = (paletteNo + 1) % NoColors;
+					}
+
+					digit = c.ToString();
 				}
 			}
-		}
 
+		}
 
 		public void CopyRectToQueue(Bitmap bitmap)
 		{

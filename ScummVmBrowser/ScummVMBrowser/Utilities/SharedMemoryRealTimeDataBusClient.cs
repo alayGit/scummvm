@@ -71,7 +71,7 @@ namespace ScummVMBrowser.Utilities
             return _enqueueMouseClickMasterBuffer.RemoteRequestAsync(mouseClick.ToBinary());
         }
 
-        public async Task<List<ScreenBuffer>> GetRedrawWholeScreenBuffersCompressed()
+        public async Task<List<ScreenBuffer>> ScheduleRedrawWholeScreen()
         {
           RpcResponse response = await _getWholeScreenBufferBuffer.RemoteRequestAsync();
           

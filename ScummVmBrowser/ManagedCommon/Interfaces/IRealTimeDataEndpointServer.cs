@@ -16,7 +16,7 @@ namespace ManagedCommon.Interfaces
         void OnEnqueueControlKey(EnqueueControlKey enqueueControlKey);
         void OnEnqueueMouseMove(EnqueueMouseMove enqueueMouseMove);
         void OnEnqueueMouseClick(EnqueueMouseClick enqueueMouseClick);
-		void OnGetRedrawWholeScreenBuffersCompressed(GetRedrawWholeScreenBuffersCompressed getWholeScreenBuffer);
+		void OnScheduleRedrawWholeScreen(ScheduleRedrawWholeScreen getWholeScreenBuffer);
 		void OnStartSound(StartSound startSound);
         void OnStopSound(StopSound stopSound);
 		Task Init(string id);

@@ -86,7 +86,9 @@ namespace DotNetScummTests
             const string expectedFrameName = "CanStart";
             const int noFrames = 100;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
-            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CaptureAndQuitWholeFrame(noFrames, expectedFrameName));
+            Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CaptureAndQuitWholeFrame(screenBuffers, noFrames, expectedFrameName));
+			await WaitForFrame(10);
+			_wrapper.ScheduleRedrawWholeScreen();
             await CheckForExpectedFrame(expectedFrameName, noFrames);
         }
 
@@ -145,7 +147,7 @@ namespace DotNetScummTests
             const int noFrames = 500;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
             Setup(gameDirectory, noFrames, expectedFrameName);
-            await WaitForFrame(180, false);
+            await WaitForFrame(180);
 			_wrapper.EnqueueGameEvent(new SendMouseMove(100,100)); //Mouse is in the way
 			_wrapper.EnqueueGameEvent(new SendString("\r"));
             _wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.F2));
@@ -562,11 +564,6 @@ namespace DotNetScummTests
         {
             Quit();
             await gameTask;
-        }
-
-        protected void CaptureAndQuitWholeFrame(int noFrames, string expectedFrameName)
-        {
-            base.CaptureAndQuitWholeFrame(_wrapper.GetRedrawWholeScreenBuffersCompressed(), noFrames, expectedFrameName); //TODO Proper PaletteHash
         }
     }
 }
