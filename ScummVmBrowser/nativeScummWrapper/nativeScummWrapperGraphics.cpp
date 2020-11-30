@@ -5,8 +5,6 @@
 #define DO_NOT_IGNORE_ANY_COLOR -1
 
 NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_SendScreenBuffers copyRect) : GraphicsManager() {
-	DebuggerTools::DebuggerLauncher d;
-	d.launchDebugger();
 	_copyRect = copyRect;
 	_picturePalette = allocatePallette();
 	_cursorPalette = allocatePallette();
@@ -234,8 +232,9 @@ void NativeScummWrapper::NativeScummWrapperGraphics::warpMouse(int x, int y) {
 		}
 		setCurrentMouseStateToPrevious();
 
-		ReleaseSemaphore(_wholeScreenMutex, 1, NULL);
 	}
+
+    ReleaseSemaphore(_wholeScreenMutex, 1, NULL);
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::setMouseCursor(const void *buf, uint w, uint h, int hotspotX, int hotspotY, uint32 keycolor, bool dontScale, const Graphics::PixelFormat *format) {
