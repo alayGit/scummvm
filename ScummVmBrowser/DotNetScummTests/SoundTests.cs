@@ -46,12 +46,6 @@ namespace DotNetScummTests
 			_allBeginWithPreamble = null;
 		}
 
-		[TestCleanup]
-		public void Cleanup()
-		{
-			_wrapper.Dispose();
-		}
-
 		[TestMethod]
 		public async Task DoesSoundContainExpectedValue()
 		{

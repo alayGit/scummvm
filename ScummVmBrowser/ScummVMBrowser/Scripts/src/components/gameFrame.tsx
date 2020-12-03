@@ -7,7 +7,10 @@ import { isNullOrUndefined } from "util";
 import { WebServerSettings } from "./configManager";
 
 export interface PictureUpdate {
-    Buffer: string,
+	CompressedBuffer: string,
+	CompressedPaletteBuffer: string,
+	paletteHash: number,
+	ignoreColor: number,
     X: number,
     Y: number,
     W: number,
@@ -77,7 +80,7 @@ export const GameFrame = (props: GameFrameProps) => {
     }
 
     return (<div id="gameFrame" onKeyPress={onKeyPress} onKeyDown={onKeyDown} onMouseMove={onMouseMove} onClick={onClick} tabIndex={0}>
-        <canvas id="canvas" width={Width} height={Height} />
+		<canvas id="canvas" width={Width} height={Height} style={{cursor:"none" } } />
     </div>);
 }
 

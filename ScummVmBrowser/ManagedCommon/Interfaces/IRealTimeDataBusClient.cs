@@ -18,6 +18,6 @@ namespace ManagedCommon.Interfaces
         Task EnqueueMouseClickAsync(MouseClick mouseClick);
         Task StartSoundAsync();
         Task StopSoundAsync();
-        Task<ScreenBuffer> GetWholeScreenBuffer();
+        Task<List<ScreenBuffer>> ScheduleRedrawWholeScreen();
     }
 }

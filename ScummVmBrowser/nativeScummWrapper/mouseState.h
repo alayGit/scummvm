@@ -1,6 +1,6 @@
 #pragma once
 
-#include "palletteColor.h";
+#include "common.h";
 #include "scummVm.h"
 namespace NativeScummWrapper {
 	class MouseState {

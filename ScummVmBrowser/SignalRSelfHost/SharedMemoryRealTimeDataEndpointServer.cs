@@ -28,7 +28,7 @@ namespace ScummVMBrowser.Utilities
         private StopSound _stopSound;
         private RpcBuffer _stopSoundSlaveBuffer;
         private RpcBuffer _getWholeScreenSlaveBuffer;
-        private GetWholeScreenBuffer _getWholeScreenBuffer;
+        private ScheduleRedrawWholeScreen _getWholeScreenBuffer;
 
         public SharedMemoryRealTimeDataEndpointServer(IConfigurationStore<System.Enum> configurationStore) : base(configurationStore)
         {
@@ -114,13 +114,13 @@ namespace ScummVMBrowser.Utilities
             }
         }
 
-        public void OnGetWholeScreenBuffer(GetWholeScreenBuffer getWholeScreenBuffer)
+        public void OnScheduleRedrawWholeScreen(ScheduleRedrawWholeScreen getWholeScreenBuffer)
         {
             _getWholeScreenBuffer = getWholeScreenBuffer;
 
             if (_getWholeScreenSlaveBuffer == null)
             {
-                _getWholeScreenSlaveBuffer = new RpcBuffer(GetId(RpcBufferNames.GetWholeScreenBuffer), (msgId, payLoad) => _getWholeScreenBuffer?.Invoke().ToBinary());
+                _getWholeScreenSlaveBuffer = new RpcBuffer(GetId(RpcBufferNames.GetWholeScreenBuffer), (msgId, payLoad) => _getWholeScreenBuffer?.Invoke());
             }
         }
 

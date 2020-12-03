@@ -13,6 +13,7 @@ lib*.a
 *.lastbuildstate
 *.FileListAbsolute.txt
 *.lib
+*.testdurations
 
 
 

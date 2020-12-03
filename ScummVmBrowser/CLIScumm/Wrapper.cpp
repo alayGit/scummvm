@@ -6,14 +6,12 @@ int main() {
 
 CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum ^> ^ configureStore) {
 	eventQueue = gcnew ConcurrentQueue<IGameEvent ^>();
-	imageUpdated = gcnew CLIScumm::Wrapper::Wrapper::delCopyRectToScreen(this, &CLIScumm::Wrapper::Wrapper::ScreenUpdated);
+	imageUpdated = gcnew CLIScumm::Wrapper::Wrapper::delCopyRectToScreen(this, &CLIScumm::Wrapper::Wrapper::UpdatePicturesToBeSentBuffer);
 	pollEvent = gcnew CLIScumm::Wrapper::Wrapper::delPollEvent(this, &CLIScumm::Wrapper::Wrapper::pollEventWrapper);
 	saveData = gcnew CLIScumm::Wrapper::Wrapper::delSaveData(this, &CLIScumm::Wrapper::Wrapper::SaveData);
 	hasStarted = false;
 	gameEventLock = gcnew Object();
 	startLock = gcnew Object();
-	_wholeScreenBufferLock = gcnew Object();
-	_picturesToBeSentBuffer = gcnew System::Collections::Generic::List<ScreenBuffer ^>();
 
 	SoundManagement::SoundOptions soundOptions = SoundManagement::SoundOptions();
 
@@ -21,20 +19,12 @@ CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum ^> ^ configureStore)
 	soundOptions.sampleSize = configureStore->GetValue<int>(SoundSettings::SampleSize);
 	soundOptions.soundPollingFrequencyMs = configureStore->GetValue<int>(SoundSettings::SoundPollingFrequencyMs);
 
-	g_system = new NativeScummWrapper::NativeScummWrapperOSystem(soundOptions, static_cast<NativeScummWrapper::f_CopyRect>(Marshal::GetFunctionPointerForDelegate(imageUpdated).ToPointer()) //ToDo: Tidy these up as a whole they are a mess
+	g_system = new NativeScummWrapper::NativeScummWrapperOSystem(soundOptions, static_cast<NativeScummWrapper::f_SendScreenBuffers>(Marshal::GetFunctionPointerForDelegate(imageUpdated).ToPointer()) //ToDo: Tidy these up as a whole they are a mess
 	                                                             ,
-	                                                             static_cast<NativeScummWrapper::f_PollEvent>(Marshal::GetFunctionPointerForDelegate(pollEvent).ToPointer()), static_cast<NativeScummWrapper::f_SaveFileData>(Marshal::GetFunctionPointerForDelegate(saveData).ToPointer()), static_cast<f_SoundConverted>(Marshal::GetFunctionPointerForDelegate(GCHandle::Alloc(gcnew delPlaySound(this, &CLIScumm::Wrapper::Wrapper::PlaySound), GCHandleType::Normal).Target).ToPointer()), static_cast<NativeScummWrapper::f_Blot>(Marshal::GetFunctionPointerForDelegate(GCHandle::Alloc(gcnew delBlot(this, &CLIScumm::Wrapper::Wrapper::Blot), GCHandleType::Normal).Target).ToPointer()));
+	                                                             static_cast<NativeScummWrapper::f_PollEvent>(Marshal::GetFunctionPointerForDelegate(pollEvent).ToPointer()), static_cast<NativeScummWrapper::f_SaveFileData>(Marshal::GetFunctionPointerForDelegate(saveData).ToPointer()), static_cast<f_SoundConverted>(Marshal::GetFunctionPointerForDelegate(GCHandle::Alloc(gcnew delPlaySound(this, &CLIScumm::Wrapper::Wrapper::PlaySound), GCHandleType::Normal).Target).ToPointer()));
 	_gSystemCli = reinterpret_cast<NativeScummWrapper::NativeScummWrapperOSystem *>(g_system);
-	_wholeScreenBuffer = new byte[DISPLAY_DEFAULT_WIDTH * DISPLAY_DEFAULT_HEIGHT * NO_BYTES_PER_PIXEL];
-	_wholeScreenBufferLength = DISPLAY_DEFAULT_WIDTH * DISPLAY_DEFAULT_HEIGHT * NO_BYTES_PER_PIXEL;
-	_wholeScreenBufferNoMouse = new byte[_wholeScreenBufferLength];
 	_configureStore = configureStore;
 	_soundIsRunning = false;
-}
-
-CLIScumm::Wrapper::~Wrapper() {
-	delete[] _wholeScreenBuffer;
-	delete[] _wholeScreenBufferNoMouse;
 }
 
 CopyRectToScreen ^ CLIScumm::Wrapper::OnCopyRectToScreen::get() {
@@ -60,7 +50,6 @@ void CLIScumm::Wrapper::StartSound() {
 void CLIScumm::Wrapper::StopSound() {
 	_gSystemCli->StopSound();
 }
-
 System::Drawing::Point CLIScumm::Wrapper::GetCurrentMousePosition() {
 	NativeScummWrapper::MouseState mouseState = _gSystemCli->getGraphicsManager()->getMouseState();
 
@@ -108,24 +97,15 @@ void CLIScumm::Wrapper::RunGame(AvailableGames game, cli::array<System::Byte> ^ 
 	if (!hasStarted) {
 		Monitor::Enter(startLock);
 		try {
-
 			try {
 				if (!hasStarted) {
 					hasStarted = true;
 					Monitor::Exit(startLock);
 
-					/*auto fn1 = &std::bind(&OSystem_Cli::mixCallback, *_gSystemCli, std::placeholders::_1, std::placeholders::_2);*/
-					// auto fn2 = &std::bind(fn1, *_gSystemCli, std::placeholders::_2, std::placeholders::_3);
-
-					/*std::function<byte* (byte*, int)> f = [&](byte* x, int y) {
-						return _gSystemCli->mixCallback(x, y);
-					};*/
-
 					_playAudio = playAudio;
 
 					Init(game, gameSaveData);
 
-					InitScreen();
 					ConfMan.hasKey("debuglevel");
 					scummvm_main(0, {});
 					g_system->destroy();
@@ -151,61 +131,37 @@ Common::String CLIScumm::Wrapper::GetGamePath(AvailableGames game) {
 	return Utilities::Converters::ManagedStringToCommonString(_configureStore->GetValue(game));
 }
 
-System::Collections::Generic::List<ScreenBuffer ^> ^ CLIScumm::Wrapper::GetListOfScreenBufferFromSinglePictureArray(cli::array<Byte> ^ pictureArray, int x, int y, int w, int h) {
-	System::Collections::Generic::List<ScreenBuffer ^> ^ updates = gcnew System::Collections::Generic::List<ScreenBuffer ^>();
-
-	ScreenBuffer ^ screenBuffer = gcnew ScreenBuffer();
-
-	screenBuffer->Buffer = pictureArray;
-	screenBuffer->X = x;
-	screenBuffer->Y = y;
-	screenBuffer->W = w;
-	screenBuffer->H = h;
-
-	updates->Add(screenBuffer);
-
-	return updates;
+array<byte> ^ CLIScumm::Wrapper::MarshalByteBuffer(byte *buffer, int length) {
+	cli::array<byte> ^ managedCompressedWholeScreenBuffer = gcnew cli::array<byte>(length);
+	Marshal::Copy((System::IntPtr)buffer, managedCompressedWholeScreenBuffer, 0, length);
+	return managedCompressedWholeScreenBuffer;
 }
 
-array<byte> ^ CLIScumm::Wrapper::MarshalBuffer(byte *buffer, int length) {
+ScreenBuffer ^ CLIScumm::Wrapper::MarshalScreenBuffer(NativeScummWrapper::ScreenBuffer screenBuffer) {
+	ScreenBuffer ^ result = gcnew ScreenBuffer();
+	result->CompressedBuffer = MarshalByteBuffer(screenBuffer.buffer, screenBuffer.length);
+	result->H = screenBuffer.h;
+	result->W = screenBuffer.w;
+	result->X = screenBuffer.x;
+	result->Y = screenBuffer.y;
+	result->CompressedPaletteBuffer = screenBuffer.compressedPalette != nullptr ? MarshalByteBuffer(screenBuffer.compressedPalette, screenBuffer.compressedPalletteLength) : nullptr;
+	result->PaletteHash = screenBuffer.paletteHash;
+	result->IgnoreColour = screenBuffer.ignoreColour;
 
-	byte *unmanagedCompressedWholeScreenBuffer = nullptr;
-	try {
-
-		int compressedLength;
-		unmanagedCompressedWholeScreenBuffer = ZLibCompression::ZLibCompression().Compress(buffer, length, compressedLength);
-
-		cli::array<byte> ^ managedCompressedWholeScreenBuffer = gcnew cli::array<byte>(compressedLength);
-		Marshal::Copy((System::IntPtr)unmanagedCompressedWholeScreenBuffer, managedCompressedWholeScreenBuffer, 0, compressedLength);
-
-		return managedCompressedWholeScreenBuffer;
-	} finally {
-		if (unmanagedCompressedWholeScreenBuffer != nullptr) {
-			delete[] unmanagedCompressedWholeScreenBuffer;
-		}
-	}
+	return result;
 }
 
-void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(cli::array<Byte> ^ pictureArray, int noUpdates, int x, int y, int w, int h) {
+void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(NativeScummWrapper::ScreenBuffer *unmanagedScreenBuffers, int length) {
+	System::Collections::Generic::List<ScreenBuffer ^> ^ managedScreenScreenBuffers = gcnew System::Collections::Generic::List<ScreenBuffer ^>();
 
-	ScreenBuffer ^ buffer = gcnew ScreenBuffer();
-	buffer->Buffer = pictureArray;
-	buffer->H = h;
-	buffer->W = w;
-	buffer->X = x;
-	buffer->Y = y;
+	for (int i = 0; i < length; i++) {
+		ScreenBuffer ^ managedBuffer = MarshalScreenBuffer(unmanagedScreenBuffers[i]);
 
-	if (_picturesToBeSentBuffer->Count >= noUpdates) {
-		throw gcnew System::Exception("Pictures to be sent buffer already is already size no updates but has not being sent");
+		managedScreenScreenBuffers->Add(managedBuffer);
 	}
 
 	if (OnCopyRectToScreen != nullptr) {
-		_picturesToBeSentBuffer->Add(buffer);
-
-		if (_picturesToBeSentBuffer->Count == noUpdates) {
-			OnCopyRectToScreen->Invoke(_picturesToBeSentBuffer);
-			_picturesToBeSentBuffer->Clear();
-		}
+		OnCopyRectToScreen->Invoke(managedScreenScreenBuffers);
 	}
 }
 
@@ -219,117 +175,12 @@ void CLIScumm::Wrapper::EnqueueGameEvent(IGameEvent ^ gameEvent) {
 	}
 }
 
-void CLIScumm::Wrapper::UpdatePictureBuffer(byte *pictureArray, const void *buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor *color, byte ignore) {
-	int currentPixel = 0;
-
-	const unsigned char *bufCounter = static_cast<const unsigned char *>(buf);
-
-	for (int heightCounter = 0; heightCounter < h; heightCounter++, bufCounter = bufCounter + pitch) {
-		for (int widthCounter = 0; widthCounter < w; widthCounter++) {
-			byte palletteReference = *(bufCounter + widthCounter);
-			NativeScummWrapper::PalletteColor currentColor = *(color + palletteReference);
-
-			if (ignore == 255 || palletteReference != ignore) {
-				pictureArray[currentPixel++] = currentColor.r;
-				pictureArray[currentPixel++] = currentColor.g;
-				pictureArray[currentPixel++] = currentColor.b;
-				pictureArray[currentPixel++] = currentColor.a;
-
-			} else {
-				for (int i = 0, wholeScreenBufferCounter = ((y + heightCounter) * DISPLAY_DEFAULT_WIDTH + x + widthCounter) * 4; i < NO_BYTES_PER_PIXEL && wholeScreenBufferCounter < _wholeScreenBufferLength; i++) {
-					pictureArray[currentPixel++] = _wholeScreenBufferNoMouse[wholeScreenBufferCounter++];
-				}
-			}
-		}
-	}
-}
-
-void CLIScumm::Wrapper::ScreenUpdated(const void *buf, int pitch, int x, int y, int w, int h, NativeScummWrapper::PalletteColor *color, byte ignore, bool isMouseUpdate, int noUpdates) {
-	byte *pictureArray = nullptr;
-	byte *compressedPictureArray = nullptr;
-	try {
-		int pictureArrayLength = w * h * NO_BYTES_PER_PIXEL;
-		pictureArray = new byte[pictureArrayLength];
-
-		UpdatePictureBuffer(pictureArray, buf, pitch, x, y, w, h, color, ignore);
-
-		if (!isMouseUpdate) {
-			UpdateWholeScreenBuffer(pictureArray, _wholeScreenBufferNoMouse, x, y, w, h);
-		}
-
-		UpdateWholeScreenBuffer(pictureArray, _wholeScreenBuffer, x, y, w, h);
-
-		cli::array<byte> ^ managedCompressedPictureArray = MarshalBuffer(pictureArray, pictureArrayLength);
-
-		UpdatePicturesToBeSentBuffer(managedCompressedPictureArray, noUpdates, x, y, w, h);
-	} finally {
-		if (pictureArray != nullptr) {
-			delete[] pictureArray;
-		}
-
-		if (compressedPictureArray != nullptr) {
-			delete[] compressedPictureArray;
-		}
-	}
-}
-
-void CLIScumm::Wrapper::UpdateWholeScreenBuffer(byte *pictureArray, byte *wholeScreenBuffer, int x, int y, int w, int h) {
-	try {
-		Monitor::Enter(_wholeScreenBufferLock);
-		for (int row = 0; row < h; row++) {
-			std::memcpy(&wholeScreenBuffer[((y + row) * DISPLAY_DEFAULT_WIDTH + x) * NO_BYTES_PER_PIXEL], &pictureArray[row * w * NO_BYTES_PER_PIXEL], w * NO_BYTES_PER_PIXEL);
-		}
-	} catch (System::Exception ^ e) {
-		int x = 4;
-	} finally {
-		Monitor::Exit(_wholeScreenBufferLock);
-	}
-}
-
-void CLIScumm::Wrapper::Blot(int x, int y, int w, int h, int noUpdates) {
-	byte *unCompressedPictureArray = nullptr;
-
-	try {
-
-		int pictureArrayLength = w * h * NO_BYTES_PER_PIXEL;
-		unCompressedPictureArray = new byte[pictureArrayLength];
-
-		for (int yCounter = 0; yCounter < h; yCounter++) {
-			memcpy(&unCompressedPictureArray[yCounter * w * NO_BYTES_PER_PIXEL], &_wholeScreenBufferNoMouse[(y * DISPLAY_DEFAULT_WIDTH + x + yCounter * DISPLAY_DEFAULT_WIDTH) * NO_BYTES_PER_PIXEL], w * NO_BYTES_PER_PIXEL);
-		}
-
-		
-
-		cli::array<byte> ^ compressedPictureArray = MarshalBuffer(unCompressedPictureArray, pictureArrayLength);
-
-		UpdatePicturesToBeSentBuffer(compressedPictureArray, noUpdates, x, y, w, h);
-	} finally {
-		if (unCompressedPictureArray != nullptr) {
-			delete[] unCompressedPictureArray;
-		}
-	}
-}
-
 bool CLIScumm::Wrapper::SaveData(byte *data, int size, Common::String fileName) {
 	array<System::Byte> ^ managedData = gcnew array<System::Byte>(size);
 	Marshal::Copy((System::IntPtr)data, managedData, 0, size);
 	return _saveData(managedData, gcnew System::String(fileName.c_str()));
 }
 
-void CLIScumm::Wrapper::InitScreen() {
-	for (int i = 0; i < _wholeScreenBufferLength; i++) {
-		if ((i + 1) % 4 == 0) {
-			_wholeScreenBuffer[i] = 255;
-		} else {
-			_wholeScreenBuffer[i] = 0;
-		}
-	}
-
-	if (OnCopyRectToScreen != nullptr) {
-
-		OnCopyRectToScreen->Invoke(GetListOfScreenBufferFromSinglePictureArray(MarshalBuffer(_wholeScreenBuffer, _wholeScreenBufferLength), 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT));
-	}
-}
 int gameCounter = 0;
 bool CLIScumm::Wrapper::pollEventWrapper(Common::Event &event) {
 	IGameEvent ^ gameEvent;
@@ -369,8 +220,7 @@ void CLIScumm::Wrapper::PlaySound(byte *buffer, int size, void *user) {
 		_playAudio->Invoke(result);
 
 	} finally {
-		if (compressedSound != nullptr)
-		{
+		if (compressedSound != nullptr) {
 			delete[] compressedSound;
 		}
 
@@ -390,21 +240,12 @@ void CLIScumm::Wrapper::Quit() {
 	EnqueueGameEvent(gameEvent);
 }
 
-array<Byte> ^ CLIScumm::Wrapper::GetWholeScreen(int % width, int % height) {
+void CLIScumm::Wrapper::ScheduleRedrawWholeScreen() {
+	std::vector<NativeScummWrapper::ScreenBuffer> unmanagedWholeScreenBuffers;
 
 	if (!hasStarted) {
 		throw gcnew System::Exception("Cannot get the whole screen without first starting the game");
 	}
 
-	width = DISPLAY_DEFAULT_WIDTH;
-	height = DISPLAY_DEFAULT_HEIGHT;
-
-	try {
-		Monitor::Enter(_wholeScreenBufferLock);
-
-		return MarshalBuffer(_wholeScreenBuffer, _wholeScreenBufferLength);
-
-	} finally {
-		Monitor::Exit(_wholeScreenBufferLock);
-	}
+	_gSystemCli->getGraphicsManager()->ScheduleRedrawWholeScreen();
 }

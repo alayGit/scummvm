@@ -98,7 +98,7 @@ namespace SignalRSelfHost
             _realTimeDataEndpointServer.OnEnqueueMouseClick(EnqueueMouseClick);
             _realTimeDataEndpointServer.OnEnqueueMouseMove(EnqueueMouseMove);
             _realTimeDataEndpointServer.OnEnqueueControlKey(EnqueueControlKey);
-            _realTimeDataEndpointServer.OnGetWholeScreenBuffer(GetWholeScreenBuffer);
+            _realTimeDataEndpointServer.OnScheduleRedrawWholeScreen(ScheduleRedrawWholeScreen);
         }
 
 
@@ -203,16 +203,9 @@ namespace SignalRSelfHost
             }
         }
 
-        public ScreenBuffer GetWholeScreenBuffer()
+        public void ScheduleRedrawWholeScreen()
         {
-            ScreenBuffer result = new ScreenBuffer();
-            int width = 0, height = 0;
-
-            result.Buffer = _wrapper.GetWholeScreen(ref width, ref height);
-            result.W = width;
-            result.H = height;
-
-            return result;
+            _wrapper.ScheduleRedrawWholeScreen();
         }
 
         public void StartSound()
