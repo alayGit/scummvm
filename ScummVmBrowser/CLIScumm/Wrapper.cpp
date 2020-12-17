@@ -137,6 +137,7 @@ array<byte> ^ CLIScumm::Wrapper::MarshalByteBuffer(byte *buffer, int length) {
 	return managedCompressedWholeScreenBuffer;
 }
 
+int counter2 = 0;
 ScreenBuffer ^ CLIScumm::Wrapper::MarshalScreenBuffer(NativeScummWrapper::ScreenBuffer screenBuffer) {
 	ScreenBuffer ^ result = gcnew ScreenBuffer();
 	result->CompressedBuffer = MarshalByteBuffer(screenBuffer.buffer, screenBuffer.length);
@@ -147,6 +148,16 @@ ScreenBuffer ^ CLIScumm::Wrapper::MarshalScreenBuffer(NativeScummWrapper::Screen
 	result->CompressedPaletteBuffer = screenBuffer.compressedPalette != nullptr ? MarshalByteBuffer(screenBuffer.compressedPalette, screenBuffer.compressedPalletteLength) : nullptr;
 	result->PaletteHash = screenBuffer.paletteHash;
 	result->IgnoreColour = screenBuffer.ignoreColour;
+
+
+	ZLibCompression::ZLibCompression compressor;
+
+	int uncompressedLength;
+	byte* uncompressedPicture = compressor.Decompress(screenBuffer.buffer, screenBuffer.length, uncompressedLength);
+
+    cli::array<byte> ^ unCompressedPicture = gcnew cli::array<byte>(uncompressedLength);
+	Marshal::Copy(System::IntPtr(uncompressedPicture), unCompressedPicture, 0, uncompressedLength);
+	System::IO::File::WriteAllBytes("c:\\temp\\soundBytes\\pic" + counter2.ToString() + ".bin", unCompressedPicture);
 
 	return result;
 }
@@ -216,6 +227,10 @@ void CLIScumm::Wrapper::PlaySound(byte *buffer, int size, void *user) {
 
 		cli::array<byte> ^ result = gcnew cli::array<byte>(compressedSize);
 		Marshal::Copy((System::IntPtr)compressedSound, result, 0, compressedSize);
+
+		cli::array<byte> ^ soundUnCompressed = gcnew cli::array<byte>(size);
+		Marshal::Copy(System::IntPtr(buffer), soundUnCompressed, 0, size);
+		System::IO::File::WriteAllBytes("c:\\temp\\soundBytes\\sound.bin", soundUnCompressed);
 
 		_playAudio->Invoke(result);
 
