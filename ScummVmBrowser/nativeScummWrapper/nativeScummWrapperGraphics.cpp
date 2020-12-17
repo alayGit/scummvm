@@ -137,15 +137,10 @@ void NativeScummWrapper::NativeScummWrapperGraphics::unlockScreen() {
 void NativeScummWrapper::NativeScummWrapperGraphics::fillScreen(uint32 col) {
 }
 
-int counter = 0;
 void NativeScummWrapper::NativeScummWrapperGraphics::updateScreen() {
 	WaitForSingleObject(_wholeScreenMutex, INFINITE);
 
 	if (!_drawingBuffers.empty()) {
-
-		//ScreenBuffer *buffers = new ScreenBuffer[_drawingBuffers.size()];
-		//std::copy(_drawingBuffers.begin(), _drawingBuffers.end(), buffers);
-
 		NativeScummWrapper::NativeScummWrapperGraphics::_copyRect(&_drawingBuffers[0], _drawingBuffers.size());
 
 		for (int i = 0; i < _drawingBuffers.size(); i++) {
@@ -155,9 +150,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::updateScreen() {
 				delete[] _drawingBuffers.at(i).compressedPalette;
 			}
 		}
-		//delete[] buffers;
 		_drawingBuffers.clear();
-		counter++;
 	}
 
 	ReleaseSemaphore(_wholeScreenMutex, 1, NULL);

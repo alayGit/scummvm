@@ -33,7 +33,7 @@ namespace SoundConverterTests
 		TEST_METHOD(DoesConvertToFlac)
 		{
 			_expectedPcm = GenerateRandomPcm(NO_VALUES);
-			_converter.ConvertPcmToFlac(_expectedPcm, 2, this);
+			_converter.ConvertPcmToAac(_expectedPcm, 2, this);
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(200));
 			Assert::IsTrue(_wasAfterEncodeCallbackMade);

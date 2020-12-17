@@ -60,7 +60,7 @@ void SoundManagement::SoundThreadManager::StartSound()
 
 									samples = _getSoundSample(samples, _soundOptions.sampleSize);
 
-									_soundConverter->ConvertPcmToFlac(samples, NO_CHANNELS, _user);
+									_soundConverter->ConvertPcmToAac(samples, NO_CHANNELS, _user);
 		
 									delete[] samples;
 								}

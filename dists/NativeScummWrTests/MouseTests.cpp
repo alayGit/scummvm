@@ -227,10 +227,6 @@ namespace TestCustomScummVMSubclasses
 		AssertCopyRectStateCalledwithCorrectPositionAndSize(expectedX, expectedY, expectedWidth, expectedHeight, expectedWidth, (void*)&_mouseTest->mouseBuffer, 1, false);
 	}
 
-	//void AssertCopyRectStateCalledwithCorrectPositionAndSize(int expectedX, int expectedY, int expectedWidth, int expectedHeight) {
-	//    AssertCopyRectStateCalledwithCorrectPositionAndSize(expectedX, expectedY, expectedWidth, expectedHeight, expectedWidth, (void *)&_mouseTest->mouseBuffer, 1, true, false);
- //   }
-
 	void MouseStateUpdatedCorrectly(int expectedX, int expectedY, int expectedWidth, int expectedHeight, int previousWidth, int previousHeight)
 	{
 		MouseStateUpdatedCorrectly(expectedX, expectedY, expectedWidth, expectedHeight, previousWidth, previousHeight, expectedWidth, expectedHeight);

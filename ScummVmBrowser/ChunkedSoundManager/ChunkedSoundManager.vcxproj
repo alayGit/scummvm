@@ -107,7 +107,7 @@
       <AdditionalDependencies>bass.lib;bassenc.lib;bassenc_mp3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalDependencies>bass.lib;bassenc.lib;bassenc_flac.lib;bassenc_opus.lib;bassmix.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>bass.lib;bassenc.lib;bassenc_flac.lib;bassenc_aac.lib;bassenc_opus.lib;bassmix.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\Windows Kits\10\Lib\10.0.18362.0\um\x86;$(ProjectDir)..\..\ExternalLibraries\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -144,8 +144,10 @@
       <AdditionalDependencies>bass.lib;bassenc.lib;bassenc_flac.lib;bassenc_opus.lib;bassmix.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalDependencies>bass.lib;bassenc.lib;bassenc_flac.lib;bassenc_opus.lib;bassmix.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>bass.lib;bassenc.lib;bassenc_aac.lib;bassenc_flac.lib;bassenc_opus.lib;bassmix.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Program Files (x86)\Windows Kits\10\Lib\10.0.18362.0\um\x86;$(ProjectDir)..\..\ExternalLibraries\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>
+      </AdditionalOptions>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

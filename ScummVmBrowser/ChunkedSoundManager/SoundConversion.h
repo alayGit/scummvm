@@ -2,7 +2,7 @@
 #include <vector>
 #include "../../ExternalLibraries/include/bass.h"
 #include "../../ExternalLibraries/include/bassenc.h"
-#include "../../ExternalLibraries/include/bassenc_flac.h"
+#include "../../ExternalLibraries/include/bassenc_aac.h"
 #include "../../ExternalLibraries/include/bassmix.h"
 #include <mmreg.h>
 #include "SoundOptions.h"
@@ -18,7 +18,7 @@ namespace SoundManagement
 	public:
 		SoundConverter(SoundOptions soundOptions, f_SoundConverted soundConverted);
 		~SoundConverter();
-		void ConvertPcmToFlac(byte* pcm, int noChannels, void* user);
+		void ConvertPcmToAac(byte* pcm, int noChannels, void* user);
 		void GetEncodedData(HENCODE handle, DWORD channel, const void* buffer, DWORD length);
 	private:
 		SoundOptions _soundOptions;

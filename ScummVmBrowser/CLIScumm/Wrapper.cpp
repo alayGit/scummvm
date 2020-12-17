@@ -207,7 +207,6 @@ bool CLIScumm::Wrapper::pollEventWrapper(Common::Event &event) {
 
 void CLIScumm::Wrapper::PlaySound(byte *buffer, int size, void *user) {
 	byte *compressedSound = nullptr;
-
 	try {
 		ZLibCompression::ZLibCompression compressor;
 

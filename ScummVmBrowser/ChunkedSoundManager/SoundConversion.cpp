@@ -21,7 +21,7 @@ void CALLBACK GetEncodedDataClb(HENCODE handle, DWORD channel, const void* buffe
 	((SoundManagement::SoundConverter*)user)->GetEncodedData(handle, channel, buffer, length);
 }
 
-void SoundManagement::SoundConverter::ConvertPcmToFlac(byte* pcm, int noChannels, void* user)
+void SoundManagement::SoundConverter::ConvertPcmToAac(byte* pcm, int noChannels, void* user)
 {
 	_user = user;
 
@@ -34,7 +34,7 @@ void SoundManagement::SoundConverter::ConvertPcmToFlac(byte* pcm, int noChannels
 		throw "Error did not push data. The error code was " + BASS_ErrorGetCode();
 	}
 
-	HENCODE encoder = BASS_Encode_FLAC_Start(stream, "--best  --no-padding", BASS_ENCODE_AUTOFREE | BASS_ENCODE_LIMIT, &GetEncodedDataClb, this); // set a WAV writer on it
+	HENCODE encoder = BASS_Encode_AAC_Start(stream, "", BASS_ENCODE_AUTOFREE | BASS_ENCODE_LIMIT, &GetEncodedDataClb, this); // set a WAV writer on it
 
 	int result = 1;
 	while (result) { // processing loop...

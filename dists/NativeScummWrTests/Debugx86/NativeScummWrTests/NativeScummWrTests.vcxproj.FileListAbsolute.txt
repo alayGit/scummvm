@@ -1,9 +1,9 @@
 C:\ScummVmBrowser\dists\NativeScummWrTests\Debugx86\NativeScummWrTests\NativeScummWrTests.vcxproj.CopyComplete
 C:\ScummVmBrowser\dists\NativeScummWrTests\Debugx86\gtest.pdb
 C:\ScummVmBrowser\dists\NativeScummWrTests\Debugx86\gtest_main.pdb
-C:\scumm\dists\NativeScummWrTests\Debugx86\NativeScummWrTests\NativeScummWrTests.vcxproj.CopyComplete
-C:\scumm\dists\NativeScummWrTests\Debugx86\gtest.pdb
-C:\scumm\dists\NativeScummWrTests\Debugx86\gtest_main.pdb
 C:\scummGit\dists\NativeScummWrTests\Debugx86\NativeScummWrTests\NativeScummWrTests.vcxproj.CopyComplete
 C:\scummGit\dists\NativeScummWrTests\Debugx86\gtest.pdb
 C:\scummGit\dists\NativeScummWrTests\Debugx86\gtest_main.pdb
+C:\scumm\dists\NativeScummWrTests\Debugx86\NativeScummWrTests\NativeScummWrTests.vcxproj.CopyComplete
+C:\scumm\dists\NativeScummWrTests\Debugx86\gtest.pdb
+C:\scumm\dists\NativeScummWrTests\Debugx86\gtest_main.pdb
