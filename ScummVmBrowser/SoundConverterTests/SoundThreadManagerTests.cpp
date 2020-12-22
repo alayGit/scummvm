@@ -23,7 +23,7 @@ namespace SoundConverterTests
 					
 					return GenerateRandomPcm(SAMPLE_SIZE);
 				},
-				((SoundManagement::f_SoundConverted) &SoundConvertedCallback),
+				((SoundManagement::f_PlaySound) &SoundConvertedCallback),
 			   _soundOptions,
 			   this
 			);
@@ -89,15 +89,15 @@ namespace SoundConverterTests
 			Assert::AreEqual(_noTimesSoundConvertedCalled, noTimesSoundConvertedCalledBeforeStop);
 		}
 
-		void SoundConverted(byte* buffer, int length)
+		void SoundConverted(std::vector<byte*> sounds)
 		{
-			Assert::IsTrue(length > 1);
+			Assert::IsTrue(sounds.size() > 0);
 			_noTimesSoundConvertedCalled++;
 		}
 
-		static void __stdcall SoundConvertedCallback(byte* buffer, int length, void* user)
+		static void __stdcall SoundConvertedCallback(std::vector<byte*> sounds, void* user)
 		{
-			((SoundConverterTests::SoundThreadManagerTests*) user)->SoundConverted(buffer, length);
+			((SoundConverterTests::SoundThreadManagerTests*) user)->SoundConverted(sounds);
 		}
 
 	private: 

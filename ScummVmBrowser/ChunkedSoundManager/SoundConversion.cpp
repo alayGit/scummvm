@@ -2,8 +2,10 @@
 #include "SoundConversion.h"
 
 
-SoundManagement::SoundConverter::SoundConverter(SoundOptions soundOptions, f_SoundConverted soundConverted)
-{
+SoundManagement::SoundConverter::SoundConverter() {
+}
+
+void SoundManagement::SoundConverter::Init(SoundOptions soundOptions, f_SoundOperated soundConverted) {
 	_soundOptions = soundOptions;
 	_soundConverted = soundConverted;
 
@@ -21,12 +23,12 @@ void CALLBACK GetEncodedDataClb(HENCODE handle, DWORD channel, const void* buffe
 	((SoundManagement::SoundConverter*)user)->GetEncodedData(handle, channel, buffer, length);
 }
 
-void SoundManagement::SoundConverter::ConvertPcmToFlac(byte* pcm, int noChannels, void* user)
+void SoundManagement::SoundConverter::ConvertPcmToFlac(byte* pcm, void* user)
 {
 	_user = user;
 
 	const int BufferSize = 256;
-	HSTREAM stream = BASS_StreamCreate(_soundOptions.sampleRate, noChannels, BASS_STREAM_DECODE, STREAMPROC_PUSH, nullptr);
+	HSTREAM stream = BASS_StreamCreate(_soundOptions.sampleRate, NO_CHANNELS, BASS_STREAM_DECODE, STREAMPROC_PUSH, nullptr);
 	bool successfullyPushedData = BASS_StreamPutData(stream, pcm, _soundOptions.sampleSize) != -1;
 
 	if (!successfullyPushedData)
@@ -63,4 +65,13 @@ void SoundManagement::SoundConverter::GetEncodedData(HENCODE handle, DWORD chann
 		_workingBuffer.resize(0);
 	}
 
+}
+
+void SoundManagement::SoundConverter::ProcessSound(byte *pcm, int length, void *user) {
+	if (length != _soundOptions.sampleSize)
+	{
+		throw new std::exception("Length must equal sample size");
+	}
+
+	ConvertPcmToFlac(pcm, user);
 }

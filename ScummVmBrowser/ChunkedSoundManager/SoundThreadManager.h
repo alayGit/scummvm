@@ -7,6 +7,7 @@
 #include <windows.h>
 #include <string>
 #include <mutex>
+#include "SoundProcessor.h"
 namespace SoundManagement
 {
 	typedef std::function<byte* (byte*, int)> f_GetSoundSample;
@@ -15,12 +16,12 @@ namespace SoundManagement
 	public:
 		SoundThreadManager();
 		~SoundThreadManager();
-		void Init(f_GetSoundSample getSoundSample, f_SoundConverted playSound, SoundOptions soundOptions, void* user = nullptr);
+	    void Init(f_GetSoundSample getSoundSample, f_PlaySound playSound, SoundOptions soundOptions, void *user = nullptr);
 		void StartSound();
 		void StopSound(bool soundIsStoppedForeverPriorToDestructor);
 		bool SoundIsRunning();
 	private:
-		SoundConverter* _soundConverter;
+	    SoundProcessor _soundProcessor;
 		f_GetSoundSample _getSoundSample;
 		bool _soundIsRunning;
 		bool _soundIsStoppedForeverPriorToDestructor;

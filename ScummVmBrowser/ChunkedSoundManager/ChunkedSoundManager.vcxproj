@@ -19,13 +19,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SoundCompressor.h" />
     <ClInclude Include="SoundConversion.h" />
     <ClInclude Include="SoundOptions.h" />
+    <ClInclude Include="SoundOperation.h" />
+    <ClInclude Include="SoundProcessor.h" />
     <ClInclude Include="SoundThreadManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SoundCompressor.cpp" />
     <ClCompile Include="SoundConversion.cpp" />
+    <ClCompile Include="SoundProcessor.cpp" />
     <ClCompile Include="SoundThreadManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZLibCompression\ZLibCompression.vcxproj">
+      <Project>{dd428103-65c3-4153-b6a6-e8de628e3c3f}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

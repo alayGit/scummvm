@@ -4,7 +4,7 @@
 
 #include "nativeScummWrapperOSystem.h"
 
-NativeScummWrapper::NativeScummWrapperOSystem::NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, f_SendScreenBuffers sendScreenBuffers, f_PollEvent queueEvent, f_SaveFileData saveData, SoundManagement::f_SoundConverted playSound) : ModularBackend() {
+NativeScummWrapper::NativeScummWrapperOSystem::NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, f_SendScreenBuffers sendScreenBuffers, f_PollEvent queueEvent, f_SaveFileData saveData, SoundManagement::f_PlaySound playSound) : ModularBackend() {
 	_mixerImpl = nullptr;	
 	_soundOptions = soundOptions;
 	_fsFactory = new WindowsFilesystemFactory();

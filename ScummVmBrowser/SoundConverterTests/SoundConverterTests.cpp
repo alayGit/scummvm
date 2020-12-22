@@ -20,8 +20,9 @@ namespace SoundConverterTests
 	public:
 		const int NO_VALUES = 2000; //Must be even
 
-		SoundConverterTests() : _converter(GetSoundOptions(NO_VALUES), (SoundManagement::f_SoundConverted)& encodeCallback)
+		SoundConverterTests()
 		{
+		    _converter.Init(GetSoundOptions(NO_VALUES), (SoundManagement::f_SoundOperated)&encodeCallback);
 			_wasAfterDecodeCallbackMade = false;
 			_wasAfterEncodeCallbackMade = false;
 			_wasAfterDecodeCallbackCompleted = false;
@@ -33,7 +34,7 @@ namespace SoundConverterTests
 		TEST_METHOD(DoesConvertToFlac)
 		{
 			_expectedPcm = GenerateRandomPcm(NO_VALUES);
-			_converter.ConvertPcmToFlac(_expectedPcm, 2, this);
+			_converter.ConvertPcmToFlac(_expectedPcm, this);
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(200));
 			Assert::IsTrue(_wasAfterEncodeCallbackMade);

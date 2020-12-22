@@ -10,7 +10,6 @@ SoundManagement::SoundThreadManager::SoundThreadManager()
 		NULL);          // unnamed semaphore
 	_soundIsRunning = false;
 	_soundIsStoppedForeverPriorToDestructor = false;
-	_soundConverter = nullptr;
 	_soundOptions = SoundOptions();
 	_soundThread = nullptr;
 	_user = nullptr;
@@ -19,19 +18,14 @@ SoundManagement::SoundThreadManager::SoundThreadManager()
 SoundManagement::SoundThreadManager::~SoundThreadManager()
 {
 	CloseHandle(_stopSoundMutex);
-	delete _soundConverter;
 }
 
-
-const int NO_CHANNELS = 2;
-
-void SoundManagement::SoundThreadManager::Init(f_GetSoundSample getSoundSample, f_SoundConverted playSound, SoundOptions soundOptions, void* user)
-{
+void SoundManagement::SoundThreadManager::Init(f_GetSoundSample getSoundSample, f_PlaySound playSound, SoundOptions soundOptions, void *user) {
 	_soundOptions = soundOptions;
 	_getSoundSample = getSoundSample;
-	_soundConverter = new SoundConverter(_soundOptions, playSound);
 	_user = user;
 	_soundThread = nullptr;
+	_soundProcessor.Init(soundOptions, playSound);
 }
 
 void SoundManagement::SoundThreadManager::StartSound()
@@ -60,9 +54,7 @@ void SoundManagement::SoundThreadManager::StartSound()
 
 									samples = _getSoundSample(samples, _soundOptions.sampleSize);
 
-									_soundConverter->ConvertPcmToFlac(samples, NO_CHANNELS, _user);
-		
-									delete[] samples;
+									_soundProcessor.ProcessSound(samples, this);
 								}
 								ReleaseSemaphore(_stopSoundMutex, 1, NULL);
 							}
