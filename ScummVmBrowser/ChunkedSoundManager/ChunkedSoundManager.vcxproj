@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DummySoundOperation.h" />
     <ClInclude Include="SoundCompressor.h" />
     <ClInclude Include="SoundConversion.h" />
     <ClInclude Include="SoundOptions.h" />
@@ -27,6 +28,7 @@
     <ClInclude Include="SoundThreadManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DummySoundOperation.cpp" />
     <ClCompile Include="SoundCompressor.cpp" />
     <ClCompile Include="SoundConversion.cpp" />
     <ClCompile Include="SoundProcessor.cpp" />

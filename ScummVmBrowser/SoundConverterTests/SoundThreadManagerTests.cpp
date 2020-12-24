@@ -64,6 +64,7 @@ namespace SoundConverterTests
 
 				noTimesCalledLasttime = _noTimesSoundConvertedCalled;
 			}
+		    int y = 4;
 		}
 
 		TEST_METHOD(DoesSoundNotStartAfterPermanantStop)

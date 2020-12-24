@@ -33,6 +33,9 @@
     <ClInclude Include="SoundProcessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DummySoundOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SoundConversion.cpp">
@@ -45,6 +48,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SoundProcessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DummySoundOperation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

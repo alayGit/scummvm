@@ -20,8 +20,8 @@ void SoundManagement::SoundProcessor::Init(SoundOptions soundOptions, f_PlaySoun
 	_soundOperationsCompleted = soundOperationsCompleted;
 
 	operations = new SoundOperation *[NO_OPERATIONS];
-	operations[0] = new SoundConverter();
-	operations[1] = new SoundCompressor();
+	operations[0] = new DummySoundOperation();
+	operations[1] = new DummySoundOperation();
 
 	_operationCounter = 0;
 
@@ -38,7 +38,7 @@ void SoundManagement::SoundProcessor::ProcessSound(byte *pcm, void *user) {
 void SoundManagement::SoundProcessor::OperateOnSound(byte *soundBytes, int length) {
 	if (_operationCounter < NO_OPERATIONS) {
 		operations[_operationCounter++]->ProcessSound(soundBytes, length, this);
-		delete soundBytes;
+		delete[] soundBytes;
 	}
 	else
 	{
@@ -50,5 +50,5 @@ void SoundManagement::SoundProcessor::OperateOnSound(byte *soundBytes, int lengt
 }
 
 void __stdcall SoundManagement::OperateOnSoundClb(byte *soundBytes, int length, void *user) {
-	((SoundProcessor *)user)->OperateOnSound(soundBytes, length);
+    ((SoundProcessor *)user)->OperateOnSound(soundBytes, length);
 }

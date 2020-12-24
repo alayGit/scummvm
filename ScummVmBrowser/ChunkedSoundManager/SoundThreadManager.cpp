@@ -54,7 +54,7 @@ void SoundManagement::SoundThreadManager::StartSound()
 
 									samples = _getSoundSample(samples, _soundOptions.sampleSize);
 
-									_soundProcessor.ProcessSound(samples, this);
+									_soundProcessor.ProcessSound(samples, _user);
 								}
 								ReleaseSemaphore(_stopSoundMutex, 1, NULL);
 							}

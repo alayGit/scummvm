@@ -2,6 +2,7 @@
 #include "SoundOperation.h"
 #include "SoundConversion.h";
 #include "SoundCompressor.h";
+#include "DummySoundOperation.h"
 #include <vector>
 namespace SoundManagement {
 const int NO_OPERATIONS = 2;
