@@ -4,5 +4,6 @@
   "SoundPollingFrequencyMs": 5,
   "MaxQueuedToStopAudio": 25,
   "MinQueuedToResumeAudio": 20,
-  "FeedSize": 5
+  "ClientFeedSize": 2,
+  "ServerFeedSize": 3 
 }

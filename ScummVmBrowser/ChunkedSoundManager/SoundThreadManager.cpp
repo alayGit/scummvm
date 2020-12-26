@@ -85,6 +85,7 @@ void SoundManagement::SoundThreadManager::StopSound(bool stopSoundForeverPriorTo
 		{
 			_soundIsRunning = false;
 			_soundIsStoppedForeverPriorToDestructor = stopSoundForeverPriorToDestructor;
+			_soundProcessor.Flush();
 		}
 		ReleaseSemaphore(_stopSoundMutex, 1, NULL);
 

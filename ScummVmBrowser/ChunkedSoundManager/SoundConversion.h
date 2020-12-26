@@ -17,7 +17,7 @@ namespace SoundManagement
 	    SoundConverter();
 		virtual void Init(SoundOptions soundOptions, f_SoundOperated soundConverted);
 		~SoundConverter();
-		void ConvertPcmToFlac(byte* pcm, void* user);
+		void ConvertPcmToFlac(byte* pcm, int length, void* user);
 		void GetEncodedData(HENCODE handle, DWORD channel, const void* buffer, DWORD length);
 
 	    void ProcessSound(byte *pcm, int noChannels, void *user) override;

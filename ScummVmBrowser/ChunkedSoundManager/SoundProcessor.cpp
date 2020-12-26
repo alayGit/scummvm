@@ -20,8 +20,8 @@ void SoundManagement::SoundProcessor::Init(SoundOptions soundOptions, f_PlaySoun
 	_soundOperationsCompleted = soundOperationsCompleted;
 
 	operations = new SoundOperation *[NO_OPERATIONS];
-	operations[0] = new DummySoundOperation();
-	operations[1] = new DummySoundOperation();
+	operations[0] = new SoundConverter();
+	operations[1] = new SoundCompressor();
 
 	_operationCounter = 0;
 
@@ -32,7 +32,15 @@ void SoundManagement::SoundProcessor::Init(SoundOptions soundOptions, f_PlaySoun
 
 void SoundManagement::SoundProcessor::ProcessSound(byte *pcm, void *user) {
 	_user = user;
-	OperateOnSound(pcm, _soundOptions.sampleSize);
+	for (int i = 0; i < _soundOptions.sampleSize; i++) {
+		cachedSound.push_back(pcm[i]);
+	}
+
+	if (cachedSound.size() / _soundOptions.sampleSize == _soundOptions.serverFeedSize) {
+		Flush();
+	}
+
+	delete[] pcm;
 }
 
 void SoundManagement::SoundProcessor::OperateOnSound(byte *soundBytes, int length) {
@@ -42,10 +50,17 @@ void SoundManagement::SoundProcessor::OperateOnSound(byte *soundBytes, int lengt
 	}
 	else
 	{
-		std::vector<byte*> result;
-		result.push_back(soundBytes);
+		_soundOperationsCompleted(soundBytes, length, _user);
+	}
+}
 
-		_soundOperationsCompleted(result, _user);
+void SoundManagement::SoundProcessor::Flush() {
+	if (cachedSound.size()) {
+		byte *joinedPcm = new byte[cachedSound.size()];
+		memcpy(joinedPcm, &cachedSound[0], cachedSound.size());
+		OperateOnSound(joinedPcm, cachedSound.size());
+		cachedSound.clear();
+		_operationCounter = 0;
 	}
 }
 

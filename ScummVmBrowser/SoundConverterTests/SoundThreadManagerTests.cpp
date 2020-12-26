@@ -39,7 +39,7 @@ namespace SoundConverterTests
 			{
 				_soundThreadManager.StartSound();
 
-				std::this_thread::sleep_for(std::chrono::milliseconds(50));
+				std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
 				Assert::IsTrue(_soundThreadManager.SoundIsRunning());
 
@@ -49,7 +49,7 @@ namespace SoundConverterTests
 
 				Assert::IsFalse(_soundThreadManager.SoundIsRunning());
 
-				std::this_thread::sleep_for(std::chrono::milliseconds(50));
+				std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
 				Assert::AreEqual(_noTimesSoundConvertedCalled, noTimesSoundConvertedCalledAfterStop);
 				
@@ -90,15 +90,15 @@ namespace SoundConverterTests
 			Assert::AreEqual(_noTimesSoundConvertedCalled, noTimesSoundConvertedCalledBeforeStop);
 		}
 
-		void SoundConverted(std::vector<byte*> sounds)
+		void SoundConverted(byte* sounds, int size)
 		{
-			Assert::IsTrue(sounds.size() > 0);
+			Assert::IsTrue(size > 0);
 			_noTimesSoundConvertedCalled++;
 		}
 
-		static void __stdcall SoundConvertedCallback(std::vector<byte*> sounds, void* user)
+		static void __stdcall SoundConvertedCallback(byte* sounds, int size, void* user)
 		{
-			((SoundConverterTests::SoundThreadManagerTests*) user)->SoundConverted(sounds);
+			((SoundConverterTests::SoundThreadManagerTests*) user)->SoundConverted(sounds, size);
 		}
 
 	private: 

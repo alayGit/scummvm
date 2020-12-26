@@ -13,6 +13,7 @@ namespace ManagedCommon.Enums
         SoundPollingFrequencyMs,
         MaxQueuedToStopAudio,
         MinQueuedToResumeAudio,
-        FeedSize
+        ClientFeedSize,
+		ServerFeedSize
     }
 }

@@ -7,5 +7,6 @@ namespace SoundManagement
 		int sampleRate;
 		int sampleSize;
 		int soundPollingFrequencyMs;
+	    int serverFeedSize;
 	};
 }
