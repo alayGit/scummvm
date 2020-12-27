@@ -51,9 +51,9 @@ namespace DotNetScummTests
 		{
 			_gameTask = Task.Run(() => RunGame());
 			_wrapper.StartSound();
-
 			await Task.Delay(1000);
 
+			_wrapper.StopSound();
 			_wrapper.Quit();
 
 			await _gameTask;

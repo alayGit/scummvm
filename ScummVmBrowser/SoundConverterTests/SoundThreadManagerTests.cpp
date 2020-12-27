@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include <thread>
 #include "../ChunkedSoundManager/SoundThreadManager.h";
+#include "../chunkedSoundManager/DummySoundOperation.h"
 
 extern byte* GenerateRandomPcm(int length);
 extern SoundManagement::SoundOptions GetSoundOptions(int sampleSize);
@@ -13,18 +14,27 @@ namespace SoundConverterTests
 	TEST_CLASS(SoundThreadManagerTests)
 	{
 		const int SAMPLE_SIZE = 2000;
+	    SoundManagement::SoundProcessor* _soundProcessor;
+
+		TEST_METHOD_CLEANUP(Cleanup) {
+		    delete _soundProcessor;
+	    }
+
 		TEST_METHOD_INITIALIZE(Initialize)
 		{
 			SoundManagement::SoundOptions _soundOptions = GetSoundOptions(SAMPLE_SIZE);
 
+			_soundProcessor = new SoundManagement::SoundProcessor();
+		    _soundProcessor->AddOperation(new SoundManagement::DummySoundOperation());
+		    _soundProcessor->Init(_soundOptions, ((SoundManagement::f_PlaySound)&SoundConvertedCallback));
 			_soundThreadManager.Init(
 		       [this] (byte* buffer, int length) {
 					Assert::AreEqual(SAMPLE_SIZE, length);
 					
 					return GenerateRandomPcm(SAMPLE_SIZE);
 				},
-				((SoundManagement::f_PlaySound) &SoundConvertedCallback),
 			   _soundOptions,
+			   _soundProcessor,
 			   this
 			);
 

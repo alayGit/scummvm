@@ -8,8 +8,10 @@
 #include "standardMutexManager.h"
 #include "../chunkedSoundManager/SoundOptions.h"
 #include "../chunkedSoundManager/SoundThreadManager.h"
+#include "../chunkedSoundManager/SoundProcessor.h"
+#include "../chunkedSoundManager/SoundCompressor.h"
+#include "../chunkedSoundManager/SoundConversion.h"
 #include <assert.h>
-
 
 namespace NativeScummWrapper {
 	class NativeScummWrapperOSystem: public ModularBackend {
@@ -38,5 +40,6 @@ namespace NativeScummWrapper {
 		Audio::MixerImpl *_mixerImpl;
 		SoundManagement::SoundThreadManager *_soundThreadManager;
 		NativeScummWrapper::NativeScummWrapperGraphics*_cliGraphicsManager;
+	    SoundManagement::SoundProcessor* _soundProcessor; 
 	};
 } // namespace NativeScummWrapper

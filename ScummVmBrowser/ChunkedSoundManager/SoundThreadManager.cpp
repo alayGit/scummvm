@@ -20,12 +20,12 @@ SoundManagement::SoundThreadManager::~SoundThreadManager()
 	CloseHandle(_stopSoundMutex);
 }
 
-void SoundManagement::SoundThreadManager::Init(f_GetSoundSample getSoundSample, f_PlaySound playSound, SoundOptions soundOptions, void *user) {
+void SoundManagement::SoundThreadManager::Init(f_GetSoundSample getSoundSample, SoundOptions soundOptions, SoundProcessor* soundProcessor, void *user) {
 	_soundOptions = soundOptions;
 	_getSoundSample = getSoundSample;
 	_user = user;
 	_soundThread = nullptr;
-	_soundProcessor.Init(soundOptions, playSound);
+	_soundProcessor = soundProcessor;
 }
 
 void SoundManagement::SoundThreadManager::StartSound()
@@ -54,7 +54,7 @@ void SoundManagement::SoundThreadManager::StartSound()
 
 									samples = _getSoundSample(samples, _soundOptions.sampleSize);
 
-									_soundProcessor.ProcessSound(samples, _user);
+									_soundProcessor->ProcessSound(samples, _user);
 								}
 								ReleaseSemaphore(_stopSoundMutex, 1, NULL);
 							}
@@ -85,7 +85,7 @@ void SoundManagement::SoundThreadManager::StopSound(bool stopSoundForeverPriorTo
 		{
 			_soundIsRunning = false;
 			_soundIsStoppedForeverPriorToDestructor = stopSoundForeverPriorToDestructor;
-			_soundProcessor.Flush();
+			_soundProcessor->Flush();
 		}
 		ReleaseSemaphore(_stopSoundMutex, 1, NULL);
 

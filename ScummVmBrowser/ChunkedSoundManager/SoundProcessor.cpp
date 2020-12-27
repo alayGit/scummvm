@@ -5,28 +5,22 @@ SoundManagement::SoundProcessor::SoundProcessor() {
 	_soundOperationsCompleted = nullptr;
 	_soundOptions = SoundOptions();
 	_user = nullptr;
-	operations = nullptr;
 }
 
 SoundManagement::SoundProcessor::~SoundProcessor() {
-	for (int i = 0; i < NO_OPERATIONS; i++) {
-		delete operations[i];
+	for (int i = 0; i < _operations.size(); i++) {
+		delete _operations[i];
 	}
-	delete operations;
 }
 
 void SoundManagement::SoundProcessor::Init(SoundOptions soundOptions, f_PlaySound soundOperationsCompleted) {
 	_soundOptions = soundOptions;
 	_soundOperationsCompleted = soundOperationsCompleted;
 
-	operations = new SoundOperation *[NO_OPERATIONS];
-	operations[0] = new SoundConverter();
-	operations[1] = new SoundCompressor();
-
 	_operationCounter = 0;
 
-	for (int i = 0; i < NO_OPERATIONS; i++) {
-		operations[i]->Init(soundOptions, OperateOnSoundClb);
+	for (int i = 0; i < _operations.size(); i++) {
+		_operations[i]->Init(soundOptions, OperateOnSoundClb);
 	}
 }
 
@@ -44,8 +38,8 @@ void SoundManagement::SoundProcessor::ProcessSound(byte *pcm, void *user) {
 }
 
 void SoundManagement::SoundProcessor::OperateOnSound(byte *soundBytes, int length) {
-	if (_operationCounter < NO_OPERATIONS) {
-		operations[_operationCounter++]->ProcessSound(soundBytes, length, this);
+	if (_operationCounter < _operations.size()) {
+		_operations[_operationCounter++]->ProcessSound(soundBytes, length, this);
 		delete[] soundBytes;
 	}
 	else
@@ -62,6 +56,10 @@ void SoundManagement::SoundProcessor::Flush() {
 		cachedSound.clear();
 		_operationCounter = 0;
 	}
+}
+
+void SoundManagement::SoundProcessor::AddOperation(SoundOperation* operation) {
+	_operations.push_back(operation);
 }
 
 void __stdcall SoundManagement::OperateOnSoundClb(byte *soundBytes, int length, void *user) {
