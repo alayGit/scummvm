@@ -21,6 +21,7 @@ private:
 	int _operationCounter;
 	void *_user;
 	std::vector<byte> cachedSound;
+	bool _isInited;
 };
 void __stdcall OperateOnSoundClb(byte *soundBytes, int size, void *user);
 } // namespace SoundManagement

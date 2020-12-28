@@ -5,6 +5,7 @@ SoundManagement::SoundProcessor::SoundProcessor() {
 	_soundOperationsCompleted = nullptr;
 	_soundOptions = SoundOptions();
 	_user = nullptr;
+	_isInited = false;
 }
 
 SoundManagement::SoundProcessor::~SoundProcessor() {
@@ -14,6 +15,15 @@ SoundManagement::SoundProcessor::~SoundProcessor() {
 }
 
 void SoundManagement::SoundProcessor::Init(SoundOptions soundOptions, f_PlaySound soundOperationsCompleted) {
+	if (_isInited) {
+		throw std::exception("Inited twiced, fail");
+	}
+
+	if (_operations.size() == 0)
+	{
+		throw std::exception("No operations added, and init called, add operations first and then call init");
+	}
+
 	_soundOptions = soundOptions;
 	_soundOperationsCompleted = soundOperationsCompleted;
 
@@ -22,6 +32,8 @@ void SoundManagement::SoundProcessor::Init(SoundOptions soundOptions, f_PlaySoun
 	for (int i = 0; i < _operations.size(); i++) {
 		_operations[i]->Init(soundOptions, OperateOnSoundClb);
 	}
+
+	_isInited = true;
 }
 
 void SoundManagement::SoundProcessor::ProcessSound(byte *pcm, void *user) {
@@ -59,6 +71,10 @@ void SoundManagement::SoundProcessor::Flush() {
 }
 
 void SoundManagement::SoundProcessor::AddOperation(SoundOperation* operation) {
+	if (_isInited) {
+		throw std::exception("Cannot add once inited, add first, and then init");
+	}
+
 	_operations.push_back(operation);
 }
 

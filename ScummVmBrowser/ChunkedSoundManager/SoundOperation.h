@@ -1,5 +1,6 @@
 #pragma once
 #include "SoundOptions.h"
+
 #include <functional>
 namespace SoundManagement {
 typedef unsigned char byte;
