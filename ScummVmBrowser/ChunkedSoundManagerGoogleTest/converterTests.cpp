@@ -7,7 +7,7 @@ const SoundManagement::byte FLAC_PREAMBLE[FLAC_PREAMBLE_LENGTH] = {102, 76, 97, 
 
 bool converterCallbackCalled = false;
 
-void __stdcall ConverterCallback(SoundManagement::byte *data, int length, void *user) {
+void __stdcall SoundConverterCallback(SoundManagement::byte *data, int length, void *user) {
 	converterCallbackCalled = true;
 
 	EXPECT_TRUE(length > 0);
@@ -19,14 +19,14 @@ void __stdcall ConverterCallback(SoundManagement::byte *data, int length, void *
 	}
 }
 
-TEST(DoesSoundConvert) {
+TEST(SoundConverterTests, DoesSoundConvert) {
 	const int SOUND_LENGTH = 1000;
 	SoundManagement::SoundConverter soundConverter;
 	SoundManagement::SoundOptions options;
 	options.sampleRate = 14000;
 	options.sampleSize = SOUND_LENGTH;
 
-	soundConverter.Init(options, &ConverterCallback);
+	soundConverter.Init(options, &SoundConverterCallback);
 	
 	byte* testSound = new byte[SOUND_LENGTH];
 
@@ -38,3 +38,20 @@ TEST(DoesSoundConvert) {
 
 	EXPECT_TRUE(converterCallbackCalled);
 }
+
+TEST(SoundConverterTests, CannotInitTwice) {
+	SoundManagement::SoundConverter soundConverter;
+	soundConverter.Init(SoundManagement::SoundOptions(), &SoundConverterCallback);
+
+	EXPECT_THROW(soundConverter.Init(SoundManagement::SoundOptions(), &SoundConverterCallback), std::exception);
+}
+
+TEST(SoundConverterTests, CannotConvertWithoutIniting) {
+	const int SOUND_LENGTH = 34;
+	SoundManagement::SoundConverter soundConverter;
+	byte *testData = new byte[SOUND_LENGTH];
+
+	EXPECT_THROW(soundConverter.ConvertPcmToFlac(testData, SOUND_LENGTH, nullptr), std::exception);
+}
+
+

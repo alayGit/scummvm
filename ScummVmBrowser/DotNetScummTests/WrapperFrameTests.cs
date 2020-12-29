@@ -229,7 +229,7 @@ namespace DotNetScummTests
         {
             //Cropping = new Rectangle(0, 8,320, 42);
             const string expectedFrameName = "CanSendLeft";
-            const int noFrames = 470;
+            const int noFrames = 460;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
             Setup(gameDirectory, noFrames, expectedFrameName);
             await WaitForFrame(180);

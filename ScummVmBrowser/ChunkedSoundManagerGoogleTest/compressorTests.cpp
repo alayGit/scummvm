@@ -31,7 +31,7 @@ void __stdcall CompressorCallback(SoundManagement::byte *data, int length, void 
 	callBackCalled = true;
 }
 
-TEST(SoundCompressorCompressesBytes) {
+TEST(CompressorTests, SoundCompressorCompressesBytes) {
 	callBackCalled = false;
 
 	memset(dataToCompress, DATA_BYTE, LENGTH_DATA_TO_COMPRESS);
@@ -43,13 +43,13 @@ TEST(SoundCompressorCompressesBytes) {
 	EXPECT_TRUE(callBackCalled);
 }
 
-TEST(CannotInitTwice) {
+TEST(CompressorTests, CannotInitTwice) {
 	SoundManagement::SoundCompressor soundCompressor;
 	soundCompressor.Init(SoundManagement::SoundOptions(), &CompressorCallback);
 	EXPECT_THROW(soundCompressor.Init(SoundManagement::SoundOptions(), &CompressorCallback), std::exception);
 }
 
-TEST(CannotProcessSoundWithoutIniting) {
+TEST(CompressorTests, CannotProcessSoundWithoutIniting) {
 	const int DATA_LENGTH = 4;
 	byte *testData = new byte[DATA_LENGTH];
 	SoundManagement::SoundCompressor soundCompressor;
