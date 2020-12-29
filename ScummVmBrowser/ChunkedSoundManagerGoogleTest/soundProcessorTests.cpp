@@ -8,7 +8,7 @@ SoundManagement::byte *resultData;
 int resultLength;
 void *resultUser;
 
-void __stdcall Callback(SoundManagement::byte *data, int length, void *user) {
+void __stdcall ProcessorCallback(SoundManagement::byte *data, int length, void *user) {
 	resultData = data;
 	resultLength = length;
 	resultUser = user;
@@ -31,7 +31,7 @@ class SoundProcessorFixture : public ::testing::Test {
 			_soundProcessor.AddOperation(new TestSoundOperation());
 		}
 
-		_soundProcessor.Init(_soundOptions, &Callback);
+		_soundProcessor.Init(_soundOptions, &ProcessorCallback);
 	}
 };
 
@@ -89,7 +89,7 @@ TEST_F(SoundProcessorFixture, DataDoesNotGetSentIfThereIsLessDataThanServerFeed)
 }
 
 TEST_F(SoundProcessorFixture, CannotInitTwice) {
-	EXPECT_THROW(_soundProcessor.Init(SoundManagement::SoundOptions(), &Callback), std::exception);
+	EXPECT_THROW(_soundProcessor.Init(SoundManagement::SoundOptions(), &ProcessorCallback), std::exception);
 }
 
 TEST_F(SoundProcessorFixture, CannotAddAfterInit) {
@@ -99,5 +99,5 @@ TEST_F(SoundProcessorFixture, CannotAddAfterInit) {
 }
 
 TEST_F(SoundProcessorFixture,CannotInitWithNoOperations) {
-	EXPECT_THROW(SoundManagement::SoundProcessor().Init(SoundManagement::SoundOptions(), &Callback), std::exception);
+	EXPECT_THROW(SoundManagement::SoundProcessor().Init(SoundManagement::SoundOptions(), &ProcessorCallback), std::exception);
 }

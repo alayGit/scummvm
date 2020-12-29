@@ -3,9 +3,18 @@
 
 
 SoundManagement::SoundConverter::SoundConverter() {
+	_soundConverted = nullptr;
+	_soundOptions = SoundOptions();
+	_user = nullptr;
+	_isInited = false;
 }
 
 void SoundManagement::SoundConverter::Init(SoundOptions soundOptions, f_SoundOperated soundConverted) {
+	if (_isInited)
+	{
+		throw std::exception("Cannot init twice, soundCompressor");
+	}
+	_isInited = true;
 	_soundOptions = soundOptions;
 	_soundConverted = soundConverted;
 
@@ -25,6 +34,10 @@ void CALLBACK GetEncodedDataClb(HENCODE handle, DWORD channel, const void* buffe
 
 void SoundManagement::SoundConverter::ConvertPcmToFlac(byte* pcm, int length, void* user)
 {
+	if (!_isInited) {
+		throw std::exception("Cannot process sound on sound conversion until inited");
+	}
+
 	_user = user;
 
 	const int BufferSize = 256;

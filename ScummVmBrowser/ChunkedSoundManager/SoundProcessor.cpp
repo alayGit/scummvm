@@ -16,7 +16,7 @@ SoundManagement::SoundProcessor::~SoundProcessor() {
 
 void SoundManagement::SoundProcessor::Init(SoundOptions soundOptions, f_PlaySound soundOperationsCompleted) {
 	if (_isInited) {
-		throw std::exception("Inited twiced, fail");
+		throw std::exception("Cannot init twice, soundProcessor");
 	}
 
 	if (_operations.size() == 0)

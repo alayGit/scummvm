@@ -37,7 +37,9 @@
     <ClInclude Include="TestSoundOperation.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TestSoundProcessor.cpp" />
+    <ClCompile Include="converterTests.cpp" />
+    <ClCompile Include="compressorTests.cpp" />
+    <ClCompile Include="soundProcessorTests.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -52,6 +54,9 @@
   <ItemGroup>
     <ProjectReference Include="..\ChunkedSoundManager\ChunkedSoundManager.vcxproj">
       <Project>{075bdd99-e541-49cd-824f-05c6cce069c4}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ZLibCompression\ZLibCompression.vcxproj">
+      <Project>{dd428103-65c3-4153-b6a6-e8de628e3c3f}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemDefinitionGroup />
