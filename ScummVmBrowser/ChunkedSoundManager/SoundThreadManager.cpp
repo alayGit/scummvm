@@ -13,7 +13,6 @@ SoundManagement::SoundThreadManager::SoundThreadManager()
 	_soundOptions = SoundOptions();
 	_soundThread = nullptr;
 	_user = nullptr;
-	_isInited = false;
 }
 
 SoundManagement::SoundThreadManager::~SoundThreadManager()
@@ -22,11 +21,7 @@ SoundManagement::SoundThreadManager::~SoundThreadManager()
 }
 
 void SoundManagement::SoundThreadManager::Init(f_GetSoundSample getSoundSample, SoundOptions soundOptions, SoundProcessor* soundProcessor, void *user) {
-	if (_isInited) {
-		throw std::exception("Cannot init twice, soundThreadManager");
-	}
-
-	_isInited = true;
+	//Can't have _isInited = true, due to non guaranteed call order, of Init, and Start Sound
 	_soundOptions = soundOptions;
 	_getSoundSample = getSoundSample;
 	_user = user;
@@ -36,9 +31,9 @@ void SoundManagement::SoundThreadManager::Init(f_GetSoundSample getSoundSample, 
 
 void SoundManagement::SoundThreadManager::StartSound()
 {
-	if (!_isInited) {
-		throw std::exception("Cannot start sound without initing");
-	}
+	//if (!_isInited) {
+	//	throw std::exception("Cannot start sound without initing");
+	//}
 
 	if (!_soundIsRunning && !_soundIsStoppedForeverPriorToDestructor)
 	{

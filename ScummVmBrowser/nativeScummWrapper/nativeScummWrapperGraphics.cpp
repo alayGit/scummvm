@@ -1,6 +1,6 @@
 #define FORBIDDEN_SYMBOL_ALLOW_ALL
 #include "nativeScummWrapperGraphics.h"
-
+#include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
 #define IGNORE_COLOR 0
 #define DO_NOT_IGNORE_ANY_COLOR -1
 

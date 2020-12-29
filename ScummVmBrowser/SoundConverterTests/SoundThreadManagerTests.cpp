@@ -100,46 +100,6 @@ namespace SoundConverterTests
 			Assert::AreEqual(_noTimesSoundConvertedCalled, noTimesSoundConvertedCalledBeforeStop);
 		}
 
-
-		TEST_METHOD(ThrowsIfStartSoundWithoutInit) {
-		    bool exceptionThrown = false;
-
-			SoundManagement::SoundThreadManager soundThreadManager;
-		    try {
-			    soundThreadManager.StartSound();
-		    } catch (std::exception e) {
-			    exceptionThrown = true;
-		    }
-
-		    Assert::IsTrue(exceptionThrown);
-	    }
-
-		TEST_METHOD(ThrowsIfStopSoundWithoutInit) {
-		    bool exceptionThrown = false;
-
-		    SoundManagement::SoundThreadManager soundThreadManager;
-		    try {
-			    soundThreadManager.StopSound(false);
-		    } catch (std::exception e) {
-			    exceptionThrown = true;
-		    }
-
-		    Assert::IsTrue(exceptionThrown);
-	    }
-
-		TEST_METHOD(ThrowsIfInitTwice) {
-		    bool exceptionThrown = false;
-
-		    SoundManagement::SoundThreadManager soundThreadManager;
-		    try {
-			    _soundThreadManager.Init(nullptr, SoundManagement::SoundOptions(), nullptr, nullptr);
-		    } catch (std::exception e) {
-			    exceptionThrown = true;
-		    }
-
-		    Assert::IsTrue(exceptionThrown);
-	    }
-
 		void SoundConverted(byte* sounds, int size)
 		{
 			Assert::IsTrue(size > 0);

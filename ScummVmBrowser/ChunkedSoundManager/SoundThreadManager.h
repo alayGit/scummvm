@@ -32,6 +32,5 @@ namespace SoundManagement
 		HANDLE _stopSoundMutex;
 		SoundOptions _soundOptions;
 		void* _user;
-	    bool _isInited;
 	};
 }
