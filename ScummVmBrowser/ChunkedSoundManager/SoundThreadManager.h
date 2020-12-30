@@ -10,7 +10,6 @@
 #include "SoundProcessor.h"
 #include "SoundConversion.h";
 #include "SoundCompressor.h";
-#include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
 namespace SoundManagement
 {
 	typedef std::function<byte* (byte*, int)> f_GetSoundSample;

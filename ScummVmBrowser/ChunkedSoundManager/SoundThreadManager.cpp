@@ -31,9 +31,6 @@ void SoundManagement::SoundThreadManager::Init(f_GetSoundSample getSoundSample, 
 
 void SoundManagement::SoundThreadManager::StartSound()
 {
-	//if (!_isInited) {
-	//	throw std::exception("Cannot start sound without initing");
-	//}
 
 	if (!_soundIsRunning && !_soundIsStoppedForeverPriorToDestructor)
 	{
@@ -82,9 +79,6 @@ void SoundManagement::SoundThreadManager::StartSound()
 
 void SoundManagement::SoundThreadManager::StopSound(bool stopSoundForeverPriorToDestructor)
 {
-	if (!_isInited) {
-		throw std::exception("Cannot stop sound without initing");
-	}
 
 	if ((_soundIsRunning || stopSoundForeverPriorToDestructor) && !_soundIsStoppedForeverPriorToDestructor)
 	{
