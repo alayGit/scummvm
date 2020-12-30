@@ -4,7 +4,7 @@
 
 #include "nativeScummWrapperOSystem.h"
 
-NativeScummWrapper::NativeScummWrapperOSystem::NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, f_SendScreenBuffers sendScreenBuffers, f_PollEvent queueEvent, f_SaveFileData saveData, SoundManagement::f_SoundConverted playSound) : ModularBackend() {
+NativeScummWrapper::NativeScummWrapperOSystem::NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, f_SendScreenBuffers sendScreenBuffers, f_PollEvent queueEvent, f_SaveFileData saveData, SoundManagement::f_PlaySound playSound) : ModularBackend() {
 	_mixerImpl = nullptr;	
 	_soundOptions = soundOptions;
 	_fsFactory = new WindowsFilesystemFactory();
@@ -17,6 +17,7 @@ NativeScummWrapper::NativeScummWrapperOSystem::NativeScummWrapperOSystem(SoundMa
 	_savefileManager = new NativeScummVmSaveManager(saveData);
 	_soundThreadManager = new SoundManagement::SoundThreadManager();
 	_playSound = playSound;
+	_soundProcessor = new SoundManagement::SoundProcessor();
 }
 
 
@@ -25,6 +26,7 @@ NativeScummWrapper::NativeScummWrapperOSystem::NativeScummWrapperOSystem(SoundMa
 NativeScummWrapper::NativeScummWrapperOSystem::~NativeScummWrapperOSystem() {
 	_soundThreadManager->StopSound(true);
 	delete _soundThreadManager;
+	delete _soundProcessor;
 	ModularBackend::~ModularBackend();
 }
 
@@ -38,7 +40,10 @@ void NativeScummWrapper::NativeScummWrapperOSystem::initBackend() {
 		return this->mixCallback(x, y);
 	};
 
-	_soundThreadManager->Init(mixCallBack, _playSound, _soundOptions);
+	_soundProcessor->AddOperation(new SoundManagement::SoundConverter());
+	_soundProcessor->AddOperation(new SoundManagement::SoundCompressor());
+	_soundProcessor->Init(_soundOptions, _playSound);
+	_soundThreadManager->Init(mixCallBack, _soundOptions, _soundProcessor);
 	_timerManager = new DefaultTimerManager();
 	ModularBackend::initBackend();
 }

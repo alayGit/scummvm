@@ -6,25 +6,26 @@
 #include "../../ExternalLibraries/include/bassmix.h"
 #include <mmreg.h>
 #include "SoundOptions.h"
+#include "SoundProcessor.h"
 
 
 namespace SoundManagement
 {
-	typedef unsigned char byte;
-	typedef void(__stdcall* f_SoundConverted) (byte*, int, void*);
-
-	class SoundConverter
+	class SoundConverter: public SoundOperation
 	{
 	public:
-		SoundConverter(SoundOptions soundOptions, f_SoundConverted soundConverted);
+	    SoundConverter();
+		virtual void Init(SoundOptions soundOptions, f_SoundOperated soundConverted);
 		~SoundConverter();
-		void ConvertPcmToFlac(byte* pcm, int noChannels, void* user);
+		void ConvertPcmToFlac(byte* pcm, int length, void* user);
 		void GetEncodedData(HENCODE handle, DWORD channel, const void* buffer, DWORD length);
+	    void ProcessSound(byte *pcm, int length, void *user) override;
 	private:
 		SoundOptions _soundOptions;
 		std::vector<byte> _workingBuffer;
-		SoundManagement::f_SoundConverted _soundConverted; //TODO:Fix we are force to do this because we cannot use member functions in C callbacks.
+		SoundManagement::f_SoundOperated _soundConverted; //TODO:Fix we are force to do this because we cannot use member functions in C callbacks.
 		void* _user;
+	    bool _isInited;
 	};
 
 }

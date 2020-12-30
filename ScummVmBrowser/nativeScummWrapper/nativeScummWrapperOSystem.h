@@ -8,13 +8,15 @@
 #include "standardMutexManager.h"
 #include "../chunkedSoundManager/SoundOptions.h"
 #include "../chunkedSoundManager/SoundThreadManager.h"
+#include "../chunkedSoundManager/SoundProcessor.h"
+#include "../chunkedSoundManager/SoundCompressor.h"
+#include "../chunkedSoundManager/SoundConversion.h"
 #include <assert.h>
-
 
 namespace NativeScummWrapper {
 	class NativeScummWrapperOSystem: public ModularBackend {
 	public:
-	    NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, NativeScummWrapper::f_SendScreenBuffers copyRect, NativeScummWrapper::f_PollEvent queueEvent, NativeScummWrapper::f_SaveFileData saveData, SoundManagement::f_SoundConverted soundConverted);
+	    NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, NativeScummWrapper::f_SendScreenBuffers copyRect, NativeScummWrapper::f_PollEvent queueEvent, NativeScummWrapper::f_SaveFileData saveData, SoundManagement::f_PlaySound soundConverted);
 	    ~NativeScummWrapperOSystem();
 		virtual void initBackend() override;
 		virtual uint32 getMillis(bool skipRecord = false) override;
@@ -34,9 +36,10 @@ namespace NativeScummWrapper {
 
 	private:
 		SoundManagement::SoundOptions _soundOptions;
-		SoundManagement::f_SoundConverted _playSound;
+		SoundManagement::f_PlaySound _playSound;
 		Audio::MixerImpl *_mixerImpl;
 		SoundManagement::SoundThreadManager *_soundThreadManager;
 		NativeScummWrapper::NativeScummWrapperGraphics*_cliGraphicsManager;
+	    SoundManagement::SoundProcessor* _soundProcessor; 
 	};
 } // namespace NativeScummWrapper

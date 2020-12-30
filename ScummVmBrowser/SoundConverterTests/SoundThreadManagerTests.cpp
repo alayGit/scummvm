@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include <thread>
 #include "../ChunkedSoundManager/SoundThreadManager.h";
+#include "../chunkedSoundManager/DummySoundOperation.h"
 
 extern byte* GenerateRandomPcm(int length);
 extern SoundManagement::SoundOptions GetSoundOptions(int sampleSize);
@@ -13,18 +14,27 @@ namespace SoundConverterTests
 	TEST_CLASS(SoundThreadManagerTests)
 	{
 		const int SAMPLE_SIZE = 2000;
+	    SoundManagement::SoundProcessor* _soundProcessor;
+
+		TEST_METHOD_CLEANUP(Cleanup) {
+		    delete _soundProcessor;
+	    }
+
 		TEST_METHOD_INITIALIZE(Initialize)
 		{
 			SoundManagement::SoundOptions _soundOptions = GetSoundOptions(SAMPLE_SIZE);
 
+			_soundProcessor = new SoundManagement::SoundProcessor();
+		    _soundProcessor->AddOperation(new SoundManagement::DummySoundOperation());
+		    _soundProcessor->Init(_soundOptions, ((SoundManagement::f_PlaySound)&SoundConvertedCallback));
 			_soundThreadManager.Init(
 		       [this] (byte* buffer, int length) {
 					Assert::AreEqual(SAMPLE_SIZE, length);
 					
 					return GenerateRandomPcm(SAMPLE_SIZE);
 				},
-				((SoundManagement::f_SoundConverted) &SoundConvertedCallback),
 			   _soundOptions,
+			   _soundProcessor,
 			   this
 			);
 
@@ -39,7 +49,7 @@ namespace SoundConverterTests
 			{
 				_soundThreadManager.StartSound();
 
-				std::this_thread::sleep_for(std::chrono::milliseconds(50));
+				std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
 				Assert::IsTrue(_soundThreadManager.SoundIsRunning());
 
@@ -49,7 +59,7 @@ namespace SoundConverterTests
 
 				Assert::IsFalse(_soundThreadManager.SoundIsRunning());
 
-				std::this_thread::sleep_for(std::chrono::milliseconds(50));
+				std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
 				Assert::AreEqual(_noTimesSoundConvertedCalled, noTimesSoundConvertedCalledAfterStop);
 				
@@ -64,6 +74,7 @@ namespace SoundConverterTests
 
 				noTimesCalledLasttime = _noTimesSoundConvertedCalled;
 			}
+		    int y = 4;
 		}
 
 		TEST_METHOD(DoesSoundNotStartAfterPermanantStop)
@@ -89,15 +100,15 @@ namespace SoundConverterTests
 			Assert::AreEqual(_noTimesSoundConvertedCalled, noTimesSoundConvertedCalledBeforeStop);
 		}
 
-		void SoundConverted(byte* buffer, int length)
+		void SoundConverted(byte* sounds, int size)
 		{
-			Assert::IsTrue(length > 1);
+			Assert::IsTrue(size > 0);
 			_noTimesSoundConvertedCalled++;
 		}
 
-		static void __stdcall SoundConvertedCallback(byte* buffer, int length, void* user)
+		static void __stdcall SoundConvertedCallback(byte* sounds, int size, void* user)
 		{
-			((SoundConverterTests::SoundThreadManagerTests*) user)->SoundConverted(buffer, length);
+			((SoundConverterTests::SoundThreadManagerTests*) user)->SoundConverted(sounds, size);
 		}
 
 	private: 

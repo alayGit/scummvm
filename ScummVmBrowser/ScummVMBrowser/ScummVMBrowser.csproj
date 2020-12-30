@@ -325,6 +325,10 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Compression\Compression.vcxproj">
+      <Project>{0bfba939-d509-4179-af9a-1bc0b4abea77}</Project>
+      <Name>ManagedZLibCompression</Name>
+    </ProjectReference>
     <ProjectReference Include="..\dotNetYEncode\dotNetYEncode.vcxproj">
       <Project>{4893dd7c-2b10-48ee-beaf-875793dab9ff}</Project>
       <Name>dotNetYEncode</Name>

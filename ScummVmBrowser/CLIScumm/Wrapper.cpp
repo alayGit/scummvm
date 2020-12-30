@@ -18,10 +18,11 @@ CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum ^> ^ configureStore)
 	soundOptions.sampleRate = configureStore->GetValue<int>(SoundSettings::SampleRate);
 	soundOptions.sampleSize = configureStore->GetValue<int>(SoundSettings::SampleSize);
 	soundOptions.soundPollingFrequencyMs = configureStore->GetValue<int>(SoundSettings::SoundPollingFrequencyMs);
+	soundOptions.serverFeedSize = configureStore->GetValue<int>(SoundSettings::ServerFeedSize);
 
 	g_system = new NativeScummWrapper::NativeScummWrapperOSystem(soundOptions, static_cast<NativeScummWrapper::f_SendScreenBuffers>(Marshal::GetFunctionPointerForDelegate(imageUpdated).ToPointer()) //ToDo: Tidy these up as a whole they are a mess
 	                                                             ,
-	                                                             static_cast<NativeScummWrapper::f_PollEvent>(Marshal::GetFunctionPointerForDelegate(pollEvent).ToPointer()), static_cast<NativeScummWrapper::f_SaveFileData>(Marshal::GetFunctionPointerForDelegate(saveData).ToPointer()), static_cast<f_SoundConverted>(Marshal::GetFunctionPointerForDelegate(GCHandle::Alloc(gcnew delPlaySound(this, &CLIScumm::Wrapper::Wrapper::PlaySound), GCHandleType::Normal).Target).ToPointer()));
+	                                                             static_cast<NativeScummWrapper::f_PollEvent>(Marshal::GetFunctionPointerForDelegate(pollEvent).ToPointer()), static_cast<NativeScummWrapper::f_SaveFileData>(Marshal::GetFunctionPointerForDelegate(saveData).ToPointer()), static_cast<f_PlaySound>(Marshal::GetFunctionPointerForDelegate(GCHandle::Alloc(gcnew delPlaySound(this, &CLIScumm::Wrapper::Wrapper::PlaySound), GCHandleType::Normal).Target).ToPointer()));
 	_gSystemCli = reinterpret_cast<NativeScummWrapper::NativeScummWrapperOSystem *>(g_system);
 	_configureStore = configureStore;
 	_soundIsRunning = false;
@@ -207,15 +208,9 @@ bool CLIScumm::Wrapper::pollEventWrapper(Common::Event &event) {
 
 void CLIScumm::Wrapper::PlaySound(byte *buffer, int size, void *user) {
 	byte *compressedSound = nullptr;
-
 	try {
-		ZLibCompression::ZLibCompression compressor;
-
-		int compressedSize;
-		compressedSound = compressor.Compress(buffer, size, compressedSize);
-
-		cli::array<byte> ^ result = gcnew cli::array<byte>(compressedSize);
-		Marshal::Copy((System::IntPtr)compressedSound, result, 0, compressedSize);
+		cli::array<byte> ^ result = gcnew cli::array<byte>(size);
+		Marshal::Copy((System::IntPtr)buffer, result, 0, size);
 
 		_playAudio->Invoke(result);
 

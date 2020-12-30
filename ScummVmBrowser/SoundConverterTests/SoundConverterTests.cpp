@@ -20,8 +20,9 @@ namespace SoundConverterTests
 	public:
 		const int NO_VALUES = 2000; //Must be even
 
-		SoundConverterTests() : _converter(GetSoundOptions(NO_VALUES), (SoundManagement::f_SoundConverted)& encodeCallback)
+		SoundConverterTests()
 		{
+		    _converter.Init(GetSoundOptions(NO_VALUES), (SoundManagement::f_SoundOperated)&encodeCallback);
 			_wasAfterDecodeCallbackMade = false;
 			_wasAfterEncodeCallbackMade = false;
 			_wasAfterDecodeCallbackCompleted = false;
@@ -33,7 +34,7 @@ namespace SoundConverterTests
 		TEST_METHOD(DoesConvertToFlac)
 		{
 			_expectedPcm = GenerateRandomPcm(NO_VALUES);
-			_converter.ConvertPcmToFlac(_expectedPcm, 2, this);
+		    _converter.ConvertPcmToFlac(_expectedPcm, NO_VALUES, this);
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(200));
 			Assert::IsTrue(_wasAfterEncodeCallbackMade);
@@ -42,6 +43,52 @@ namespace SoundConverterTests
 
 			delete[] _expectedPcm;
 		}
+
+		TEST_METHOD(ThrowsIfNotInitedProcessSound) {
+			bool exceptionThrown = false;
+			const int TEST_DATA_LENGTH = 6;
+		    byte *testData = new byte[TEST_DATA_LENGTH];
+		    SoundManagement::SoundConverter soundConverter;
+
+			try {
+			    soundConverter.ProcessSound(testData, 4, nullptr);
+		    } catch (std::exception e) {
+			    exceptionThrown = true;
+			}
+
+			Assert::IsTrue(exceptionThrown);
+	    }
+
+		TEST_METHOD(ThrowsIfNotInitedConvertPcmToFlac) {
+		    bool exceptionThrown = false;
+		    const int TEST_DATA_LENGTH = 6;
+		    byte *testData = new byte[TEST_DATA_LENGTH];
+		    SoundManagement::SoundConverter soundConverter;
+
+		    try {
+			    soundConverter.ConvertPcmToFlac(testData, 4, nullptr);
+		    } catch (std::exception e) {
+			    exceptionThrown = true;
+		    }
+
+		    Assert::IsTrue(exceptionThrown);
+	    }
+
+		TEST_METHOD(ThrowsIfInitedTwice) {
+		    bool exceptionThrown = false;
+		    const int TEST_DATA_LENGTH = 6;
+		    byte *testData = new byte[TEST_DATA_LENGTH];
+		    SoundManagement::SoundConverter soundConverter;
+
+		    try {
+			    soundConverter.Init(SoundManagement::SoundOptions(), nullptr);
+			    soundConverter.Init(SoundManagement::SoundOptions(), nullptr);
+		    } catch (std::exception e) {
+			    exceptionThrown = true;
+		    }
+
+		    Assert::IsTrue(exceptionThrown);
+	    }
 
 		void afterEncode(byte* buffer, int length)
 		{

@@ -24,12 +24,33 @@
     <ClInclude Include="SoundOptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SoundCompressor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DummySoundOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SoundConversion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SoundThreadManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundCompressor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundProcessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DummySoundOperation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

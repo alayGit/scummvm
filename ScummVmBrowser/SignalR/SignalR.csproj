@@ -92,6 +92,10 @@
       <Project>{165f09da-34c9-437b-9b0a-860150e7e830}</Project>
       <Name>CliScummData</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Compression\Compression.vcxproj">
+      <Project>{0bfba939-d509-4179-af9a-1bc0b4abea77}</Project>
+      <Name>ManagedZLibCompression</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ManagedCommon\ManagedCommon.csproj">
       <Project>{d8f87aa0-1710-49cc-8ccf-7e1b74fef911}</Project>
       <Name>ManagedCommon</Name>

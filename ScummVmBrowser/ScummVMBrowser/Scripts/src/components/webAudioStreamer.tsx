@@ -59,13 +59,13 @@ export class WebAudioStreamer {
             this.audioBuffer.push(encodedBytes);
 
 
-            if (this.soundRunning && this.numberScheduled * SoundSettings().FeedSize >= SoundSettings().MaxQueuedToStopAudio) {
+			if (this.soundRunning && this.numberScheduled * SoundSettings().ClientFeedSize >= SoundSettings().MaxQueuedToStopAudio) {
                 this.stopSoundReceiving();
             }
 
-            if (this.audioBuffer.length >= SoundSettings().FeedSize) {
-                const encodedBuffer = new Uint8ClampedArray(GetJoinedArrays(SoundSettings().FeedSize, 0, this.audioBuffer)).buffer;
-                this.audioBuffer = this.audioBuffer.slice(SoundSettings().FeedSize);
+			if (this.audioBuffer.length >= SoundSettings().ClientFeedSize) {
+				const encodedBuffer = new Uint8ClampedArray(GetJoinedArrays(SoundSettings().ClientFeedSize, 0, this.audioBuffer)).buffer;
+				this.audioBuffer = this.audioBuffer.slice(SoundSettings().ClientFeedSize);
 
                 streamer.context.decodeAudioData(encodedBuffer, function (decodedBuffer: AudioBuffer) {
                     streamer.scheduleBuffers(streamer, decodedBuffer);
@@ -97,7 +97,7 @@ export class WebAudioStreamer {
         source.onended = function () {
             streamer.numberScheduled--;
 
-            if (!streamer.soundRunning && streamer.numberScheduled * SoundSettings().FeedSize <= SoundSettings().MinQueuedToResumeAudio) {
+            if (!streamer.soundRunning && streamer.numberScheduled * SoundSettings().ClientFeedSize <= SoundSettings().MinQueuedToResumeAudio) {
                 streamer.startSoundReceiving();
             }
         }
