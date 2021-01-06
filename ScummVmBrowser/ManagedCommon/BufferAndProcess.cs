@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.Threading;
+﻿using ManagedCommon.Enums;
+using ManagedCommon.Interfaces;
+using Microsoft.VisualStudio.Threading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +18,7 @@ namespace ManagedCommon
         private Func<T,Task> _processCallback;
         private AsyncQueue<T> _processQueue;
 
-        public BufferAndProcess(Func<T, Task> processCallback)
+		public BufferAndProcess(Func<T, Task> processCallback,  IConfigurationStore<Enum> configurationStore)
         {
             Stopped = false;
             _processCallback = processCallback;
@@ -37,7 +39,7 @@ namespace ManagedCommon
                     }
                     else
                     {
-                        await Task.Delay(1);
+                        await Task.Delay(configurationStore.GetValue<int>(ScummHubSettings.BufferAndProcessSleepTime));
                     }
                 }
             });

@@ -11,6 +11,7 @@
 #include "../chunkedSoundManager/SoundProcessor.h"
 #include "../chunkedSoundManager/SoundCompressor.h"
 #include "../chunkedSoundManager/SoundConversion.h"
+#include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
 #include <assert.h>
 
 namespace NativeScummWrapper {

@@ -1,3 +1,4 @@
 {
-  "KillProcessOnQuitTimeoutMs": 5000
+	"KillProcessOnQuitTimeoutMs": 5000,
+	"BufferAndProcessSleepTime": 5
 }

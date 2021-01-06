@@ -3,5 +3,6 @@
     public enum ScummHubSettings
     {
         KillProcessOnQuitTimeoutMs,
+		BufferAndProcessSleepTime
     }
 }

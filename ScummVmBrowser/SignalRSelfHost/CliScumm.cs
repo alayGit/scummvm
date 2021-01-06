@@ -117,8 +117,8 @@ namespace SignalRSelfHost
                 return Task.CompletedTask;
             };
 
-            _audioProcessor = new BufferAndProcess<byte[]>(_realTimeDataBus.PlaySound);
-            _frameProcessor = new BufferAndProcess<List<ScreenBuffer>>(_realTimeDataBus.DisplayFrameAsync);
+            _audioProcessor = new BufferAndProcess<byte[]>(_realTimeDataBus.PlaySound, _configurationStore);
+            _frameProcessor = new BufferAndProcess<List<ScreenBuffer>>(_realTimeDataBus.DisplayFrameAsync, _configurationStore);
 
             _runningGameTask = Task.Run(() => StartGameWrapper(game, gameSaveData));
 
