@@ -144,6 +144,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\RealTimeDataBusServer.cs" />
     <Compile Include="BufferAndProcess.cs" />
     <Compile Include="Enums\Logging\ErrorMessage.cs" />
     <Compile Include="Enums\Logging\LoggingCategory.cs" />
@@ -161,6 +162,8 @@
     <Compile Include="Interfaces\IGameClientStore.cs" />
     <Compile Include="Interfaces\IGameInfo.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\IPortGetter.cs" />
+    <Compile Include="Interfaces\IPortSender.cs" />
     <Compile Include="Interfaces\IRealTimeDataBusClient.cs" />
     <Compile Include="Interfaces\IRealTimeDataEndpointServer.cs" />
     <Compile Include="Interfaces\IRealTimeDataEndpointClient.cs" />
@@ -175,6 +178,7 @@
     <Compile Include="ExtensionMethods\RpcBufferNamesExtensions.cs" />
     <Compile Include="Interfaces\IConfigurationStore.cs" />
     <Compile Include="Interfaces\IRealTimeDataBusServer.cs" />
+    <Compile Include="Interfaces\IStarter.cs" />
     <Compile Include="Interfaces\ITrashable.cs" />
     <Compile Include="Interfaces\Rpc\IClientProxyRemover.cs" />
     <Compile Include="Interfaces\Rpc\IRpcServerService.cs" />

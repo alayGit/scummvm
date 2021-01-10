@@ -19,6 +19,6 @@ namespace ManagedCommon.Interfaces
 		void OnScheduleRedrawWholeScreen(ScheduleRedrawWholeScreen getWholeScreenBuffer);
 		void OnStartSound(StartSound startSound);
         void OnStopSound(StopSound stopSound);
-		Task Init(string id);
+		Task Init(string port);
 	}
 }

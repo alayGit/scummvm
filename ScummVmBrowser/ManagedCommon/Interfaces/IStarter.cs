@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StartInstance
+namespace ManagedCommon.Interfaces
 {
    public interface IStarter
     {

@@ -1,4 +1,5 @@
 ﻿using ManagedCommon.ExtensionMethods;
+using ManagedCommon.Interfaces;
 using SharedMemory;
 using System;
 using System.Collections.Generic;

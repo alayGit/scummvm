@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PortSharer
+namespace ManagedCommon.Interfaces
 {
     public delegate int GetPort();
    public interface IPortSender: IDisposable
