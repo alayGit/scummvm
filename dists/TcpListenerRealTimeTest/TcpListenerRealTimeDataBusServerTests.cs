@@ -35,8 +35,8 @@ namespace TcpListenerRealTimeTest
 
 			_tcpListenerRealTimeDataBusServer = new TcpListenerRealTimeDataBusServer(mockStarter.Object, mockPortSender.Object, mockConfigurationStore.Object);
 			_tcpListenerRealTimeDataEndpointServer = new TcpListenerRealTimeDataEndpointServer(mockStarter.Object, mockConfigurationStore.Object);
-			_tcpListenerRealTimeDataBusServer.Init("Blah");
-			_tcpListenerRealTimeDataEndpointServer.Init(Port.ToString());
+			_tcpListenerRealTimeDataBusServer.Init("Blah").Wait();
+			_tcpListenerRealTimeDataEndpointServer.Init(Port.ToString()).Wait();
 		}
 
         [TestMethod]
@@ -51,8 +51,10 @@ namespace TcpListenerRealTimeTest
 			{
 				new ScreenBuffer() { X = 16, Y = 16, CompressedBuffer = compressor.Compress(new byte[] { 11,36,0,15 }) }
 			};
-
+			await _tcpListenerRealTimeDataBusServer.DisplayFrameAsync(screenBuffers);
 			await _tcpListenerRealTimeDataBusServer.DisplayFrameAsync(screenBuffers2);
+
+			await Task.Delay(500000);
         }
     }
 }

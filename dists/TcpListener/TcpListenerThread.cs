@@ -74,22 +74,18 @@ namespace TcpRealTimeData
 
 		internal async Task SendObject(byte[] objectToSend)
 		{
-			NetworkStream networkStream = await ClientStream();
-
 			using (await _asyncSemaphore.EnterAsync())
 			{
-				networkStream.ReadTimeout = 2000;
+				(await ClientStream()).ReadTimeout = 2000;
 
-				using (StreamWriter writer = new StreamWriter(networkStream))
-				{
-					List<byte> terminatedBytesToSend = objectToSend.ToList();
-					terminatedBytesToSend.Add(0);
+				List<byte> terminatedBytesToSend = objectToSend.ToList();
+				terminatedBytesToSend.Add(0);
 
-					networkStream.Write(terminatedBytesToSend.ToArray(), 0, terminatedBytesToSend.Count());
-				}
+				(await ClientStream()).Write(terminatedBytesToSend.ToArray(), 0, terminatedBytesToSend.Count());
+
+
 			}
 		}
-
 
 		protected virtual void Dispose(bool disposing)
 		{

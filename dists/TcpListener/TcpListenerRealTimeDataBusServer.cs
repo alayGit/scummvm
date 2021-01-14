@@ -47,12 +47,6 @@ namespace TcpRealTimeData
 			throw new NotImplementedException();
 		}
 
-		public override async Task Init(string realTimePortGetterId)
-		{
-			await base.Init(realTimePortGetterId);
-            await _tcpServerListenerThread.Connect();
-		}
-
 		protected override bool StartConnection(int port)
 		{
 			_tcpServerListenerThread = new TcpServerListenerThread(OnMessage, port, 50);
