@@ -14,7 +14,7 @@ namespace TcpRealTimeData
 
 		NetworkStream _clientStream;
 
-		public TcpClientListenerThread(Action<byte[]> onMessage, int port, int sleepTime) : base(onMessage, sleepTime)
+		public TcpClientListenerThread(int port)
 		{
 			_port = port;
 		}

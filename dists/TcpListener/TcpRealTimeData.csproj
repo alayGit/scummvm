@@ -69,7 +69,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ListenerTypeEnum.cs" />
+    <Compile Include="MessageTypeEnum.cs" />
+    <Compile Include="Singleton.cs" />
     <Compile Include="TcpClientListenerThread.cs" />
+    <Compile Include="TcpListenerRealTimeDataEndpointClient.cs" />
     <Compile Include="TcpListenerRealTimeDataEndpointServer.cs" />
     <Compile Include="TcpListenerThread.cs" />
     <Compile Include="TcpListenerRealTimeDataBusServer.cs" />

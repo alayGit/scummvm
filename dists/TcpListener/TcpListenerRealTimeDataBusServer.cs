@@ -18,7 +18,7 @@ namespace TcpRealTimeData
 		private IStarter _starter;
 		private IConfigurationStore<System.Enum> _configurationStore;
 		private IPortSender _portSender;
-		private TcpServerListenerThread _tcpServerListenerThread;
+		private TcpListenerThread _tcpServerListenerThread;
 
 		public TcpListenerRealTimeDataBusServer(IStarter starter, IPortSender portSender, IConfigurationStore<System.Enum> configurationStore) : base(portSender, configurationStore, starter)
 		{
@@ -29,7 +29,7 @@ namespace TcpRealTimeData
 
 		public async Task DisplayFrameAsync(List<ScreenBuffer> screenBuffers)
 		{
-			await _tcpServerListenerThread.SendObject(Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(screenBuffers)));
+			await _tcpServerListenerThread.SendTerminatedAsciiBytes(ConvertObjectToMessage(screenBuffers, MessageTypeEnum.OnFrameReceived));
 		}
 
 		public void Dispose()
@@ -37,20 +37,32 @@ namespace TcpRealTimeData
 			throw new NotImplementedException();
 		}
 
-		private void OnMessage(byte[] bytes)
+		private Task OnMessage(byte[] bytes)
 		{
-			int x = 4;
+			return Task.CompletedTask;
 		}
 
-		public Task PlaySound(byte[] data)
+		public async Task PlaySound(byte[] data)
 		{
-			throw new NotImplementedException();
+			await _tcpServerListenerThread.SendTerminatedAsciiBytes(ConvertObjectToMessage(data, MessageTypeEnum.OnPlaySound));
 		}
 
 		protected override bool StartConnection(int port)
 		{
-			_tcpServerListenerThread = new TcpServerListenerThread(OnMessage, port, 50);
+			_tcpServerListenerThread = Singleton.GetTcpListener(port, ListenerTypeEnum.Server);
 			return true;
+		}
+
+		private byte[] ConvertObjectToMessage(object toSerialize, MessageTypeEnum messageTypeEnum)
+		{
+			string serialized = JsonConvert.SerializeObject(toSerialize) + (char)0;
+
+			byte[] asciiSerializedBytes = Encoding.ASCII.GetBytes(serialized);
+			byte[] asciiSerializedBytesWithMessage = new byte[asciiSerializedBytes.Length + 1];
+			asciiSerializedBytesWithMessage[0] = (byte)MessageTypeEnum.OnFrameReceived;
+			Array.Copy(asciiSerializedBytes, 0, asciiSerializedBytesWithMessage, 1, asciiSerializedBytes.Length);
+
+			return asciiSerializedBytes;
 		}
 	}
 }

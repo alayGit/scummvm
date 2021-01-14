@@ -13,58 +13,58 @@ namespace TcpRealTimeData
 	{
 		private Task _runTcpListenerTask;
 		private bool _disposedValue;
-		private Action<byte[]> _onMessage;
 		private bool _stopClientTask;
 		private int _sleepTime;
-		private AsyncQueue<byte[]> _toSendQueue;
 		private AsyncSemaphore _asyncSemaphore;
 
 		public static readonly string Terminator = ((char)0).ToString();
 		const int BufferSize = 500;
 
 
-		public TcpListenerThread(Action<byte[]> onMessage, int sleepTime)
+		public TcpListenerThread()
 		{
 			_stopClientTask = false;
-			_onMessage = onMessage;
-			_sleepTime = sleepTime;
-			_runTcpListenerTask = Task.Run(async () => await RunTcpListenerTask());
 			_asyncSemaphore = new AsyncSemaphore(1);
 		}
 
 		protected abstract Task<NetworkStream> ClientStream();
 
-		private async Task RunTcpListenerTask()
+		internal Task RunTcpListenerTask(Func<byte[], Task> onMessage, int sleepTime)
 		{
-			while (!_stopClientTask)
+			return Task.Run(async () =>
 			{
-				NetworkStream stream = await ClientStream();
-
-				using (await _asyncSemaphore.EnterAsync())
+				while (!_stopClientTask)
 				{
-					List<byte> streamData = new List<byte>();
-					while (stream.DataAvailable)
+					NetworkStream stream = await ClientStream();
+
+					using (await _asyncSemaphore.EnterAsync())
 					{
-						byte[] buffer = new byte[BufferSize];
-						int dataCount = stream.Read(buffer, 0, BufferSize);
-
-						IEnumerable<byte> readBuffer = buffer.Take(dataCount);
-
-						foreach (byte b in readBuffer)
+						List<byte> streamData = new List<byte>();
+						while (stream.DataAvailable)
 						{
-							if (b != 0)
+							byte[] buffer = new byte[BufferSize];
+							int dataCount = stream.Read(buffer, 0, BufferSize);
+
+							IEnumerable<byte> readBuffer = buffer.Take(dataCount);
+
+							foreach (byte b in readBuffer)
 							{
-								streamData.Add(b);
-							}
-							else
-							{
-								_onMessage(streamData.ToArray());
-								streamData.Clear();
+								if (b != 0)
+								{
+									streamData.Add(b);
+								}
+								else
+								{
+									await onMessage(streamData.ToArray());
+									streamData.Clear();
+								}
 							}
 						}
 					}
+					await Task.Delay(sleepTime);
 				}
 			}
+			);
 		}
 
 		internal async Task Connect()
@@ -72,7 +72,7 @@ namespace TcpRealTimeData
 			await ClientStream();
 		}
 
-		internal async Task SendObject(byte[] objectToSend)
+		internal async Task SendTerminatedAsciiBytes(byte[] objectToSend)
 		{
 			using (await _asyncSemaphore.EnterAsync())
 			{

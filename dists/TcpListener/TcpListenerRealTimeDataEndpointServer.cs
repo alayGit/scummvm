@@ -71,10 +71,12 @@ namespace TcpRealTimeData
 		}
 
 
-	   public void OnMessage(byte[] value)
+	   public async Task OnMessage(byte[] value)
 		{
 			string json = Encoding.ASCII.GetString(value);
 			List<ScreenBuffer> b = JsonConvert.DeserializeObject<List<ScreenBuffer>>(json);
+
+			await Task.CompletedTask;
 		}
 	}
 }

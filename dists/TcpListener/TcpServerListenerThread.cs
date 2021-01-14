@@ -17,7 +17,7 @@ namespace TcpRealTimeData
 		int _port;
 		AsyncSemaphore _waitForConnectionSemaphore;
 
-		public TcpServerListenerThread(Action<byte[]> onMessage, int port, int sleepTime) : base(onMessage, sleepTime)
+		public TcpServerListenerThread(int port)
 		{
 			_port = port;
 			_waitForConnectionSemaphore = new AsyncSemaphore(1);
