@@ -14,7 +14,7 @@ namespace TcpRealTimeData
 	{
 		private IStarter _starter;
 		private IConfigurationStore<System.Enum> _configurationStore;
-		private TcpClientListenerThread _tcpClientListenerThread;
+		private TcpListenerThread _tcpClientListenerThread;
 		private CopyRectToScreenAsync _copyRectToScreen;
 
 		public TcpListenerRealTimeDataEndpointClient(IStarter starter, IConfigurationStore<System.Enum> configurationStore)
@@ -31,9 +31,10 @@ namespace TcpRealTimeData
 
 		public async Task Init(string port)
 		{
-			_tcpClientListenerThread = new TcpClientListenerThread(OnMessage, int.Parse(port), 5);
+			_tcpClientListenerThread = Singleton.GetTcpListener(int.Parse(port), ListenerTypeEnum.Client);
+			_tcpClientListenerThread.RunTcpListenerTask(OnMessage, 3);
 
-			await _tcpClientListenerThread.Connect();
+			await Task.CompletedTask;
 		}
 
 		public void OnAudioReceived(PlayAudioAsync playAudio, int instanceId)

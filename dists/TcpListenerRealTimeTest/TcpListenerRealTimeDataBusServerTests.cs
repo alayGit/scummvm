@@ -50,6 +50,7 @@ namespace TcpListenerRealTimeTest
 			_tcpListenerRealTimeDataEndpointClient = new TcpListenerRealTimeDataEndpointClient(mockStarter.Object, mockConfigurationStore.Object);
 			_tcpListenerRealTimeDataBusServer.Init("Blah").Wait();
 			_tcpListenerRealTimeDataEndpointServer.Init(Port.ToString()).Wait();
+			_tcpListenerRealTimeDataEndpointClient.Init(Port.ToString()).Wait();
 		}
 
         [TestMethod]

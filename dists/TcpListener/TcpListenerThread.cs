@@ -29,9 +29,9 @@ namespace TcpRealTimeData
 
 		protected abstract Task<NetworkStream> ClientStream();
 
-		internal Task RunTcpListenerTask(Func<byte[], Task> onMessage, int sleepTime)
+		internal void RunTcpListenerTask(Func<byte[], Task> onMessage, int sleepTime)
 		{
-			return Task.Run(async () =>
+			_runTcpListenerTask = Task.Run(async () =>
 			{
 				while (!_stopClientTask)
 				{

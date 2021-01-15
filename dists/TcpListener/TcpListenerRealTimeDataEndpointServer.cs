@@ -14,7 +14,7 @@ namespace TcpRealTimeData
 	{
 		private IStarter _starter;
 		private IConfigurationStore<System.Enum> _configurationStore;
-		private TcpClientListenerThread _tcpClientListenerThread;
+		private TcpListenerThread _tcpClientListenerThread;
 
 		public TcpListenerRealTimeDataEndpointServer(IStarter starter, IConfigurationStore<System.Enum> configurationStore)
 		{
@@ -30,9 +30,9 @@ namespace TcpRealTimeData
 
 		public async Task Init(string port)
 		{
-			_tcpClientListenerThread = new TcpClientListenerThread(OnMessage, int.Parse(port), 5);
+			_tcpClientListenerThread = Singleton.GetTcpListener(int.Parse(port), ListenerTypeEnum.Server);
 
-			await _tcpClientListenerThread.Connect();
+			await Task.CompletedTask;
 		}
 
 		public void OnEnqueueControlKey(EnqueueControlKey enqueueControlKey)
