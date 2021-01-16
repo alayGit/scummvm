@@ -1,6 +1,6 @@
 #include "SendMouseClick.h"
 
-CliScummEvents::SendMouseClick::SendMouseClick(ManagedCommon::Enums::Actions::MouseClick clickEventType, GetCurrentMousePosition^ getCurrentMousePosition)
+CliScummEvents::SendMouseClick::SendMouseClick(ManagedCommon::Enums::MouseClick clickEventType, GetCurrentMousePosition^ getCurrentMousePosition)
 {
 	_noTimesEventsDispatched = 0;
 	_clickEventType = clickEventType;

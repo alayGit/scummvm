@@ -19,7 +19,6 @@ using System.Threading;
 using System.Linq;
 using NAudio.Wave;
 using System.IO;
-using ManagedCommon.Enums.Actions;
 using ManagedCommon.Interfaces.Rpc;
 using Microsoft.VisualStudio.Threading;
 using ManagedCommon;

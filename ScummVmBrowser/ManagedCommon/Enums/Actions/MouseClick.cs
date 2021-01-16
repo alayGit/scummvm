@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ManagedCommon.Enums.Actions
+namespace ManagedCommon.Enums
 {
     public enum MouseClick
     {

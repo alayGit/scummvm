@@ -5,17 +5,17 @@
 using namespace System::Collections::Generic;
 using namespace System;
 using namespace ManagedCommon::Interfaces;
-using namespace  ManagedCommon::Enums::Actions;
+using namespace  ManagedCommon::Enums;
 using namespace  ManagedCommon::Delegates;
 namespace CliScummEvents {
 	public ref class SendMouseClick : IGameEvent {
 	public:
-		SendMouseClick(ManagedCommon::Enums::Actions::MouseClick clickEventType, GetCurrentMousePosition^ getCurrentMousePosition);
+		SendMouseClick(ManagedCommon::Enums::MouseClick clickEventType, GetCurrentMousePosition^ getCurrentMousePosition);
 		virtual bool HasEvents() override;
 		virtual System::IntPtr GetEvent() override;
 	private:
 		int _noTimesEventsDispatched;
-		ManagedCommon::Enums::Actions::MouseClick _clickEventType;
+		ManagedCommon::Enums::MouseClick _clickEventType;
 		GetCurrentMousePosition^ _getCurrentMousePosition;
 	};
 }

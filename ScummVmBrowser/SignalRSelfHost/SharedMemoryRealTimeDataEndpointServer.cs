@@ -1,7 +1,6 @@
 ﻿using ManagedCommon.Base;
 using ManagedCommon.Delegates;
 using ManagedCommon.Enums;
-using ManagedCommon.Enums.Actions;
 using ManagedCommon.ExtensionMethods;
 using ManagedCommon.Interfaces;
 using SharedMemory;

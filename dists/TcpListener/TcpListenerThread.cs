@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.Threading;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -72,7 +73,7 @@ namespace TcpRealTimeData
 			await ClientStream();
 		}
 
-		internal async Task SendTerminatedAsciiBytes(byte[] objectToSend)
+		internal async Task SendAsciiBytes(byte[] objectToSend)
 		{
 			using (await _asyncSemaphore.EnterAsync())
 			{

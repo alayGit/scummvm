@@ -23,6 +23,7 @@ using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TcpRealTimeData;
 using Unity;
 using Unity.Lifetime;
 
@@ -75,16 +76,16 @@ namespace SignalRSelfHost
            );
             container.RegisterType<IHubActivator, UnityHubActivator>(new ContainerControlledLifetimeManager());
             container.RegisterType<IConfigurationStore<System.Enum>, JsonConfigStore>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IRealTimeDataBusServer, ScummVMSignalRHub>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IRealTimeDataBusServer, TcpListenerRealTimeDataBusServer>(new ContainerControlledLifetimeManager());
             container.RegisterType<IScummHubClientRpcProxy, ScummVmIceServer>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IRealTimeEndPointCallbackRepo,SignalRMemoryRealTimeEndpointServer>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IRealTimeDataEndpointServer, TcpListenerRealTimeDataEndpointServer>(new ContainerControlledLifetimeManager());
             container.RegisterType<CliScumm, CliScumm>(); //ToDo Make Interface
             container.RegisterType<IPortSender, SharedMemoryPortSender>();
             container.RegisterType<IStarter, DynamicInstanceStarter>();
             container.RegisterType<ILogger, WindowsEventLogger>();
             container.RegisterType<ErrorHandlingPipelineModule, CliScummErrorHandingPipelineModule>();
 
-            container.RegisterInstance(container.Resolve<IRealTimeEndPointCallbackRepo>() as IRealTimeDataEndpointServer); 
+            container.RegisterInstance(container.Resolve<IRealTimeDataBusServer>()); 
         }
     }
 }

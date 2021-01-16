@@ -326,6 +326,10 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\dists\TcpListener\TcpRealTimeData.csproj">
+      <Project>{DAA68332-53E8-4FBC-9104-6AAD07D63421}</Project>
+      <Name>TcpRealTimeData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Compression\Compression.vcxproj">
       <Project>{0bfba939-d509-4179-af9a-1bc0b4abea77}</Project>
       <Name>ManagedZLibCompression</Name>
@@ -355,7 +359,7 @@
       <Name>SignalRHostWithUnity</Name>
     </ProjectReference>
     <ProjectReference Include="..\SignalR\SignalR.csproj">
-      <Project>{b241bcb5-2c45-4baf-992a-07982b7991f0}</Project>
+      <Project>{B241BCB5-2C45-4BAF-992A-07982B7991F0}</Project>
       <Name>SignalR</Name>
     </ProjectReference>
     <ProjectReference Include="..\StartInstance\StartInstance.csproj">

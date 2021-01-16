@@ -36,6 +36,7 @@ using ManagedCommon.Enums.Logging;
 using Newtonsoft.Json;
 using Microsoft.AspNet.SignalR.Json;
 using yEncDotNet;
+using TcpRealTimeData;
 
 [assembly: OwinStartup(typeof(ScummVMBrowser.Startup))]
 
@@ -137,20 +138,16 @@ namespace ScummVMBrowser
             container.RegisterType<IScummWebServerRpc, RpcServer>();
             container.RegisterType<ILogger, WindowsEventLogger>();
             container.RegisterType<ErrorHandlingPipelineModule, ScummVmBrowserSignalRHandlingPipelineModule>();
+			container.RegisterType<IScummVMHubClient, ScummVMHubClient>();
+			container.RegisterType<IRealTimeDataBusClient, TcpListenerRealTimeDataBusClient>();
+			container.RegisterType<IRealTimeDataEndpointClient, TcpListenerRealTimeDataEndpointClient>();
 
-            container.RegisterFactory<IStarter>(
+
+			container.RegisterFactory<IStarter>(
                     s =>
                     {
                         return new SetPortStarter() { Port = container.Resolve<IConfigurationStore<System.Enum>>().GetValue<int>(IceRemoteProcFrontEnd.Port) }; //TODO: load port from config
                     }
-                );
-
-            container.RegisterFactory<IScummVMHubClient>(
-                   c =>
-                   {
-                       SignalRRealTimDataBusAndEndpointClient signalRRealTimDataBusAndEndpointClient = new SignalRRealTimDataBusAndEndpointClient(container.Resolve<IConfigurationStore<System.Enum>>(), container.Resolve<IHubConnectionFactory>());
-                       return new ScummVMHubClient(c.Resolve<IScummVMServerStarter>(), c.Resolve<IConfigurationStore<System.Enum>>(), signalRRealTimDataBusAndEndpointClient, c.Resolve<IScummHubRpcAsyncProxy>(), signalRRealTimDataBusAndEndpointClient, c.Resolve<IPortGetter>(), c.Resolve<IPortGetter>());
-                   }
                 );
 
             container.RegisterFactory<IByteEncoder>(

@@ -155,6 +155,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\dists\TcpListener\TcpRealTimeData.csproj">
+      <Project>{DAA68332-53E8-4FBC-9104-6AAD07D63421}</Project>
+      <Name>TcpRealTimeData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CliScummData\CliScummData.vcxproj">
       <Project>{165f09da-34c9-437b-9b0a-860150e7e830}</Project>
       <Name>CliScummData</Name>

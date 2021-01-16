@@ -16,6 +16,7 @@ namespace TcpRealTimeData
 		private IConfigurationStore<System.Enum> _configurationStore;
 		private TcpListenerThread _tcpClientListenerThread;
 		private CopyRectToScreenAsync _copyRectToScreen;
+		private PlayAudioAsync _playAudio;
 
 		public TcpListenerRealTimeDataEndpointClient(IStarter starter, IConfigurationStore<System.Enum> configurationStore)
 		{
@@ -26,7 +27,6 @@ namespace TcpRealTimeData
 
 		public void Dispose()
 		{
-			throw new NotImplementedException();
 		}
 
 		public async Task Init(string port)
@@ -39,7 +39,7 @@ namespace TcpRealTimeData
 
 		public void OnAudioReceived(PlayAudioAsync playAudio, int instanceId)
 		{
-			throw new NotImplementedException();
+			_playAudio = playAudio;
 		}
 
 		public void OnFrameReceived(CopyRectToScreenAsync copyRectToScreen, int instanceId)
@@ -49,22 +49,11 @@ namespace TcpRealTimeData
 
 		public async Task OnMessage(byte[] value)
 		{
-			if(value.Count() < 1)
-			{
-				throw new Exception("Fail: No message data");
+			MessageTypeEnum messageType;
+			string messageJson = Helpers.GetMessage(value, out messageType);
+			
 
-			}
-
-			byte[] messagePacket = value.Skip(0).ToArray();
-			MessageTypeEnum messageType = (MessageTypeEnum)value[0];
-
-			string messageJson = string.Empty;
-			if(messagePacket.Count() > 0)
-			{
-				messageJson = Encoding.ASCII.GetString(value);
-			}
-
-			switch(messageType)
+			switch (messageType)
 			{
 				case MessageTypeEnum.OnFrameReceived:
 					if(_copyRectToScreen != null)

@@ -18,7 +18,7 @@ namespace PortSharer
             {
                 _rpcBuffer = new RpcBuffer(id);
             }
-
+			await Task.Delay(5000);
             return (await _rpcBuffer.RemoteRequestAsync()).Data.FromBinary<int>();
         }
 

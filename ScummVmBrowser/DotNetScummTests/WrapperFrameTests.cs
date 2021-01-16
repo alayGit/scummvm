@@ -461,7 +461,7 @@ namespace DotNetScummTests
 
             Setup(gameDirectory, noFrames, expectedFrameName);
             await WaitForFrame(180);
-            _wrapper.EnqueueGameEvent(new SendMouseClick(ManagedCommon.Enums.Actions.MouseClick.Left, new GetCurrentMousePosition(() => _wrapper.GetCurrentMousePosition())));
+            _wrapper.EnqueueGameEvent(new SendMouseClick(ManagedCommon.Enums.MouseClick.Left, new GetCurrentMousePosition(() => _wrapper.GetCurrentMousePosition())));
 
             await CheckForExpectedFrame(expectedFrameName, noFrames);
         }

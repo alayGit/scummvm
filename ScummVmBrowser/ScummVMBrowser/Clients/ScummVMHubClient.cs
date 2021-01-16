@@ -13,7 +13,6 @@ using Trasher;
 using System.Threading;
 using SharedMemory;
 using ManagedCommon.ExtensionMethods;
-using ManagedCommon.Enums.Actions;
 using ManagedCommon.Base;
 using ManagedCommon.Interfaces.Rpc;
 using PortSharer;

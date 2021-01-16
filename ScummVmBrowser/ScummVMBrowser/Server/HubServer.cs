@@ -1,5 +1,4 @@
 ﻿using ManagedCommon.Enums;
-using ManagedCommon.Enums.Actions;
 using ManagedCommon.Interfaces;
 using Microsoft.AspNet.SignalR;
 using ScummVMBrowser.Clients;
