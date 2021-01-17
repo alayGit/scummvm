@@ -11,7 +11,15 @@ namespace TcpRealTimeData
 	{
 		internal static byte[] ConvertObjectToMessage(object toSerialize, MessageTypeEnum messageTypeEnum)
 		{
-			string serialized = JsonConvert.SerializeObject(toSerialize);
+			string serialized;
+			if (toSerialize.GetType() != typeof(string))
+			{
+				serialized = JsonConvert.SerializeObject(toSerialize);
+			}
+			else
+			{
+				serialized = (string)toSerialize;
+			}
 
 			byte[] asciiSerializedBytes = Encoding.ASCII.GetBytes(serialized);
 			byte[] asciiSerializedBytesWithMessage = new byte[asciiSerializedBytes.Length + 1];

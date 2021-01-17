@@ -44,8 +44,7 @@ namespace TcpRealTimeData
 
 		public async Task PlaySound(byte[] data)
 		{
-			await Singleton.GetTcpListener(0, ListenerTypeEnum.Server).SendAsciiBytes(Helpers.ConvertObjectToMessage(data, MessageTypeEnum.OnPlaySound));
-			await Singleton.GetTcpListener(0, ListenerTypeEnum.Server).SendAsciiBytes(Helpers.ConvertObjectToMessage(data, MessageTypeEnum.OnPlaySound));
+			await Singleton.GetTcpListener(0, ListenerTypeEnum.Server).SendAsciiBytes(Helpers.ConvertObjectToMessage(Convert.ToBase64String(data), MessageTypeEnum.OnPlaySound));
 		}
 	}
 }

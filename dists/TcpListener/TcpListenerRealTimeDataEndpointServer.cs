@@ -106,7 +106,6 @@ namespace TcpRealTimeData
 		{
 			MessageTypeEnum messageType;
 			string message = Helpers.GetMessage(value, out messageType);
-			Debugger.Launch();
 
 			switch (messageType)
 			{

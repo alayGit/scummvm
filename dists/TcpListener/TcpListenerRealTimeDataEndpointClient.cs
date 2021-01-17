@@ -50,7 +50,7 @@ namespace TcpRealTimeData
 		public async Task OnMessage(byte[] value)
 		{
 			MessageTypeEnum messageType;
-			string messageJson = Helpers.GetMessage(value, out messageType);
+			string message = Helpers.GetMessage(value, out messageType);
 			
 
 			switch (messageType)
@@ -58,9 +58,17 @@ namespace TcpRealTimeData
 				case MessageTypeEnum.OnFrameReceived:
 					if(_copyRectToScreen != null)
 					{
-						await _copyRectToScreen(JsonConvert.DeserializeObject<List<ScreenBuffer>>(messageJson));
+						await _copyRectToScreen(JsonConvert.DeserializeObject<List<ScreenBuffer>>(message));
 					}
 					break;
+				case MessageTypeEnum.OnPlaySound:
+					if(_playAudio != null)
+					{
+						await _playAudio(Convert.FromBase64String(message));
+					}
+					break;
+				default:
+					throw new Exception("Fail: Unknown Message MessageTypeEnum");
 			}
 
 			
