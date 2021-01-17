@@ -10,5 +10,6 @@ namespace ManagedCommon.Interfaces
    public interface IPortSender: IDisposable
     {
         void Init(GetPort getPort, string id);
+		int ChosenPort { get; }
     }
 }

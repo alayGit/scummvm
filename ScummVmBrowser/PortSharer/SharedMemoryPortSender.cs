@@ -19,24 +19,28 @@ namespace PortSharer
         {
             _rpcBuffer = new RpcBuffer(id, (msgId, payLoad) =>
             {
-                //int port = 0;
-                //while (port == 0)
-                //{
-                //    port = getPort();
+				//int port = 0;
+				//while (port == 0)
+				//{
+				//    port = getPort();
 
-                //    if (port == 0)
-                //    {
-                //        await Task.Delay(5);
-                //    }
-                //}
-                return getPort().ToBinary();
+				//    if (port == 0)
+				//    {
+				//        await Task.Delay(5);
+				//    }
+				//}
+                ChosenPort = getPort();
+
+				return ChosenPort.ToBinary();
             });
         }
 
-        #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
+		public int ChosenPort { get; set; }
 
-        protected virtual void Dispose(bool disposing)
+		#region IDisposable Support
+		private bool disposedValue = false; // To detect redundant calls
+
+		protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
             {

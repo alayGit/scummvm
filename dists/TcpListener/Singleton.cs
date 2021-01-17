@@ -8,23 +8,28 @@ namespace TcpRealTimeData
 {
 	internal static class Singleton
 	{
-		private static TcpListenerThread TcpListener;
+		private static Dictionary <int, TcpListenerThread> _listenerDictionary;
+
+		static Singleton()
+		{
+			_listenerDictionary = new Dictionary<int, TcpListenerThread>();
+		}
 
 		internal static TcpListenerThread GetTcpListener(int port, ListenerTypeEnum listenerTypeEnum)
 		{
-			if(TcpListener == null)
+			if(!_listenerDictionary.ContainsKey(port))
 			{
 				if(listenerTypeEnum == ListenerTypeEnum.Server)
 				{
-					TcpListener = new TcpServerListenerThread(port);
+					_listenerDictionary[port] = new TcpServerListenerThread(port);
 				}
 				else
 				{
-					TcpListener = new TcpClientListenerThread(port);
+					_listenerDictionary[port] = new TcpClientListenerThread(port);
 				}
 			}
 
-			return TcpListener;
+			return _listenerDictionary[port];
 		}
 	}
 }

@@ -29,7 +29,7 @@ namespace TcpRealTimeData
 
 		public async Task DisplayFrameAsync(List<ScreenBuffer> screenBuffers)
 		{
-			await Singleton.GetTcpListener(0, ListenerTypeEnum.Server).SendAsciiBytes(Helpers.ConvertObjectToMessage(screenBuffers, MessageTypeEnum.OnFrameReceived));
+			await Singleton.GetTcpListener(GetPort(), ListenerTypeEnum.Server).SendAsciiBytes(Helpers.ConvertObjectToMessage(screenBuffers, MessageTypeEnum.OnFrameReceived));
 		}
 
 		public void Dispose()
@@ -44,7 +44,19 @@ namespace TcpRealTimeData
 
 		public async Task PlaySound(byte[] data)
 		{
-			await Singleton.GetTcpListener(0, ListenerTypeEnum.Server).SendAsciiBytes(Helpers.ConvertObjectToMessage(Convert.ToBase64String(data), MessageTypeEnum.OnPlaySound));
+			await Singleton.GetTcpListener(GetPort(), ListenerTypeEnum.Server).SendAsciiBytes(Helpers.ConvertObjectToMessage(Convert.ToBase64String(data), MessageTypeEnum.OnPlaySound));
+		}
+
+		private int GetPort()
+		{
+			int port = _portSender.ChosenPort;
+
+			if(port == 0)
+			{
+				throw new Exception("Fail: Port should have being set by initialization of TcpListenerRealTimeBusServer");
+			}
+
+			return port;
 		}
 	}
 }

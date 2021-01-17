@@ -80,7 +80,7 @@ namespace SignalRSelfHost
             container.RegisterType<IScummHubClientRpcProxy, ScummVmIceServer>(new ContainerControlledLifetimeManager());
             container.RegisterType<IRealTimeDataEndpointServer, TcpListenerRealTimeDataEndpointServer>(new ContainerControlledLifetimeManager());
             container.RegisterType<CliScumm, CliScumm>(); //ToDo Make Interface
-            container.RegisterType<IPortSender, SharedMemoryPortSender>();
+            container.RegisterType<IPortSender, SharedMemoryPortSender>(new ContainerControlledLifetimeManager());
             container.RegisterType<IStarter, DynamicInstanceStarter>();
             container.RegisterType<ILogger, WindowsEventLogger>();
             container.RegisterType<ErrorHandlingPipelineModule, CliScummErrorHandingPipelineModule>();
