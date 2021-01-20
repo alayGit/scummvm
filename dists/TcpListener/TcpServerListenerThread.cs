@@ -17,7 +17,7 @@ namespace TcpRealTimeData
 		int _port;
 		AsyncSemaphore _waitForConnectionSemaphore;
 
-		public TcpServerListenerThread(int port)
+		public TcpServerListenerThread(int port, IPAddress ip): base(ip)
 		{
 			_port = port;
 			_waitForConnectionSemaphore = new AsyncSemaphore(1);
@@ -31,7 +31,7 @@ namespace TcpRealTimeData
 				{
 					if (_tcpListener == null || _client == null)
 					{
-						_tcpListener = new TcpListener(IPAddress.Parse("127.0.0.1"), _port); //Converted from https://www.smartconversion.com/unit_conversion/IP_Address_Converter.aspx. It is actually 127.0.0.1
+						_tcpListener = new TcpListener(IP, _port); //Converted from https://www.smartconversion.com/unit_conversion/IP_Address_Converter.aspx. It is actually 127.0.0.1
 						_tcpListener.Start();
 
 						_client = await _tcpListener.AcceptTcpClientAsync();

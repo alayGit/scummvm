@@ -1,5 +1,6 @@
 ﻿using ManagedCommon.Base;
 using ManagedCommon.Enums;
+using ManagedCommon.Enums.Settings;
 using ManagedCommon.Interfaces;
 using Newtonsoft.Json;
 using PortSharer;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,7 +31,12 @@ namespace TcpRealTimeData
 
 		public async Task DisplayFrameAsync(List<ScreenBuffer> screenBuffers)
 		{
-			await Singleton.GetTcpListener(GetPort(), ListenerTypeEnum.Server).SendAsciiBytes(Helpers.ConvertObjectToMessage(screenBuffers, MessageTypeEnum.OnFrameReceived));
+			await GetTcpListener().SendAsciiBytes(Helpers.ConvertObjectToMessage(screenBuffers, MessageTypeEnum.OnFrameReceived));
+		}
+
+		private TcpListenerThread GetTcpListener()
+		{
+			return Singleton.GetTcpListener(GetPort(), IPAddress.Parse(_configurationStore.GetValue(TcpListenerSettings.ServerIp)), ListenerTypeEnum.Server);
 		}
 
 		public void Dispose()
@@ -44,7 +51,7 @@ namespace TcpRealTimeData
 
 		public async Task PlaySound(byte[] data)
 		{
-			await Singleton.GetTcpListener(GetPort(), ListenerTypeEnum.Server).SendAsciiBytes(Helpers.ConvertObjectToMessage(Convert.ToBase64String(data), MessageTypeEnum.OnPlaySound));
+			await GetTcpListener().SendAsciiBytes(Helpers.ConvertObjectToMessage(Convert.ToBase64String(data), MessageTypeEnum.OnPlaySound));
 		}
 
 		private int GetPort()

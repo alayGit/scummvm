@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Resources\Dev\TcpListenerSettings.json" />
     <None Include="Resources\Mode.json" />
     <None Include="Resources\Prod\AvailableGames.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -79,6 +80,7 @@
     <None Include="Resources\Prod\SoundSettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\Prod\TcpListenerSettings.json" />
     <None Include="Resources\Prod\Trasher.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

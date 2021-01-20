@@ -150,6 +150,7 @@
     <Compile Include="Enums\Logging\LoggingLevel.cs" />
     <Compile Include="Enums\Settings\IceRemoteProcBackEnd.cs" />
     <Compile Include="Enums\Settings\IceRemoteProcFrontEnd.cs" />
+    <Compile Include="Enums\Settings\TcpListenerSettings.cs" />
     <Compile Include="Enums\Settings\WebServerSettings.cs" />
     <Compile Include="Exceptions\UnmanagedException.cs" />
     <Compile Include="ExtensionMethods\AppBuilderExtensions.cs" />

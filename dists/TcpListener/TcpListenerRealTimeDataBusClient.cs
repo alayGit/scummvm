@@ -1,5 +1,6 @@
 ﻿using ManagedCommon.Base;
 using ManagedCommon.Enums;
+using ManagedCommon.Enums.Settings;
 using ManagedCommon.Interfaces;
 using Newtonsoft.Json;
 using PortSharer;
@@ -7,6 +8,7 @@ using StartInstance;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -53,7 +55,7 @@ namespace TcpRealTimeData
 
 		public Task Init(string port)
 		{
-			_tcpClientListenerThread = Singleton.GetTcpListener(int.Parse(port), ListenerTypeEnum.Client);
+			_tcpClientListenerThread = Singleton.GetTcpListener(int.Parse(port), IPAddress.Parse(_configurationStore.GetValue(TcpListenerSettings.ServerIp)), ListenerTypeEnum.Client);
 			return Task.CompletedTask;
 		}
 

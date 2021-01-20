@@ -1,12 +1,14 @@
 ﻿using ManagedCommon.Base;
 using ManagedCommon.Delegates;
 using ManagedCommon.Enums;
+using ManagedCommon.Enums.Settings;
 using ManagedCommon.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -47,8 +49,8 @@ namespace TcpRealTimeData
 			   p =>
 			   {
 				   port = p;
-				   _tcpClientListenerThread = Singleton.GetTcpListener(p, ListenerTypeEnum.Server);
-				   _tcpClientListenerThread.RunTcpListenerTask(OnMessage, 5);
+				   _tcpClientListenerThread = Singleton.GetTcpListener(port, IPAddress.Parse(_configurationStore.GetValue(TcpListenerSettings.ServerIp)), ListenerTypeEnum.Server);
+				   _tcpClientListenerThread.RunTcpListenerTask(OnMessage, _configurationStore.GetValue<int>(TcpListenerSettings.ServerSleepTime));
 
 				   Console.WriteLine($"Tcp Server Started On Port {p}.");
 

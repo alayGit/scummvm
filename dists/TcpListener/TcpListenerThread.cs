@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,11 +22,14 @@ namespace TcpRealTimeData
 		public static readonly string Terminator = ((char)0).ToString();
 		const int BufferSize = 500;
 
+		protected IPAddress IP { get; private set; }
 
-		public TcpListenerThread()
+
+		public TcpListenerThread(IPAddress ip)
 		{
 			_stopClientTask = false;
 			_asyncSemaphore = new AsyncSemaphore(1);
+			IP = ip;
 		}
 
 		protected abstract Task<NetworkStream> ClientStream();

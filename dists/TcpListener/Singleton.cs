@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,17 +16,17 @@ namespace TcpRealTimeData
 			_listenerDictionary = new Dictionary<int, TcpListenerThread>();
 		}
 
-		internal static TcpListenerThread GetTcpListener(int port, ListenerTypeEnum listenerTypeEnum)
+		internal static TcpListenerThread GetTcpListener(int port, IPAddress ip, ListenerTypeEnum listenerTypeEnum)
 		{
 			if(!_listenerDictionary.ContainsKey(port))
 			{
 				if(listenerTypeEnum == ListenerTypeEnum.Server)
 				{
-					_listenerDictionary[port] = new TcpServerListenerThread(port);
+					_listenerDictionary[port] = new TcpServerListenerThread(port, ip);
 				}
 				else
 				{
-					_listenerDictionary[port] = new TcpClientListenerThread(port);
+					_listenerDictionary[port] = new TcpClientListenerThread(port, ip);
 				}
 			}
 
