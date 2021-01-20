@@ -64,7 +64,6 @@ namespace CLIScumm {
 	private:
 		void Init(AvailableGames game, Dictionary<System::String^, cli::array<Byte>^>^);
 		bool SaveData(byte* data, int size, Common::String fileName);
-		bool pollEventWrapper(Common::Event& event);
 		void PlaySound(byte* buffer, int size, void* user);
 		byte* GetSoundSample(byte* buffer, int size);
 		Common::String GetGamePath(AvailableGames game);
@@ -73,12 +72,10 @@ namespace CLIScumm {
 		delegate void delCopyRectToScreen(NativeScummWrapper::ScreenBuffer*, int length);
 	    array<byte>^ MarshalByteBuffer(byte *buffer, int length);
 	    ScreenBuffer^ MarshalScreenBuffer(NativeScummWrapper::ScreenBuffer screenBuffer);
-		delegate bool delPollEvent(Common::Event& event);
 		delegate bool delSaveData(byte* saveData, int, Common::String fileName);
 		delegate void delPlaySound(byte* buffer, int size, void* user);
 		delegate byte* delGetSound(byte* buffer, int size);
 		delCopyRectToScreen^ imageUpdated;
-		delPollEvent^ pollEvent;
 		delSaveData^ saveData;
 		Object^ gameEventLock;
 		Object^ startLock;

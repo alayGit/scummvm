@@ -4,12 +4,12 @@
 
 #include "nativeScummWrapperOSystem.h"
 
-NativeScummWrapper::NativeScummWrapperOSystem::NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, f_SendScreenBuffers sendScreenBuffers, f_PollEvent queueEvent, f_SaveFileData saveData, SoundManagement::f_PlaySound playSound) : ModularBackend() {
+NativeScummWrapper::NativeScummWrapperOSystem::NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, f_SendScreenBuffers sendScreenBuffers, f_SaveFileData saveData, SoundManagement::f_PlaySound playSound) : ModularBackend() {
 	_mixerImpl = nullptr;	
 	_soundOptions = soundOptions;
 	_fsFactory = new WindowsFilesystemFactory();
 	_cliGraphicsManager = new NativeScummWrapperGraphics(sendScreenBuffers);
-	_eventSource = new NativeScummWrapperEvents(queueEvent, [this](int x, int y) {
+	_eventSource = new NativeScummWrapperEvents([this](int x, int y) {
 		_graphicsManager->warpMouse(x, y);
 	});
 	ModularBackend::_graphicsManager = _cliGraphicsManager;
@@ -93,6 +93,10 @@ void NativeScummWrapper::NativeScummWrapperOSystem::StopSound() {
 
 NativeScummWrapper::NativeScummWrapperGraphics* NativeScummWrapper::NativeScummWrapperOSystem::getGraphicsManager() {
 	return _cliGraphicsManager;
+}
+
+void NativeScummWrapper::NativeScummWrapperOSystem::addEventsToQueue(Common::Event *event, int length) {
+	_eventSource->addEventsToQueue(event, length);
 }
 
 Common::EventSource* NativeScummWrapper::NativeScummWrapperOSystem::getDefaultEventSource() {

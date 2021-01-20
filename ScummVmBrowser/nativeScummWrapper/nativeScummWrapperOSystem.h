@@ -17,7 +17,7 @@
 namespace NativeScummWrapper {
 	class NativeScummWrapperOSystem: public ModularBackend {
 	public:
-	    NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, NativeScummWrapper::f_SendScreenBuffers copyRect, NativeScummWrapper::f_PollEvent queueEvent, NativeScummWrapper::f_SaveFileData saveData, SoundManagement::f_PlaySound soundConverted);
+	    NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, NativeScummWrapper::f_SendScreenBuffers copyRect, NativeScummWrapper::f_SaveFileData saveData, SoundManagement::f_PlaySound soundConverted);
 	    ~NativeScummWrapperOSystem();
 		virtual void initBackend() override;
 		virtual uint32 getMillis(bool skipRecord = false) override;
@@ -29,6 +29,7 @@ namespace NativeScummWrapper {
 		void StartSound();
 		void StopSound();
 	    NativeScummWrapper::NativeScummWrapperGraphics *getGraphicsManager();
+	    void addEventsToQueue(Common::Event *event, int length);
 	    virtual void quit() override;
 	protected:
 		NativeScummWrapperEvents *_eventSource;

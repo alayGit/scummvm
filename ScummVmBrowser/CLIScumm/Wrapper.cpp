@@ -7,7 +7,6 @@ int main() {
 CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum ^> ^ configureStore) {
 	eventQueue = gcnew ConcurrentQueue<IGameEvent ^>();
 	imageUpdated = gcnew CLIScumm::Wrapper::Wrapper::delCopyRectToScreen(this, &CLIScumm::Wrapper::Wrapper::UpdatePicturesToBeSentBuffer);
-	pollEvent = gcnew CLIScumm::Wrapper::Wrapper::delPollEvent(this, &CLIScumm::Wrapper::Wrapper::pollEventWrapper);
 	saveData = gcnew CLIScumm::Wrapper::Wrapper::delSaveData(this, &CLIScumm::Wrapper::Wrapper::SaveData);
 	hasStarted = false;
 	gameEventLock = gcnew Object();
@@ -22,7 +21,7 @@ CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum ^> ^ configureStore)
 
 	g_system = new NativeScummWrapper::NativeScummWrapperOSystem(soundOptions, static_cast<NativeScummWrapper::f_SendScreenBuffers>(Marshal::GetFunctionPointerForDelegate(imageUpdated).ToPointer()) //ToDo: Tidy these up as a whole they are a mess
 	                                                             ,
-	                                                             static_cast<NativeScummWrapper::f_PollEvent>(Marshal::GetFunctionPointerForDelegate(pollEvent).ToPointer()), static_cast<NativeScummWrapper::f_SaveFileData>(Marshal::GetFunctionPointerForDelegate(saveData).ToPointer()), static_cast<f_PlaySound>(Marshal::GetFunctionPointerForDelegate(GCHandle::Alloc(gcnew delPlaySound(this, &CLIScumm::Wrapper::Wrapper::PlaySound), GCHandleType::Normal).Target).ToPointer()));
+	                                                            static_cast<NativeScummWrapper::f_SaveFileData>(Marshal::GetFunctionPointerForDelegate(saveData).ToPointer()), static_cast<f_PlaySound>(Marshal::GetFunctionPointerForDelegate(GCHandle::Alloc(gcnew delPlaySound(this, &CLIScumm::Wrapper::Wrapper::PlaySound), GCHandleType::Normal).Target).ToPointer()));
 	_gSystemCli = reinterpret_cast<NativeScummWrapper::NativeScummWrapperOSystem *>(g_system);
 	_configureStore = configureStore;
 	_soundIsRunning = false;
@@ -167,43 +166,20 @@ void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(NativeScummWrapper::ScreenB
 }
 
 void CLIScumm::Wrapper::EnqueueGameEvent(IGameEvent ^ gameEvent) {
-	Monitor::Enter(gameEventLock);
-	gameEvent->GetType()->ToString()->Contains("Click");
-	try {
-		eventQueue->Enqueue(gameEvent);
-	} finally {
-		Monitor::Exit(gameEventLock);
+	std::vector<Common::Event> eventsToAdd;
+	while (gameEvent->HasEvents()) {
+		Common::Event event = *((Common::Event *)gameEvent->GetEvent().ToPointer());
+
+		eventsToAdd.push_back(event);
 	}
+
+	_gSystemCli->addEventsToQueue(&eventsToAdd[0], eventsToAdd.size());
 }
 
 bool CLIScumm::Wrapper::SaveData(byte *data, int size, Common::String fileName) {
 	array<System::Byte> ^ managedData = gcnew array<System::Byte>(size);
 	Marshal::Copy((System::IntPtr)data, managedData, 0, size);
 	return _saveData(managedData, gcnew System::String(fileName.c_str()));
-}
-
-int gameCounter = 0;
-bool CLIScumm::Wrapper::pollEventWrapper(Common::Event &event) {
-	IGameEvent ^ gameEvent;
-	bool result = false;
-
-	try {
-		Monitor::Enter(gameEventLock);
-		if (eventQueue->TryPeek(gameEvent)) {
-			if (gameEvent->HasEvents()) {
-				event = *((Common::Event *)gameEvent->GetEvent().ToPointer());
-				result = true;
-
-				if (!gameEvent->HasEvents()) {
-					eventQueue->TryDequeue(gameEvent);
-				}
-			}
-		}
-	} finally {
-		Monitor::Exit(gameEventLock);
-	}
-
-	return result;
 }
 
 void CLIScumm::Wrapper::PlaySound(byte *buffer, int size, void *user) {
