@@ -47,7 +47,6 @@ export const GameFrame = (props: GameFrameProps) => {
 
 
     var onKeyPress = (event: any) => {
-        console.log(event.keyCode);
 
         if (props.proxy != undefined) {
             props.proxy.invoke('EnqueueString', String.fromCharCode(event.which)).done(function () {
@@ -72,7 +71,6 @@ export const GameFrame = (props: GameFrameProps) => {
 
     var onMouseMove = (event: any) => {
         props.proxy.invoke('EnqueueMouseMove', event.nativeEvent.offsetX, event.nativeEvent.offsetY);
-        console.log(event.nativeEvent.offsetX + " " + event.nativeEvent.offsetY);
     }
 
     var onClick = (event: any) => {

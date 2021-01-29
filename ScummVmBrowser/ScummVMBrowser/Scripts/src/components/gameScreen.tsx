@@ -40,7 +40,6 @@ export const GameScreen = (props: GameScreenProps) => {
         () => {
             if (gameState == 'connecting') {
                 var connection = ($ as any).hubConnection(`${window.location.protocol}//${window.location.host}/`);
-                connection.logging = true;
                 var hubServer = connection.createHubProxy('HubServer');
 
 
