@@ -62,7 +62,16 @@ export const GameScreen = (props: GameScreenProps) => {
 
 
                 hubServer.on('NextFrame',
-                    function (pictureUpdates: PictureUpdate[]) {
+					function (pictureUpdates: PictureUpdate[]) {
+
+						var totalCount = 0;
+
+						for (var i = 0; i < pictureUpdates.length; i++) {
+							totalCount += totalCount + pictureUpdates[i].CompressedBuffer.length;
+						}
+
+						console.log(performance.now() + " " + pictureUpdates.length + " " + totalCount);
+
                         setFrame(pictureUpdates);
                     }
 				);

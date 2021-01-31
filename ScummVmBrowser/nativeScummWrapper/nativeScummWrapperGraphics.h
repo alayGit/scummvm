@@ -116,9 +116,10 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 		int restrictHeightToScreenBounds(int y, int height);
 		void setCurrentMouseStateToPrevious();
 	    byte* GetBlottedBuffer(int x, int y, int w, int h);
-	    byte *ScreenUpdated(const void *buf, int pitch, int x, int y, int w, int h, bool isMouseUpdate);
+	    byte *ScreenUpdated(const void *buf, int pitch, int x, int y, int w, int h, bool isMouseUpdate, bool& differenceDetected);
 	    void UpdatePictureBuffer(byte *pictureArray, const void *buf, int pitch, int x, int y, int w, int h);
 	    void UpdateWholeScreenBuffer(byte *pictureArray, byte *wholeScreenBuffer, int x, int y, int w, int h);
+	    bool IsScreenUpdateRequired(byte *pictureArray, int x, int y, int w, int h);
 	    byte *GetCurrentPaletteCompressed(uint32 paletteHash, int &length);
 		ScreenBuffer GetScreenBuffer(const void *buf, int pitch, int x, int y, int w, int h, uint32 paletteHash, bool isMouseUpdate, bool forcePaletteToBeSent);
 	    ScreenBuffer GetMouseScreenBuffer(bool forcePalettesToBeSent);
