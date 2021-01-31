@@ -53,7 +53,7 @@ uint32 NativeScummWrapper::NativeScummWrapperOSystem::getMillis(bool skipRecord)
 }
 
 void NativeScummWrapper::NativeScummWrapperOSystem::delayMillis(uint msecs) {
-	//TODO Implement
+	std::this_thread::sleep_for(std::chrono::milliseconds(msecs));
 }
 
 void NativeScummWrapper::NativeScummWrapperOSystem::getTimeAndDate(TimeDate& t) const {
