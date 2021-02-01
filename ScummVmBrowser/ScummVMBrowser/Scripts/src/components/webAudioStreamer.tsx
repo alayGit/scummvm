@@ -72,8 +72,6 @@ export class WebAudioStreamer {
                 }).catch((reason)=>
                 {
                     var bytes = encodedBytes;
-       
-                    console.log(this.soundNo);
                     }
 
 

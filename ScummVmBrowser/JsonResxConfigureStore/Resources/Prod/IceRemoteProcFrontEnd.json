@@ -1,6 +1,6 @@
 {
 	"ClientName": "ScummRPC",
-	"HostName": "WIN-9Q6LIRKER0G",
+	"HostName": "ScummVMWeb",
 	"ServerName": "scummVMWebServerRpcServer",
 	"HubName": "ScummWebServerHub",
 	"Port": 9870

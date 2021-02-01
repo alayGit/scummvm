@@ -1,6 +1,5 @@
 ﻿
 self.onmessage = function (e) {
-	console.log("In worker data processor");
 	importScripts("/scripts/pako_inflate.min.js");
 	importScripts("/scripts/yEncoding.js");
 

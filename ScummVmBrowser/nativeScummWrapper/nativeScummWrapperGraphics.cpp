@@ -27,7 +27,6 @@ NativeScummWrapper::NativeScummWrapperGraphics::~NativeScummWrapperGraphics() {
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void *buf, int pitch, int x, int y, int w, int h) {
-
 	WaitForSingleObject(_wholeScreenMutex, INFINITE);
 
 	if (!_screenInited) {
@@ -47,7 +46,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void
 		_drawingBuffers.push_back(GetScreenBuffer((byte *)uncompressedpictureArray, pitch, x, y, w, h, _currentPaletteHash, false, false));
 		delete[] uncompressedpictureArray;
 
-		if (_cliMouse.x < DISPLAY_DEFAULT_WIDTH && _cliMouse.y < DISPLAY_DEFAULT_WIDTH && _cliMouse.width > 0 && _cliMouse.height > 0 && screenUpdateOverlapsMouse(x, y, w, h)) {
+		if (_cliMouse.x < DISPLAY_DEFAULT_WIDTH && _cliMouse.y < DISPLAY_DEFAULT_HEIGHT && _cliMouse.width > 0 && _cliMouse.height > 0 && screenUpdateOverlapsMouse(x, y, w, h)) {
 			if (_cliMouse.width > 0 && _cliMouse.height > 0) {
 				_drawingBuffers.push_back(GetMouseScreenBuffer(false));
 			}
@@ -328,7 +327,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::setCurrentMouseStateToPrevi
 }
 
 bool NativeScummWrapper::NativeScummWrapperGraphics::screenUpdateOverlapsMouse(int x, int y, int w, int h) {
-	return _cliMouse.x >= x && _cliMouse.x + _cliMouse.width <= x + w && _cliMouse.y >= y && _cliMouse.y + _cliMouse.height <= y + h;
+	return _cliMouse.x + _cliMouse.width >= x && _cliMouse.x <= x + w && _cliMouse.y + _cliMouse.height >= y && _cliMouse.y <= y + h;
 }
 
 bool NativeScummWrapper::NativeScummWrapperGraphics::positionInRange(int x, int y) {

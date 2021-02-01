@@ -40,7 +40,6 @@ export const GameScreen = (props: GameScreenProps) => {
         () => {
             if (gameState == 'connecting') {
                 var connection = ($ as any).hubConnection(`${window.location.protocol}//${window.location.host}/`);
-                connection.logging = true;
                 var hubServer = connection.createHubProxy('HubServer');
 
 
@@ -63,15 +62,6 @@ export const GameScreen = (props: GameScreenProps) => {
 
                 hubServer.on('NextFrame',
 					function (pictureUpdates: PictureUpdate[]) {
-
-						var totalCount = 0;
-
-						for (var i = 0; i < pictureUpdates.length; i++) {
-							totalCount += totalCount + pictureUpdates[i].CompressedBuffer.length;
-						}
-
-						console.log(performance.now() + " " + pictureUpdates.length + " " + totalCount);
-
                         setFrame(pictureUpdates);
                     }
 				);
