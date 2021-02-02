@@ -44,14 +44,15 @@ void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void
 
 	if (differenceDetected) {
 		_drawingBuffers.push_back(GetScreenBuffer((byte *)uncompressedpictureArray, pitch, x, y, w, h, _currentPaletteHash, false, false));
-		delete[] uncompressedpictureArray;
-
+	
 		if (_cliMouse.x < DISPLAY_DEFAULT_WIDTH && _cliMouse.y < DISPLAY_DEFAULT_HEIGHT && _cliMouse.width > 0 && _cliMouse.height > 0 && screenUpdateOverlapsMouse(x, y, w, h)) {
 			if (_cliMouse.width > 0 && _cliMouse.height > 0) {
 				_drawingBuffers.push_back(GetMouseScreenBuffer(false));
 			}
 		}
 	}
+
+	delete[] uncompressedpictureArray;
 
 	ReleaseSemaphore(_wholeScreenMutex, 1, NULL);
 }
