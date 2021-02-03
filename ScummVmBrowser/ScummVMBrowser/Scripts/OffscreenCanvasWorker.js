@@ -1,6 +1,5 @@
 ﻿
 self.onmessage = function (evt) {
-	console.log("In worker offscreen");
 	var offScreenCanvasManager = new OffScreenCanvasManager(evt.data.offScreenCanvas);
 	offScreenCanvasManager.Init();
 	evt.data.port.onmessage = function (e) {

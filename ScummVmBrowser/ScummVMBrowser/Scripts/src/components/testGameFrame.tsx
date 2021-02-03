@@ -52,8 +52,6 @@ export const TestGameFrame = () => {
 
 
     var onKeyPress = (event: any) => {
-        console.log(event.keyCode);
-
         if (ScummHub != undefined) {
             ScummHub.invoke('EnqueueString', String.fromCharCode(event.which)).done(function () {
                 console.log('Invocation of EnqueueControlKey succeeded');
