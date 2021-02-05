@@ -31,7 +31,7 @@ namespace ManagedCommon
 
 			_processTask = Task.Run(async () =>
 			{
-				Debugger.Launch();
+				List<T> dataListCopy = null;
 				while (!Stopped)
 				{
 					using (await _listLock.EnterAsync())
@@ -42,9 +42,10 @@ namespace ManagedCommon
 							{
 								Debug.WriteLine("Process Queue " + _dataList.Count);
 							}
-
-							await _processCallback(_dataList);
+							dataListCopy = _dataList.ToList(); //Copy the list so that we are not holding onto the lock during network call
 							_dataList = new List<T>();
+
+							await _processCallback(dataListCopy);
 						}
 					}
 					await Task.Delay(configurationStore.GetValue<int>(ScummHubSettings.BufferAndProcessSleepTime));
