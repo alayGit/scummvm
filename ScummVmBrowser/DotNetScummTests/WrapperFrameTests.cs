@@ -228,20 +228,19 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanSendLeft()
         {
-            //Cropping = new Rectangle(0, 8,320, 42);
+            Cropping = new Rectangle(10, 8,310, 12);
             const string expectedFrameName = "CanSendLeft";
-            const int noFrames = 460;
+            const int noFrames = 150;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
             Setup(gameDirectory, noFrames, expectedFrameName);
-            await WaitForFrame(180);
+            await WaitForFrame(30);
             _wrapper.EnqueueGameEvent(new SendString("\r"));
             await WaitAdditionalFrames(10);
             _wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.Escape));
-            await WaitForFrame(300);
+            await WaitAdditionalFrames(10);
             _wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.ArrowLeft));
 
             await Task.Delay(1000);
-            _wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.Escape));
 
             await CheckForExpectedFrame(expectedFrameName, noFrames);
         }

@@ -51,8 +51,8 @@ namespace SignalRSelfHost
         private IRealTimeDataBusServer _realTimeDataBus;
         private IScummHubClientRpcProxy _scummVMHubClient;
         private IRealTimeDataEndpointServer _realTimeDataEndpointServer;
-        private BufferAndProcess<byte[]> _audioProcessor;
-        private BufferAndProcess<List<ScreenBuffer>> _frameProcessor;
+        private BufferAndProcess<byte> _audioProcessor;
+        private BufferAndProcess<ScreenBuffer> _frameProcessor;
         private ILogger _logger;
 
         public event Quit OnQuit
@@ -106,7 +106,7 @@ namespace SignalRSelfHost
         {
             _wrapper.OnCopyRectToScreen += (List<ScreenBuffer> screenBuffers) =>
             {
-                _frameProcessor.Enqueue(new List<ScreenBuffer>(screenBuffers));
+                _frameProcessor.Enqueue(screenBuffers);
             };
             _wrapper.OnSaveData += (byte[] saveData, String fileName) => _scummVMHubClient.SaveGame(saveData, fileName);
 
@@ -117,8 +117,8 @@ namespace SignalRSelfHost
                 return Task.CompletedTask;
             };
 
-            _audioProcessor = new BufferAndProcess<byte[]>(_realTimeDataBus.PlaySound, _configurationStore);
-            _frameProcessor = new BufferAndProcess<List<ScreenBuffer>>(_realTimeDataBus.DisplayFrameAsync, _configurationStore);
+            _audioProcessor = new BufferAndProcess<byte>(async i => await _realTimeDataBus.PlaySound(i.ToArray()), _configurationStore);
+            _frameProcessor = new BufferAndProcess<ScreenBuffer>(async i => await _realTimeDataBus.DisplayFrameAsync(i.ToList()), _configurationStore);
 
             _runningGameTask = Task.Run(() => StartGameWrapper(game, gameSaveData));
 
