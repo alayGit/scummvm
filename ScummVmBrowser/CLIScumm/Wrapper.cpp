@@ -238,9 +238,5 @@ void CLIScumm::Wrapper::Quit() {
 void CLIScumm::Wrapper::ScheduleRedrawWholeScreen() {
 	std::vector<NativeScummWrapper::ScreenBuffer> unmanagedWholeScreenBuffers;
 
-	if (!hasStarted) {
-		throw gcnew System::Exception("Cannot get the whole screen without first starting the game");
-	}
-
 	_gSystemCli->getGraphicsManager()->ScheduleRedrawWholeScreen();
 }
