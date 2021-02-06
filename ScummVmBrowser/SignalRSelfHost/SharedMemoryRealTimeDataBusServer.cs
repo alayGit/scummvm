@@ -39,7 +39,7 @@ namespace SignalRSelfHost
           await _playSoundMasterBuffer.RemoteRequestAsync(data.ToBinary());
         }
 
-        public async Task DisplayFrameAsync(List<ScreenBuffer> screenBuffers)
+        public async Task DisplayFrameAsync(List<List<ScreenBuffer>> screenBuffers)
         {
             //foreach (ScreenBuffer s in screenBuffers)
             //{

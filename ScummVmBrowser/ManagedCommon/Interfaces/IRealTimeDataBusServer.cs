@@ -10,7 +10,7 @@ namespace ManagedCommon.Interfaces
 {
     public interface IRealTimeDataBusServer: IDisposable
     {
-        Task DisplayFrameAsync(List<ScreenBuffer> screenBuffers);
+        Task DisplayFrameAsync(List<List<ScreenBuffer>> screenBuffers);
         Task PlaySound(byte[] data);
         Task Init(string id);
 

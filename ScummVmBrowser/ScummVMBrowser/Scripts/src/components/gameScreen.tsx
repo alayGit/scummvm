@@ -18,7 +18,7 @@ export const GameScreen = (props: GameScreenProps) => {
 
     const [gameState, setGameState] = useState<typeGameState>('retrieveId');
     const [gameId, setGameId] = useState<string>(undefined);
-    const [frames, setFrame] = useState<PictureUpdate[]>(undefined);
+    const [frames, setFrame] = useState<PictureUpdate[][]>(undefined);
     const [availableGame, setAvailableGame] = useState<string>("");
     //const [saveStorage, setSaveStorage] = useState<object>(undefined);
 	let [soundWorker, setSoundWorker] = useState<Worker>(undefined);
@@ -61,7 +61,7 @@ export const GameScreen = (props: GameScreenProps) => {
 
 
                 hubServer.on('NextFrame',
-					function (pictureUpdates: PictureUpdate[]) {
+					function (pictureUpdates: PictureUpdate[][]) {
                         setFrame(pictureUpdates);
                     }
 				);

@@ -45,7 +45,7 @@ namespace ScummVMBrowser.Utilities
             {
                 _copyRectToScreenSlaveBuffer = new RpcBuffer(GetId(RpcBufferNames.DisplayFrame), (msgId, payLoad) =>
                 {
-                    _copyRectToScreenCallback?.Invoke(payLoad.FromBinary<List<ScreenBuffer>>());
+                    _copyRectToScreenCallback?.Invoke(payLoad.FromBinary<List<List<ScreenBuffer>>>());
                 });
             }
         }

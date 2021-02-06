@@ -66,7 +66,7 @@ namespace SignalRSelfHost
             _realTimeEndPointCallbackRepo.StopSound();
         }
 
-        public async Task DisplayFrameAsync(List<ScreenBuffer> screenBuffers)
+        public async Task DisplayFrameAsync(List<List<ScreenBuffer>> screenBuffers)
         {
             await Clients.Client(CurrentConnectionId).NextFrame(screenBuffers);
         }

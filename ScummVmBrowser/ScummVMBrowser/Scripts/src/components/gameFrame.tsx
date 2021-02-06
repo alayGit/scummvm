@@ -84,6 +84,6 @@ export const GameFrame = (props: GameFrameProps) => {
 
 export interface GameFrameProps {
     proxy: any;
-    frames: PictureUpdate[];
+    frames: PictureUpdate[][];
     controlKeys: any;
 }

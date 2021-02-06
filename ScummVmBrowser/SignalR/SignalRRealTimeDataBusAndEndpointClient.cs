@@ -108,7 +108,7 @@ namespace ScummVMBrowser.Utilities
 
             if (_onNextFrameDisposeHandler == null)
             {
-                _onNextFrameDisposeHandler = _proxy.On("NextFrame", (List<ScreenBuffer> screenBuffers) =>
+                _onNextFrameDisposeHandler = _proxy.On("NextFrame", (List<List<ScreenBuffer>> screenBuffers) =>
                 {
                     _copyRectToScreenCallback?.Invoke(screenBuffers);
                 });

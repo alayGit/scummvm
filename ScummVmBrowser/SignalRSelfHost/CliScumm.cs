@@ -52,7 +52,7 @@ namespace SignalRSelfHost
         private IScummHubClientRpcProxy _scummVMHubClient;
         private IRealTimeDataEndpointServer _realTimeDataEndpointServer;
         private BufferAndProcess<byte> _audioProcessor;
-        private BufferAndProcess<ScreenBuffer> _frameProcessor;
+        private BufferAndProcess<List<ScreenBuffer>> _frameProcessor;
         private ILogger _logger;
 
         public event Quit OnQuit
@@ -106,7 +106,7 @@ namespace SignalRSelfHost
         {
             _wrapper.OnCopyRectToScreen += (List<ScreenBuffer> screenBuffers) =>
             {
-                _frameProcessor.Enqueue(screenBuffers);
+                _frameProcessor.Enqueue(new List<List<ScreenBuffer>> { screenBuffers });
             };
             _wrapper.OnSaveData += (byte[] saveData, String fileName) => _scummVMHubClient.SaveGame(saveData, fileName);
 
@@ -118,7 +118,7 @@ namespace SignalRSelfHost
             };
 
             _audioProcessor = new BufferAndProcess<byte>(async i => await _realTimeDataBus.PlaySound(i.ToArray()), _configurationStore);
-            _frameProcessor = new BufferAndProcess<ScreenBuffer>(async i => await _realTimeDataBus.DisplayFrameAsync(i.ToList()), _configurationStore);
+            _frameProcessor = new BufferAndProcess<List<ScreenBuffer>>(async i => await _realTimeDataBus.DisplayFrameAsync(i.ToList()), _configurationStore);
 
             _runningGameTask = Task.Run(() => StartGameWrapper(game, gameSaveData));
 

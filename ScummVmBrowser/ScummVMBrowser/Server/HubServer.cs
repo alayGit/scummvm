@@ -54,7 +54,7 @@ namespace ScummVMBrowser.Server
 
                 if (client != null)
                 {
-                    client.SetNextFrameFunctionPointer((List<ScreenBuffer> screenBuffers) => NextFrame(ConnectionId, screenBuffers));
+                    client.SetNextFrameFunctionPointer((List<List<ScreenBuffer>> screenBuffers) => NextFrame(ConnectionId, screenBuffers));
                     client.SetPlaySoundFunctionPointer((byte[] data) => PlaySound(ConnectionId, data));
                 }
             }
@@ -129,7 +129,7 @@ namespace ScummVMBrowser.Server
             }
         }
 
-        public async Task NextFrame(string connectionId, List<ScreenBuffer> screenBuffers)
+        public async Task NextFrame(string connectionId, List<List<ScreenBuffer>> screenBuffers)
         {
             await Clients.Client(connectionId).NextFrame(screenBuffers);
         }

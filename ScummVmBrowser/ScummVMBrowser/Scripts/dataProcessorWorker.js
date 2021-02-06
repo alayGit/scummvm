@@ -7,21 +7,25 @@ self.onmessage = function (e) {
 
 	self.onmessage = function (e) {
 
-		let dataWithUncompressedBuffers = [];
 		e.data.frames.forEach(
-			f => {
-				f.UncompressedPictureBuffer = decompress(f.CompressedBuffer);
-				f.CompressedBuffer = undefined;
+			fs => {
+				let dataWithUncompressedBuffers = [];
+				fs.forEach(
+					f => {
+						f.UncompressedPictureBuffer = decompress(f.CompressedBuffer);
+						f.CompressedBuffer = undefined;
 
-				if (f.CompressedPaletteBuffer) {
-					f.UncompressedPaletteBuffer = convertPaletteByteArrayToPaletteDictionary(decompress(f.CompressedPaletteBuffer));
-				}
+						if (f.CompressedPaletteBuffer) {
+							f.UncompressedPaletteBuffer = convertPaletteByteArrayToPaletteDictionary(decompress(f.CompressedPaletteBuffer));
+						}
 
-				f.CompressedPaletteBuffer = undefined;
-				dataWithUncompressedBuffers.push(f);
-			});
+						f.CompressedPaletteBuffer = undefined;
+						dataWithUncompressedBuffers.push(f);
+					})
+				port.postMessage(dataWithUncompressedBuffers);
+			}
+		)
 
-		port.postMessage(dataWithUncompressedBuffers);
 	};
 }
 

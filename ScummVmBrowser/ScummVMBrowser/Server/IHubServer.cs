@@ -15,6 +15,6 @@ namespace ScummVMBrowser.Server
         Task Init(string gameId);
         Task Quit();
         Task PlaySound(string connectionId, byte[] data);
-        Task NextFrame(string connectionId, List<ScreenBuffer> screenBuffers);
+        Task NextFrame(string connectionId, List<List<ScreenBuffer>> screenBuffers);
     }
 }
