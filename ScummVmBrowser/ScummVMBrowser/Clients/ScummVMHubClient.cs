@@ -11,13 +11,13 @@ using System.Linq;
 using System.Web;
 using Trasher;
 using System.Threading;
-using SharedMemory;
 using ManagedCommon.ExtensionMethods;
 using ManagedCommon.Enums.Actions;
 using ManagedCommon.Base;
 using ManagedCommon.Interfaces.Rpc;
 using PortSharer;
 using System.Threading.Tasks;
+using ManagedCommon.MessageBuffering;
 
 namespace ScummVMBrowser.Clients
 {
@@ -249,8 +249,8 @@ namespace ScummVMBrowser.Clients
                 throw new Exception("There needs to be a callback set first");
             }
 
-            await _screenDrawingCallback(new List<List<ScreenBuffer>> { await _realTimeDataBusClient.ScheduleRedrawWholeScreen() });
-        }
+            await _screenDrawingCallback(await _realTimeDataBusClient.ScheduleRedrawWholeScreen());
+		}
 
         public void BackEndQuit() //TODO: Not ideal, when doing IceAsync Fix
         {

@@ -235,8 +235,6 @@
     <Compile Include="StaticData\SessionKeys.cs" />
     <Compile Include="Utilities\ByteArrayConverter.cs" />
     <Compile Include="Utilities\HtmlEnumExtensions.cs" />
-    <Compile Include="Utilities\SharedMemoryRealTimeDataEndpointClient.cs" />
-    <Compile Include="Utilities\SharedMemoryRealTimeDataBusClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

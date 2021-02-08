@@ -84,9 +84,9 @@ namespace ScummVMBrowser.Utilities
             await _proxy.Invoke("EnqueueMouseClick", mouseClick);
         }
 
-        public async Task<List<ScreenBuffer>> ScheduleRedrawWholeScreen()
+        public async Task<List<KeyValuePair<MessageType, string>>> ScheduleRedrawWholeScreen()
         {
-          return await _proxy.Invoke<List<ScreenBuffer>>("ScheduleRedrawWholeScreen");
+          return await _proxy.Invoke<List<KeyValuePair<MessageType, string>>>("ScheduleRedrawWholeScreen");
         }
 
         public void OnAudioReceived(PlayAudioAsync playAudio, int instanceId)
@@ -108,7 +108,7 @@ namespace ScummVMBrowser.Utilities
 
             if (_onNextFrameDisposeHandler == null)
             {
-                _onNextFrameDisposeHandler = _proxy.On("NextFrame", (List<List<ScreenBuffer>> screenBuffers) =>
+                _onNextFrameDisposeHandler = _proxy.On("NextFrame", (List<KeyValuePair<MessageType, string>> screenBuffers) =>
                 {
                     _copyRectToScreenCallback?.Invoke(screenBuffers);
                 });

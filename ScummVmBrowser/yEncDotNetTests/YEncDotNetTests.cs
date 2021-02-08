@@ -3,7 +3,7 @@ using System.Text;
 using CommonMocks;
 using ManagedCommon.Enums.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using yEncDotNet;
+using ManagedYEncoder;
 
 namespace yEncDotNetTests
 {
@@ -15,11 +15,11 @@ namespace yEncDotNetTests
         {
             const string TestString = "I am a very long string a very very very long string I am a very long string a very very very long string I am a very long string a very very very long string I am a very long string a very very very long string I am a very long string a very very very long string I am a very long string a very very very long string I am a very long string a very very very long string I am a very long string a very very very long string I am a very long string a very very very long string I am a very long string a very very very long string I am a very long string a very very very long string I am a very long string a very very very long string I am a very long string a very very very long string";
 
-            YEncDotNet encoder = new YEncDotNet(new DoNothingLogger(), LoggingCategory.ScummVmWebBrowser);
+            ManagedYEncoder.ManagedYEncoder encoder = new ManagedYEncoder.ManagedYEncoder();
            
-            string encodedResult = encoder.AssciiEncode(Encoding.ASCII.GetBytes(TestString));
+            string encodedResult = encoder.AssciiByteEncode(Encoding.ASCII.GetBytes(TestString));
 
-           Assert.AreEqual(TestString, Encoding.ASCII.GetString(encoder.AssciiDecode(encodedResult)));
+           Assert.AreEqual(TestString, Encoding.ASCII.GetString(encoder.AssciiByteDecode(encodedResult)));
         }
     }
 }

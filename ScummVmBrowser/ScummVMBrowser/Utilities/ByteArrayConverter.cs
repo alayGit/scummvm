@@ -21,7 +21,7 @@ public class ByteArrayConverter : JsonConverter
 
     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
     {
-        JValue jValue = new JValue(_byteEncoder.AssciiEncode((byte[]) value));
+        JValue jValue = new JValue(_byteEncoder.AssciiByteEncode((byte[]) value));
 
         jValue.WriteTo(writer);
     }

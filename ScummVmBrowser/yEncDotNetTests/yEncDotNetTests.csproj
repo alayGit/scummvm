@@ -62,7 +62,7 @@
     </ProjectReference>
     <ProjectReference Include="..\dotNetYEncode\dotNetYEncode.vcxproj">
       <Project>{4893dd7c-2b10-48ee-beaf-875793dab9ff}</Project>
-      <Name>dotNetYEncode</Name>
+      <Name>managedYEncoder</Name>
     </ProjectReference>
     <ProjectReference Include="..\ManagedCommon\ManagedCommon.csproj">
       <Project>{D8F87AA0-1710-49CC-8CCF-7E1B74FEF911}</Project>

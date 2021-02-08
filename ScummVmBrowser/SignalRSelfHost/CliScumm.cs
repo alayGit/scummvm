@@ -26,8 +26,8 @@ using ManagedCommon;
 using StartInstance;
 using PortSharer;
 using System.Diagnostics;
-using ManagedCommon.Exceptions;
 using ManagedCommon.Enums.Logging;
+using ManagedCommon.MessageBuffering;
 
 namespace SignalRSelfHost
 {
@@ -51,8 +51,7 @@ namespace SignalRSelfHost
         private IRealTimeDataBusServer _realTimeDataBus;
         private IScummHubClientRpcProxy _scummVMHubClient;
         private IRealTimeDataEndpointServer _realTimeDataEndpointServer;
-        private BufferAndProcess<byte> _audioProcessor;
-        private BufferAndProcess<List<ScreenBuffer>> _frameProcessor;
+		private ProcessMessageBuffers _processMessageBuffers;
         private ILogger _logger;
 
         public event Quit OnQuit
@@ -74,7 +73,7 @@ namespace SignalRSelfHost
         }
 
 
-        public CliScumm(IWrapper wrapper, IConfigurationStore<Enum> configurationStore, IRealTimeDataBusServer realTimeDataBus, IScummHubClientRpcProxy scummVMHubClient, IRealTimeDataEndpointServer realTimeDataEndpointServer, ILogger logger)
+        public CliScumm(IWrapper wrapper, IConfigurationStore<Enum> configurationStore, IRealTimeDataBusServer realTimeDataBus, IScummHubClientRpcProxy scummVMHubClient, IRealTimeDataEndpointServer realTimeDataEndpointServer, ILogger logger, IByteEncoder byteEncoder)
         {
             _wrapper = wrapper;
             _configurationStore = configurationStore;
@@ -84,7 +83,9 @@ namespace SignalRSelfHost
             _scummVMHubClient = scummVMHubClient;
             _realTimeDataEndpointServer = realTimeDataEndpointServer;
             _logger = logger;
-        }
+			_processMessageBuffers = new ProcessMessageBuffers(async i => await _realTimeDataBus.DisplayFrameAsync(i), configurationStore, byteEncoder);
+
+		}
 
         public async Task Init(string rpcPortGetterId, string realTimePortGetterId)
         {
@@ -106,7 +107,7 @@ namespace SignalRSelfHost
         {
             _wrapper.OnCopyRectToScreen += (List<ScreenBuffer> screenBuffers) =>
             {
-                _frameProcessor.Enqueue(new List<List<ScreenBuffer>> { screenBuffers });
+				_processMessageBuffers.Enqueue(new Message<List<ScreenBuffer>> { MessageType = MessageType.Frames, MessageContents = screenBuffers });
             };
             _wrapper.OnSaveData += (byte[] saveData, String fileName) => _scummVMHubClient.SaveGame(saveData, fileName);
 
@@ -116,9 +117,6 @@ namespace SignalRSelfHost
                 _killProcessOnQuitTimer.Change(_configurationStore.GetValue<int>(ScummHubSettings.KillProcessOnQuitTimeoutMs), Timeout.Infinite);
                 return Task.CompletedTask;
             };
-
-            _audioProcessor = new BufferAndProcess<byte>(async i => await _realTimeDataBus.PlaySound(i.ToArray()), _configurationStore);
-            _frameProcessor = new BufferAndProcess<List<ScreenBuffer>>(async i => await _realTimeDataBus.DisplayFrameAsync(i.ToList()), _configurationStore);
 
             _runningGameTask = Task.Run(() => StartGameWrapper(game, gameSaveData));
 
@@ -133,11 +131,6 @@ namespace SignalRSelfHost
                 _wrapper.RunGame(game, null, gameSaveData, PlaySound);
                 _onQuit.Invoke();
             }
-            catch (UnmanagedException e)
-            {
-                _logger.LogMessage(LoggingLevel.Error, LoggingCategory.CliScummSelfHost, ErrorMessage.UnmanagedError, e.ToString());
-            }
-
             catch (System.Exception e)
             {
                 _logger.LogMessage(LoggingLevel.Error, LoggingCategory.CliScummSelfHost, ErrorMessage.GeneralErrorCliScumm, e.ToString());
@@ -146,8 +139,8 @@ namespace SignalRSelfHost
 
         private void PlaySound(byte[] sound)
         {
-            _audioProcessor.Enqueue(sound);
-        }
+			_processMessageBuffers.Enqueue(new Message<IEnumerable<object>> { MessageType = MessageType.Sound, MessageContents = sound.Cast<Object>() });
+		}
 
 
         public async Task EndGame()
@@ -157,8 +150,7 @@ namespace SignalRSelfHost
                    async () =>
                     {
                         await _runningGameTask;
-                        await _frameProcessor.Stop();
-                        await _audioProcessor.Stop();
+						await _processMessageBuffers.Stop();
                     });
             Task.WaitAny(awaitEndTask, Task.Delay(QuitTimeoutMs));
         }
@@ -198,8 +190,6 @@ namespace SignalRSelfHost
             if (_runningGameTask != null)
             {
                 await _runningGameTask;
-                await _frameProcessor.Stop();
-                await _audioProcessor.Stop();
             }
         }
 

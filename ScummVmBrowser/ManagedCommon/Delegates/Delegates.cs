@@ -11,7 +11,7 @@ using ManagedCommon.Enums.Actions;
 namespace ManagedCommon.Delegates
 {
     public delegate void CopyRectToScreen(List<ScreenBuffer> screenBuffers);
-    public delegate Task CopyRectToScreenAsync(List<List<ScreenBuffer>> screenBuffers);
+    public delegate Task CopyRectToScreenAsync(List<KeyValuePair<MessageType,string>> messages);
     public delegate bool SaveData(byte[] data, string saveName);
     public delegate Task<bool> SaveDataAsync(byte[] data, string saveName);
     public delegate void PlayAudio(byte[] data);

@@ -83,6 +83,7 @@ namespace SignalRSelfHost
             container.RegisterType<IStarter, DynamicInstanceStarter>();
             container.RegisterType<ILogger, WindowsEventLogger>();
             container.RegisterType<ErrorHandlingPipelineModule, CliScummErrorHandingPipelineModule>();
+			container.RegisterType<IByteEncoder, ManagedYEncoder.ManagedYEncoder>();
 
             container.RegisterInstance(container.Resolve<IRealTimeEndPointCallbackRepo>() as IRealTimeDataEndpointServer); 
         }

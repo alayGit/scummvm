@@ -1,11 +1,6 @@
 #include "pch.h"
-#include "yEncDotNet.h"
-yEncDotNet::YEncDotNet::YEncDotNet(ILogger^ logger, LoggingCategory category)
-{
-    _logger = logger;
-    _category = category;
-}
-System::String^ yEncDotNet::YEncDotNet::AssciiEncode(cli::array<System::Byte>^ input)
+#include "managedYEncoder.h"
+System::String^ ManagedYEncoder::ManagedYEncoder::AssciiByteEncode(cli::array<System::Byte>^ input)
 {
     yEnc::Encoder encoder;
     Byte* inputBuffer = nullptr;
@@ -31,9 +26,7 @@ System::String^ yEncDotNet::YEncDotNet::AssciiEncode(cli::array<System::Byte>^ i
     }
     catch (...)
     {
-        _logger->LogMessage(LoggingLevel::Error, _category, ErrorMessage::YEncodeFailure, encoding->GetString(input));
-
-        throw gcnew UnmanagedException("YEncode error");
+        throw gcnew System::Exception("YEncode error");
     }
     finally
     {
@@ -44,7 +37,7 @@ System::String^ yEncDotNet::YEncDotNet::AssciiEncode(cli::array<System::Byte>^ i
     }
 }
 
-cli::array<System::Byte>^ yEncDotNet::YEncDotNet::AssciiDecode(System::String^ input)
+cli::array<System::Byte>^ ManagedYEncoder::ManagedYEncoder::AssciiByteDecode(System::String^ input)
 {
     yEnc::Encoder encoder;
     Byte* inputBuffer = nullptr;
@@ -77,9 +70,7 @@ cli::array<System::Byte>^ yEncDotNet::YEncDotNet::AssciiDecode(System::String^ i
     }
     catch (...)
     {
-        _logger->LogMessage(LoggingLevel::Error, _category, ErrorMessage::YDecodeFailure, input);
-
-        throw gcnew UnmanagedException("YEncode error");
+        throw gcnew System::Exception("YEncode error");
     }
     finally
     {
@@ -90,7 +81,15 @@ cli::array<System::Byte>^ yEncDotNet::YEncDotNet::AssciiDecode(System::String^ i
     }
 }
 
-Crc32 yEncDotNet::YEncDotNet::GetEmptyCrc()
+System::String ^ ManagedYEncoder::ManagedYEncoder::AssciiStringEncode(System::String ^ input) {
+	return AssciiByteEncode(System::Text::Encoding::ASCII->GetBytes(input) );
+}
+
+System::String ^ ManagedYEncoder::ManagedYEncoder::AssciiStringDecode(System::String ^ input) {
+	return System::Text::Encoding::ASCII->GetString(AssciiByteDecode(input));
+}
+
+Crc32 ManagedYEncoder::ManagedYEncoder::GetEmptyCrc()
 {
     Crc32 crc = Crc32();
     crc.bytes = 0;

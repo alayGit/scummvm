@@ -146,8 +146,6 @@
     <Compile Include="CliScumm.cs" />
     <Compile Include="CliScummErrorHandingPipelineModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SharedMemoryRealTimeDataEndpointServer.cs" />
-    <Compile Include="SharedMemoryRealTimeDataBusServer.cs" />
     <Compile Include="WebServer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +160,10 @@
     <ProjectReference Include="..\CLIScumm\CLIScumm.vcxproj">
       <Project>{47140f46-196c-4483-885f-6cd1b7e7777a}</Project>
       <Name>CLIScumm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\dotNetYEncode\dotNetYEncode.vcxproj">
+      <Project>{4893dd7c-2b10-48ee-beaf-875793dab9ff}</Project>
+      <Name>managedYEncoder</Name>
     </ProjectReference>
     <ProjectReference Include="..\IceRpc\IceRpc.csproj">
       <Project>{06D6FA62-7705-4790-80D1-381ACE5B09CE}</Project>
