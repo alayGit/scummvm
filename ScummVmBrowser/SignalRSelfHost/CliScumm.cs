@@ -139,7 +139,7 @@ namespace SignalRSelfHost
 
         private void PlaySound(byte[] sound)
         {
-			_processMessageBuffers.Enqueue(new Message<IEnumerable<object>> { MessageType = MessageType.Sound, MessageContents = sound.Cast<Object>() });
+			_processMessageBuffers.Enqueue(new Message<List<byte[]>> { MessageType = MessageType.Sound, MessageContents = new List<byte[]> { sound } });
 		}
 
 

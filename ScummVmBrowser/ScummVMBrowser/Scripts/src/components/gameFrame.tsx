@@ -6,17 +6,6 @@ import { useState, useEffect } from "react";
 import { isNullOrUndefined } from "util";
 import { WebServerSettings } from "./configManager";
 
-export interface PictureUpdate {
-	CompressedBuffer: string,
-	CompressedPaletteBuffer: string,
-	paletteHash: number,
-	ignoreColor: number,
-    X: number,
-    Y: number,
-    W: number,
-    H: number,
-}
-
 export const GameFrame = (props: GameFrameProps) => {
 
 	let [offScreenCanvasWorker, setOffScreenCanvasWorker] = useState<Worker>(undefined);
@@ -84,6 +73,6 @@ export const GameFrame = (props: GameFrameProps) => {
 
 export interface GameFrameProps {
     proxy: any;
-    frames: PictureUpdate[][];
+	frames: string;
     controlKeys: any;
 }

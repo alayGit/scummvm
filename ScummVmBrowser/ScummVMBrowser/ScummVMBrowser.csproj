@@ -233,7 +233,6 @@
     <Compile Include="ScummVmBrowserSignalRHandlingPipelineModule.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="StaticData\SessionKeys.cs" />
-    <Compile Include="Utilities\ByteArrayConverter.cs" />
     <Compile Include="Utilities\HtmlEnumExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

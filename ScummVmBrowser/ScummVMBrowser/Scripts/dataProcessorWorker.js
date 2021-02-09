@@ -7,21 +7,22 @@ self.onmessage = function (e) {
 
 	self.onmessage = function (e) {
 
-		e.data.frames.forEach(
+		var frames = JSON.parse(e.data.frames);
+
+		frames.forEach(
 			fs => {
 				let dataWithUncompressedBuffers = [];
-				fs.forEach(
-					f => {
-						f.UncompressedPictureBuffer = decompress(f.CompressedBuffer);
-						f.CompressedBuffer = undefined;
 
-						if (f.CompressedPaletteBuffer) {
-							f.UncompressedPaletteBuffer = convertPaletteByteArrayToPaletteDictionary(decompress(f.CompressedPaletteBuffer));
-						}
+				fs.UncompressedPictureBuffer = decompress(fs.CompressedBuffer);
+				fs.CompressedBuffer = undefined;
 
-						f.CompressedPaletteBuffer = undefined;
-						dataWithUncompressedBuffers.push(f);
-					})
+				if (fs.CompressedPaletteBuffer) {
+					fs.UncompressedPaletteBuffer = convertPaletteByteArrayToPaletteDictionary(decompress(fs.CompressedPaletteBuffer));
+				}
+
+				fs.CompressedPaletteBuffer = undefined;
+				dataWithUncompressedBuffers.push(fs);
+
 				port.postMessage(dataWithUncompressedBuffers);
 			}
 		)

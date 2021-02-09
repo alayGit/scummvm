@@ -104,6 +104,7 @@ namespace ScummVMBrowser.Utilities
 
         public void OnFrameReceived(CopyRectToScreenAsync copyRectToScreen, int instanceId)
         {
+			ManagedYEncoder.ManagedYEncoder y = new ManagedYEncoder.ManagedYEncoder();
             _copyRectToScreenCallback = copyRectToScreen;
 
             if (_onNextFrameDisposeHandler == null)

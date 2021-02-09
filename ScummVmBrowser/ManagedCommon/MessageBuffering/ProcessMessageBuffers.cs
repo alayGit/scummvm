@@ -44,6 +44,9 @@ namespace ManagedCommon.MessageBuffering
 
 		private List<KeyValuePair<MessageType, string>> MergeLists(IEnumerable<IMessage<IEnumerable<object>>> listToMerge)
 		{
+			JsonSerializerSettings serializerSettings = new JsonSerializerSettings();
+			serializerSettings.Converters.Add(new ByteArrayConverter(_byteEncoder));
+
 			Dictionary<MessageType, IMessage<List<object>>> messageTypeDictionary = new Dictionary<MessageType, IMessage<List<object>>>();
 
 			foreach(IMessage<IEnumerable<object>> messages in listToMerge)
@@ -56,7 +59,7 @@ namespace ManagedCommon.MessageBuffering
 				messageTypeDictionary[messages.MessageType].MessageContents.AddRange(messages.MessageContents);
 			}
 
-			return messageTypeDictionary.Select(kvp => new KeyValuePair<MessageType,string>(kvp.Value.MessageType, _byteEncoder.AssciiStringEncode(JsonConvert.SerializeObject(kvp.Value)))).ToList();
+			return messageTypeDictionary.Select(kvp => new KeyValuePair<MessageType,string>(kvp.Value.MessageType, JsonConvert.SerializeObject(kvp.Value.MessageContents, serializerSettings))).ToList();
 		}
 
 

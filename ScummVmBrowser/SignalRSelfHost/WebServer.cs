@@ -8,7 +8,9 @@ using ManagedCommon.Interfaces;
 using ManagedCommon.Interfaces.Rpc;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
+using Microsoft.AspNet.SignalR.Json;
 using Microsoft.Owin.Hosting;
+using Newtonsoft.Json;
 using PortSharer;
 using ScummVMBrowser.Utilities;
 using SignalR;
@@ -51,7 +53,7 @@ namespace SignalRSelfHost
 
                 IConfigurationStore<System.Enum> configurationStore = container.Resolve<IConfigurationStore<System.Enum>>();
 
-                CliScumm scummHub = container.Resolve<CliScumm>(); //TODO: Add interface
+				CliScumm scummHub = container.Resolve<CliScumm>(); //TODO: Add interface
                 await scummHub.Init(args[0], args[1]);
             }
             catch(Exception e)

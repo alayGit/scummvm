@@ -193,6 +193,7 @@
     <Compile Include="Interfaces\Rpc\IScummWebServerClientRpc.cs" />
     <Compile Include="Interfaces\Rpc\IScummWebServerRpc.cs" />
     <Compile Include="Interfaces\Rpc\Protocol.cs" />
+    <Compile Include="MessageBuffering\ByteArrayConverter.cs" />
     <Compile Include="MessageBuffering\Message.cs" />
     <Compile Include="MessageBuffering\ProcessMessageBuffers.cs" />
     <Compile Include="Models\ScreenBuffer.cs" />

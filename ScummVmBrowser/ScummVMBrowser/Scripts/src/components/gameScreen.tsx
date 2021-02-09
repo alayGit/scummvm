@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
-import { GameFrame, GameFrameProps, PictureUpdate } from "./gameFrame";
+import { GameFrame, GameFrameProps } from "./gameFrame";
 import { WebAudioStreamer } from "./webAudioStreamer";
 import { Init, InitProxy, Quit, RunGame, AddClient } from "./scummWebServerRpcProxy"
 import { IceConfigFrontEnd, WebServerSettings } from "./configManager";
@@ -12,13 +12,23 @@ const RegexGuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-
 
 export const GameScreen = (props: GameScreenProps) => {
 
+	interface Message {
+		Key: MessageType;
+		Value: string;
+	}
+
     const [proxy, setProxy] = useState<any>();
 
-    type typeGameState = 'retrieveId' | 'connecting' | 'running' | 'error';
+	type typeGameState = 'retrieveId' | 'connecting' | 'running' | 'error';
+
+	enum MessageType {
+		AudioSamples,
+		Frames,
+	}
 
     const [gameState, setGameState] = useState<typeGameState>('retrieveId');
     const [gameId, setGameId] = useState<string>(undefined);
-    const [frames, setFrame] = useState<PictureUpdate[][]>(undefined);
+    const [frames, setFrame] = useState<string>(undefined);
     const [availableGame, setAvailableGame] = useState<string>("");
     //const [saveStorage, setSaveStorage] = useState<object>(undefined);
 	let [soundWorker, setSoundWorker] = useState<Worker>(undefined);
@@ -59,10 +69,18 @@ export const GameScreen = (props: GameScreenProps) => {
 
                 }
 
-
                 hubServer.on('NextFrame',
-					function (pictureUpdates: PictureUpdate[][]) {
-                        setFrame(pictureUpdates);
+					function (messages: Message[]) {
+						messages.forEach(function (item) {
+							switch (item.Key) {
+								case MessageType.Frames:
+									setFrame(item.Value);
+									break;
+								case MessageType.AudioSamples:
+									soundWorker.postMessage(item.Value);
+									break;
+							}
+						});  
                     }
 				);
 
