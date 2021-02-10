@@ -8,17 +8,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using ManagedCommon.Delegates;
 
 namespace ManagedCommon.MessageBuffering
 {
-	public class ProcessMessageBuffers
+	public class ProcessMessageBuffers : IProcessMessageBuffers
 	{
 		AsyncQueue<IMessage<IEnumerable<object>>> _messageQueue;
 		Task _processTask;
 		bool _stopped = false;
 		IByteEncoder _byteEncoder;
 
-		public ProcessMessageBuffers(Func<List<KeyValuePair<MessageType, string>>, Task> processCallback, IConfigurationStore<Enum> configurationStore, IByteEncoder byteEncoder)
+		public ProcessMessageBuffers(IConfigurationStore<Enum> configurationStore, IByteEncoder byteEncoder)
 		{
 			_messageQueue = new AsyncQueue<IMessage<IEnumerable<object>>>();
 			_byteEncoder = byteEncoder;
@@ -31,16 +32,16 @@ namespace ManagedCommon.MessageBuffering
 					{
 						dataList.Add(await _messageQueue.DequeueAsync());
 					}
-					if (dataList.Count != 0)
+					if (dataList.Count != 0 && MessagesProcessed != null)
 					{
-						//await processCallback(dataList.GroupBy(x => x.MessageType).SelectMany(g => new List<IMessage<IEnumerable<object>>>() { new Message<IEnumerable<object>>() { MessageType = g.First().MessageType, MessageContents = g.SelectMany(m => m.MessageContents) } }));
-						await processCallback(MergeLists(dataList));
+						await MessagesProcessed(MergeLists(dataList));
 					}
 					await Task.Delay(configurationStore.GetValue<int>(ScummHubSettings.BufferAndProcessSleepTime));
 				}
 			});
 		}
 
+		public MessagesProcessed MessagesProcessed { get; set; }
 
 		private List<KeyValuePair<MessageType, string>> MergeLists(IEnumerable<IMessage<IEnumerable<object>>> listToMerge)
 		{
@@ -49,9 +50,9 @@ namespace ManagedCommon.MessageBuffering
 
 			Dictionary<MessageType, IMessage<List<object>>> messageTypeDictionary = new Dictionary<MessageType, IMessage<List<object>>>();
 
-			foreach(IMessage<IEnumerable<object>> messages in listToMerge)
+			foreach (IMessage<IEnumerable<object>> messages in listToMerge)
 			{
-				if(!messageTypeDictionary.ContainsKey(messages.MessageType))
+				if (!messageTypeDictionary.ContainsKey(messages.MessageType))
 				{
 					messageTypeDictionary.Add(messages.MessageType, new Message<List<object>> { MessageType = messages.MessageType, MessageContents = new List<object>() });
 				}
@@ -59,7 +60,7 @@ namespace ManagedCommon.MessageBuffering
 				messageTypeDictionary[messages.MessageType].MessageContents.AddRange(messages.MessageContents);
 			}
 
-			return messageTypeDictionary.Select(kvp => new KeyValuePair<MessageType,string>(kvp.Value.MessageType, JsonConvert.SerializeObject(kvp.Value.MessageContents, serializerSettings))).ToList();
+			return messageTypeDictionary.Select(kvp => new KeyValuePair<MessageType, string>(kvp.Value.MessageType, JsonConvert.SerializeObject(kvp.Value.MessageContents, serializerSettings))).ToList();
 		}
 
 

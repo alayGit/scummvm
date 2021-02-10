@@ -51,7 +51,7 @@ namespace SignalRSelfHost
         private IRealTimeDataBusServer _realTimeDataBus;
         private IScummHubClientRpcProxy _scummVMHubClient;
         private IRealTimeDataEndpointServer _realTimeDataEndpointServer;
-		private ProcessMessageBuffers _processMessageBuffers;
+		private IProcessMessageBuffers _processMessageBuffers;
         private ILogger _logger;
 
         public event Quit OnQuit
@@ -73,7 +73,7 @@ namespace SignalRSelfHost
         }
 
 
-        public CliScumm(IWrapper wrapper, IConfigurationStore<Enum> configurationStore, IRealTimeDataBusServer realTimeDataBus, IScummHubClientRpcProxy scummVMHubClient, IRealTimeDataEndpointServer realTimeDataEndpointServer, ILogger logger, IByteEncoder byteEncoder)
+        public CliScumm(IWrapper wrapper, IConfigurationStore<Enum> configurationStore, IRealTimeDataBusServer realTimeDataBus, IScummHubClientRpcProxy scummVMHubClient, IRealTimeDataEndpointServer realTimeDataEndpointServer, ILogger logger, IByteEncoder byteEncoder, IProcessMessageBuffers processMessageBuffers)
         {
             _wrapper = wrapper;
             _configurationStore = configurationStore;
@@ -83,8 +83,8 @@ namespace SignalRSelfHost
             _scummVMHubClient = scummVMHubClient;
             _realTimeDataEndpointServer = realTimeDataEndpointServer;
             _logger = logger;
-			_processMessageBuffers = new ProcessMessageBuffers(async i => await _realTimeDataBus.DisplayFrameAsync(i), configurationStore, byteEncoder);
-
+			_processMessageBuffers = processMessageBuffers;
+			_processMessageBuffers.MessagesProcessed = async i => await _realTimeDataBus.DisplayFrameAsync(i);
 		}
 
         public async Task Init(string rpcPortGetterId, string realTimePortGetterId)

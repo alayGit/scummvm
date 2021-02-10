@@ -6,6 +6,7 @@ using ManagedCommon.Enums.Logging;
 using ManagedCommon.Implementations;
 using ManagedCommon.Interfaces;
 using ManagedCommon.Interfaces.Rpc;
+using ManagedCommon.MessageBuffering;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.AspNet.SignalR.Json;
@@ -86,6 +87,7 @@ namespace SignalRSelfHost
             container.RegisterType<ILogger, WindowsEventLogger>();
             container.RegisterType<ErrorHandlingPipelineModule, CliScummErrorHandingPipelineModule>();
 			container.RegisterType<IByteEncoder, ManagedYEncoder.ManagedYEncoder>();
+			container.RegisterType<IProcessMessageBuffers, ProcessMessageBuffers>();
 
             container.RegisterInstance(container.Resolve<IRealTimeEndPointCallbackRepo>() as IRealTimeDataEndpointServer); 
         }

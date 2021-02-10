@@ -21,7 +21,8 @@ namespace ManagedCommon.Delegates
     public delegate void EnqueueControlKey(ControlKeys toSend);
     public delegate void EnqueueMouseMove(int x, int y);
     public delegate void EnqueueMouseClick(MouseClick mouseClick);
-    public delegate void StartSound();
+	public delegate Task MessagesProcessed(List<KeyValuePair<MessageType, string>> messages);
+	public delegate void StartSound();
     public delegate void StopSound();
     public delegate void ScheduleRedrawWholeScreen();
     public delegate bool StartConnection(int port);
