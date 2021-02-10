@@ -25,9 +25,7 @@ namespace ScummVMBrowser.Utilities
         private IConfigurationStore<System.Enum> _configurationStore;
         private IHubProxy _proxy;
         private CopyRectToScreenAsync _copyRectToScreenCallback;
-        private PlayAudioAsync _playSoundCallback;
         private IDisposable _onNextFrameDisposeHandler;
-        private IDisposable _onPlayAudioDisposeHandler;
         private bool _hasInited; 
 
         public SignalRRealTimDataBusAndEndpointClient(IConfigurationStore<System.Enum> configurationStore, IHubConnectionFactory hubConnectionFactory) : base(configurationStore)
@@ -89,19 +87,6 @@ namespace ScummVMBrowser.Utilities
           return await _proxy.Invoke<List<KeyValuePair<MessageType, string>>>("ScheduleRedrawWholeScreen");
         }
 
-        public void OnAudioReceived(PlayAudioAsync playAudio, int instanceId)
-        {
-            _playSoundCallback = playAudio;
-
-            if (_onPlayAudioDisposeHandler == null)
-            {
-                _onPlayAudioDisposeHandler = _proxy.On("PlayAudio", (byte[] data) =>
-                {
-                    _playSoundCallback?.Invoke(data);
-                });
-            }
-        }
-
         public void OnFrameReceived(CopyRectToScreenAsync copyRectToScreen, int instanceId)
         {
 			ManagedYEncoder.ManagedYEncoder y = new ManagedYEncoder.ManagedYEncoder();
@@ -127,7 +112,6 @@ namespace ScummVMBrowser.Utilities
                 {
                     _connection.Stop();
                     _connection.Dispose();
-                    _onPlayAudioDisposeHandler?.Dispose();
                     _onNextFrameDisposeHandler?.Dispose();
                 }
 

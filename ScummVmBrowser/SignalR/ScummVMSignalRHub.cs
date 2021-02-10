@@ -26,11 +26,6 @@ namespace SignalRSelfHost
             _realTimeEndPointCallbackRepo = realTimeEndPointCallbackRepo;
         }
 
-        public async Task PlaySound(byte[] data)
-        {
-            await Clients.Client(CurrentConnectionId).PlayAudio(data);
-        }
-
         public void EnqueueControlKey(ControlKeys controlKey)
         {
             _realTimeEndPointCallbackRepo.EnqueueControlKey(controlKey);

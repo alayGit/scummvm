@@ -227,11 +227,6 @@ namespace ScummVMBrowser.Clients
             _realTimeDataEndpoint.OnFrameReceived(screenDrawingCallback, RpcPort);
         }
 
-        public void SetPlaySoundFunctionPointer(PlayAudioAsync playAudio)
-        {
-            _realTimeDataEndpoint.OnAudioReceived(playAudio, RpcPort);
-        }
-
         public void SetSaveGameFunctionPointer(SaveDataAsync saveDataCallback)
         {
             _saveDataCallback = saveDataCallback;

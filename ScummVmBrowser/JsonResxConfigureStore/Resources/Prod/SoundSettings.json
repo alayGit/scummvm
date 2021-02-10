@@ -1,4 +1,4 @@
-{ //High0
+{
 	"SampleSize": 2152,
 	"SampleRate": 44000,
 	"SoundPollingFrequencyMs": 10,
@@ -7,15 +7,3 @@
 	"ClientFeedSize": 2,
 	"ServerFeedSize": 10
 }
-
-
-//{ //Low
-//	"SampleSize": 1152,
-//	"SampleRate": 24000,
-//	"SoundPollingFrequencyMs": 10,
-//	"MaxQueuedToStopAudio": 15,
-//	"MinQueuedToResumeAudio": 10,
-//	"ClientFeedSize": 2,
-//	"ServerFeedSize": 8
-//}
-//

@@ -85,12 +85,7 @@ export const GameScreen = (props: GameScreenProps) => {
 				);
 
 				soundWorker = new Worker(`${WebServerSettings().ServerProtocol}://${WebServerSettings().ServerRoot}:${WebServerSettings().ServerPort}/Scripts/soundProcessorWorker.js`);
-
-                hubServer.on('PlaySound',
-                    function (yEncodedData: string) {
-						soundWorker.postMessage(yEncodedData);
-                    }
-				);
+			
 
 				soundWorker.onmessage = function(e) {
 					setNextAudioSample(e.data);

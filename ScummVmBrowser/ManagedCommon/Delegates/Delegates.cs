@@ -14,9 +14,8 @@ namespace ManagedCommon.Delegates
     public delegate Task CopyRectToScreenAsync(List<KeyValuePair<MessageType,string>> messages);
     public delegate bool SaveData(byte[] data, string saveName);
     public delegate Task<bool> SaveDataAsync(byte[] data, string saveName);
-    public delegate void PlayAudio(byte[] data);
-    public delegate Task PlayAudioAsync(byte[] data);
-    public delegate Task Quit();
+	public delegate void PlayAudio(byte[] data);
+	public delegate Task Quit();
     public delegate Point GetCurrentMousePosition();
     public delegate void EnqueueString(string toSend);
     public delegate void EnqueueControlKey(ControlKeys toSend);

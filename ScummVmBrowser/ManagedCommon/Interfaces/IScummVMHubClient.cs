@@ -29,7 +29,6 @@ namespace ManagedCommon.Interfaces
         Task Quit();
         void SetNextFrameFunctionPointer(CopyRectToScreenAsync screenDrawingCallback);
         void SetSaveGameFunctionPointer(SaveDataAsync saveGameCallback);
-        void SetPlaySoundFunctionPointer(PlayAudioAsync playSoundCallback);
         Task StartGame(Dictionary<string, byte[]> gameStorage, AvailableGames gameName);
         Task SendWholeScreenToNextFrameCallback();
 

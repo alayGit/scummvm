@@ -55,7 +55,6 @@ namespace ScummVMBrowser.Server
                 if (client != null)
                 {
                     client.SetNextFrameFunctionPointer((List<KeyValuePair<MessageType, string>> screenBuffers) => NextFrame(ConnectionId, screenBuffers));
-                    client.SetPlaySoundFunctionPointer((byte[] data) => PlaySound(ConnectionId, data));
                 }
             }
         }
@@ -138,16 +137,5 @@ namespace ScummVMBrowser.Server
         {
             Clients.Client(connectionId).SaveData(saveData, saveName);
         }
-
-        public Task PlaySound(string connectionId, byte[] data)
-        {
-            return Clients.Client(connectionId).PlaySound(data);
-        }
-
-        //public async override Task OnDisconnected(bool stopCalled)
-        //{
-        //    await Quit();
-        //    await base.OnDisconnected(stopCalled);
-        //}
     }
 }
