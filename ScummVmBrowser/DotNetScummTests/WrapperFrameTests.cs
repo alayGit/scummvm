@@ -107,7 +107,7 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanSendEsc()
         {
-            Cropping = new Rectangle(0, 20, 98, 35);
+            Cropping = new Rectangle(0, 20, 68, 35);
             const string expectedFrameName = "CanSendEsc";
             const int noFrames = 325;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
@@ -199,13 +199,14 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanSendDownArrow()
         {
-            Cropping = new Rectangle(52, 58, 30, 17);
-            const string expectedFrameName = "CanSendDownArrow";
-            const int noFrames = 130;
+			Cropping = new Rectangle(52, 68, 140, 20);
+			const string expectedFrameName = "CanSendDownArrow";
+            const int noFrames = 122;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
             Setup(gameDirectory, noFrames, expectedFrameName);
             await WaitForFrame(15);
             _wrapper.EnqueueGameEvent(new SendString("\r"));
+			await WaitAdditionalFrames(10);
             _wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.ArrowDown));
             await CheckForExpectedFrame(expectedFrameName, noFrames);
         }
