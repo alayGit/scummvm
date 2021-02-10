@@ -2,9 +2,8 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Diagnostics;
 
-namespace ManagedCommon.MessageBuffering
+namespace MessageBuffering
 {
 	public class ByteArrayConverter : JsonConverter
 	{

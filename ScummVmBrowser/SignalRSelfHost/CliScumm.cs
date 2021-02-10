@@ -27,7 +27,7 @@ using StartInstance;
 using PortSharer;
 using System.Diagnostics;
 using ManagedCommon.Enums.Logging;
-using ManagedCommon.MessageBuffering;
+
 
 namespace SignalRSelfHost
 {
@@ -107,7 +107,7 @@ namespace SignalRSelfHost
         {
             _wrapper.OnCopyRectToScreen += (List<ScreenBuffer> screenBuffers) =>
             {
-				_processMessageBuffers.Enqueue(new Message<List<ScreenBuffer>> { MessageType = MessageType.Frames, MessageContents = screenBuffers });
+				_processMessageBuffers.Enqueue(screenBuffers, MessageType.Frames);
             };
             _wrapper.OnSaveData += (byte[] saveData, String fileName) => _scummVMHubClient.SaveGame(saveData, fileName);
 
@@ -139,7 +139,7 @@ namespace SignalRSelfHost
 
         private void PlaySound(byte[] sound)
         {
-			_processMessageBuffers.Enqueue(new Message<List<byte[]>> { MessageType = MessageType.Sound, MessageContents = new List<byte[]> { sound } });
+			_processMessageBuffers.Enqueue(sound, MessageType.Sound);
 		}
 
 

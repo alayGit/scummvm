@@ -10,19 +10,20 @@ self.onmessage = function (e) {
 		var frames = JSON.parse(e.data.frames);
 
 		frames.forEach(
-			fs => {
+			frameSet => {
 				let dataWithUncompressedBuffers = [];
+				frameSet.forEach(
+					frameSetPart => {				
+						frameSetPart.UncompressedPictureBuffer = decompress(frameSetPart.CompressedBuffer);
+						frameSet.CompressedBuffer = undefined;
 
-				fs.UncompressedPictureBuffer = decompress(fs.CompressedBuffer);
-				fs.CompressedBuffer = undefined;
+						if (frameSetPart.CompressedPaletteBuffer) {
+							frameSetPart.UncompressedPaletteBuffer = convertPaletteByteArrayToPaletteDictionary(decompress(frameSetPart.CompressedPaletteBuffer));
+						}
 
-				if (fs.CompressedPaletteBuffer) {
-					fs.UncompressedPaletteBuffer = convertPaletteByteArrayToPaletteDictionary(decompress(fs.CompressedPaletteBuffer));
-				}
-
-				fs.CompressedPaletteBuffer = undefined;
-				dataWithUncompressedBuffers.push(fs);
-
+						frameSetPart.CompressedPaletteBuffer = undefined;
+						dataWithUncompressedBuffers.push(frameSetPart);
+					});
 				port.postMessage(dataWithUncompressedBuffers);
 			}
 		)

@@ -7,12 +7,12 @@ using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ManagedCommon.MessageBuffering
+namespace MessageBuffering
 {
-	public class Message<T>  : IMessage<T> where T : IEnumerable
+	public class Message
 	{
 		public MessageType MessageType { get; set; }
 
-		public T MessageContents { get; set; }
+		public object MessageContents { get; set; }
 	}
 }

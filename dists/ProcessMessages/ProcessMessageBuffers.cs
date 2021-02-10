@@ -10,24 +10,24 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ManagedCommon.Delegates;
 
-namespace ManagedCommon.MessageBuffering
+namespace MessageBuffering
 {
 	public class ProcessMessageBuffers : IProcessMessageBuffers
 	{
-		AsyncQueue<IMessage<IEnumerable<object>>> _messageQueue;
+		AsyncQueue<Message> _messageQueue;
 		Task _processTask;
 		bool _stopped = false;
 		IByteEncoder _byteEncoder;
 
 		public ProcessMessageBuffers(IConfigurationStore<Enum> configurationStore, IByteEncoder byteEncoder)
-		{
-			_messageQueue = new AsyncQueue<IMessage<IEnumerable<object>>>();
+		{ 
+			_messageQueue = new AsyncQueue<Message>();
 			_byteEncoder = byteEncoder;
 			_processTask = Task.Run(async () =>
 			{
 				while (!_stopped)
 				{
-					List<IMessage<IEnumerable<object>>> dataList = new List<IMessage<IEnumerable<object>>>();
+					List<Message> dataList = new List<Message>();
 					while (!_messageQueue.IsEmpty)
 					{
 						dataList.Add(await _messageQueue.DequeueAsync());
@@ -43,30 +43,30 @@ namespace ManagedCommon.MessageBuffering
 
 		public MessagesProcessed MessagesProcessed { get; set; }
 
-		private List<KeyValuePair<MessageType, string>> MergeLists(IEnumerable<IMessage<IEnumerable<object>>> listToMerge)
+		private List<KeyValuePair<MessageType, string>> MergeLists(IEnumerable<Message> listToMerge)
 		{
 			JsonSerializerSettings serializerSettings = new JsonSerializerSettings();
 			serializerSettings.Converters.Add(new ByteArrayConverter(_byteEncoder));
 
-			Dictionary<MessageType, IMessage<List<object>>> messageTypeDictionary = new Dictionary<MessageType, IMessage<List<object>>>();
+			Dictionary<MessageType, List<Message>> messageTypeDictionary = new Dictionary<MessageType, List<Message>>();
 
-			foreach (IMessage<IEnumerable<object>> messages in listToMerge)
+			foreach (Message message in listToMerge)
 			{
-				if (!messageTypeDictionary.ContainsKey(messages.MessageType))
+				if (!messageTypeDictionary.ContainsKey(message.MessageType))
 				{
-					messageTypeDictionary.Add(messages.MessageType, new Message<List<object>> { MessageType = messages.MessageType, MessageContents = new List<object>() });
+					messageTypeDictionary.Add(message.MessageType, new List<Message>());
 				}
 
-				messageTypeDictionary[messages.MessageType].MessageContents.AddRange(messages.MessageContents);
+				messageTypeDictionary[message.MessageType].Add(message);
 			}
 
-			return messageTypeDictionary.Select(kvp => new KeyValuePair<MessageType, string>(kvp.Value.MessageType, JsonConvert.SerializeObject(kvp.Value.MessageContents, serializerSettings))).ToList();
+			return messageTypeDictionary.Select(kvp => new KeyValuePair<MessageType, string>(kvp.Key, JsonConvert.SerializeObject(kvp.Value.Select(m => m.MessageContents), serializerSettings))).ToList();
 		}
 
 
-		public void Enqueue(IMessage<IEnumerable<object>> message)
+		public void Enqueue(object message, MessageType messageType)
 		{
-			_messageQueue.Enqueue(message);
+			_messageQueue.Enqueue(new Message() { MessageType = messageType, MessageContents = message });
 		}
 
 		public async Task Stop()

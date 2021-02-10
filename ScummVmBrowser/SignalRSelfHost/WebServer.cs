@@ -6,7 +6,7 @@ using ManagedCommon.Enums.Logging;
 using ManagedCommon.Implementations;
 using ManagedCommon.Interfaces;
 using ManagedCommon.Interfaces.Rpc;
-using ManagedCommon.MessageBuffering;
+using MessageBuffering;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.AspNet.SignalR.Json;
