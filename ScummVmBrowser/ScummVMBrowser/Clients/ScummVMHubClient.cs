@@ -244,7 +244,7 @@ namespace ScummVMBrowser.Clients
                 throw new Exception("There needs to be a callback set first");
             }
 
-            await _screenDrawingCallback(await _realTimeDataBusClient.ScheduleRedrawWholeScreen());
+            await _realTimeDataBusClient.ScheduleRedrawWholeScreen();
 		}
 
         public void BackEndQuit() //TODO: Not ideal, when doing IceAsync Fix
