@@ -12,20 +12,20 @@ using ManagedCommon.Delegates;
 
 namespace MessageBuffering
 {
-	public class ProcessMessageBuffers : IProcessMessageBuffers
+	public class ProcessMessages : IProcessMessageBuffers
 	{
 		AsyncQueue<Message> _messageQueue;
 		Task _processTask;
 		bool _stopped = false;
 		IByteEncoder _byteEncoder;
 
-		public ProcessMessageBuffers(IConfigurationStore<Enum> configurationStore, IByteEncoder byteEncoder)
+		public ProcessMessages(IConfigurationStore<Enum> configurationStore, IByteEncoder byteEncoder)
 		{ 
 			_messageQueue = new AsyncQueue<Message>();
 			_byteEncoder = byteEncoder;
 			_processTask = Task.Run(async () =>
 			{
-				while (!_stopped)
+				while (!_stopped || _messageQueue.Count != 0)
 				{
 					List<Message> dataList = new List<Message>();
 					while (!_messageQueue.IsEmpty)
@@ -66,7 +66,10 @@ namespace MessageBuffering
 
 		public void Enqueue(object message, MessageType messageType)
 		{
-			_messageQueue.Enqueue(new Message() { MessageType = messageType, MessageContents = message });
+			if (!_stopped)
+			{
+				_messageQueue.Enqueue(new Message() { MessageType = messageType, MessageContents = message });
+			}
 		}
 
 		public async Task Stop()

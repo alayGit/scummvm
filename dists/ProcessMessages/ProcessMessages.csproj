@@ -68,7 +68,7 @@
   <ItemGroup>
     <Compile Include="ByteArrayConverter.cs" />
     <Compile Include="Message.cs" />
-    <Compile Include="ProcessMessageBuffers.cs" />
+    <Compile Include="ProcessMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
