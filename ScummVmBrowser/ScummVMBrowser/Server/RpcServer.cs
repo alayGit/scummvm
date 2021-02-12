@@ -69,7 +69,7 @@ namespace ScummVMBrowser.Server
                         await client.StartConnection();
                         await client.StartGame(saveStorage, gameName);
                     }
-                    await client.SendWholeScreenToNextFrameCallback();
+                    await client.ScheduleRedrawWholeScreen();
                 }
             }
         }

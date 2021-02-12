@@ -109,6 +109,9 @@
     <Compile Include="DispatchInterceptor\ScummWebLoggingClientInterceptor.cs" />
     <Compile Include="DispatchInterceptor\ScummWebLoggingServerInterceptor.cs" />
     <Compile Include="DispatchInterceptor\ScummVmLoggingServerInterceptor.cs" />
+    <Compile Include="generated\ScummHub.cs">
+      <SliceCompileSource>Slices\ScummHub.ice</SliceCompileSource>
+    </Compile>
     <Compile Include="IceServerImplementations\ScummWebIceServer.cs" />
     <Compile Include="I\ScummWebServerI.cs" />
     <None Include="Base\iceConfig">
@@ -117,9 +120,6 @@
     <Compile Include="Base\IceProxy.cs" />
     <Compile Include="Base\IceProxyClient.cs" />
     <Compile Include="Base\IceProxyServer.cs" />
-    <Compile Include="generated\ScummHub.cs">
-      <SliceCompileSource>Ice\ScummHub.ice</SliceCompileSource>
-    </Compile>
     <Compile Include="generated\ScummWebServer.cs">
       <SliceCompileSource>Slices\ScummWebServer.ice</SliceCompileSource>
     </Compile>

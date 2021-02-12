@@ -18,7 +18,7 @@ export const TestGameFrame = () => {
         var scummHub = connection.createHubProxy('ScummHub');
         setScummHub(scummHub);
 
-        scummHub.on('NextFrame',
+		scummHub.on('SendGameMessages',
             function (frame: string) {
                 setFrame(frame);
             }

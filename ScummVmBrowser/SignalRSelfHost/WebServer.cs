@@ -6,9 +6,12 @@ using ManagedCommon.Enums.Logging;
 using ManagedCommon.Implementations;
 using ManagedCommon.Interfaces;
 using ManagedCommon.Interfaces.Rpc;
+using MessageBuffering;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
+using Microsoft.AspNet.SignalR.Json;
 using Microsoft.Owin.Hosting;
+using Newtonsoft.Json;
 using PortSharer;
 using ScummVMBrowser.Utilities;
 using SignalR;
@@ -51,7 +54,7 @@ namespace SignalRSelfHost
 
                 IConfigurationStore<System.Enum> configurationStore = container.Resolve<IConfigurationStore<System.Enum>>();
 
-                CliScumm scummHub = container.Resolve<CliScumm>(); //TODO: Add interface
+				CliScumm scummHub = container.Resolve<CliScumm>(); //TODO: Add interface
                 await scummHub.Init(args[0], args[1]);
             }
             catch(Exception e)
@@ -83,9 +86,14 @@ namespace SignalRSelfHost
             container.RegisterType<IStarter, DynamicInstanceStarter>();
             container.RegisterType<ILogger, WindowsEventLogger>();
             container.RegisterType<ErrorHandlingPipelineModule, CliScummErrorHandingPipelineModule>();
+			
+			container.RegisterType<IProcessMessageBuffers, ProcessMessages>();
 
-            container.RegisterInstance(container.Resolve<IRealTimeEndPointCallbackRepo>() as IRealTimeDataEndpointServer); 
-        }
+            container.RegisterInstance(container.Resolve<IRealTimeEndPointCallbackRepo>() as IRealTimeDataEndpointServer);
+			//container.RegisterFactory(typeof(IByteEncoder))(ManagedYEncoder.ManagedYEncoder());
+
+			container.RegisterFactory<IByteEncoder>((c) => new ManagedYEncoder.ManagedYEncoder(c.Resolve<ILogger>(), LoggingCategory.CliScummSelfHost), FactoryLifetime.Singleton);
+		}
     }
 }
 

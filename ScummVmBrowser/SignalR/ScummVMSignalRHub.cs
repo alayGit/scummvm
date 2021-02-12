@@ -26,11 +26,6 @@ namespace SignalRSelfHost
             _realTimeEndPointCallbackRepo = realTimeEndPointCallbackRepo;
         }
 
-        public async Task PlaySound(byte[] data)
-        {
-            await Clients.Client(CurrentConnectionId).PlayAudio(data);
-        }
-
         public void EnqueueControlKey(ControlKeys controlKey)
         {
             _realTimeEndPointCallbackRepo.EnqueueControlKey(controlKey);
@@ -66,9 +61,9 @@ namespace SignalRSelfHost
             _realTimeEndPointCallbackRepo.StopSound();
         }
 
-        public async Task DisplayFrameAsync(List<ScreenBuffer> screenBuffers)
+        public async Task SendGameMessagesAsync(List<KeyValuePair<MessageType, string>> screenBuffers)
         {
-            await Clients.Client(CurrentConnectionId).NextFrame(screenBuffers);
+            await Clients.Client(CurrentConnectionId).SendGameMessages(screenBuffers);
         }
     }
 }

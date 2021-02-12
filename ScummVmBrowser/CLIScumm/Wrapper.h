@@ -50,9 +50,9 @@ namespace CLIScumm {
 		virtual void Quit();
 		virtual void CLIScumm::Wrapper::RunGame(AvailableGames game, cli::array<Byte>^ gameData, Dictionary<System::String^, cli::array<Byte>^>^ gameSaveData, PlayAudio^ playSound);
 		virtual void CLIScumm::Wrapper::ScheduleRedrawWholeScreen();
-		virtual property CopyRectToScreen^ OnCopyRectToScreen {
-			CopyRectToScreen^ get();
-			void set(CopyRectToScreen^ copyRectToScreen);
+		virtual property SendScreenBuffers^ SendScreenBuffers {
+		    ManagedCommon::Delegates::SendScreenBuffers ^ get();
+		    void set(ManagedCommon::Delegates::SendScreenBuffers ^ copyRectToScreen);
 		}
 		virtual property SaveData^ OnSaveData {
 			SaveData^ get();
@@ -83,7 +83,7 @@ namespace CLIScumm {
 		Object^ gameEventLock;
 		Object^ startLock;
 		bool hasStarted;
-		CopyRectToScreen^ copyRectToScreen;
+	    ManagedCommon::Delegates::SendScreenBuffers^ copyRectToScreen;
 		ManagedCommon::Delegates::SaveData^ _saveData;
 		bool _redrawWholeScreenOnNextFrame;
 		IConfigurationStore<System::Enum^>^ _configureStore;

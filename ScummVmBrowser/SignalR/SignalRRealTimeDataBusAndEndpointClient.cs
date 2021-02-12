@@ -24,10 +24,8 @@ namespace ScummVMBrowser.Utilities
         private IHubConnectionFactory _hubConnectionFactory;
         private IConfigurationStore<System.Enum> _configurationStore;
         private IHubProxy _proxy;
-        private CopyRectToScreenAsync _copyRectToScreenCallback;
-        private PlayAudioAsync _playSoundCallback;
-        private IDisposable _onNextFrameDisposeHandler;
-        private IDisposable _onPlayAudioDisposeHandler;
+        private SendGameMessagesAsync _copyRectToScreenCallback;
+        private IDisposable _onSendGamesMessagesDisposeHandler;
         private bool _hasInited; 
 
         public SignalRRealTimDataBusAndEndpointClient(IConfigurationStore<System.Enum> configurationStore, IHubConnectionFactory hubConnectionFactory) : base(configurationStore)
@@ -84,33 +82,21 @@ namespace ScummVMBrowser.Utilities
             await _proxy.Invoke("EnqueueMouseClick", mouseClick);
         }
 
-        public async Task<List<ScreenBuffer>> ScheduleRedrawWholeScreen()
+        public async Task<List<KeyValuePair<MessageType, string>>> ScheduleRedrawWholeScreen()
         {
-          return await _proxy.Invoke<List<ScreenBuffer>>("ScheduleRedrawWholeScreen");
+          return await _proxy.Invoke<List<KeyValuePair<MessageType, string>>>("ScheduleRedrawWholeScreen");
         }
 
-        public void OnAudioReceived(PlayAudioAsync playAudio, int instanceId)
+        public void SendGameMessagesAsync(SendGameMessagesAsync copyRectToScreen, int instanceId)
         {
-            _playSoundCallback = playAudio;
 
-            if (_onPlayAudioDisposeHandler == null)
-            {
-                _onPlayAudioDisposeHandler = _proxy.On("PlayAudio", (byte[] data) =>
-                {
-                    _playSoundCallback?.Invoke(data);
-                });
-            }
-        }
-
-        public void OnFrameReceived(CopyRectToScreenAsync copyRectToScreen, int instanceId)
-        {
             _copyRectToScreenCallback = copyRectToScreen;
 
-            if (_onNextFrameDisposeHandler == null)
+            if (_onSendGamesMessagesDisposeHandler == null)
             {
-                _onNextFrameDisposeHandler = _proxy.On("NextFrame", (List<ScreenBuffer> screenBuffers) =>
+                _onSendGamesMessagesDisposeHandler = _proxy.On("SendGameMessages", (List<KeyValuePair<MessageType, string>> gameMessages) =>
                 {
-                    _copyRectToScreenCallback?.Invoke(screenBuffers);
+                    _copyRectToScreenCallback?.Invoke(gameMessages);
                 });
             }
         }
@@ -126,8 +112,7 @@ namespace ScummVMBrowser.Utilities
                 {
                     _connection.Stop();
                     _connection.Dispose();
-                    _onPlayAudioDisposeHandler?.Dispose();
-                    _onNextFrameDisposeHandler?.Dispose();
+                    _onSendGamesMessagesDisposeHandler?.Dispose();
                 }
 
                 disposedValue = true;

@@ -11,13 +11,13 @@ using System.Linq;
 using System.Web;
 using Trasher;
 using System.Threading;
-using SharedMemory;
 using ManagedCommon.ExtensionMethods;
 using ManagedCommon.Enums.Actions;
 using ManagedCommon.Base;
 using ManagedCommon.Interfaces.Rpc;
 using PortSharer;
 using System.Threading.Tasks;
+
 
 namespace ScummVMBrowser.Clients
 {
@@ -74,7 +74,7 @@ namespace ScummVMBrowser.Clients
         private IRealTimeDataEndpointClient _realTimeDataEndpoint;
         private IScummHubRpcAsyncProxy _scummHubRpc;
         private IRealTimeDataBusClient _realTimeDataBusClient;
-        private CopyRectToScreenAsync _screenDrawingCallback;
+        private SendGameMessagesAsync _sendGameMessagesCallback;
         private IConfigurationStore<System.Enum> _configurationStore;
         private string _rpcPortGetterId;
         private string _realTimePortGetterId;
@@ -221,15 +221,10 @@ namespace ScummVMBrowser.Clients
             }
         }
 
-        public void SetNextFrameFunctionPointer(CopyRectToScreenAsync screenDrawingCallback)
+        public void SetSendGameMessagesFunctionPointer(SendGameMessagesAsync sendGameMessages)
         {
-            _screenDrawingCallback = screenDrawingCallback;
-            _realTimeDataEndpoint.OnFrameReceived(screenDrawingCallback, RpcPort);
-        }
-
-        public void SetPlaySoundFunctionPointer(PlayAudioAsync playAudio)
-        {
-            _realTimeDataEndpoint.OnAudioReceived(playAudio, RpcPort);
+            _sendGameMessagesCallback = sendGameMessages;
+            _realTimeDataEndpoint.SendGameMessagesAsync(sendGameMessages, RpcPort);
         }
 
         public void SetSaveGameFunctionPointer(SaveDataAsync saveDataCallback)
@@ -242,15 +237,15 @@ namespace ScummVMBrowser.Clients
             return await _saveDataCallback?.Invoke(saveData, fileName);
         }
 
-        public async Task SendWholeScreenToNextFrameCallback()
+        public async Task ScheduleRedrawWholeScreen()
         {
-            if (_screenDrawingCallback == null)
+            if (_sendGameMessagesCallback == null)
             {
                 throw new Exception("There needs to be a callback set first");
             }
 
-            await _screenDrawingCallback(await _realTimeDataBusClient.ScheduleRedrawWholeScreen());
-        }
+            await _realTimeDataBusClient.ScheduleRedrawWholeScreen();
+		}
 
         public void BackEndQuit() //TODO: Not ideal, when doing IceAsync Fix
         {

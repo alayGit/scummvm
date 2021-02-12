@@ -28,7 +28,7 @@ namespace DotNetScummTests
         {
             _start = false;
             _wrapper = new Wrapper(new JsonConfigStore());
-            _wrapper.OnCopyRectToScreen+= (List<ScreenBuffer> screenBuffers) => { };
+            _wrapper.SendScreenBuffers+= (List<ScreenBuffer> screenBuffers) => { };
         }
 
       

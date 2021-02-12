@@ -6,17 +6,6 @@ import { useState, useEffect } from "react";
 import { isNullOrUndefined } from "util";
 import { WebServerSettings } from "./configManager";
 
-export interface PictureUpdate {
-	CompressedBuffer: string,
-	CompressedPaletteBuffer: string,
-	paletteHash: number,
-	ignoreColor: number,
-    X: number,
-    Y: number,
-    W: number,
-    H: number,
-}
-
 export const GameFrame = (props: GameFrameProps) => {
 
 	let [offScreenCanvasWorker, setOffScreenCanvasWorker] = useState<Worker>(undefined);
@@ -39,11 +28,11 @@ export const GameFrame = (props: GameFrameProps) => {
 
     useEffect(
         () => {
-            if (props.frames != undefined && offScreenCanvasWorker != undefined && pictureWorker != undefined) {
-                pictureWorker.postMessage({ frames: props.frames })
+            if (props.frameSets != undefined && offScreenCanvasWorker != undefined && pictureWorker != undefined) {
+                pictureWorker.postMessage({ frameSets: props.frameSets })
             }
         }
-        , [props.frames, offScreenCanvasWorker, pictureWorker]);
+        , [props.frameSets, offScreenCanvasWorker, pictureWorker]);
 
 
     var onKeyPress = (event: any) => {
@@ -84,6 +73,6 @@ export const GameFrame = (props: GameFrameProps) => {
 
 export interface GameFrameProps {
     proxy: any;
-    frames: PictureUpdate[];
+	frameSets: string;
     controlKeys: any;
 }

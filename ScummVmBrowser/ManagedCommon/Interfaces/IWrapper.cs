@@ -15,7 +15,7 @@ namespace ManagedCommon.Interfaces
 		void Quit();
 		void RunGame(AvailableGames game, byte[] gameData, Dictionary<string, byte[]> saveData, PlayAudio playSound);
 		void ScheduleRedrawWholeScreen();
-		CopyRectToScreen OnCopyRectToScreen { get; set; }
+		SendScreenBuffers SendScreenBuffers { get; set; }
 		SaveData OnSaveData { get; set; }
 		void StartSound();
 		void StopSound();

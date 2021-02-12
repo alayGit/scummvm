@@ -2,22 +2,13 @@
 using ManagedCommon.Enums.Actions;
 using ManagedCommon.Interfaces;
 using Microsoft.AspNet.SignalR;
-using ScummVMBrowser.Clients;
-using ScummVMBrowser.Data;
-using ScummVMBrowser.Models;
-using ScummVMBrowser.StaticData;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
-using Trasher;
-using Unity;
 
 namespace ScummVMBrowser.Server
 {
-    public class HubServer : Hub, IHubServer
+	public class HubServer : Hub, IHubServer
     {
         private IGameClientStore<IGameInfo> HubStore { get; set; }
         private ILogger _logger;
@@ -54,8 +45,7 @@ namespace ScummVMBrowser.Server
 
                 if (client != null)
                 {
-                    client.SetNextFrameFunctionPointer((List<ScreenBuffer> screenBuffers) => NextFrame(ConnectionId, screenBuffers));
-                    client.SetPlaySoundFunctionPointer((byte[] data) => PlaySound(ConnectionId, data));
+                    client.SetSendGameMessagesFunctionPointer((List<KeyValuePair<MessageType, string>> screenBuffers) => SendGameMessages(ConnectionId, screenBuffers));
                 }
             }
         }
@@ -129,25 +119,14 @@ namespace ScummVMBrowser.Server
             }
         }
 
-        public async Task NextFrame(string connectionId, List<ScreenBuffer> screenBuffers)
+        public async Task SendGameMessages(string connectionId, List<KeyValuePair<MessageType, string>> gameMessages)
         {
-            await Clients.Client(connectionId).NextFrame(screenBuffers);
+            await Clients.Client(connectionId).SendGameMessages(gameMessages);
         }
 
         private void SaveGame(string connectionId, IEnumerable<byte> saveData, String saveName)
         {
             Clients.Client(connectionId).SaveData(saveData, saveName);
         }
-
-        public Task PlaySound(string connectionId, byte[] data)
-        {
-            return Clients.Client(connectionId).PlaySound(data);
-        }
-
-        //public async override Task OnDisconnected(bool stopCalled)
-        //{
-        //    await Quit();
-        //    await base.OnDisconnected(stopCalled);
-        //}
     }
 }

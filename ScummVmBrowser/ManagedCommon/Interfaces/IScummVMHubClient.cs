@@ -27,11 +27,10 @@ namespace ManagedCommon.Interfaces
         Task EnqueueMouseClick(MouseClick mouseClick);
         Task EnqueueString(string toSend);
         Task Quit();
-        void SetNextFrameFunctionPointer(CopyRectToScreenAsync screenDrawingCallback);
+        void SetSendGameMessagesFunctionPointer(SendGameMessagesAsync screenDrawingCallback);
         void SetSaveGameFunctionPointer(SaveDataAsync saveGameCallback);
-        void SetPlaySoundFunctionPointer(PlayAudioAsync playSoundCallback);
         Task StartGame(Dictionary<string, byte[]> gameStorage, AvailableGames gameName);
-        Task SendWholeScreenToNextFrameCallback();
+        Task ScheduleRedrawWholeScreen();
 
         Task StartSound();
         Task StopSound();

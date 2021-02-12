@@ -28,11 +28,11 @@ CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum ^> ^ configureStore)
 	_soundIsRunning = false;
 }
 
-CopyRectToScreen ^ CLIScumm::Wrapper::OnCopyRectToScreen::get() {
+SendScreenBuffers ^ CLIScumm::Wrapper::SendScreenBuffers::get() {
 	return copyRectToScreen;
 }
 
-void CLIScumm::Wrapper::OnCopyRectToScreen::set(CopyRectToScreen ^ copyRectToScreen) {
+void CLIScumm::Wrapper::SendScreenBuffers::set(ManagedCommon::Delegates::SendScreenBuffers ^ copyRectToScreen) {
 	this->copyRectToScreen = copyRectToScreen;
 }
 
@@ -161,8 +161,8 @@ void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(NativeScummWrapper::ScreenB
 		managedScreenScreenBuffers->Add(managedBuffer);
 	}
 
-	if (OnCopyRectToScreen != nullptr) {
-		OnCopyRectToScreen->Invoke(managedScreenScreenBuffers);
+	if (SendScreenBuffers != nullptr) {
+		SendScreenBuffers->Invoke(managedScreenScreenBuffers);
 	}
 }
 
@@ -237,10 +237,6 @@ void CLIScumm::Wrapper::Quit() {
 
 void CLIScumm::Wrapper::ScheduleRedrawWholeScreen() {
 	std::vector<NativeScummWrapper::ScreenBuffer> unmanagedWholeScreenBuffers;
-
-	if (!hasStarted) {
-		throw gcnew System::Exception("Cannot get the whole screen without first starting the game");
-	}
 
 	_gSystemCli->getGraphicsManager()->ScheduleRedrawWholeScreen();
 }

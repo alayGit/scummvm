@@ -233,10 +233,7 @@
     <Compile Include="ScummVmBrowserSignalRHandlingPipelineModule.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="StaticData\SessionKeys.cs" />
-    <Compile Include="Utilities\ByteArrayConverter.cs" />
     <Compile Include="Utilities\HtmlEnumExtensions.cs" />
-    <Compile Include="Utilities\SharedMemoryRealTimeDataEndpointClient.cs" />
-    <Compile Include="Utilities\SharedMemoryRealTimeDataBusClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -332,7 +329,7 @@
     </ProjectReference>
     <ProjectReference Include="..\dotNetYEncode\dotNetYEncode.vcxproj">
       <Project>{4893dd7c-2b10-48ee-beaf-875793dab9ff}</Project>
-      <Name>dotNetYEncode</Name>
+      <Name>managedYEncoder</Name>
     </ProjectReference>
     <ProjectReference Include="..\IceRpc\IceRpc.csproj">
       <Project>{06d6fa62-7705-4790-80d1-381ace5b09ce}</Project>

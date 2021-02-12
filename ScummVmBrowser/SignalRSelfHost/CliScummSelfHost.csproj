@@ -146,8 +146,6 @@
     <Compile Include="CliScumm.cs" />
     <Compile Include="CliScummErrorHandingPipelineModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SharedMemoryRealTimeDataEndpointServer.cs" />
-    <Compile Include="SharedMemoryRealTimeDataBusServer.cs" />
     <Compile Include="WebServer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +160,10 @@
     <ProjectReference Include="..\CLIScumm\CLIScumm.vcxproj">
       <Project>{47140f46-196c-4483-885f-6cd1b7e7777a}</Project>
       <Name>CLIScumm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\dotNetYEncode\dotNetYEncode.vcxproj">
+      <Project>{4893dd7c-2b10-48ee-beaf-875793dab9ff}</Project>
+      <Name>managedYEncoder</Name>
     </ProjectReference>
     <ProjectReference Include="..\IceRpc\IceRpc.csproj">
       <Project>{06D6FA62-7705-4790-80D1-381ACE5B09CE}</Project>
@@ -178,6 +180,10 @@
     <ProjectReference Include="..\PortSharer\PortSharer.csproj">
       <Project>{82D54786-653B-4C81-9256-1ADCA3F9F4F1}</Project>
       <Name>PortSharer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProcessMessages\ProcessMessages.csproj">
+      <Project>{785B9E59-580B-465D-A8C2-CC07534C8FD0}</Project>
+      <Name>ProcessMessages</Name>
     </ProjectReference>
     <ProjectReference Include="..\SignalRHostWithUnity\SignalRHostWithUnity.csproj">
       <Project>{ba553759-5355-4ce2-bfa4-c23757edeb84}</Project>

@@ -10,19 +10,19 @@ using ManagedCommon.Enums.Actions;
 
 namespace ManagedCommon.Delegates
 {
-    public delegate void CopyRectToScreen(List<ScreenBuffer> screenBuffers);
-    public delegate Task CopyRectToScreenAsync(List<ScreenBuffer> screenBuffers);
+    public delegate void SendScreenBuffers(List<ScreenBuffer> screenBuffers);
+    public delegate Task SendGameMessagesAsync(List<KeyValuePair<MessageType,string>> messages);
     public delegate bool SaveData(byte[] data, string saveName);
     public delegate Task<bool> SaveDataAsync(byte[] data, string saveName);
-    public delegate void PlayAudio(byte[] data);
-    public delegate Task PlayAudioAsync(byte[] data);
-    public delegate Task Quit();
+	public delegate void PlayAudio(byte[] data);
+	public delegate Task Quit();
     public delegate Point GetCurrentMousePosition();
     public delegate void EnqueueString(string toSend);
     public delegate void EnqueueControlKey(ControlKeys toSend);
     public delegate void EnqueueMouseMove(int x, int y);
     public delegate void EnqueueMouseClick(MouseClick mouseClick);
-    public delegate void StartSound();
+	public delegate Task MessagesProcessed(List<KeyValuePair<MessageType, string>> messages);
+	public delegate void StartSound();
     public delegate void StopSound();
     public delegate void ScheduleRedrawWholeScreen();
     public delegate bool StartConnection(int port);
