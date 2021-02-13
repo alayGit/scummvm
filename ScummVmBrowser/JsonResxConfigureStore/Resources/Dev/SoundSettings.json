@@ -2,8 +2,8 @@
 	"SampleSize": 2152,
 	"SampleRate": 44000,
 	"SoundPollingFrequencyMs": 10,
-	"MaxQueuedToStopAudio": 10,
-	"MinQueuedToResumeAudio": 5,
+	"MaxQueuedToStopAudio": 12,
+	"MinQueuedToResumeAudio": 7,
 	"ClientFeedSize": 2,
 	"ServerFeedSize": 10
 }
