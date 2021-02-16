@@ -2,11 +2,13 @@
 import * as SoundSettingsDev from '../../../../JsonResxConfigureStore/Resources/Dev/SoundSettings.json';
 import * as IceConfigFrontEndDev from '../../../../JsonResxConfigureStore/Resources/Dev/IceRemoteProcFrontEnd.json'
 import * as WebServerSettingsDev from "../../../../JsonResxConfigureStore/Resources/Dev/WebServerSettings.json"
+import * as ClientSideDev from "../../../../JsonResxConfigureStore/Resources/Dev/ClientSide.json"
 
 
 import * as SoundSettingsProd from '../../../../JsonResxConfigureStore/Resources/Prod/SoundSettings.json';
 import * as IceConfigFrontEndDevProd from '../../../../JsonResxConfigureStore/Resources/Prod/IceRemoteProcFrontEnd.json'
 import * as WebServerSettingsProd from "../../../../JsonResxConfigureStore/Resources/Prod/WebServerSettings.json"
+import * as ClientSideProd from "../../../../JsonResxConfigureStore/Resources/Prod/ClientSide.json"
 
 import * as Mode from '../../../../JsonResxConfigureStore/Resources/Mode.json';
 
@@ -35,5 +37,14 @@ export const WebServerSettings = () => {
 	}
 	else {
 		return WebServerSettingsDev;
+	}
+}
+
+export const ClientSide = () => {
+	if (Mode.ProductionMode) {
+		return ClientSideProd;
+	}
+	else {
+		return ClientSideDev;
 	}
 }

@@ -149,6 +149,7 @@
     <Compile Include="Enums\Logging\LoggingLevel.cs" />
     <Compile Include="Enums\Other\InputType.cs" />
     <Compile Include="Enums\Other\MessageType.cs" />
+    <Compile Include="Enums\Settings\ClientSide.cs" />
     <Compile Include="Enums\Settings\IceRemoteProcBackEnd.cs" />
     <Compile Include="Enums\Settings\IceRemoteProcFrontEnd.cs" />
     <Compile Include="Enums\Settings\WebServerSettings.cs" />

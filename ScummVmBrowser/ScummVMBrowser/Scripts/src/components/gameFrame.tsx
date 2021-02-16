@@ -4,8 +4,8 @@ import * as React from "react";
 import ReactDOM = require("react-dom");
 import { useState, useEffect } from "react";
 import { isNullOrUndefined } from "util";
-import { WebServerSettings } from "./configManager";
-import { useInterval } from "./useInterval";
+import { WebServerSettings, ClientSide } from "./configManager";
+import useInterval from "./useInterval";
 
 enum InputMessageType {
 	TextString,
@@ -61,26 +61,6 @@ export const GameFrame = (props: GameFrameProps) => {
 
 		}, []);
 
-
-	//useEffect(
-	//	() => {
-	//		if (intervalId == undefined) {
-	//			setIntervalId(
-	//				setInterval(
-	//					function () {
-	//						if (!isEventQueueEmpty()) {
-	//							props.proxy.invoke('EnqueueInputControls', eventQueue).done(function () {
-	//								console.log('Invocation of EnqueueControlKey succeeded');
-	//								clearEventQueue();
-	//							}).fail(function (error: string) {
-	//								console.log('Invocation of EnqueueControlKey failed. Error: ' + error);
-	//							});
-	//						}
-	//					}, 20)
-	//			);
-	//		}
-	//	}, [eventQueue, intervalId]);
-
 	useInterval(
 		function () {
 			if (!isEventQueueEmpty()) {
@@ -91,7 +71,7 @@ export const GameFrame = (props: GameFrameProps) => {
 					console.log('Invocation of EnqueueControlKey failed. Error: ' + error);
 				});
 			}
-		}, 20);
+		}, ClientSide().InputMessageTimerMs);
 
 	useEffect(
 		() => {
