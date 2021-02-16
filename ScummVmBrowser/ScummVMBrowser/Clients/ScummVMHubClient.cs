@@ -17,7 +17,7 @@ using ManagedCommon.Base;
 using ManagedCommon.Interfaces.Rpc;
 using PortSharer;
 using System.Threading.Tasks;
-
+using ManagedCommon.Models;
 
 namespace ScummVMBrowser.Clients
 {
@@ -191,7 +191,18 @@ namespace ScummVMBrowser.Clients
             await _realTimeDataBusClient.EnqueueMouseClickAsync(mouseClick);
         }
 
-        public async Task Quit()
+
+		public async Task EnqueueInputMessages(KeyValuePair<string, string>[] inputMessages)
+		{
+			if (!IsGameRunning)
+			{
+				throw new Exception("Game Is Not Running. Call 'StartConnection' and 'StartGame' before calling this method, and Make Sure You Haven't Quit");
+			}
+
+			await _realTimeDataBusClient.EnqueueInputMessages(inputMessages);
+		}
+
+		public async Task Quit()
         {
             try
             {
@@ -317,6 +328,6 @@ namespace ScummVMBrowser.Clients
             await _realTimeDataBusClient.StopSoundAsync();
         }
 
-        #endregion
-    }
+		#endregion
+	}
 }

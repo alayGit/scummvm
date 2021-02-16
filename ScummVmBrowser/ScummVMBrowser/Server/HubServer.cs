@@ -1,9 +1,13 @@
 ﻿using ManagedCommon.Enums;
 using ManagedCommon.Enums.Actions;
+using ManagedCommon.Enums.Other;
 using ManagedCommon.Interfaces;
+using ManagedCommon.Models;
 using Microsoft.AspNet.SignalR;
+using ScummVMBrowser.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ScummVMBrowser.Server
@@ -12,6 +16,7 @@ namespace ScummVMBrowser.Server
     {
         private IGameClientStore<IGameInfo> HubStore { get; set; }
         private ILogger _logger;
+		private IInputMessageProcessor _inputMessageProcessor;
 
         public HubServer(IGameClientStore<IGameInfo> hubStore, ILogger logger)
         {
@@ -66,11 +71,11 @@ namespace ScummVMBrowser.Server
             }
         }
 
-        public async Task EnqueueMouseMove(int x, int y)
-        {
+		public async Task EnqueueInputControls(KeyValuePair<string, string>[] messages)
+		{
             using (IAntiDisposalLock<IScummVMHubClient> alock = await HubStore.GetByConnectionId(ConnectionId)?.GetClient())
             {
-                await alock.Obj?.EnqueueMouseMove(x, y);
+                await alock.Obj?.EnqueueInputMessages(messages);
             }
         }
 

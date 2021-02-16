@@ -13,6 +13,8 @@ using ManagedCommon.Base;
 using System.IO;
 using ManagedCommon.Delegates;
 using SignalR;
+using ManagedCommon.Models;
+using ManagedCommon.Enums.Other;
 
 namespace SignalRSelfHost
 {
@@ -45,6 +47,11 @@ namespace SignalRSelfHost
         {
             _realTimeEndPointCallbackRepo.EnqueueString(stringToEnqueue);
         }
+
+		public void EnqueueInputMessages(KeyValuePair<string, string>[] inputMessages)
+		{
+			_realTimeEndPointCallbackRepo.EnqueueInputMessages(inputMessages.Select(kvp => new InputMessage() { InputType = (InputType)Enum.Parse(typeof(InputType), kvp.Key), Input = kvp.Value }).ToArray());
+		}
 
         public void ScheduleRedrawWholeScreen()
         {

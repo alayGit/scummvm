@@ -147,6 +147,7 @@
     <Compile Include="Enums\Logging\ErrorMessage.cs" />
     <Compile Include="Enums\Logging\LoggingCategory.cs" />
     <Compile Include="Enums\Logging\LoggingLevel.cs" />
+    <Compile Include="Enums\Other\InputType.cs" />
     <Compile Include="Enums\Other\MessageType.cs" />
     <Compile Include="Enums\Settings\IceRemoteProcBackEnd.cs" />
     <Compile Include="Enums\Settings\IceRemoteProcFrontEnd.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="Interfaces\IGameInfo.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IMessage.cs" />
+    <Compile Include="Interfaces\IInputMessageProcessor.cs" />
     <Compile Include="Interfaces\IRealTimeDataBusClient.cs" />
     <Compile Include="Interfaces\IRealTimeDataEndpointServer.cs" />
     <Compile Include="Interfaces\IRealTimeDataEndpointClient.cs" />
@@ -194,6 +196,7 @@
     <Compile Include="Interfaces\Rpc\IScummWebServerRpc.cs" />
     <Compile Include="Interfaces\Rpc\Protocol.cs" />
     <Compile Include="Interfaces\IProcessMessageBuffers.cs" />
+    <Compile Include="Models\InputMessage.cs" />
     <Compile Include="Models\ScreenBuffer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Base\SharedMemoryBusBase.cs" />

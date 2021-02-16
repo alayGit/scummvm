@@ -1,6 +1,7 @@
 ﻿using ManagedCommon.Delegates;
 using ManagedCommon.Enums;
 using ManagedCommon.Enums.Actions;
+using ManagedCommon.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,6 +24,7 @@ namespace ManagedCommon.Interfaces
         Task EnqueueControlKey(ControlKeys toSend);
         Task Init();
         Task StartConnection();
+		Task EnqueueInputMessages(KeyValuePair<string, string>[] inputMessages);
         Task EnqueueMouseMove(int x, int y);
         Task EnqueueMouseClick(MouseClick mouseClick);
         Task EnqueueString(string toSend);

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using ManagedCommon.Enums;
 using ManagedCommon.Enums.Actions;
+using ManagedCommon.Models;
 
 namespace ManagedCommon.Delegates
 {
@@ -21,6 +22,7 @@ namespace ManagedCommon.Delegates
     public delegate void EnqueueControlKey(ControlKeys toSend);
     public delegate void EnqueueMouseMove(int x, int y);
     public delegate void EnqueueMouseClick(MouseClick mouseClick);
+	public delegate void EnqueueInputMessages(InputMessage[] inputMessages);
 	public delegate Task MessagesProcessed(List<KeyValuePair<MessageType, string>> messages);
 	public delegate void StartSound();
     public delegate void StopSound();

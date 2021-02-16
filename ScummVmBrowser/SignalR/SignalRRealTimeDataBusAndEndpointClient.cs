@@ -15,6 +15,7 @@ using SignalRHostWithUnity;
 using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.AspNet.SignalR.Client;
 using ManagedCommon.Enums.Settings;
+using ManagedCommon.Models;
 
 namespace ScummVMBrowser.Utilities
 {
@@ -87,7 +88,12 @@ namespace ScummVMBrowser.Utilities
           return await _proxy.Invoke<List<KeyValuePair<MessageType, string>>>("ScheduleRedrawWholeScreen");
         }
 
-        public void SendGameMessagesAsync(SendGameMessagesAsync copyRectToScreen, int instanceId)
+		public async Task EnqueueInputMessages(KeyValuePair<string, string>[] inputMessages)
+		{
+			await _proxy.Invoke("EnqueueInputMessages", inputMessages);
+		}
+
+		public void SendGameMessagesAsync(SendGameMessagesAsync copyRectToScreen, int instanceId)
         {
 
             _copyRectToScreenCallback = copyRectToScreen;
@@ -127,6 +133,6 @@ namespace ScummVMBrowser.Utilities
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
-        #endregion
-    }
+		#endregion
+	}
 }

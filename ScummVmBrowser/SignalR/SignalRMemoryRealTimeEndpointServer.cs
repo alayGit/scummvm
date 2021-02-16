@@ -1,6 +1,7 @@
 ﻿using ManagedCommon.Delegates;
 using ManagedCommon.Enums;
 using ManagedCommon.Interfaces;
+using ManagedCommon.Models;
 using Microsoft.Owin.Hosting;
 using PortSharer;
 using StartInstance;
@@ -21,7 +22,9 @@ namespace SignalR
 
         public EnqueueMouseMove EnqueueMouseMove { get; private set; }
 
-        public EnqueueString EnqueueString { get; private set; }
+		public EnqueueInputMessages EnqueueInputMessages { get; private set; }
+
+		public EnqueueString EnqueueString { get; private set; }
 
         public StartSound StartSound { get; private set; }
 
@@ -98,7 +101,12 @@ namespace SignalR
             EnqueueString = enqueueString;
         }
 
-        public void OnScheduleRedrawWholeScreen(ScheduleRedrawWholeScreen getWholeScreenBuffer)
+		public void OnEnqueueInputMessages(EnqueueInputMessages enqueueInputMessages)
+		{
+			EnqueueInputMessages = enqueueInputMessages;
+		}
+
+		public void OnScheduleRedrawWholeScreen(ScheduleRedrawWholeScreen getWholeScreenBuffer)
         {
 			ScheduleRedrawWholeScreen = getWholeScreenBuffer;
         }
@@ -112,5 +120,5 @@ namespace SignalR
         {
             StopSound = stopSound;
         }
-    }
+	}
 }

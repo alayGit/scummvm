@@ -27,7 +27,8 @@ using StartInstance;
 using PortSharer;
 using System.Diagnostics;
 using ManagedCommon.Enums.Logging;
-
+using ManagedCommon.Models;
+using ManagedCommon.Enums.Other;
 
 namespace SignalRSelfHost
 {
@@ -100,6 +101,7 @@ namespace SignalRSelfHost
             _realTimeDataEndpointServer.OnEnqueueMouseMove(EnqueueMouseMove);
             _realTimeDataEndpointServer.OnEnqueueControlKey(EnqueueControlKey);
             _realTimeDataEndpointServer.OnScheduleRedrawWholeScreen(ScheduleRedrawWholeScreen);
+			_realTimeDataEndpointServer.OnEnqueueInputMessages(EnqueueInputMessages);
         }
 
 
@@ -179,6 +181,29 @@ namespace SignalRSelfHost
         {
             EnqueueGameEvent(new SendMouseClick(mouseButton, () => _wrapper.GetCurrentMousePosition()));
         }
+
+		public void EnqueueInputMessages(InputMessage[] inputMessages)
+		{
+			foreach(InputMessage inputMessage in inputMessages)
+			{
+				switch(inputMessage.InputType)
+				{
+					case InputType.ControlKey:
+						EnqueueGameEvent(new SendControlCharacters((ControlKeys)Enum.Parse(typeof(ControlKeys), inputMessage.Input)));
+						break;
+					case InputType.MouseClick:
+						EnqueueGameEvent(new SendMouseClick((MouseClick)Enum.Parse(typeof(MouseClick), inputMessage.Input), () => _wrapper.GetCurrentMousePosition()));
+						break;
+					case InputType.MouseMove:
+						string[] xy = inputMessage.Input.Split(',');
+						EnqueueGameEvent(new SendMouseMove(int.Parse(xy[0]), int.Parse(xy[1])));
+						break;
+					case InputType.TextString:
+						EnqueueGameEvent(new SendString(inputMessage.Input));
+						break;
+				}
+			}
+		}
 
         private void EnqueueGameEvent(IGameEvent gameEvent)
         {
