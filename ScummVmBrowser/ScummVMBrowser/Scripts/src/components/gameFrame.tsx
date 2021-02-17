@@ -31,10 +31,13 @@ export const GameFrame = (props: GameFrameProps) => {
 
 	const updateEventQueue = (kvp: KeyValuePair) => {
 		let eventQueueArray = getEventQueue();
+		console.log("Length of event queue " + eventQueueArray.length);
+		if (eventQueueArray.length <= ClientSide().MaxInputMessageQueueLength) {
 
-		eventQueueArray.push(kvp);
+			eventQueueArray.push(kvp);
 
-		setEventQueue(JSON.stringify(eventQueueArray));
+			setEventQueue(JSON.stringify(eventQueueArray));
+		}
 	}
 
 	const clearEventQueue = () => {

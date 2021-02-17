@@ -8,6 +8,7 @@ namespace ManagedCommon.Enums.Settings
 {
 	public enum ClientSide
 	{
-		InputMessageTimerMs
+		InputMessageTimerMs,
+		MaxInputMessageQueueLength
 	}
 }
