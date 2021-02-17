@@ -1,6 +1,6 @@
 ﻿
 self.onmessage = function (e) {
-	importScripts("/scripts/pako_inflate.min.js");
+	importScripts("/scripts/pako.min.js");
 	importScripts("/scripts/yEncoding.js");
 
 	var port = e.data.workerPort;

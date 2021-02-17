@@ -23,6 +23,7 @@ export const GameFrame = (props: GameFrameProps) => {
 
 	let [offScreenCanvasWorker, setOffScreenCanvasWorker] = useState<Worker>(undefined);
 	let [pictureWorker, setPictureWorker] = useState<Worker>(undefined);
+	let [deflateWorker, setDeflateWorker] = useState<Worker>(undefined);
 	let [eventQueue, setEventQueue] = useState<string>("[]");
 
 	const getEventQueue = () => {
@@ -59,6 +60,9 @@ export const GameFrame = (props: GameFrameProps) => {
 			setPictureWorker(pictureWorker);
 			setOffScreenCanvasWorker(offScreenCanvasWorker);
 
+			let deflateWorker = new Worker(`${WebServerSettings().ServerProtocol}://${WebServerSettings().ServerRoot}:${WebServerSettings().ServerPort}/Scripts/deflateWorker.js`);
+			setDeflateWorker(deflateWorker);
+
 			const transferable: unknown = offScreenCanvas; //To get around a known type script bug
 			offScreenCanvasWorker.postMessage({ offScreenCanvas: offScreenCanvas, port: channel.port1 }, [transferable as Transferable, channel.port1])
 
@@ -66,13 +70,9 @@ export const GameFrame = (props: GameFrameProps) => {
 
 	useInterval(
 		function () {
-			if (!isEventQueueEmpty()) {
-				props.proxy.invoke('EnqueueInputControls', getEventQueue()).done(function () {
-					console.log('Invocation of EnqueueControlKey succeeded');
-					clearEventQueue();
-				}).fail(function (error: string) {
-					console.log('Invocation of EnqueueControlKey failed. Error: ' + error);
-				});
+			if (!isEventQueueEmpty() && deflateWorker) {
+				console.log("EventQueue prelength " + eventQueue.length);
+				deflateWorker.postMessage(eventQueue);
 			}
 		}, ClientSide().InputMessageTimerMs);
 
@@ -84,6 +84,21 @@ export const GameFrame = (props: GameFrameProps) => {
 		}
 		, [props.frameSets, offScreenCanvasWorker, pictureWorker]);
 
+	useEffect(
+		() => {
+			if (props.proxy && deflateWorker) {
+				deflateWorker.onmessage = function (e) {
+					console.log("EventQueue postlength " + e.data.length);
+					props.proxy.invoke('EnqueueInputControls', e.data).done(function () {
+						console.log('Invocation of EnqueueControlKey succeeded');
+						clearEventQueue();
+					}).fail(function (error: string) {
+						console.log('Invocation of EnqueueControlKey failed. Error: ' + error);
+					});
+				}
+			}
+		}
+		, [deflateWorker]);
 
 	var onKeyPress = (event: any) => {
 

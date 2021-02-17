@@ -135,6 +135,7 @@ namespace ScummVMBrowser
             container.RegisterType<IScummWebServerRpc, RpcServer>();
             container.RegisterType<ILogger, WindowsEventLogger>();
             container.RegisterType<ErrorHandlingPipelineModule, ScummVmBrowserSignalRHandlingPipelineModule>();
+			container.RegisterType<ICompression, ManagedZLibCompression.ManagedZLibCompression>();
 
             container.RegisterFactory<IStarter>(
                     s =>
