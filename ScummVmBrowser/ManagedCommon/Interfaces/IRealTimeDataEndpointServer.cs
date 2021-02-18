@@ -12,11 +12,7 @@ using System.Threading.Tasks;
 namespace ManagedCommon.Interfaces
 {
    public interface IRealTimeDataEndpointServer: IDisposable
-    {
-        void OnEnqueueString(EnqueueString enqueueString);
-        void OnEnqueueControlKey(EnqueueControlKey enqueueControlKey);
-        void OnEnqueueMouseMove(EnqueueMouseMove enqueueMouseMove);
-        void OnEnqueueMouseClick(EnqueueMouseClick enqueueMouseClick);
+    {                                                                                              
 		void OnEnqueueInputMessages(EnqueueInputMessages enqueueInputMessages);
 		void OnScheduleRedrawWholeScreen(ScheduleRedrawWholeScreen getWholeScreenBuffer);
 		void OnStartSound(StartSound startSound);

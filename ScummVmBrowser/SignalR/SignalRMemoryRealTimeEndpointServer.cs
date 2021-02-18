@@ -16,23 +16,13 @@ namespace SignalR
 {
     public class SignalRMemoryRealTimeEndpointServer : IRealTimeDataEndpointServer, IRealTimeEndPointCallbackRepo
     {
-        public EnqueueString EnqueueStringCallback { get; private set; }
-
-        public EnqueueControlKey EnqueueControlKey { get; private set; }
-
-        public EnqueueMouseMove EnqueueMouseMove { get; private set; }
-
 		public EnqueueInputMessages EnqueueInputMessages { get; private set; }
-
-		public EnqueueString EnqueueString { get; private set; }
 
         public StartSound StartSound { get; private set; }
 
         public StopSound StopSound { get; private set; }
 
         public ScheduleRedrawWholeScreen ScheduleRedrawWholeScreen { get; private set; }
-
-        public EnqueueMouseClick EnqueueMouseClick { get; private set; }
 
         private IStarter _starter;
         private IDisposable _webApp; //TODO: Dispose
@@ -79,26 +69,6 @@ namespace SignalR
             Console.WriteLine($"Server running on {port}", url);
 
             return Task.CompletedTask;
-        }
-
-        public void OnEnqueueControlKey(EnqueueControlKey enqueueControlKey)
-        {
-            EnqueueControlKey = enqueueControlKey;
-        }
-
-        public void OnEnqueueMouseClick(EnqueueMouseClick enqueueMouseClick)
-        {
-            EnqueueMouseClick = enqueueMouseClick;
-        }
-
-        public void OnEnqueueMouseMove(EnqueueMouseMove enqueueMouseMove)
-        {
-            EnqueueMouseMove = enqueueMouseMove;
-        }
-
-        public void OnEnqueueString(EnqueueString enqueueString)
-        {
-            EnqueueString = enqueueString;
         }
 
 		public void OnEnqueueInputMessages(EnqueueInputMessages enqueueInputMessages)

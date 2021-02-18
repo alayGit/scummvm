@@ -59,22 +59,6 @@ namespace ScummVMBrowser.Server
             }
         }
 
-        public async Task EnqueueString(string toSend)
-        {
-            using (IAntiDisposalLock<IScummVMHubClient> alock = await HubStore.GetByConnectionId(ConnectionId)?.GetClient())
-            {
-                await alock?.Obj.EnqueueString(toSend);
-            }
-        }
-
-        public async Task EnqueueControlKey(ControlKeys controlKey)
-        {
-            using (IAntiDisposalLock<IScummVMHubClient> alock = await HubStore.GetByConnectionId(ConnectionId)?.GetClient())
-            {
-                await alock.Obj?.EnqueueControlKey(controlKey);
-            }
-        }
-
 		public async Task EnqueueInputControls(byte[] compressedInputMessages)
 		{
             using (IAntiDisposalLock<IScummVMHubClient> alock = await HubStore.GetByConnectionId(ConnectionId)?.GetClient())
@@ -89,14 +73,6 @@ namespace ScummVMBrowser.Server
 
 			return JsonConvert.DeserializeObject<KeyValuePair<string, string>[]>(jsonMessage);
 		}
-
-        public async Task EnqueueMouseClick(MouseClick mouseClick)
-        {
-            using (IAntiDisposalLock<IScummVMHubClient> alock = await HubStore.GetByConnectionId(ConnectionId)?.GetClient())
-            {
-                await alock.Obj?.EnqueueMouseClick(mouseClick);
-            }
-        }
 
         public async Task Quit()
         {

@@ -95,11 +95,6 @@ namespace SignalRSelfHost
             await _realTimeDataEndpointServer.Init(realTimePortGetterId);
             _realTimeDataEndpointServer.OnStartSound(StartSound);
             _realTimeDataEndpointServer.OnStopSound(StopSound);
-            _realTimeDataEndpointServer.OnEnqueueControlKey(EnqueueControlKey);
-            _realTimeDataEndpointServer.OnEnqueueString(EnqueueString);
-            _realTimeDataEndpointServer.OnEnqueueMouseClick(EnqueueMouseClick);
-            _realTimeDataEndpointServer.OnEnqueueMouseMove(EnqueueMouseMove);
-            _realTimeDataEndpointServer.OnEnqueueControlKey(EnqueueControlKey);
             _realTimeDataEndpointServer.OnScheduleRedrawWholeScreen(ScheduleRedrawWholeScreen);
 			_realTimeDataEndpointServer.OnEnqueueInputMessages(EnqueueInputMessages);
         }
@@ -160,26 +155,6 @@ namespace SignalRSelfHost
         public void Quit()
         {
             EndGame().Wait(); //TODO: Fix
-        }
-
-        public void EnqueueControlKey(ManagedCommon.Enums.ControlKeys controlKey)
-        {
-            EnqueueGameEvent(new SendControlCharacters(controlKey));
-        }
-
-        public void EnqueueString(String toSend)
-        {
-            EnqueueGameEvent(new SendString(toSend));
-        }
-
-        public void EnqueueMouseMove(int x, int y)
-        {
-            EnqueueGameEvent(new SendMouseMove(x, y));
-        }
-
-        public void EnqueueMouseClick(MouseClick mouseButton)
-        {
-            EnqueueGameEvent(new SendMouseClick(mouseButton, () => _wrapper.GetCurrentMousePosition()));
         }
 
 		public void EnqueueInputMessages(InputMessage[] inputMessages)

@@ -21,13 +21,9 @@ namespace ManagedCommon.Interfaces
 
         Task BeforeDispose();
         void Dispose();
-        Task EnqueueControlKey(ControlKeys toSend);
         Task Init();
         Task StartConnection();
 		Task EnqueueInputMessages(KeyValuePair<string, string>[] inputMessages);
-        Task EnqueueMouseMove(int x, int y);
-        Task EnqueueMouseClick(MouseClick mouseClick);
-        Task EnqueueString(string toSend);
         Task Quit();
         void SetSendGameMessagesFunctionPointer(SendGameMessagesAsync screenDrawingCallback);
         void SetSaveGameFunctionPointer(SaveDataAsync saveGameCallback);

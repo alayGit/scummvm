@@ -150,47 +150,7 @@ namespace ScummVMBrowser.Clients
 
             await _scummHubRpc.RunGameAsync(gameName, gameStorage);
         }
-
-        public async Task EnqueueString(string toSend)
-        {
-            if (!IsGameRunning)
-            {
-                throw new Exception("Game Is Not Running. Call 'StartConnection' and 'StartGame' before calling this method, and Make Sure You Haven't Quit");
-            }
-
-            await _realTimeDataBusClient.EnqueueStringAsync(toSend);
-        }
-
-        public async Task EnqueueControlKey(ControlKeys toSend)
-        {
-            if (!IsGameRunning)
-            {
-                throw new Exception("Game Is Not Running. Call 'StartConnection' and 'StartGame' before calling this method, and Make Sure You Haven't Quit");
-            }
-
-            await _realTimeDataBusClient.EnqueueControlKeyAsync(toSend);
-        }
-
-        public async Task EnqueueMouseMove(int x, int y)
-        {
-            if (!IsGameRunning)
-            {
-                throw new Exception("Game Is Not Running. Call 'StartConnection' and 'StartGame' before calling this method, and Make Sure You Haven't Quit");
-            }
-
-            await _realTimeDataBusClient.EnqueueMouseMoveAsync(x, y);
-        }
-
-        public async Task EnqueueMouseClick(MouseClick mouseClick)
-        {
-            if (!IsGameRunning)
-            {
-                throw new Exception("Game Is Not Running. Call 'StartConnection' and 'StartGame' before calling this method, and Make Sure You Haven't Quit");
-            }
-
-            await _realTimeDataBusClient.EnqueueMouseClickAsync(mouseClick);
-        }
-
+		 
 
 		public async Task EnqueueInputMessages(KeyValuePair<string, string>[] inputMessages)
 		{

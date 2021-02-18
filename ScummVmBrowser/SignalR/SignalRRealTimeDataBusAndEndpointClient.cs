@@ -63,26 +63,6 @@ namespace ScummVMBrowser.Utilities
             await _proxy.Invoke("StopSound");
         }
 
-        public async Task EnqueueStringAsync(string toSend)
-        {
-            await _proxy.Invoke("EnqueueString", toSend);
-        }
-
-        public async Task EnqueueControlKeyAsync(ManagedCommon.Enums.ControlKeys toSend)
-        {
-           await _proxy.Invoke("EnqueueControlKey", toSend);
-        }
-
-        public async Task EnqueueMouseMoveAsync(int x, int y)
-        {
-            await _proxy.Invoke("EnqueueMouseMove", x, y);
-        }
-
-        public async Task EnqueueMouseClickAsync(MouseClick mouseClick)
-        {
-            await _proxy.Invoke("EnqueueMouseClick", mouseClick);
-        }
-
         public async Task<List<KeyValuePair<MessageType, string>>> ScheduleRedrawWholeScreen()
         {
           return await _proxy.Invoke<List<KeyValuePair<MessageType, string>>>("ScheduleRedrawWholeScreen");

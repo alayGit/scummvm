@@ -18,10 +18,6 @@ namespace ManagedCommon.Delegates
 	public delegate void PlayAudio(byte[] data);
 	public delegate Task Quit();
     public delegate Point GetCurrentMousePosition();
-    public delegate void EnqueueString(string toSend);
-    public delegate void EnqueueControlKey(ControlKeys toSend);
-    public delegate void EnqueueMouseMove(int x, int y);
-    public delegate void EnqueueMouseClick(MouseClick mouseClick);
 	public delegate void EnqueueInputMessages(InputMessage[] inputMessages);
 	public delegate Task MessagesProcessed(List<KeyValuePair<MessageType, string>> messages);
 	public delegate void StartSound();
