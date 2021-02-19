@@ -9,8 +9,14 @@ let _communicator: any;
 let _base: any;
 let _scummWebServer: any;
 export async function InitProxy(hubName:string, port:number) {
-    try {
-        _communicator = Ice.initialize();
+	try {
+		var props = Ice.createProperties();
+		props.setProperty('Ice.ACM.Heartbeat', '3');
+
+		var initData = new Ice.InitializationData();
+		initData.properties = props;
+
+        _communicator = Ice.initialize(initData);
         _base = _communicator.stringToProxy(`${hubName}${port}:ws -h ${WebServerSettings().ServerRoot} -p ${port}`); //ToDo: Not local host
         _scummWebServer = await ScummWebsServerVMSlices.ScummWebServerPrx.checkedCast(_base);
         return _scummWebServer;

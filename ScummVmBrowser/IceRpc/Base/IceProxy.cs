@@ -45,7 +45,14 @@ namespace IceRpc
 
         public IceProxy()
         {
-            Communicator = Ice.Util.initialize();
+			InitializationData initializationData = new InitializationData();
+			Ice.Properties props = Ice.Util.createProperties();
+
+			props.setProperty("Ice.ACM.Heartbeat", "3");
+			Ice.InitializationData initData = new Ice.InitializationData();
+			initData.properties = props;
+
+			Communicator = Ice.Util.initialize(initData);
         }
 
         public virtual void Init(string hubName, string clientCallbackProxyName, string host, int port, string id, R receiver, Protocol protocol)
