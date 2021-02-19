@@ -1,6 +1,7 @@
 ﻿using ManagedCommon.Delegates;
 using ManagedCommon.Enums;
 using ManagedCommon.Enums.Actions;
+using ManagedCommon.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,12 +21,9 @@ namespace ManagedCommon.Interfaces
 
         Task BeforeDispose();
         void Dispose();
-        Task EnqueueControlKey(ControlKeys toSend);
         Task Init();
         Task StartConnection();
-        Task EnqueueMouseMove(int x, int y);
-        Task EnqueueMouseClick(MouseClick mouseClick);
-        Task EnqueueString(string toSend);
+		Task EnqueueInputMessages(KeyValuePair<string, string>[] inputMessages);
         Task Quit();
         void SetSendGameMessagesFunctionPointer(SendGameMessagesAsync screenDrawingCallback);
         void SetSaveGameFunctionPointer(SaveDataAsync saveGameCallback);

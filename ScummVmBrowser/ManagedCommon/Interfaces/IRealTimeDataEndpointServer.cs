@@ -1,6 +1,7 @@
 ﻿using ManagedCommon.Delegates;
 using ManagedCommon.Enums;
 using ManagedCommon.Enums.Actions;
+using ManagedCommon.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,11 +12,8 @@ using System.Threading.Tasks;
 namespace ManagedCommon.Interfaces
 {
    public interface IRealTimeDataEndpointServer: IDisposable
-    {
-        void OnEnqueueString(EnqueueString enqueueString);
-        void OnEnqueueControlKey(EnqueueControlKey enqueueControlKey);
-        void OnEnqueueMouseMove(EnqueueMouseMove enqueueMouseMove);
-        void OnEnqueueMouseClick(EnqueueMouseClick enqueueMouseClick);
+    {                                                                                              
+		void OnEnqueueInputMessages(EnqueueInputMessages enqueueInputMessages);
 		void OnScheduleRedrawWholeScreen(ScheduleRedrawWholeScreen getWholeScreenBuffer);
 		void OnStartSound(StartSound startSound);
         void OnStopSound(StopSound stopSound);

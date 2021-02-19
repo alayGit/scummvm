@@ -1,5 +1,6 @@
 ﻿using ManagedCommon.Enums;
 using ManagedCommon.Enums.Actions;
+using ManagedCommon.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,8 @@ namespace ManagedCommon.Interfaces
     {
         Task Init(string id);
         Task StartConnectionAsync();
-        Task EnqueueStringAsync(string toSend);
-        Task EnqueueControlKeyAsync(ControlKeys toSend);
-        Task EnqueueMouseMoveAsync(int x, int y);
-        Task EnqueueMouseClickAsync(MouseClick mouseClick);
-        Task StartSoundAsync();
+		Task EnqueueInputMessages(KeyValuePair<string, string>[] inputMessages);
+		Task StartSoundAsync();
         Task StopSoundAsync();
         Task<List<KeyValuePair<MessageType, string>>> ScheduleRedrawWholeScreen();
     }

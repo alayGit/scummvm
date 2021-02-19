@@ -1,9 +1,15 @@
 ﻿using ManagedCommon.Enums;
 using ManagedCommon.Enums.Actions;
+using ManagedCommon.Enums.Other;
 using ManagedCommon.Interfaces;
+using ManagedCommon.Models;
 using Microsoft.AspNet.SignalR;
+using Newtonsoft.Json;
+using ScummVMBrowser.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ScummVMBrowser.Server
@@ -12,11 +18,14 @@ namespace ScummVMBrowser.Server
     {
         private IGameClientStore<IGameInfo> HubStore { get; set; }
         private ILogger _logger;
+		private IInputMessageProcessor _inputMessageProcessor;
+		private ICompression _compression;
 
-        public HubServer(IGameClientStore<IGameInfo> hubStore, ILogger logger)
+        public HubServer(IGameClientStore<IGameInfo> hubStore, ILogger logger, ICompression compression)
         {
             HubStore = hubStore;
             _logger = logger;
+			_compression = compression;
         }
 
         private string ConnectionId
@@ -50,37 +59,20 @@ namespace ScummVMBrowser.Server
             }
         }
 
-        public async Task EnqueueString(string toSend)
-        {
+		public async Task EnqueueInputControls(byte[] compressedInputMessages)
+		{
             using (IAntiDisposalLock<IScummVMHubClient> alock = await HubStore.GetByConnectionId(ConnectionId)?.GetClient())
             {
-                await alock?.Obj.EnqueueString(toSend);
+                await alock.Obj?.EnqueueInputMessages(GetInputMessagesFromCompressed(compressedInputMessages));
             }
         }
 
-        public async Task EnqueueControlKey(ControlKeys controlKey)
-        {
-            using (IAntiDisposalLock<IScummVMHubClient> alock = await HubStore.GetByConnectionId(ConnectionId)?.GetClient())
-            {
-                await alock.Obj?.EnqueueControlKey(controlKey);
-            }
-        }
+		private KeyValuePair<string,string>[] GetInputMessagesFromCompressed(byte[] compressedInputMessages)
+		{
+			string jsonMessage = Encoding.ASCII.GetString(_compression.Decompress(compressedInputMessages));
 
-        public async Task EnqueueMouseMove(int x, int y)
-        {
-            using (IAntiDisposalLock<IScummVMHubClient> alock = await HubStore.GetByConnectionId(ConnectionId)?.GetClient())
-            {
-                await alock.Obj?.EnqueueMouseMove(x, y);
-            }
-        }
-
-        public async Task EnqueueMouseClick(MouseClick mouseClick)
-        {
-            using (IAntiDisposalLock<IScummVMHubClient> alock = await HubStore.GetByConnectionId(ConnectionId)?.GetClient())
-            {
-                await alock.Obj?.EnqueueMouseClick(mouseClick);
-            }
-        }
+			return JsonConvert.DeserializeObject<KeyValuePair<string, string>[]>(jsonMessage);
+		}
 
         public async Task Quit()
         {

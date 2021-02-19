@@ -17,7 +17,7 @@ using ManagedCommon.Base;
 using ManagedCommon.Interfaces.Rpc;
 using PortSharer;
 using System.Threading.Tasks;
-
+using ManagedCommon.Models;
 
 namespace ScummVMBrowser.Clients
 {
@@ -150,48 +150,19 @@ namespace ScummVMBrowser.Clients
 
             await _scummHubRpc.RunGameAsync(gameName, gameStorage);
         }
+		 
 
-        public async Task EnqueueString(string toSend)
-        {
-            if (!IsGameRunning)
-            {
-                throw new Exception("Game Is Not Running. Call 'StartConnection' and 'StartGame' before calling this method, and Make Sure You Haven't Quit");
-            }
+		public async Task EnqueueInputMessages(KeyValuePair<string, string>[] inputMessages)
+		{
+			if (!IsGameRunning)
+			{
+				throw new Exception("Game Is Not Running. Call 'StartConnection' and 'StartGame' before calling this method, and Make Sure You Haven't Quit");
+			}
 
-            await _realTimeDataBusClient.EnqueueStringAsync(toSend);
-        }
+			await _realTimeDataBusClient.EnqueueInputMessages(inputMessages);
+		}
 
-        public async Task EnqueueControlKey(ControlKeys toSend)
-        {
-            if (!IsGameRunning)
-            {
-                throw new Exception("Game Is Not Running. Call 'StartConnection' and 'StartGame' before calling this method, and Make Sure You Haven't Quit");
-            }
-
-            await _realTimeDataBusClient.EnqueueControlKeyAsync(toSend);
-        }
-
-        public async Task EnqueueMouseMove(int x, int y)
-        {
-            if (!IsGameRunning)
-            {
-                throw new Exception("Game Is Not Running. Call 'StartConnection' and 'StartGame' before calling this method, and Make Sure You Haven't Quit");
-            }
-
-            await _realTimeDataBusClient.EnqueueMouseMoveAsync(x, y);
-        }
-
-        public async Task EnqueueMouseClick(MouseClick mouseClick)
-        {
-            if (!IsGameRunning)
-            {
-                throw new Exception("Game Is Not Running. Call 'StartConnection' and 'StartGame' before calling this method, and Make Sure You Haven't Quit");
-            }
-
-            await _realTimeDataBusClient.EnqueueMouseClickAsync(mouseClick);
-        }
-
-        public async Task Quit()
+		public async Task Quit()
         {
             try
             {
@@ -317,6 +288,6 @@ namespace ScummVMBrowser.Clients
             await _realTimeDataBusClient.StopSoundAsync();
         }
 
-        #endregion
-    }
+		#endregion
+	}
 }

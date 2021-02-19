@@ -9,12 +9,8 @@ namespace SignalR
 {
    public interface IRealTimeEndPointCallbackRepo
     {
-        EnqueueString EnqueueStringCallback { get; }
-        EnqueueControlKey EnqueueControlKey { get; }
-        EnqueueMouseMove EnqueueMouseMove { get; }
-        EnqueueString EnqueueString { get; }
-        EnqueueMouseClick EnqueueMouseClick { get; }
-        StartSound StartSound { get; }
+ 		EnqueueInputMessages EnqueueInputMessages { get; }
+		StartSound StartSound { get; }
         StopSound StopSound { get; }
         ScheduleRedrawWholeScreen ScheduleRedrawWholeScreen { get; }
     }

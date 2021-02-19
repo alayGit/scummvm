@@ -15,6 +15,7 @@ using SignalRHostWithUnity;
 using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.AspNet.SignalR.Client;
 using ManagedCommon.Enums.Settings;
+using ManagedCommon.Models;
 
 namespace ScummVMBrowser.Utilities
 {
@@ -62,32 +63,17 @@ namespace ScummVMBrowser.Utilities
             await _proxy.Invoke("StopSound");
         }
 
-        public async Task EnqueueStringAsync(string toSend)
-        {
-            await _proxy.Invoke("EnqueueString", toSend);
-        }
-
-        public async Task EnqueueControlKeyAsync(ManagedCommon.Enums.ControlKeys toSend)
-        {
-           await _proxy.Invoke("EnqueueControlKey", toSend);
-        }
-
-        public async Task EnqueueMouseMoveAsync(int x, int y)
-        {
-            await _proxy.Invoke("EnqueueMouseMove", x, y);
-        }
-
-        public async Task EnqueueMouseClickAsync(MouseClick mouseClick)
-        {
-            await _proxy.Invoke("EnqueueMouseClick", mouseClick);
-        }
-
         public async Task<List<KeyValuePair<MessageType, string>>> ScheduleRedrawWholeScreen()
         {
           return await _proxy.Invoke<List<KeyValuePair<MessageType, string>>>("ScheduleRedrawWholeScreen");
         }
 
-        public void SendGameMessagesAsync(SendGameMessagesAsync copyRectToScreen, int instanceId)
+		public async Task EnqueueInputMessages(KeyValuePair<string, string>[] inputMessages)
+		{
+			await _proxy.Invoke("EnqueueInputMessages", inputMessages);
+		}
+
+		public void SendGameMessagesAsync(SendGameMessagesAsync copyRectToScreen, int instanceId)
         {
 
             _copyRectToScreenCallback = copyRectToScreen;
@@ -127,6 +113,6 @@ namespace ScummVMBrowser.Utilities
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
-        #endregion
-    }
+		#endregion
+	}
 }

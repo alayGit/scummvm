@@ -27,7 +27,8 @@ using StartInstance;
 using PortSharer;
 using System.Diagnostics;
 using ManagedCommon.Enums.Logging;
-
+using ManagedCommon.Models;
+using ManagedCommon.Enums.Other;
 
 namespace SignalRSelfHost
 {
@@ -94,12 +95,8 @@ namespace SignalRSelfHost
             await _realTimeDataEndpointServer.Init(realTimePortGetterId);
             _realTimeDataEndpointServer.OnStartSound(StartSound);
             _realTimeDataEndpointServer.OnStopSound(StopSound);
-            _realTimeDataEndpointServer.OnEnqueueControlKey(EnqueueControlKey);
-            _realTimeDataEndpointServer.OnEnqueueString(EnqueueString);
-            _realTimeDataEndpointServer.OnEnqueueMouseClick(EnqueueMouseClick);
-            _realTimeDataEndpointServer.OnEnqueueMouseMove(EnqueueMouseMove);
-            _realTimeDataEndpointServer.OnEnqueueControlKey(EnqueueControlKey);
             _realTimeDataEndpointServer.OnScheduleRedrawWholeScreen(ScheduleRedrawWholeScreen);
+			_realTimeDataEndpointServer.OnEnqueueInputMessages(EnqueueInputMessages);
         }
 
 
@@ -160,25 +157,28 @@ namespace SignalRSelfHost
             EndGame().Wait(); //TODO: Fix
         }
 
-        public void EnqueueControlKey(ManagedCommon.Enums.ControlKeys controlKey)
-        {
-            EnqueueGameEvent(new SendControlCharacters(controlKey));
-        }
-
-        public void EnqueueString(String toSend)
-        {
-            EnqueueGameEvent(new SendString(toSend));
-        }
-
-        public void EnqueueMouseMove(int x, int y)
-        {
-            EnqueueGameEvent(new SendMouseMove(x, y));
-        }
-
-        public void EnqueueMouseClick(MouseClick mouseButton)
-        {
-            EnqueueGameEvent(new SendMouseClick(mouseButton, () => _wrapper.GetCurrentMousePosition()));
-        }
+		public void EnqueueInputMessages(InputMessage[] inputMessages)
+		{
+			foreach(InputMessage inputMessage in inputMessages)
+			{
+				switch(inputMessage.InputType)
+				{
+					case InputType.ControlKey:
+						EnqueueGameEvent(new SendControlCharacters((ControlKeys)Enum.Parse(typeof(ControlKeys), inputMessage.Input)));
+						break;
+					case InputType.MouseClick:
+						EnqueueGameEvent(new SendMouseClick((MouseClick)Enum.Parse(typeof(MouseClick), inputMessage.Input), () => _wrapper.GetCurrentMousePosition()));
+						break;
+					case InputType.MouseMove:
+						string[] xy = inputMessage.Input.Split(',');
+						EnqueueGameEvent(new SendMouseMove(int.Parse(xy[0]), int.Parse(xy[1])));
+						break;
+					case InputType.TextString:
+						EnqueueGameEvent(new SendString(inputMessage.Input));
+						break;
+				}
+			}
+		}
 
         private void EnqueueGameEvent(IGameEvent gameEvent)
         {

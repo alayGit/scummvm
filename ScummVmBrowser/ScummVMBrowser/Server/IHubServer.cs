@@ -10,10 +10,9 @@ namespace ScummVMBrowser.Server
 {
     public interface IHubServer : IDisposable
     {
-        Task EnqueueControlKey(ControlKeys controlKey);
-        Task EnqueueString(string toSend);
         Task Init(string gameId);
         Task Quit();
         Task SendGameMessages(string connectionId, List<KeyValuePair<MessageType, string>> screenBuffers);
-    }
+		Task EnqueueInputControls(byte[] compressedInputMessages);
+	}
 }

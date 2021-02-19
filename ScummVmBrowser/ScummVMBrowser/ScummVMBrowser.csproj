@@ -258,7 +258,8 @@
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\pako_inflate.min.js" />
+    <Content Include="Scripts\deflateWorker.js" />
+    <Content Include="Scripts\pako.min.js" />
     <Content Include="Scripts\soundProcessorWorker.js" />
     <Content Include="Scripts\dataProcessorWorker.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -300,7 +301,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="NewFolder1\" />
+    <Folder Include="enums\" />
     <Folder Include="Scripts\dist\" />
     <Folder Include="Views\Api\" />
     <Folder Include="Views\TestApi\" />
@@ -314,6 +315,7 @@
     <TypeScriptCompile Include="Scripts\src\components\scummWebServerRpcProxy.ts" />
     <TypeScriptCompile Include="Scripts\src\components\testGameFrame.tsx" />
     <TypeScriptCompile Include="Scripts\src\components\router.tsx" />
+    <TypeScriptCompile Include="Scripts\src\components\useInterval.ts" />
     <TypeScriptCompile Include="Scripts\src\components\webAudioStreamer.tsx" />
     <TypeScriptCompile Include="Scripts\src\index.tsx" />
     <TypeScriptCompile Include="Scripts\src\components\well.tsx" />

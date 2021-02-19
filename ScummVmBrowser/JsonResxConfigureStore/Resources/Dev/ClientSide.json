@@ -1,0 +1,4 @@
+{
+	"InputMessageTimerMs": 30,
+	"MaxInputMessageQueueLength": 50
+}
