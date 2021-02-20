@@ -1,0 +1,25 @@
+
+	 Notes on system configuration
+	 -----------------------------
+
+Video display drivers
+---------------------
+
+     Under the Multimedia extensions to Windows, there are a number of video
+display drivers which may be used.  These may be examined and changed by
+selecting the "Display" icon in the control panel or by using the Windows
+setup program.  Sierra games look best using a driver which is capable of 
+displaying 256 colors at a resolution of 640x480 pixels (such as the Video 7 
+board with 512K memory), but will also run at lower resolutions and with 
+fewer colors.  Various board manufacturers will supply their own Windows 
+drivers.  When a Sierra game starts up under Windows, it examines the 
+capabilities of the video driver you are using. If the game does not support 
+that driver, it displays a box with the following message:
+	 "Your current display driver is not supported by this game.
+	  You can install a different driver by selecting the appropriate
+	  options from the control panel.  You may also exit Windows and
+	  install and play the game under DOS."
+
+The title to the box will display the name of the driver you are using.
+
+

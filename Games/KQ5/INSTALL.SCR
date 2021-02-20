@@ -1,0 +1,163 @@
+echo Saving configuration...
+
+:Choose
+echo
+echo You may, if you wish, install the game to your hard
+echo drive. This will require 19	megabytes of free space 
+echo on your hard drive, but the game will probably play 
+echo faster.
+echo 
+echo If you do install to your hard drive the audio data 
+echo will remain on your King's Quest V CD so you will 
+echo still need to keep it in your CD drive when playing. 
+echo
+echo Do you wish to install to your hard drive (y/n)?
+
+pick yn installHD dont
+
+:installHD
+space %1: 19000 NoSpaceBig
+godir %1:\sierra\kq5 CantCreate
+echo Installing to hard drive
+
+copy %2:0.scr
+copy %2:0.tex
+copy %2:1.scr
+copy %2:47.scr
+copy %2:36.scr
+copy %2:66.scr
+copy %2:99.scr
+copy %2:119.scr
+copy %2:124.scr
+copy %2:203.scr
+copy %2:205.scr
+copy %2:610.scr
+copy %2:610.tex
+copy %2:611.scr
+copy %2:612.scr
+copy %2:769.scr
+copy %2:1699.snd
+copy %2:1799.snd
+copy %2:1849.snd
+copy %2:10125.syn
+copy %2:10126.syn
+copy %2:adl.drv
+copy %2:audblast.drv
+copy %2:audpro.drv
+copy %2:audps1.drv
+copy %2:audtandy.drv
+copy %2:audio001.map
+copy %2:help.txt
+copy %2:ibmkbd.drv
+copy %2:install.bat
+copy %2:install.exe
+copy %2:install.hlp
+copy %2:install.scr
+copy %2:install.txt
+copy %2:interp.txt
+copy %2:joystick.drv
+copy %2:mcga320.drv
+copy %2:mcga320m.drv
+copy %2:meter.dll
+copy %2:mmaware.dll
+copy %2:mt32.drv
+copy %2:readme
+copy %2:readme.bat
+copy %2:readme.doc
+copy %2:readme1
+copy %2:readme2
+copy %2:readme3
+copy %2:readme4
+copy %2:readme5
+copy %2:readme6
+copy %2:readme7
+copy %2:readme8
+copy %2:resource.000
+copy %2:resource.001
+copy %2:resource.map
+copy %2:scidll.dll
+copy %2:scikq5.exe
+copy %2:setup.exe
+copy %2:setup.inf
+copy %2:sierra.exe
+copy %2:std.drv
+copy %2:tandy3v.drv
+copy %2:version
+copy %2:vga320.drv
+copy %2:vga320bw.drv
+copy %2:winres.cfg
+
+echo %3>resource.cfg
+echo audio = %2:\kq5 >> resource.cfg
+
+rem echo cd kq5>kq5.bat
+echo @echo off	>kq5.bat
+echo %2:>>kq5.bat
+echo cd \ >> kq5.bat
+
+REM   GET THE RIGHT DISK
+echo :getDisk1 >> %1:kq5.bat
+echo if exist disk1 goto run >> %1:kq5.bat
+echo echo Please Insert Disk 1 >> %1:kq5.bat
+echo pause >> %1:kq5.bat
+echo goto getDisk1 >> %1:kq5.bat
+echo :run >> %1:kq5.bat
+echo %1:>>%1:kq5.bat
+echo sierra %1:\sierra\kq5\resource.cfg>>kq5.bat
+
+goto done
+
+:dont
+space %1: 1 NoSpace 
+godir %1:\sierra\kq5 CantCreate
+
+echo %3>resource.cfg
+
+echo @echo off	>kq5.bat
+echo %2:>>kq5.bat
+echo cd \ >> kq5.bat
+
+REM   GET THE RIGHT DISK
+echo :getDisk1 >> %1:kq5.bat
+echo if exist disk1 goto run >> %1:kq5.bat
+echo echo Please Insert Disk 1 >> %1:kq5.bat
+echo pause >> %1:kq5.bat
+echo goto getDisk1 >> %1:kq5.bat
+echo :run >> %1:kq5.bat
+
+echo cd kq5>>kq5.bat
+echo sierra %1:\sierra\kq5\resource.cfg>>kq5.bat
+echo %1:>>kq5.bat
+
+:done
+cls													 
+echo To play King's Quest V change to this directory 
+echo and type KQ5.
+echo
+
+cd %2:..
+pause
+end
+
+:CantCreate
+alert Unable to create directory %1:\sierra\kq5
+end
+
+:NoSpace
+clear
+echo
+echo There is not enough space on %1: to install. 
+echo 1000 bytes of disk space are necessary.
+pause
+end
+
+:NoSpaceBig
+clear
+echo
+echo There is not enough space on %1: to install. 
+echo 19 megabytes of disk space are necessary.
+pause
+
+
+end
+

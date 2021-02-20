@@ -1,0 +1,20 @@
+
+Memory usage
+------------
+     Your Windows installation guide contains suggestions for optimizing
+memory usage.  Sierra has found that using non-Windows memory managers such
+as QEMM may cause unpredictable results including system crashes.
+     A base-level MPC machine has sufficient memory to play Sierra games.
+However, as additional applications are invoked, less memory is available.
+At some point, one of the applications will report an out-of-memory
+condition.  To avoid this situation, do not run numerous other applications
+concurrent with the game.
+
+
+Windows modes
+-------------
+     Windows can be run in one of three modes: Real, Standard,
+and Enhanced.  Sierra games will run in either Standard or Enhanced
+mode, but not in Real mode.  
+
+

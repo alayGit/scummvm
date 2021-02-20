@@ -1,0 +1,23 @@
+
+From the setup floppy (if it is supplied with the game)
+-------------------------------------------------------
+
+   1. Insert the game CD into the CD-ROM drive.
+
+   2. Insert the Setup diskette into the A: drive (or B: drive).
+
+   3. Invoke Windows.
+
+   4. Select "Run..." from the "File" menu.
+
+   5. Type "a:\setup" (or "b:\setup") and press Return or click "OK".
+
+   6. The setup program will now run automatically.  It will suggest
+      a directory for installation but allow you to change it if you
+      wish.  It will ask you to enter the drive letter of your CD-ROM
+      drive.  It will ask whether you wish to output background music
+      for a base-level or for an extended synthesizer (see below).  
+      It will then copy the required files to your hard disk and set
+      up a program group and program icon so that you may play the game.
+
+

@@ -68,6 +68,8 @@ namespace DotNetScummTests
             await CheckForExpectedFrame(expectedFrameName, noFrames);
         }
 
+
+
 		[TestMethod]
 		public async Task DoesDisplayBlackFirstFrame()
 		{

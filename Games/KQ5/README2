@@ -1,0 +1,24 @@
+      
+               Installation procedure for Multimedia Windows (MPC)
+               ---------------------------------------------------
+
+
+From the CD (if no setup floppy is supplied with the game)
+----------------------------------------------------------
+
+   1. Insert the game CD into the CD-ROM drive.
+
+   2. Invoke Windows.
+
+   3. Select "Run..." from the "File" menu.
+
+   4. Type "x:\setup" where "x" is the drive letter of your CD-ROM 
+      drive.  Press Return or click "OK".
+
+   5. The setup program will now run automatically.  It will suggest
+      a directory for installation but allow you to change it if you
+      wish. It will ask	whether you wish to output background music 
+		for a base-level or for an extended synthesizer (see below).  
+		It will then copy the required files to your hard disk and set
+      up a program group and program icon so that you may play the game.
+

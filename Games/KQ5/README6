@@ -1,0 +1,23 @@
+MIDI synthesizers
+-----------------
+     Multimedia Windows defines two types of synthesizers; 
+"base-level" which includes three melodic channels and one percussive 
+channel, and "extended" which includes nine melodic channels and one 
+percussive channel.  The channel assignments are 13 thru 16 for the 
+former and 1 thru 10 for the latter. You may configure the system 
+depending upon the type of sound equipment installed by using the 
+MIDI Mapper in the control panel. Sierra's games can play music for 
+either of these configurations. The installation procedure allows you 
+to choose which is appropriate for your system. If you don't know what 
+type of synthesizer you have, just click on "OK" to select the 
+base-level synthesizer.  
+     If you wish to change the synthesizer, you must re-install
+the game and use the MIDI Mapper to change the channel assignments.
+     If you encounter difficulties playing KQV CD on a PS-1, it may
+be due to the music card selections.
+     Should you encounter difficulties with your ProAudio Spectrum
+playing KQV CD with Windows 3.1 please contact Media Vision to
+determine the proper drivers to obtain. The wave driver (mvwave.drv)
+for the ProAudio Spectrum that is supplied with Windows 3.0 with 
+Multimedia extensions, works correctly with Windows 3.1 if Windows 3.1
+is installed over Windows 3.0 with Multimedia extensions.

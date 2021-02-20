@@ -1,0 +1,31 @@
+; Module name: Setup.Inf
+; Programmer : Jeffrey M. Richter
+
+[Application] 
+;Application global information 
+AppName=Sierra On-Line
+DefDir=C:\Sierra
+SpaceNeeded=150
+DefPMGroup=Sierra.GRP, Sierra
+ 
+[Disks] 
+;List of diskettes needed to install the product and the name 
+;of each diskette.
+1=Distrib disk
+
+[Dirs] 
+;lists of directories that must be created from the destination directory 
+;files to be copied are in the same directory structure on the 
+;floppy (by default) 
+1=kq5\win
+
+[Files] 
+;description, name, (dir #), (diskette #), (Compressed)
+Configuration File, winres.cfg, 1, 1, N
+
+[PM Info] 
+;File Name, App Description, Icon file #, Icon #
+scikq5.exe, King's Quest V
+
+[End]
+
