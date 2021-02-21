@@ -57,7 +57,16 @@ void NativeScummWrapper::NativeScummWrapperOSystem::delayMillis(uint msecs) {
 }
 
 void NativeScummWrapper::NativeScummWrapperOSystem::getTimeAndDate(TimeDate& t) const {
-	//TODO Implement
+	time_t now = time(0);
+	tm *gmtm = gmtime(&now);
+
+	t.tm_hour = gmtm->tm_hour;
+	t.tm_mday = gmtm->tm_mday;
+	t.tm_min = gmtm->tm_min;
+	t.tm_mon = gmtm->tm_mon;
+	t.tm_sec = gmtm->tm_sec;
+	t.tm_wday = gmtm->tm_wday;
+	t.tm_year = gmtm->tm_year;
 }
 
 void NativeScummWrapper::NativeScummWrapperOSystem::logMessage(LogMessageType::Type type, const char* message) {
