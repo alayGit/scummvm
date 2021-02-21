@@ -41,7 +41,7 @@ namespace DotNetScummTests
 			Setup(gameFolderLocation, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers, noFrames, expectedFrameName));
 		}
 
-		public void Setup(String gameFolderLocation, SendScreenBuffers copyRectToScreen)
+		public void Setup(String gameFolderLocation, SendScreenBuffers copyRectToScreen, AvailableGames availableGames = AvailableGames.kq3)
 		{
 			ManagedZLibCompression.ManagedZLibCompression managedZLibCompression = new ManagedZLibCompression.ManagedZLibCompression();
 
@@ -54,7 +54,7 @@ namespace DotNetScummTests
                 _saveData[fileName] = data;
                 return true;
              };
-            gameTask = Task.Run(() => RunGame());
+            gameTask = Task.Run(() => RunGame(availableGames));
         }
 
         [TestMethod]
@@ -67,6 +67,18 @@ namespace DotNetScummTests
             Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers, noFrames, expectedFrameName) );
             await CheckForExpectedFrame(expectedFrameName, noFrames);
         }
+
+		//C:\scumm\ScummVmBrowser\DotNetScummTests\bin\Debug\scummvm.ini must be deleted first
+		[TestMethod]
+		public async Task CanStartKq5()
+		{
+			Cropping = null;
+			const string expectedFrameName = "CanStart";
+			const int noFrames = 10000;
+			//DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
+			Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers, noFrames, expectedFrameName), AvailableGames.kq5);
+			await CheckForExpectedFrame(expectedFrameName, noFrames);
+		}
 
 
 
@@ -547,15 +559,15 @@ namespace DotNetScummTests
             _wrapper.EnqueueGameEvent(new SendString("\r"));
         }
 
-        private async Task CheckForExpectedFrame(string expectedFrameName, int noFrames, int delay = 30000)
+        private async Task CheckForExpectedFrame(string expectedFrameName, int noFrames, int delay = 300000)
         {
             await WaitForExpectedFrameAndQuit(expectedFrameName, noFrames, gameTask, delay);
         }
 
-        private void RunGame()
+        private void RunGame(AvailableGames game)
         {
             _saveData = GetSaveDataFromResourceFile();
-            _wrapper.RunGame(AvailableGames.kq3, null, new Dictionary<string, byte[]>(_saveData), (byte[] aud) => { });
+            _wrapper.RunGame(game, null, new Dictionary<string, byte[]>(_saveData), (byte[] aud) => { });
         }
 
         protected override void Quit()
