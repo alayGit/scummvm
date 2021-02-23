@@ -1,7 +1,6 @@
 #define FORBIDDEN_SYMBOL_ALLOW_ALL
 #include "nativeScummWrapperGraphics.h"
 #include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
-#define IGNORE_COLOR 0
 #define DO_NOT_IGNORE_ANY_COLOR -1
 
 NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_SendScreenBuffers copyRect) : GraphicsManager() {
@@ -67,7 +66,13 @@ bool NativeScummWrapper::NativeScummWrapperGraphics::hasFeature(OSystem::Feature
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::setFeatureState(OSystem::Feature f, bool enable) {
-	//TODO: Implement
+	switch (f) {
+	case OSystem::kFeatureCursorPalette:
+		_cursorPaletteDisabled = !enable;
+		break;
+	default:
+		break;
+	}
 }
 
 bool NativeScummWrapper::NativeScummWrapperGraphics::getFeatureState(OSystem::Feature f) const {
@@ -126,6 +131,13 @@ void NativeScummWrapper::NativeScummWrapperGraphics::setPalette(const byte *colo
 	populatePalette(_picturePalette, colors, start, num);
 
 	_currentPaletteHash = RememberPalette(_picturePalette, NO_COLOURS);
+
+	if (_cursorPaletteDisabled)
+	{
+		_currentCursorPaletteHash = _currentPaletteHash;
+	}
+
+	ScheduleRedrawWholeScreen();
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::grabPalette(byte *colors, uint start, uint num) const {
@@ -249,7 +261,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::setMouseCursor(const void *
 	_cliMouse.width = restrictWidthToScreenBounds(hotspotX, w);
 	_cliMouse.fullHeight = h;
 	_cliMouse.fullWidth = w;
-	_cliMouse.cursorPallette = _cursorPalette;
+	_cliMouse.cursorPallette = _cursorPaletteDisabled ? _picturePalette : _cursorPalette;
 	_cliMouse.keyColor = keycolor;
 
 	warpMouse(hotspotX, hotspotY);
@@ -435,7 +447,7 @@ byte *NativeScummWrapper::NativeScummWrapperGraphics::GetCurrentPaletteCompresse
 NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics::GetScreenBuffer(const void *buf, int pitch, int x, int y, int w, int h, uint32 paletteHash, bool isMouseUpdate, bool forcePaletteToBeSent) {
 	NativeScummWrapper::ScreenBuffer screenBuffer;
 	screenBuffer.buffer = (byte *)ZLibCompression::ZLibCompression().Compress((byte *)buf, w * h, screenBuffer.length);
-	screenBuffer.ignoreColour = isMouseUpdate ? IGNORE_COLOR: DO_NOT_IGNORE_ANY_COLOR;
+	screenBuffer.ignoreColour = isMouseUpdate ? _cliMouse.keyColor : DO_NOT_IGNORE_ANY_COLOR;
 	screenBuffer.x = x;
 	screenBuffer.y = y;
 	screenBuffer.h = h;

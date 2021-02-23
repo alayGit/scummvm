@@ -93,6 +93,7 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 
 		virtual bool showMouse(bool visible) override;
 		virtual void warpMouse(int x, int y) override;
+
 		virtual void setMouseCursor(const void *buf, uint w, uint h, int hotspotX, int hotspotY, uint32 keycolor, bool dontScale = false, const Graphics::PixelFormat *format = NULL) override;
 		virtual void setCursorPalette(const byte *colors, uint start, uint num) override;
 		virtual Graphics::PixelFormat getScreenFormat() const;
@@ -111,6 +112,7 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 		PalletteColor *allocatePallette();
 		MouseState _cliMouse;
 	    bool _screenInited = false;
+	    bool _cursorPaletteDisabled = false; //If the cursor palette is disabled the picturePalette is used for the mouse as well
 		void populatePalette(PalletteColor *pallette, const byte *colors, uint start, uint num);
 		int restrictWidthToScreenBounds(int x, int width);
 		int restrictHeightToScreenBounds(int y, int height);
