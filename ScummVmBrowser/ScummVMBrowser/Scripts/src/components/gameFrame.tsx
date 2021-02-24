@@ -126,6 +126,9 @@ export const GameFrame = (props: GameFrameProps) => {
 		if (event.target.id == "canvas") {
 			updateEventQueue({ Key: InputMessageType.MouseMove.toString(), Value: `${event.nativeEvent.offsetX},${event.nativeEvent.offsetY}` });
 		}
+		else if (event.target.id == "gameFrame" && event.nativeEvent.offsetX < CanvasWidthEdgeSize) {
+			updateEventQueue({ Key: InputMessageType.MouseMove.toString(), Value: `0,${event.nativeEvent.offsetY}` });
+		}
 	}
 
 	var onClick = (event: any) => {
@@ -133,10 +136,8 @@ export const GameFrame = (props: GameFrameProps) => {
 	}
 
 	return (
-		<div id="outerFrame" style={{ width: Width + CanvasWidthEdgeSize, height: Height + CanvasHeightEdgeSize, backgroundColor: "black", textAlign: "center", cursor: "none"  } }>
-			<div id="gameFrame" onKeyPress={onKeyPress} onKeyDown={onKeyDown} onMouseMove={onMouseMove} onClick={onClick} tabIndex={0}>
-				<canvas id="canvas" width={Width} height={Height}/>
-			</div>
+		<div id="gameFrame" onKeyPress={onKeyPress} onKeyDown={onKeyDown} onMouseMove={onMouseMove} onClick={onClick} tabIndex={0} style={{ width: Width + CanvasWidthEdgeSize, height: Height + CanvasHeightEdgeSize, backgroundColor: "black", textAlign: "center", cursor: "none" }}>
+			<canvas id="canvas" width={Width} height={Height} />
 		</div>
 	);
 }
