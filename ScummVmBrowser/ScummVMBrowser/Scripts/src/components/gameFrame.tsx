@@ -1,5 +1,9 @@
 ﻿const Width = 320;
 const Height = 200;
+const CanvasWidthEdgeSize = 125;
+const CanvasHeightEdgeSize = 50;
+
+
 import * as React from "react";
 import ReactDOM = require("react-dom");
 import { useState, useEffect } from "react";
@@ -117,16 +121,24 @@ export const GameFrame = (props: GameFrameProps) => {
 	}
 
 	var onMouseMove = (event: any) => {
-		updateEventQueue({ Key: InputMessageType.MouseMove.toString(), Value: `${event.nativeEvent.offsetX},${event.nativeEvent.offsetY}` });
+		console.log(`Mouse Mouse:${event.nativeEvent.offsetX},${event.nativeEvent.offsetY}`);
+
+		if (event.target.id == "canvas") {
+			updateEventQueue({ Key: InputMessageType.MouseMove.toString(), Value: `${event.nativeEvent.offsetX},${event.nativeEvent.offsetY}` });
+		}
 	}
 
 	var onClick = (event: any) => {
 		updateEventQueue({ Key: InputMessageType.MouseClick.toString(), Value: event.button });
 	}
 
-	return (<div id="gameFrame" onKeyPress={onKeyPress} onKeyDown={onKeyDown} onMouseMove={onMouseMove} onClick={onClick} tabIndex={0}>
-		<canvas id="canvas" width={Width} height={Height} style={{ cursor: "none" }} />
-	</div>);
+	return (
+		<div id="outerFrame" style={{ width: Width + CanvasWidthEdgeSize, height: Height + CanvasHeightEdgeSize, backgroundColor: "black", textAlign: "center", cursor: "none"  } }>
+			<div id="gameFrame" onKeyPress={onKeyPress} onKeyDown={onKeyDown} onMouseMove={onMouseMove} onClick={onClick} tabIndex={0}>
+				<canvas id="canvas" width={Width} height={Height}/>
+			</div>
+		</div>
+	);
 }
 
 export interface GameFrameProps {
