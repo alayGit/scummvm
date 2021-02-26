@@ -1,7 +1,7 @@
 ﻿const Width = 320;
 const Height = 200;
-const CanvasWidthEdgeSize = 125;
-const CanvasHeightEdgeSize = 50;
+const CanvasWidthEdgeSize = 10;
+const CanvasHeightEdgeSize = 10;
 
 
 import * as React from "react";
@@ -136,7 +136,7 @@ export const GameFrame = (props: GameFrameProps) => {
 	}
 
 	return (
-		<div id="gameFrame" onKeyPress={onKeyPress} onKeyDown={onKeyDown} onMouseMove={onMouseMove} onClick={onClick} tabIndex={0} style={{ width: Width + CanvasWidthEdgeSize, height: Height + CanvasHeightEdgeSize, backgroundColor: "black", textAlign: "center", cursor: "none" }}>
+		<div id="gameFrame" onKeyPress={onKeyPress} onKeyDown={onKeyDown} onMouseMove={onMouseMove} onClick={onClick} tabIndex={0} style={{ width: Width + CanvasWidthEdgeSize, height: Height + CanvasHeightEdgeSize, backgroundColor: "black", textAlign: "center", cursor:"none"}}>
 			<canvas id="canvas" width={Width} height={Height} />
 		</div>
 	);
