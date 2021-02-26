@@ -271,6 +271,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::setCursorPalette(const byte
 	populatePalette(_cursorPalette, colors, start, num);
 
 	_currentCursorPaletteHash = RememberPalette(_cursorPalette, NO_COLOURS);
+	_cursorPaletteDisabled = false;
 }
 
 Graphics::PixelFormat NativeScummWrapper::NativeScummWrapperGraphics::getScreenFormat() const {

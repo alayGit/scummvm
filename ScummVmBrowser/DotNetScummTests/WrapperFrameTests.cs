@@ -68,6 +68,21 @@ namespace DotNetScummTests
             await CheckForExpectedFrame(expectedFrameName, noFrames);
         }
 
+		//C:\scumm\ScummVmBrowser\DotNetScummTests\bin\Debug\scummvm.ini must be deleted first
+		[TestMethod]
+		[Ignore]
+		public async Task CanStartKq5()
+		{
+			Cropping = null;
+			const string expectedFrameName = "CanStart";
+			const int noFrames = 10000;
+			//DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
+			Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers, noFrames, expectedFrameName), AvailableGames.kq5);
+			await CheckForExpectedFrame(expectedFrameName, noFrames);
+		}
+
+
+
 		[TestMethod]
 		public async Task DoesDisplayBlackFirstFrame()
 		{
