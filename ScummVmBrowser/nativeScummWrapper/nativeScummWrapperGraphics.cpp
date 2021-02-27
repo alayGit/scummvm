@@ -264,7 +264,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::setMouseCursor(const void *
 	_cliMouse.cursorPallette = _cursorPaletteDisabled ? _picturePalette : _cursorPalette;
 	_cliMouse.keyColor = keycolor;
 
-	warpMouse(hotspotX, hotspotY);
+	warpMouse(_cliMouse.x, _cliMouse.y);
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::setCursorPalette(const byte *colors, uint start, uint num) {
