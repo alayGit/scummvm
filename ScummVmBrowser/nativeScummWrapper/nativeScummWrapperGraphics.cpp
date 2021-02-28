@@ -233,8 +233,8 @@ void NativeScummWrapper::NativeScummWrapperGraphics::warpMouse(int x, int y) {
 		if (_screenInited) {
 			_cliMouse.x = x;
 			_cliMouse.y = y;
-			_cliMouse.width = restrictWidthToScreenBounds(_cliMouse.x, _cliMouse.fullWidth);
-			_cliMouse.height = restrictHeightToScreenBounds(_cliMouse.y, _cliMouse.fullHeight);
+			_cliMouse.width = restrictWidthToScreenBounds(_cliMouse.adjustedX(), _cliMouse.fullWidth);
+			_cliMouse.height = restrictHeightToScreenBounds(_cliMouse.adjustedY(), _cliMouse.fullHeight);
 			
 
 			bool shouldBlot = positionInRange(_cliMouse.adjustedPrevX(), _cliMouse.adjustedPrevY()) && _cliMouse.prevW > 0 && _cliMouse.prevH > 0;
@@ -325,7 +325,7 @@ int NativeScummWrapper::NativeScummWrapperGraphics::restrictWidthToScreenBounds(
 
 int NativeScummWrapper::NativeScummWrapperGraphics::restrictHeightToScreenBounds(int y, int height) {
 	int result = height;
-	if (_cliMouse.y + result > DISPLAY_DEFAULT_HEIGHT) {
+	if (y + result > DISPLAY_DEFAULT_HEIGHT) {
 		result = (result - ((y + height) - DISPLAY_DEFAULT_HEIGHT)) - 1;
 	}
 
