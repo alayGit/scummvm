@@ -15,8 +15,7 @@ lib*.a
 *.lib
 *.testdurations
 
-
-
+/games/*
 /config.log
 /scummvm
 /libscummvm.so

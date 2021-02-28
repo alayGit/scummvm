@@ -4,6 +4,7 @@ namespace ManagedCommon.Enums
 	{
 		kq3,
 		kq4,
+		kq5,
 		sq2,
 		pq1
 	}

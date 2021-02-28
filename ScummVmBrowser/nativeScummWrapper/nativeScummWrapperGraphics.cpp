@@ -509,6 +509,8 @@ void NativeScummWrapper::NativeScummWrapperGraphics::InitScreen() {
 
 	memset(colours, 0, NO_COLOURS * NO_COLOUR_COMPONENTS_SCUMM_VM);
 
-	setPalette(colours, 0, NO_COLOURS);
-	setCursorPalette(colours, 0, NO_COLOURS);
+		populatePalette(_picturePalette, colours, 0, NO_COLOURS);
+	_currentPaletteHash = RememberPalette(_picturePalette, NO_COLOURS);
+	populatePalette(_cursorPalette, colours, 0, NO_COLOURS);
+	_currentCursorPaletteHash = RememberPalette(_cursorPalette, NO_COLOURS);
 }
