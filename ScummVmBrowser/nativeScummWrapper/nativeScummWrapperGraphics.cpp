@@ -479,7 +479,7 @@ NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics:
 	bool _;
 
 	if (positionInRange(_cliMouse.adjustedX(), _cliMouse.adjustedY())) {
-		byte *unCompressedPictureUpdate = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.x, _cliMouse.y, _cliMouse.width, _cliMouse.height, true, _);
+		byte *unCompressedPictureUpdate = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.adjustedX(), _cliMouse.adjustedY(), _cliMouse.width, _cliMouse.height, true, _);
 		result = GetScreenBuffer(unCompressedPictureUpdate, _cliMouse.fullWidth, _cliMouse.adjustedX(), _cliMouse.adjustedY(), _cliMouse.width, _cliMouse.height, _currentCursorPaletteHash, true, forcePalettesToBeSent);
 	}
 	else {
