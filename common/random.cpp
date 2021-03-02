@@ -35,7 +35,7 @@ RandomSource::RandomSource(const String &name) {
 #ifdef ENABLE_EVENTRECORDER
 	setSeed(g_eventRec.getRandomSeed(name));
 #else
-	setSeed(g_system->getMillis());
+	setSeed(23333); //TODO: Fix
 #endif
 }
 

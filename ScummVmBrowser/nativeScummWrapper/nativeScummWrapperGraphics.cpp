@@ -41,7 +41,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void
 	bool differenceDetected;
 	byte *uncompressedpictureArray = ScreenUpdated(buf, pitch, x, y, w, h, false, differenceDetected);
 
-	if (true) {
+	if (differenceDetected) {
 		_drawingBuffers.push_back(GetScreenBuffer((byte *)uncompressedpictureArray, pitch, x, y, w, h, _currentPaletteHash, false, false));
 
 		if (_cliMouse.adjustedX() < DISPLAY_DEFAULT_WIDTH && _cliMouse.adjustedY() < DISPLAY_DEFAULT_HEIGHT && _cliMouse.width > 0 && _cliMouse.height > 0 && screenUpdateOverlapsMouse(x, y, w, h)) {

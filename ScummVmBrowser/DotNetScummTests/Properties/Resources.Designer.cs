@@ -63,6 +63,16 @@ namespace DotNetScummTests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CanClickNonZeroHotSpot {
+            get {
+                object obj = ResourceManager.GetObject("CanClickNonZeroHotSpot", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CanMoveMouse {
             get {
                 object obj = ResourceManager.GetObject("CanMoveMouse", resourceCulture);
@@ -116,6 +126,16 @@ namespace DotNetScummTests.Properties {
         internal static System.Drawing.Bitmap CanMoveMouseMultipleTimes {
             get {
                 object obj = ResourceManager.GetObject("CanMoveMouseMultipleTimes", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CanMoveMousePaletteDisabled {
+            get {
+                object obj = ResourceManager.GetObject("CanMoveMousePaletteDisabled", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

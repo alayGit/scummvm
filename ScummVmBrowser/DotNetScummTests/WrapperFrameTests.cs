@@ -3,6 +3,7 @@ using CliScummEvents;
 using ConfigStore;
 using ManagedCommon.Delegates;
 using ManagedCommon.Enums;
+using ManagedCommon.Enums.Actions;
 using ManagedCommon.Implementations;
 using ManagedCommon.Interfaces;
 using ManagedZLibCompression;
@@ -31,6 +32,8 @@ namespace DotNetScummTests
 
         const string ExpectedSaveFilePrefix = "kq3.";
         const string SaveDataResourceName = "SaveData";
+		const string KingsQuest4CopyProtectionWord = "Game";
+		const int Kq4HotCursorOffset = 8;
 
 
 
@@ -74,19 +77,21 @@ namespace DotNetScummTests
             await CheckForExpectedFrame(expectedFrameName, noFrames);
         }
 
-		//C:\scumm\ScummVmBrowser\DotNetScummTests\bin\Debug\scummvm.ini must be deleted first
 		[TestMethod]
-		public async Task CanStartKq5()
+		public async Task CanMoveMousePaletteDisabled()
 		{
 			Cropping = null;
-			const string expectedFrameName = "CanStart";
-			const int noFrames = 10000;
-			//DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
-			Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers, noFrames, expectedFrameName), AvailableGames.kq5);
+			const string expectedFrameName = "CanMoveMousePaletteDisabled";
+			const int noFrames = 25;
+
+			Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers, noFrames, expectedFrameName), AvailableGames.kq4);
+			await WaitForFrame(10);
+			//_wrapper.EnqueueGameEvent(new SendMouseMove(DisplayDefaultWidth + Kq4HotCursorOffset - 1, DisplayDefaultHeight + Kq4HotCursorOffset - 1));
+			_wrapper.EnqueueGameEvent(new SendMouseMove(DisplayDefaultWidth + Kq4HotCursorOffset - 1, DisplayDefaultHeight + Kq4HotCursorOffset - 1));
+			await WaitAdditionalFrames(10);
+			_wrapper.EnqueueGameEvent(new SendMouseMove(Kq4HotCursorOffset, Kq4HotCursorOffset));
 			await CheckForExpectedFrame(expectedFrameName, noFrames);
 		}
-
-
 
 		[TestMethod]
 		public async Task DoesDisplayBlackFirstFrame()
@@ -96,6 +101,24 @@ namespace DotNetScummTests
 			const int noFrames = 1;
 			//DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
 			Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers, noFrames, expectedFrameName));
+			await CheckForExpectedFrame(expectedFrameName, noFrames);
+		}
+
+		[TestMethod]
+		public async Task CanClickNonZeroHotSpot()
+		{
+			Cropping = null;
+			const string expectedFrameName = "CanClickNonZeroHotSpot";
+			const int noFrames = 800;
+
+			Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers, noFrames, expectedFrameName), AvailableGames.kq4);
+			await WaitForFrame(10);
+			_wrapper.EnqueueGameEvent(new SendString(KingsQuest4CopyProtectionWord));
+			_wrapper.EnqueueGameEvent(new SendString("\r"));
+			await WaitForFrame(785);
+			_wrapper.EnqueueGameEvent(new SendMouseMove(226, 120));
+			_wrapper.EnqueueGameEvent(new SendMouseClick(MouseClick.Left, () => new Point(226, 120)));
+
 			await CheckForExpectedFrame(expectedFrameName, noFrames);
 		}
 
@@ -565,7 +588,7 @@ namespace DotNetScummTests
             _wrapper.EnqueueGameEvent(new SendString("\r"));
         }
 
-        private async Task CheckForExpectedFrame(string expectedFrameName, int noFrames, int delay = 30000)
+        private async Task CheckForExpectedFrame(string expectedFrameName, int noFrames, int delay = 30000000)
         {
             await WaitForExpectedFrameAndQuit(expectedFrameName, noFrames, gameTask, delay);
         }
