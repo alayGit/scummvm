@@ -3,7 +3,7 @@
   <Executable>C:\scumm\dists\NativeScummWrTests\Debugx86\NativeScummWrTests.exe</Executable>
   <TestDurations>
     <TestDuration Test="TestCaseName.TestName" Duration="1" />
-    <TestDuration Test="MouseTest.CanMoveMouseWithinBounds" Duration="34" />
+    <TestDuration Test="MouseTest.CanMoveMouseWithinBounds" Duration="0" />
     <TestDuration Test="MouseTest.CannotMoveMouseOutOfBoundsXPos" Duration="33" />
     <TestDuration Test="MouseTest.CannotMoveMouseOutOfBoundsXNeg" Duration="33" />
     <TestDuration Test="MouseTest.CannotMoveMouseOutOfBoundsYPos" Duration="32" />

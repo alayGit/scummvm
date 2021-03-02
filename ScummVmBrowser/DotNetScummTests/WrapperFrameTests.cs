@@ -36,12 +36,18 @@ namespace DotNetScummTests
 
         byte[] ExpectedAGISaveDataPrefix = new byte[] { 65, 71, 73, 58 }; //All AGI saves start with this
 
-		public void Setup(String gameFolderLocation, int noFrames, string expectedFrameName)
+		[TestInitialize]
+		public void Init()
+		{
+			System.IO.File.Delete("scummvm.ini");
+		}
+
+		public void Setup(String gameFolderLocation, int noFrames, string expectedFrameName, AvailableGames game = AvailableGames.kq3)
 		{
 			Setup(gameFolderLocation, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers, noFrames, expectedFrameName));
 		}
 
-		public void Setup(String gameFolderLocation, SendScreenBuffers copyRectToScreen)
+		public void Setup(String gameFolderLocation, SendScreenBuffers copyRectToScreen, AvailableGames game = AvailableGames.kq3)
 		{
 			ManagedZLibCompression.ManagedZLibCompression managedZLibCompression = new ManagedZLibCompression.ManagedZLibCompression();
 
@@ -54,7 +60,7 @@ namespace DotNetScummTests
                 _saveData[fileName] = data;
                 return true;
              };
-            gameTask = Task.Run(() => RunGame());
+            gameTask = Task.Run(() => RunGame(game));
         }
 
         [TestMethod]
@@ -70,7 +76,6 @@ namespace DotNetScummTests
 
 		//C:\scumm\ScummVmBrowser\DotNetScummTests\bin\Debug\scummvm.ini must be deleted first
 		[TestMethod]
-		[Ignore]
 		public async Task CanStartKq5()
 		{
 			Cropping = null;
@@ -122,9 +127,9 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanSendEsc()
         {
-            Cropping = new Rectangle(0, 20, 68, 35);
+            Cropping = new Rectangle(0, 20, 48, 35);
             const string expectedFrameName = "CanSendEsc";
-            const int noFrames = 325;
+            const int noFrames = 310;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
             Setup(gameDirectory, noFrames, expectedFrameName);
             await WaitForFrame(180);
@@ -246,7 +251,7 @@ namespace DotNetScummTests
         {
             Cropping = new Rectangle(10, 8,310, 12);
             const string expectedFrameName = "CanSendLeft";
-            const int noFrames = 150;
+			const int noFrames = 140;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
             Setup(gameDirectory, noFrames, expectedFrameName);
             await WaitForFrame(30);
@@ -565,10 +570,10 @@ namespace DotNetScummTests
             await WaitForExpectedFrameAndQuit(expectedFrameName, noFrames, gameTask, delay);
         }
 
-        private void RunGame()
+        private void RunGame(AvailableGames game = AvailableGames.kq3)
         {
             _saveData = GetSaveDataFromResourceFile();
-            _wrapper.RunGame(AvailableGames.kq3, null, new Dictionary<string, byte[]>(_saveData), (byte[] aud) => { });
+            _wrapper.RunGame(game, null, new Dictionary<string, byte[]>(_saveData), (byte[] aud) => { });
         }
 
         protected override void Quit()

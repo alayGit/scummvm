@@ -47,8 +47,8 @@ namespace NativeScummWrapper {
 		    keyColor = 0;
 			x = -1;
 			y = -1;
-		    hotX = hotX;
-			hotY = hotY;
+		    hotX = -1;
+			hotY = -1;
 			width = -1;
 			height = -1;
 			buffer = nullptr;
@@ -57,6 +57,8 @@ namespace NativeScummWrapper {
 			prevY = -1;
 			prevW = -1;
 			prevH = -1;
+		    prevHotX = -1;
+		    prevHotY = -1;
 		}
 	};
 } // namespace NativeScummWrapper

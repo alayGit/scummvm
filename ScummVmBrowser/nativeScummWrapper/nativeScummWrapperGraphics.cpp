@@ -4,10 +4,6 @@
 #define DO_NOT_IGNORE_ANY_COLOR -1
 
 NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_SendScreenBuffers copyRect) : GraphicsManager() {
-	DebuggerTools::DebuggerLauncher l;
-
-	l.launchDebugger();
-
 	_copyRect = copyRect;
 	_picturePalette = allocatePallette();
 	_cursorPalette = allocatePallette();
@@ -45,7 +41,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void
 	bool differenceDetected;
 	byte *uncompressedpictureArray = ScreenUpdated(buf, pitch, x, y, w, h, false, differenceDetected);
 
-	if (differenceDetected) {
+	if (true) {
 		_drawingBuffers.push_back(GetScreenBuffer((byte *)uncompressedpictureArray, pitch, x, y, w, h, _currentPaletteHash, false, false));
 
 		if (_cliMouse.adjustedX() < DISPLAY_DEFAULT_WIDTH && _cliMouse.adjustedY() < DISPLAY_DEFAULT_HEIGHT && _cliMouse.width > 0 && _cliMouse.height > 0 && screenUpdateOverlapsMouse(x, y, w, h)) {
@@ -157,15 +153,11 @@ void NativeScummWrapper::NativeScummWrapperGraphics::unlockScreen() {
 void NativeScummWrapper::NativeScummWrapperGraphics::fillScreen(uint32 col) {
 }
 
-int counter = 0;
+
 void NativeScummWrapper::NativeScummWrapperGraphics::updateScreen() {
 	WaitForSingleObject(_wholeScreenMutex, INFINITE);
 
 	if (!_drawingBuffers.empty()) {
-
-		//ScreenBuffer *buffers = new ScreenBuffer[_drawingBuffers.size()];
-		//std::copy(_drawingBuffers.begin(), _drawingBuffers.end(), buffers);
-
 		NativeScummWrapper::NativeScummWrapperGraphics::_copyRect(&_drawingBuffers[0], _drawingBuffers.size());
 
 		for (int i = 0; i < _drawingBuffers.size(); i++) {
@@ -175,9 +167,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::updateScreen() {
 				delete[] _drawingBuffers.at(i).compressedPalette;
 			}
 		}
-		//delete[] buffers;
 		_drawingBuffers.clear();
-		counter++;
 	}
 
 	ReleaseSemaphore(_wholeScreenMutex, 1, NULL);
