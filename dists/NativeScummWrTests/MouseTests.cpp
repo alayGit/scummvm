@@ -196,19 +196,19 @@ namespace TestCustomScummVMSubclasses
 	    EXPECT_EQ(expectedPrevHotY, mouseState.prevHotY);
 	}
 
-	void AssertBlotCalledWithCorrectPositionAndSize(int expectedX, int expectedY, int expectedWidth, int expectedHeight)
+	void AssertCopyRectCalledWithCorrectPositionAndSize(int expectedX, int expectedY, int expectedWidth, int expectedHeight)
 	{
-	    CopyRectState blotState = _mouseTest->_copyRectStateQueue.front();
+	    CopyRectState copyRectState = _mouseTest->_copyRectStateQueue.front();
 		_mouseTest->_copyRectStateQueue.pop();
 
-		EXPECT_EQ(expectedX, blotState.x);
-		EXPECT_EQ(expectedY, blotState.y);
-		EXPECT_EQ(expectedWidth, blotState.w);
-		EXPECT_EQ(expectedHeight, blotState.h);
+		EXPECT_EQ(expectedX, copyRectState.x);
+		EXPECT_EQ(expectedY, copyRectState.y);
+		EXPECT_EQ(expectedWidth, copyRectState.w);
+		EXPECT_EQ(expectedHeight, copyRectState.h);
 	}
 
 	void AssertCopyRectStateCalledwithCorrectPositionAndSize(int expectedX, int expectedY, int expectedWidth, int expectedHeight, int expectedPitch, void *buffer, int callOrder) {
-	    AssertBlotCalledWithCorrectPositionAndSize(expectedX, expectedY, expectedWidth, expectedHeight);
+	    AssertCopyRectCalledWithCorrectPositionAndSize(expectedX, expectedY, expectedWidth, expectedHeight);
 	}
 
 	void AssertCopyRectStateCalledwithCorrectPositionAndSize(int expectedX, int expectedY, int expectedWidth, int expectedHeight, int expectedPitch, void* buffer, int callOrder, bool checkForBufferAddressEquality)
@@ -260,7 +260,7 @@ namespace TestCustomScummVMSubclasses
 		_graphicsManager.warpMouse(X2, Y2);
 	    _graphicsManager.triggerUpdateScreen();
 
-		AssertBlotCalledWithCorrectPositionAndSize(X - START_HOTX, Y - START_HOTY, START_MOUSE_W, START_MOUSE_H);
+		AssertCopyRectCalledWithCorrectPositionAndSize(X - START_HOTX, Y - START_HOTY, START_MOUSE_W, START_MOUSE_H);
 	    AssertCopyRectStateCalledwithCorrectPositionAndSize(X2 - START_HOTX, Y2 - START_HOTY, START_MOUSE_W, START_MOUSE_H, 1, false);
 		MouseStateUpdatedCorrectly(X2, Y2, START_HOTX, START_HOTY, START_HOTX, START_HOTY, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
 
@@ -401,7 +401,7 @@ namespace TestCustomScummVMSubclasses
 		_graphicsManager.triggerUpdateScreen();
 		
 		AssertCopyRectStateCalledwithCorrectPositionAndSize(NEW_CURSOR_X - START_HOTX, NEW_CURSOR_Y - START_HOTY, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, newMouseBuffer, 1);
-	    AssertBlotCalledWithCorrectPositionAndSize(NEW_CURSOR_X - START_HOTX, NEW_CURSOR_Y - START_HOTY, START_MOUSE_W, START_MOUSE_H);
+	    AssertCopyRectCalledWithCorrectPositionAndSize(NEW_CURSOR_X - START_HOTX, NEW_CURSOR_Y - START_HOTY, START_MOUSE_W, START_MOUSE_H);
 	    AssertCopyRectStateCalledwithCorrectPositionAndSize(NEW_CURSOR_X - NEW_CURSOR_HOTX, NEW_CURSOR_Y - NEW_CURSOR_HOTY, NEW_CURSOR_WIDTH, NEW_CURSOR_HEIGHT, NEW_CURSOR_WIDTH, newMouseBuffer, 1);
 	   
 
