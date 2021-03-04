@@ -19,8 +19,10 @@ namespace TestCustomScummVMSubclasses
 	class MouseTest;
 	MouseTest* _mouseTest;
 
-	const int START_X = 0;
-	const int START_Y = 0;
+	const int START_X = 50;
+	const int START_Y = 50;
+    const int START_HOTX = 10;
+    const int START_HOTY = 12;
 
 	const int START_MOUSE_W = 10;
 	const int START_MOUSE_H = 13;
@@ -110,7 +112,8 @@ namespace TestCustomScummVMSubclasses
 			_graphicsManager.setCursorPalette(mousePallette, 0, NO_IN_MOUSE_PALLETTE);
 			_graphicsManager.setPalette(pallette, 0, NO_IN_MOUSE_PALLETTE);
 			_callOrder = -1;
-			_graphicsManager.setMouseCursor(&mouseBuffer, START_MOUSE_W, START_MOUSE_H, START_X, START_Y, KEY_COLOR);
+		    _graphicsManager.setMouseCursor(&mouseBuffer, START_MOUSE_W, START_MOUSE_H, START_HOTX, START_HOTY, KEY_COLOR);
+		    _graphicsManager.warpMouse(START_X, START_Y);
 			_copyRectStateQueue = std::queue<CopyRectState>();
 
 			int buffer[1];
@@ -388,26 +391,29 @@ namespace TestCustomScummVMSubclasses
 		CheckQueuesAreEmpty();
 	}
 
-	TEST_F(MouseTest, CanChangeCursor)
-	{
-		const int NEW_CURSOR_WIDTH = 25;
-		const int NEW_CURSOR_HEIGHT = 15;
-		const int NEW_CURSOR_X = 15;
-		const int NEW_CURSOR_Y = 33;
-		const int NEW_CURSOR_BUFFER_LENGTH = NEW_CURSOR_WIDTH * NEW_CURSOR_HEIGHT;
+	TEST_F(MouseTest, CanChangeCursor) {
+	    const int NEW_CURSOR_WIDTH = 25;
+	    const int NEW_CURSOR_HEIGHT = 15;
+	    const int NEW_CURSOR_X = 15;
+	    const int NEW_CURSOR_Y = 33;
+	    const int NEW_CURSOR_HOTX = 6;
+	    const int NEW_CURSOR_HOTY = 6;
+	    const int NEW_CURSOR_BUFFER_LENGTH = NEW_CURSOR_WIDTH * NEW_CURSOR_HEIGHT;
+		
+	    byte newMouseBuffer[NEW_CURSOR_WIDTH * NEW_CURSOR_HEIGHT];
+	    RandomiseContentsOfBuffer(newMouseBuffer, NEW_CURSOR_BUFFER_LENGTH, NO_IN_MOUSE_PALLETTE);
 
-		byte newMouseBuffer[NEW_CURSOR_WIDTH * NEW_CURSOR_HEIGHT];
-		RandomiseContentsOfBuffer(newMouseBuffer, NEW_CURSOR_BUFFER_LENGTH, NO_IN_MOUSE_PALLETTE);
-
-		_graphicsManager.setMouseCursor(&newMouseBuffer, NEW_CURSOR_WIDTH, NEW_CURSOR_HEIGHT, NEW_CURSOR_X, NEW_CURSOR_Y, KEY_COLOR);
-
+		_graphicsManager.warpMouse(NEW_CURSOR_X, NEW_CURSOR_Y);
+	    _graphicsManager.setMouseCursor(&newMouseBuffer, NEW_CURSOR_WIDTH, NEW_CURSOR_HEIGHT, NEW_CURSOR_HOTX, NEW_CURSOR_HOTY, KEY_COLOR);
 		_graphicsManager.triggerUpdateScreen();
+		
+		AssertCopyRectStateCalledwithCorrectPositionAndSize(NEW_CURSOR_X - START_HOTX, NEW_CURSOR_Y - START_HOTY, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, newMouseBuffer, 1);
+	    AssertBlotCalledWithCorrectPositionAndSize(NEW_CURSOR_X - START_HOTX, NEW_CURSOR_Y - START_HOTY, START_MOUSE_W, START_MOUSE_H);
+	    AssertCopyRectStateCalledwithCorrectPositionAndSize(NEW_CURSOR_X - NEW_CURSOR_HOTX, NEW_CURSOR_Y - NEW_CURSOR_HOTY, NEW_CURSOR_WIDTH, NEW_CURSOR_HEIGHT, NEW_CURSOR_WIDTH, newMouseBuffer, 1);
+	   
 
-		AssertBlotCalledWithCorrectPositionAndSize(0, 0, START_MOUSE_W, START_MOUSE_H);
-	    AssertCopyRectStateCalledwithCorrectPositionAndSize(NEW_CURSOR_X, NEW_CURSOR_Y, NEW_CURSOR_WIDTH, NEW_CURSOR_HEIGHT, NEW_CURSOR_WIDTH, newMouseBuffer, 1);
-
-		EXPECT_TRUE(_copyRectStateQueue.empty());
-	}
+	    EXPECT_TRUE(_copyRectStateQueue.empty());
+    }
 
 	TEST_F(MouseTest, CanDrawRectangleOnScreen)
 	{

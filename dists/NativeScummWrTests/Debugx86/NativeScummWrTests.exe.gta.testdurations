@@ -11,7 +11,7 @@
     <TestDuration Test="MouseTest.WidthDoesNotShrinkOnXBoundry" Duration="32" />
     <TestDuration Test="MouseTest.WidthShrinksOverXBoundry" Duration="33" />
     <TestDuration Test="MouseTest.WidthShrinksOverYBoundry" Duration="33" />
-    <TestDuration Test="MouseTest.CanChangeCursor" Duration="33" />
+    <TestDuration Test="MouseTest.CanChangeCursor" Duration="35" />
     <TestDuration Test="MouseTest.CanDrawRectangleOnScreen" Duration="37" />
   </TestDurations>
 </GtaTestDurations>
