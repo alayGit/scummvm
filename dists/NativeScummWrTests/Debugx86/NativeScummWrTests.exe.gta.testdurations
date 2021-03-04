@@ -3,15 +3,16 @@
   <Executable>C:\scumm\dists\NativeScummWrTests\Debugx86\NativeScummWrTests.exe</Executable>
   <TestDurations>
     <TestDuration Test="TestCaseName.TestName" Duration="1" />
-    <TestDuration Test="MouseTest.CanMoveMouseWithinBounds" Duration="0" />
-    <TestDuration Test="MouseTest.CannotMoveMouseOutOfBoundsXPos" Duration="33" />
-    <TestDuration Test="MouseTest.CannotMoveMouseOutOfBoundsXNeg" Duration="33" />
-    <TestDuration Test="MouseTest.CannotMoveMouseOutOfBoundsYPos" Duration="32" />
+    <TestDuration Test="MouseTest.CanMoveMouseWithinBounds" Duration="35" />
+    <TestDuration Test="MouseTest.CannotMoveMouseOutOfBoundsXPos" Duration="34" />
+    <TestDuration Test="MouseTest.CannotMoveMouseOutOfBoundsXNeg" Duration="34" />
+    <TestDuration Test="MouseTest.CannotMoveMouseOutOfBoundsYPos" Duration="33" />
     <TestDuration Test="MouseTest.CannotMoveMouseOutOfBoundsYNeg" Duration="33" />
-    <TestDuration Test="MouseTest.WidthDoesNotShrinkOnXBoundry" Duration="32" />
-    <TestDuration Test="MouseTest.WidthShrinksOverXBoundry" Duration="33" />
-    <TestDuration Test="MouseTest.WidthShrinksOverYBoundry" Duration="33" />
-    <TestDuration Test="MouseTest.CanChangeCursor" Duration="35" />
+    <TestDuration Test="MouseTest.WidthDoesNotShrinkOnXBoundry" Duration="34" />
+    <TestDuration Test="MouseTest.WidthShrinksOverXBoundry" Duration="35" />
+    <TestDuration Test="MouseTest.WidthShrinksOverYBoundry" Duration="35" />
+    <TestDuration Test="MouseTest.CanChangeCursor" Duration="34" />
     <TestDuration Test="MouseTest.CanDrawRectangleOnScreen" Duration="37" />
+    <TestDuration Test="MouseTest.WidthDoesNotShrinkOnYBoundry" Duration="34" />
   </TestDurations>
 </GtaTestDurations>

@@ -166,7 +166,7 @@ namespace TestCustomScummVMSubclasses
 	    }
 	}
 
-	void MouseStateUpdatedCorrectly(int expectedX, int expectedY, int expectedWidth, int expectedHeight, int previousWidth, int previousHeight, int expectedFullWidth, int expectedFullHeight)
+	void MouseStateUpdatedCorrectly(int expectedX, int expectedY, int expectedHotX, int expectedHotY, int expectedPrevHotX, int expectedPrevHotY, int expectedWidth, int expectedHeight, int previousWidth, int previousHeight, int expectedFullWidth, int expectedFullHeight)
 	{
 		MouseState mouseState = _mouseTest->_graphicsManager.getMouseState();
 		EXPECT_EQ((const void*)&_mouseTest->mouseBuffer, mouseState.buffer);
@@ -190,7 +190,10 @@ namespace TestCustomScummVMSubclasses
 		EXPECT_EQ(expectedWidth, mouseState.width);
 		EXPECT_EQ(expectedX, mouseState.x);
 		EXPECT_EQ(expectedY, mouseState.y);
-
+	    EXPECT_EQ(expectedHotX, mouseState.hotX);
+	    EXPECT_EQ(expectedHotY, mouseState.hotY);
+	    EXPECT_EQ(expectedPrevHotX, mouseState.prevHotX);
+	    EXPECT_EQ(expectedPrevHotY, mouseState.prevHotY);
 	}
 
 	void AssertBlotCalledWithCorrectPositionAndSize(int expectedX, int expectedY, int expectedWidth, int expectedHeight)
@@ -221,8 +224,12 @@ namespace TestCustomScummVMSubclasses
 		EXPECT_EQ(callOrder, copyRectState.callOrder);
 	}
 
+	void AssertCopyRectStateCalledwithCorrectPositionAndSize(int expectedX, int expectedY, int expectedWidth, int expectedHeight, int callOrder, bool checkForBufferAddressEquality) {
+	    AssertCopyRectStateCalledwithCorrectPositionAndSize(expectedX, expectedY, expectedWidth, expectedHeight, expectedWidth, (void *)&_mouseTest->mouseBuffer, callOrder, checkForBufferAddressEquality);
+    }
+
 	void AssertCopyRectStateCalledwithCorrectPositionAndSize(int expectedX, int expectedY, int expectedWidth, int expectedHeight, bool checkForBufferAddressEquality) {
-	    AssertCopyRectStateCalledwithCorrectPositionAndSize(expectedX, expectedY, expectedWidth, expectedHeight, expectedWidth, (void *)&_mouseTest->mouseBuffer, 1, checkForBufferAddressEquality);
+	    AssertCopyRectStateCalledwithCorrectPositionAndSize(expectedX, expectedY, expectedWidth, expectedHeight, 0, checkForBufferAddressEquality);
     }
 
 	void AssertCopyRectStateCalledwithCorrectPositionAndSize(int expectedX, int expectedY, int expectedWidth, int expectedHeight)
@@ -230,13 +237,10 @@ namespace TestCustomScummVMSubclasses
 		AssertCopyRectStateCalledwithCorrectPositionAndSize(expectedX, expectedY, expectedWidth, expectedHeight, expectedWidth, (void*)&_mouseTest->mouseBuffer, 1, false);
 	}
 
-	//void AssertCopyRectStateCalledwithCorrectPositionAndSize(int expectedX, int expectedY, int expectedWidth, int expectedHeight) {
-	//    AssertCopyRectStateCalledwithCorrectPositionAndSize(expectedX, expectedY, expectedWidth, expectedHeight, expectedWidth, (void *)&_mouseTest->mouseBuffer, 1, true, false);
- //   }
 
-	void MouseStateUpdatedCorrectly(int expectedX, int expectedY, int expectedWidth, int expectedHeight, int previousWidth, int previousHeight)
+	void MouseStateUpdatedCorrectly(int expectedX, int expectedY, int expectedHotX, int expectedHotY, int expectedPrevHotX, int expectedPrevHotY, int expectedWidth, int expectedHeight, int previousWidth, int previousHeight)
 	{
-		MouseStateUpdatedCorrectly(expectedX, expectedY, expectedWidth, expectedHeight, previousWidth, previousHeight, expectedWidth, expectedHeight);
+		MouseStateUpdatedCorrectly(expectedX, expectedY, expectedHotX, expectedHotY, expectedPrevHotX, expectedPrevHotY, expectedWidth, expectedHeight, previousWidth, previousHeight, expectedWidth, expectedHeight);
 	}
 
 	TEST_F(MouseTest, CanMoveMouseWithinBounds)
@@ -245,20 +249,20 @@ namespace TestCustomScummVMSubclasses
 		const int Y = 56;
 		_graphicsManager.warpMouse(X, Y);
 	    _graphicsManager.triggerUpdateScreen();
-		AssertBlotCalledWithCorrectPositionAndSize(0, 0, START_MOUSE_W, START_MOUSE_H);
-		AssertCopyRectStateCalledwithCorrectPositionAndSize(X, Y, START_MOUSE_W, START_MOUSE_H, false);
-		MouseStateUpdatedCorrectly(X, Y, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
+
+	    AssertCopyRectStateCalledwithCorrectPositionAndSize(X - START_HOTX, Y - START_HOTY, START_MOUSE_W, START_MOUSE_H, false);
+		MouseStateUpdatedCorrectly(X, Y,START_HOTX, START_HOTY,START_HOTX,START_HOTY,START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
 
 		ResetTestState();
 
-		const int X3 = 20;
+		const int X2 = 20;
 		const int Y2 = 50;
-		_graphicsManager.warpMouse(X3, Y2);
+		_graphicsManager.warpMouse(X2, Y2);
 	    _graphicsManager.triggerUpdateScreen();
 
-		AssertBlotCalledWithCorrectPositionAndSize(X, Y, START_MOUSE_W, START_MOUSE_H);
-		AssertCopyRectStateCalledwithCorrectPositionAndSize(X3, Y2, START_MOUSE_W, START_MOUSE_H, false);
-		MouseStateUpdatedCorrectly(X3, Y2, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
+		AssertBlotCalledWithCorrectPositionAndSize(X - START_HOTX, Y - START_HOTY, START_MOUSE_W, START_MOUSE_H);
+	    AssertCopyRectStateCalledwithCorrectPositionAndSize(X2 - START_HOTX, Y2 - START_HOTY, START_MOUSE_W, START_MOUSE_H, 1, false);
+		MouseStateUpdatedCorrectly(X2, Y2, START_HOTX, START_HOTY, START_HOTX, START_HOTY, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
 
 		CheckQueuesAreEmpty();
 	}
@@ -329,66 +333,55 @@ namespace TestCustomScummVMSubclasses
 
 	TEST_F(MouseTest, WidthDoesNotShrinkOnXBoundry)
 	{
-		const int X = 310;
+	    const int X = (DISPLAY_DEFAULT_WIDTH + START_HOTX) - START_MOUSE_W;
 		const int Y = 56;
 		_graphicsManager.warpMouse(X, Y);
 	    _graphicsManager.triggerUpdateScreen();
 
-		AssertBlotCalledWithCorrectPositionAndSize(0, 0, START_MOUSE_W, START_MOUSE_H);
-		AssertCopyRectStateCalledwithCorrectPositionAndSize(X, Y, START_MOUSE_W, START_MOUSE_H, false);
-		MouseStateUpdatedCorrectly(X, Y, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
-
-		EXPECT_TRUE(_copyRectStateQueue.empty());
+	    MouseStateUpdatedCorrectly(X, Y, START_HOTX, START_HOTY, START_HOTX, START_HOTY, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
 	}
+
+	TEST_F(MouseTest, WidthDoesNotShrinkOnYBoundry) {
+	    const int X = 12;
+	    const int Y = (DISPLAY_DEFAULT_HEIGHT + START_HOTY) - START_MOUSE_H;
+
+	    _graphicsManager.warpMouse(X, Y);
+	    _graphicsManager.triggerUpdateScreen();
+
+	    MouseStateUpdatedCorrectly(X, Y, START_HOTX, START_HOTY, START_HOTX, START_HOTY, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
+    }
 
 	TEST_F(MouseTest, WidthShrinksOverXBoundry)
 	{
-		const int X = DISPLAY_DEFAULT_WIDTH - (START_MOUSE_W - 1); //Index starts at 0
+		const int X = (DISPLAY_DEFAULT_WIDTH + START_HOTX) - (START_MOUSE_W - 1); //Index starts at 0
 		const int Y = 56;
 		_graphicsManager.warpMouse(X, Y);
 	    _graphicsManager.triggerUpdateScreen();
-
-		AssertBlotCalledWithCorrectPositionAndSize(0, 0, START_MOUSE_W, START_MOUSE_H);
-		AssertCopyRectStateCalledwithCorrectPositionAndSize(X, Y, START_MOUSE_W - 2, START_MOUSE_H, START_MOUSE_W, &mouseBuffer, 1, false);
-		MouseStateUpdatedCorrectly(X, Y, START_MOUSE_W - 2, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
-
-		ResetTestState();
+	    MouseStateUpdatedCorrectly(X, Y, START_HOTX, START_HOTY, START_HOTX, START_HOTY, START_MOUSE_W - 2, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
 
 		const int X3 = 20;
 		const int Y2 = 50;
 		_graphicsManager.warpMouse(X3, Y2);
 	    _graphicsManager.triggerUpdateScreen();
 
-		AssertBlotCalledWithCorrectPositionAndSize(X, Y, START_MOUSE_W - 2, START_MOUSE_H);
-		AssertCopyRectStateCalledwithCorrectPositionAndSize(X3, Y2, START_MOUSE_W, START_MOUSE_H);
-		MouseStateUpdatedCorrectly(X3, Y2, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
-
-		CheckQueuesAreEmpty();
+	    MouseStateUpdatedCorrectly(X3, Y2, START_HOTX, START_HOTY, START_HOTX, START_HOTY, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
 	}
 
 	TEST_F(MouseTest, WidthShrinksOverYBoundry)
 	{
 		const int X = 12;
-		const int Y = DISPLAY_DEFAULT_HEIGHT - (START_MOUSE_H - 1); //Index starts at 0
+		const int Y = (DISPLAY_DEFAULT_HEIGHT + START_HOTY) - (START_MOUSE_H - 1); //Index starts at 0
 		_graphicsManager.warpMouse(X, Y);
 	    _graphicsManager.triggerUpdateScreen();
 
-		AssertBlotCalledWithCorrectPositionAndSize(0, 0, START_MOUSE_W, START_MOUSE_H);
-		AssertCopyRectStateCalledwithCorrectPositionAndSize(X, Y, START_MOUSE_W, START_MOUSE_H - 2, START_MOUSE_W, &mouseBuffer, 1, false);
-		MouseStateUpdatedCorrectly(X, Y, START_MOUSE_W, START_MOUSE_H - 2, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
+	    MouseStateUpdatedCorrectly(X, Y, START_HOTX, START_HOTY, START_HOTX, START_HOTY, START_MOUSE_W, START_MOUSE_H - 2, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
 
-		ResetTestState();
-
-		const int X3 = 20;
+		const int X2 = 20;
 		const int Y2 = 50;
-		_graphicsManager.warpMouse(X3, Y2);
+		_graphicsManager.warpMouse(X2, Y2);
 	    _graphicsManager.triggerUpdateScreen();
 
-		AssertBlotCalledWithCorrectPositionAndSize(X, Y, START_MOUSE_W, START_MOUSE_H - 2);
-		AssertCopyRectStateCalledwithCorrectPositionAndSize(X3, Y2, START_MOUSE_W, START_MOUSE_H);
-		MouseStateUpdatedCorrectly(X3, Y2, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
-
-		CheckQueuesAreEmpty();
+	    MouseStateUpdatedCorrectly(X2, Y2, START_HOTX, START_HOTY, START_HOTX, START_HOTY, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H, START_MOUSE_W, START_MOUSE_H);
 	}
 
 	TEST_F(MouseTest, CanChangeCursor) {
@@ -422,16 +415,15 @@ namespace TestCustomScummVMSubclasses
 		_graphicsManager.warpMouse(X, Y);
 	    _graphicsManager.triggerUpdateScreen();
 
-		AssertBlotCalledWithCorrectPositionAndSize(0, 0, START_MOUSE_W, START_MOUSE_H);
-		AssertCopyRectStateCalledwithCorrectPositionAndSize(X, Y, START_MOUSE_W, START_MOUSE_H, false);
+		AssertCopyRectStateCalledwithCorrectPositionAndSize(X - START_HOTX, Y - START_HOTY, START_MOUSE_W, START_MOUSE_H, false);
 
 		ResetTestState();
 
 		_graphicsManager.copyRectToScreen(pictureBuffer, DISPLAY_DEFAULT_WIDTH, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT);
 	    _graphicsManager.triggerUpdateScreen();
 
-		AssertCopyRectStateCalledwithCorrectPositionAndSize(0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT, DISPLAY_DEFAULT_WIDTH, &pictureBuffer, 0, false);
-		AssertCopyRectStateCalledwithCorrectPositionAndSize(X, Y, START_MOUSE_W, START_MOUSE_H, false);
+		AssertCopyRectStateCalledwithCorrectPositionAndSize(0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT, DISPLAY_DEFAULT_WIDTH, &pictureBuffer, false);
+		AssertCopyRectStateCalledwithCorrectPositionAndSize(X - START_HOTX, Y - START_HOTY, START_MOUSE_W, START_MOUSE_H, 1, false);
 	}
 
 	int main(int argc, char* argv[])
