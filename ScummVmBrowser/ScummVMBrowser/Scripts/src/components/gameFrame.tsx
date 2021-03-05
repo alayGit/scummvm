@@ -121,8 +121,6 @@ export const GameFrame = (props: GameFrameProps) => {
 	}
 
 	var onMouseMove = (event: any) => {
-		console.log(`Mouse Mouse:${event.nativeEvent.offsetX},${event.nativeEvent.offsetY}`);
-
 		if (event.target.id == "canvas") {
 			updateEventQueue({ Key: InputMessageType.MouseMove.toString(), Value: `${event.nativeEvent.offsetX},${event.nativeEvent.offsetY}` });
 		}
