@@ -51,8 +51,6 @@ void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void
 		}
 	}
 
-	delete[] uncompressedpictureArray;
-
 	ReleaseSemaphore(_wholeScreenMutex, 1, NULL);
 }
 
@@ -161,12 +159,8 @@ void NativeScummWrapper::NativeScummWrapperGraphics::updateScreen() {
 		NativeScummWrapper::NativeScummWrapperGraphics::_copyRect(&_drawingBuffers[0], _drawingBuffers.size());
 
 		for (int i = 0; i < _drawingBuffers.size(); i++) {
-			delete[] _drawingBuffers.at(i).buffer;
-
-			if (_drawingBuffers.at(i).compressedPalette != nullptr) {
-				delete[] _drawingBuffers.at(i).compressedPalette;
+				delete[] _drawingBuffers.at(i).buffer;
 			}
-		}
 		_drawingBuffers.clear();
 	}
 
@@ -369,8 +363,6 @@ void NativeScummWrapper::NativeScummWrapperGraphics::ScheduleRedrawWholeScreen()
 
 	memcpy(cpyWholeScreenBuffer, _wholeScreenBufferNoMouse, WHOLE_SCREEN_BUFFER_LENGTH);
 
-	palettesSeen.clear();
-
 	_drawingBuffers.push_back(GetScreenBuffer(cpyWholeScreenBuffer, DISPLAY_DEFAULT_WIDTH, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT, _currentPaletteHash, false, true));
 	_drawingBuffers.push_back(GetMouseScreenBuffer(true));
 
@@ -393,14 +385,18 @@ byte *NativeScummWrapper::NativeScummWrapperGraphics::ScreenUpdated(const void *
 	byte *pictureArray = nullptr;
 
 	int pictureArrayLength = w * h;
-	pictureArray = new byte[pictureArrayLength];
 
-	UpdatePictureBuffer(pictureArray, buf, pitch, x, y, w, h);
+	if (pictureArrayLength > 0) {
 
-	differenceDetected = IsScreenUpdateRequired(pictureArray, x, y, w, h);
+		pictureArray = new byte[pictureArrayLength];
 
-	if (!isMouseUpdate) {
-		UpdateWholeScreenBuffer(pictureArray, _wholeScreenBufferNoMouse, x, y, w, h);
+		UpdatePictureBuffer(pictureArray, buf, pitch, x, y, w, h);
+
+		differenceDetected = IsScreenUpdateRequired(pictureArray, x, y, w, h);
+
+		if (!isMouseUpdate) {
+			UpdateWholeScreenBuffer(pictureArray, _wholeScreenBufferNoMouse, x, y, w, h);
+		}
 	}
 
 	return pictureArray;
@@ -438,13 +434,15 @@ bool NativeScummWrapper::NativeScummWrapperGraphics::IsScreenUpdateRequired(byte
 	return !noDifference;
 }
 
-byte *NativeScummWrapper::NativeScummWrapperGraphics::GetCurrentPaletteCompressed(uint32 paletteHash, int &length) {
-	return (byte *)ZLibCompression::ZLibCompression().Compress((byte *)palettes[paletteHash].c_str(), NO_DIGITS_IN_PALETTE_VALUE * NO_COLOURS * NO_BYTES_PER_PIXEL, length);
-}
-
 NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics::GetScreenBuffer(const void *buf, int pitch, int x, int y, int w, int h, uint32 paletteHash, bool isMouseUpdate, bool forcePaletteToBeSent) {
+	DebuggerTools::DebuggerLauncher l;
+	l.launchDebugger();
+
+
+
 	NativeScummWrapper::ScreenBuffer screenBuffer;
-	screenBuffer.buffer = (byte *)ZLibCompression::ZLibCompression().Compress((byte *)buf, w * h, screenBuffer.length);
+	screenBuffer.buffer = (byte *)buf;
+	screenBuffer.length = w * h;
 	screenBuffer.ignoreColour = isMouseUpdate ? _cliMouse.keyColor : DO_NOT_IGNORE_ANY_COLOR;
 	screenBuffer.x = x;
 	screenBuffer.y = y;
@@ -454,7 +452,8 @@ NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics:
 	screenBuffer.compressedPalletteLength = 0;
 
 	if (!palettesSeen[paletteHash] || forcePaletteToBeSent) {
-		screenBuffer.compressedPalette = GetCurrentPaletteCompressed(paletteHash, screenBuffer.compressedPalletteLength);
+		screenBuffer.compressedPalette = (byte *)palettes[paletteHash].c_str();
+		screenBuffer.compressedPalletteLength = NO_DIGITS_IN_PALETTE_VALUE * NO_COLOURS * NO_BYTES_PER_PIXEL;
 	}
 	screenBuffer.paletteHash = paletteHash;
 	palettesSeen[paletteHash] = true;
@@ -468,12 +467,12 @@ NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics:
 	ScreenBuffer result;
 	bool _;
 
-	if (positionInRange(_cliMouse.adjustedX(), _cliMouse.adjustedY())) {
+	if (_cliMouse.hasInited() && positionInRange(_cliMouse.adjustedX(), _cliMouse.adjustedY())) {
 		byte *unCompressedPictureUpdate = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.adjustedX(), _cliMouse.adjustedY(), _cliMouse.width, _cliMouse.height, true, _);
 		result = GetScreenBuffer(unCompressedPictureUpdate, _cliMouse.fullWidth, _cliMouse.adjustedX(), _cliMouse.adjustedY(), _cliMouse.width, _cliMouse.height, _currentCursorPaletteHash, true, forcePalettesToBeSent);
 	}
 	else {
-		byte *unCompressedPictureUpdate = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, 0, 0, 0, 0, true, _);
+		byte *unCompressedPictureUpdate = new byte[0];
 		result = GetScreenBuffer(unCompressedPictureUpdate, _cliMouse.fullWidth, 0, 0, 0, 0, _currentCursorPaletteHash, true, forcePalettesToBeSent);
 	}
 	delete unCompressedPictureUpdate;

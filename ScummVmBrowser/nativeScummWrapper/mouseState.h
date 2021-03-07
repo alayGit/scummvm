@@ -41,6 +41,10 @@ namespace NativeScummWrapper {
 		    return prevY - prevHotY;
 	    }
 
+		bool hasInited() {
+		    return x > -1 && y > -1 && hotX > -1 && hotY > -1;
+		}
+
 		MouseState() {
 		    fullHeight = 0;
 		    fullWidth = 0;

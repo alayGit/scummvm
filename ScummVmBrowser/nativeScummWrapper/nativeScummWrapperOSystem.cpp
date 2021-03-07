@@ -38,7 +38,6 @@ void NativeScummWrapper::NativeScummWrapperOSystem::initBackend() {
 	};
 
 	_soundProcessor->AddOperation(new SoundManagement::SoundConverter());
-	_soundProcessor->AddOperation(new SoundManagement::SoundCompressor());
 	_soundProcessor->Init(_soundOptions, _playSound);
 	_soundThreadManager->Init(mixCallBack, _soundOptions, _soundProcessor);
 	_timerManager = new DefaultTimerManager();
