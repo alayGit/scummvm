@@ -28,6 +28,9 @@ NativeScummWrapper::NativeScummWrapperGraphics::~NativeScummWrapperGraphics() {
 void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void *buf, int pitch, int x, int y, int w, int h) {
 	WaitForSingleObject(_wholeScreenMutex, INFINITE);
 
+	DebuggerTools::DebuggerLauncher l;
+	l.launchDebugger();
+
 	if (!_screenInited) {
 		_screenInited = true;
 		int _;
@@ -227,8 +230,6 @@ void NativeScummWrapper::NativeScummWrapperGraphics::warpMouse(int x, int y) {
 			if (shouldBlot) {
 				byte *uncompressedBuffer = GetBlottedBuffer(_cliMouse.adjustedPrevX(), _cliMouse.adjustedPrevY(), _cliMouse.prevW, _cliMouse.prevH);
 				_drawingBuffers.push_back(GetScreenBuffer(uncompressedBuffer, _cliMouse.fullWidth, _cliMouse.adjustedPrevX(), _cliMouse.adjustedPrevY(), _cliMouse.prevW, _cliMouse.prevH, _currentPaletteHash, false, false));
-
-				delete[] uncompressedBuffer;
 			}
 
 			if (shouldSendNewMouseExample) {
@@ -435,11 +436,6 @@ bool NativeScummWrapper::NativeScummWrapperGraphics::IsScreenUpdateRequired(byte
 }
 
 NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics::GetScreenBuffer(const void *buf, int pitch, int x, int y, int w, int h, uint32 paletteHash, bool isMouseUpdate, bool forcePaletteToBeSent) {
-	DebuggerTools::DebuggerLauncher l;
-	l.launchDebugger();
-
-
-
 	NativeScummWrapper::ScreenBuffer screenBuffer;
 	screenBuffer.buffer = (byte *)buf;
 	screenBuffer.length = w * h;
@@ -475,8 +471,6 @@ NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics:
 		byte *unCompressedPictureUpdate = new byte[0];
 		result = GetScreenBuffer(unCompressedPictureUpdate, _cliMouse.fullWidth, 0, 0, 0, 0, _currentCursorPaletteHash, true, forcePalettesToBeSent);
 	}
-	delete unCompressedPictureUpdate;
-
 	return result;
 }
 
