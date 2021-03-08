@@ -165,6 +165,7 @@
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IMessage.cs" />
     <Compile Include="Interfaces\IInputMessageProcessor.cs" />
+    <Compile Include="Interfaces\IMessageCompression.cs" />
     <Compile Include="Interfaces\IRealTimeDataBusClient.cs" />
     <Compile Include="Interfaces\IRealTimeDataEndpointServer.cs" />
     <Compile Include="Interfaces\IRealTimeDataEndpointClient.cs" />

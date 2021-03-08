@@ -185,6 +185,10 @@
       <Project>{785B9E59-580B-465D-A8C2-CC07534C8FD0}</Project>
       <Name>ProcessMessages</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SevenZipCompressor\SevenZipCompressor.csproj">
+      <Project>{48cbb1e8-534e-49e7-9cda-5f5b3d921a69}</Project>
+      <Name>SevenZipCompressor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SignalRHostWithUnity\SignalRHostWithUnity.csproj">
       <Project>{ba553759-5355-4ce2-bfa4-c23757edeb84}</Project>
       <Name>SignalRHostWithUnity</Name>

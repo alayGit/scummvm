@@ -28,9 +28,6 @@ NativeScummWrapper::NativeScummWrapperGraphics::~NativeScummWrapperGraphics() {
 void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void *buf, int pitch, int x, int y, int w, int h) {
 	WaitForSingleObject(_wholeScreenMutex, INFINITE);
 
-	DebuggerTools::DebuggerLauncher l;
-	l.launchDebugger();
-
 	if (!_screenInited) {
 		_screenInited = true;
 		int _;
