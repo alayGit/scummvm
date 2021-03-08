@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ManagedCommon.Delegates;
+using ManagedCommon.Serializers;
 
 namespace MessageBuffering
 {
@@ -19,10 +20,11 @@ namespace MessageBuffering
 		bool _stopped = false;
 		IByteEncoder _byteEncoder;
 
-		public ProcessMessages(IConfigurationStore<Enum> configurationStore, IByteEncoder byteEncoder)
-		{ 
+		public ProcessMessages(IConfigurationStore<Enum> configurationStore, IByteEncoder byteEncoder, ILogger logger, IMessageCompression messageCompression)
+		{
 			_messageQueue = new AsyncQueue<Message>();
 			_byteEncoder = byteEncoder;
+	
 			_processTask = Task.Run(async () =>
 			{
 				while (!_stopped || _messageQueue.Count != 0)
@@ -34,7 +36,10 @@ namespace MessageBuffering
 					}
 					if (dataList.Count != 0 && MessagesProcessed != null)
 					{
-						await MessagesProcessed(MergeLists(dataList));
+						string serialized = JsonConvert.SerializeObject(dataList);
+						byte[] serializedCompressed = messageCompression.Compress(Encoding.ASCII.GetBytes(serialized));
+
+						await MessagesProcessed(byteEncoder.AssciiByteEncode(serializedCompressed));
 					}
 					await Task.Delay(configurationStore.GetValue<int>(ScummHubSettings.BufferAndProcessSleepTime));
 				}
@@ -60,7 +65,7 @@ namespace MessageBuffering
 				messageTypeDictionary[message.MessageType].Add(message);
 			}
 
-			return messageTypeDictionary.Select(kvp => new KeyValuePair<MessageType, string>(kvp.Key, JsonConvert.SerializeObject(kvp.Value.Select(m => m.MessageContents), serializerSettings))).ToList();
+			return messageTypeDictionary.Select(kvp => new KeyValuePair<MessageType, string>(kvp.Key, JsonConvert.SerializeObject(kvp.Value.Select(m => m.MessageContents)))).ToList();
 		}
 
 

@@ -35,7 +35,7 @@ using SignalR;
 using ManagedCommon.Enums.Logging;
 using Newtonsoft.Json;
 using Microsoft.AspNet.SignalR.Json;
-
+using ManagedCommon.Serializers;
 
 [assembly: OwinStartup(typeof(ScummVMBrowser.Startup))]
 
@@ -61,11 +61,6 @@ namespace ScummVMBrowser
                     () => new UnityHubActivator(container));
        
                 _rpcServer = container.Resolve<IScummWebServerRpc>();
-
-
-                JsonSerializerSettings serializerSettings = JsonUtility.CreateDefaultSerializerSettings();
-                
-                GlobalHost.DependencyResolver.Register(typeof(JsonSerializer), () => JsonSerializer.Create(serializerSettings));
 
                 GlobalHost.HubPipeline.AddModule(container.Resolve<ErrorHandlingPipelineModule>());
 
@@ -136,7 +131,7 @@ namespace ScummVMBrowser
             container.RegisterType<ILogger, WindowsEventLogger>();
             container.RegisterType<ErrorHandlingPipelineModule, ScummVmBrowserSignalRHandlingPipelineModule>();
 			container.RegisterType<ICompression, ManagedZLibCompression.ManagedZLibCompression>();
-
+	
             container.RegisterFactory<IStarter>(
                     s =>
                     {
@@ -144,7 +139,7 @@ namespace ScummVMBrowser
                     }
                 );
 
-            container.RegisterFactory<IScummVMHubClient>(
+			container.RegisterFactory<IScummVMHubClient>(
                    c =>
                    {
                        SignalRRealTimDataBusAndEndpointClient signalRRealTimDataBusAndEndpointClient = new SignalRRealTimDataBusAndEndpointClient(container.Resolve<IConfigurationStore<System.Enum>>(), container.Resolve<IHubConnectionFactory>());

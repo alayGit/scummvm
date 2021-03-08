@@ -70,17 +70,18 @@ export const GameScreen = (props: GameScreenProps) => {
                 }
 
 				hubServer.on('SendGameMessages',
-					function (messages: Message[]) {
-						messages.forEach(function (item) {
-							switch (item.Key) {
-								case MessageType.Frames:
-									setFrameSets(item.Value);
-									break;
-								case MessageType.AudioSamples:
-									soundWorker.postMessage(item.Value);
-									break;
-							}
-						});  
+					function (messages: string) {
+						//messages.forEach(function (item) {
+						//	switch (item.Key) {
+						//		case MessageType.Frames:
+						//			setFrameSets(item.Value);
+						//			break;
+						//		case MessageType.AudioSamples:
+						//			soundWorker.postMessage(item.Value);
+						//			break;
+						//	}
+						//});
+						var x = 4;
                     }
 				);
 

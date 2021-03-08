@@ -161,6 +161,10 @@
       <Project>{47140f46-196c-4483-885f-6cd1b7e7777a}</Project>
       <Name>CLIScumm</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Compression\Compression.vcxproj">
+      <Project>{0bfba939-d509-4179-af9a-1bc0b4abea77}</Project>
+      <Name>ManagedZLibCompression</Name>
+    </ProjectReference>
     <ProjectReference Include="..\dotNetYEncode\dotNetYEncode.vcxproj">
       <Project>{4893dd7c-2b10-48ee-beaf-875793dab9ff}</Project>
       <Name>managedYEncoder</Name>

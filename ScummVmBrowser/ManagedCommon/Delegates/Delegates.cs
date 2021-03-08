@@ -12,14 +12,14 @@ using ManagedCommon.Models;
 namespace ManagedCommon.Delegates
 {
     public delegate void SendScreenBuffers(List<ScreenBuffer> screenBuffers);
-    public delegate Task SendGameMessagesAsync(List<KeyValuePair<MessageType,string>> messages);
+    public delegate Task SendGameMessagesAsync(string gameMessages);
     public delegate bool SaveData(byte[] data, string saveName);
     public delegate Task<bool> SaveDataAsync(byte[] data, string saveName);
 	public delegate void PlayAudio(byte[] data);
 	public delegate Task Quit();
     public delegate Point GetCurrentMousePosition();
 	public delegate void EnqueueInputMessages(InputMessage[] inputMessages);
-	public delegate Task MessagesProcessed(List<KeyValuePair<MessageType, string>> messages);
+	public delegate Task MessagesProcessed(string gameMessages);
 	public delegate void StartSound();
     public delegate void StopSound();
     public delegate void ScheduleRedrawWholeScreen();

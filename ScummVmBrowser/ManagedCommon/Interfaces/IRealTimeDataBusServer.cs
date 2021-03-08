@@ -10,7 +10,7 @@ namespace ManagedCommon.Interfaces
 {
     public interface IRealTimeDataBusServer: IDisposable
     {
-        Task SendGameMessagesAsync(List<KeyValuePair<MessageType, string>> screenBuffers);
+        Task SendGameMessagesAsync(string gameMessages);
         Task Init(string id);
     }
 }

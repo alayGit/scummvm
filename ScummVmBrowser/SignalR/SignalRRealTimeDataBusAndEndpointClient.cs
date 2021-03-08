@@ -80,7 +80,7 @@ namespace ScummVMBrowser.Utilities
 
             if (_onSendGamesMessagesDisposeHandler == null)
             {
-                _onSendGamesMessagesDisposeHandler = _proxy.On("SendGameMessages", (List<KeyValuePair<MessageType, string>> gameMessages) =>
+                _onSendGamesMessagesDisposeHandler = _proxy.On("SendGameMessages", (string gameMessages) =>
                 {
                     _copyRectToScreenCallback?.Invoke(gameMessages);
                 });

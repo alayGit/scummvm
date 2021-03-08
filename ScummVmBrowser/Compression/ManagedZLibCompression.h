@@ -7,7 +7,8 @@ using namespace System::Runtime::InteropServices;
 typedef unsigned char byte;
 
 namespace ManagedZLibCompression {
-	public ref class ManagedZLibCompression: public ManagedCommon::Interfaces::ICompression
+public
+ref class ManagedZLibCompression : public ManagedCommon::Interfaces::IMessageCompression
 	{
 		public:
 			virtual cli::array<System::Byte>^ Compress(cli::array<System::Byte>^ input);

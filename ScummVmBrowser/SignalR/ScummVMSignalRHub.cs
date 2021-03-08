@@ -48,9 +48,9 @@ namespace SignalRSelfHost
             _realTimeEndPointCallbackRepo.StopSound();
         }
 
-        public async Task SendGameMessagesAsync(List<KeyValuePair<MessageType, string>> screenBuffers)
+        public async Task SendGameMessagesAsync(string gameMessages)
         {
-            await Clients.Client(CurrentConnectionId).SendGameMessages(screenBuffers);
+            await Clients.Client(CurrentConnectionId).SendGameMessages(gameMessages);
         }
     }
 }

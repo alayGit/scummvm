@@ -6,6 +6,7 @@ using ManagedCommon.Enums.Logging;
 using ManagedCommon.Implementations;
 using ManagedCommon.Interfaces;
 using ManagedCommon.Interfaces.Rpc;
+using ManagedCommon.Serializers;
 using MessageBuffering;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
@@ -53,7 +54,7 @@ namespace SignalRSelfHost
                () => new UnityHubActivator(container));
                 GlobalHost.HubPipeline.AddModule(container.Resolve<ErrorHandlingPipelineModule>());
 
-                IConfigurationStore<System.Enum> configurationStore = container.Resolve<IConfigurationStore<System.Enum>>();
+				IConfigurationStore<System.Enum> configurationStore = container.Resolve<IConfigurationStore<System.Enum>>();
 
 				CliScumm scummHub = container.Resolve<CliScumm>(); //TODO: Add interface
                 await scummHub.Init(args[0], args[1]);
@@ -87,7 +88,7 @@ namespace SignalRSelfHost
             container.RegisterType<IStarter, DynamicInstanceStarter>();
             container.RegisterType<ILogger, WindowsEventLogger>();
             container.RegisterType<ErrorHandlingPipelineModule, CliScummErrorHandingPipelineModule>();
-			container.RegisterType<IMessageCompression, SevenZipCompression>();
+			container.RegisterType<IMessageCompression, ManagedZLibCompression.ManagedZLibCompression>();
 			
 			container.RegisterType<IProcessMessageBuffers, ProcessMessages>();
 

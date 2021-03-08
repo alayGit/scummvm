@@ -66,7 +66,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ByteArrayConverter.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="ProcessMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,6 +74,14 @@
     <ProjectReference Include="..\..\ScummVmBrowser\ManagedCommon\ManagedCommon.csproj">
       <Project>{D8F87AA0-1710-49CC-8CCF-7E1B74FEF911}</Project>
       <Name>ManagedCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Compression\Compression.vcxproj">
+      <Project>{0bfba939-d509-4179-af9a-1bc0b4abea77}</Project>
+      <Name>ManagedZLibCompression</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\dotNetYEncode\dotNetYEncode.vcxproj">
+      <Project>{4893dd7c-2b10-48ee-beaf-875793dab9ff}</Project>
+      <Name>managedYEncoder</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

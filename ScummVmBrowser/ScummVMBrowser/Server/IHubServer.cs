@@ -12,7 +12,7 @@ namespace ScummVMBrowser.Server
     {
         Task Init(string gameId);
         Task Quit();
-        Task SendGameMessages(string connectionId, List<KeyValuePair<MessageType, string>> screenBuffers);
+        Task SendGameMessages(string connectionId, string gameMessages);
 		Task EnqueueInputControls(byte[] compressedInputMessages);
 	}
 }

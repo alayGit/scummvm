@@ -29,7 +29,7 @@ namespace ProcessMessageTests
 			_configStore = new Mock<IConfigurationStore<Enum>>();
 			_configStore.Setup(c => c.GetValue<int>(It.Is<ScummHubSettings>(e => e == ScummHubSettings.BufferAndProcessSleepTime))).Returns(5);
 
-			_processMessages = new ProcessMessages(_configStore.Object, _managedYEncoder);
+			_processMessages = null; //new ProcessMessages(_configStore.Object, _managedYEncoder);
 		}
 
         [TestMethod]

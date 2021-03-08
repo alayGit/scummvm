@@ -15,7 +15,7 @@ namespace ScummVMBrowser.Clients
         {
             using (Process myProcess = new Process())
             {
-                myProcess.StartInfo.UseShellExecute = false;
+                myProcess.StartInfo.UseShellExecute = true;
                 myProcess.StartInfo.FileName = pathToExecutableToStart;
                 myProcess.StartInfo.CreateNoWindow = false;
                 myProcess.StartInfo.Arguments = $"{rpcPortGetterId} {realTimePortGetterId}";

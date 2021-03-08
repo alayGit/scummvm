@@ -54,7 +54,7 @@ namespace ScummVMBrowser.Server
 
                 if (client != null)
                 {
-                    client.SetSendGameMessagesFunctionPointer((List<KeyValuePair<MessageType, string>> screenBuffers) => SendGameMessages(ConnectionId, screenBuffers));
+                    client.SetSendGameMessagesFunctionPointer((string gameMessages) => SendGameMessages(ConnectionId, gameMessages));
                 }
             }
         }
@@ -111,7 +111,7 @@ namespace ScummVMBrowser.Server
             }
         }
 
-        public async Task SendGameMessages(string connectionId, List<KeyValuePair<MessageType, string>> gameMessages)
+        public async Task SendGameMessages(string connectionId, string gameMessages)
         {
             await Clients.Client(connectionId).SendGameMessages(gameMessages);
         }

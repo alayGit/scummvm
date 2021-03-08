@@ -207,6 +207,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Serializers\ByteArrayConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IGameEvent.cs" />
