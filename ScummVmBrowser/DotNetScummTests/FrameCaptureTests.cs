@@ -222,12 +222,11 @@ namespace DotNetScummTests
 
 		protected void CaptureAndQuit(List<ScreenBuffer> screenBuffers, int noFrames, string expectedFrameName)
 		{
-			ManagedZLibCompression.ManagedZLibCompression compression = new ManagedZLibCompression.ManagedZLibCompression();
-			screenBuffers.Where(b => b.CompressedPaletteBuffer != null).ToList().ForEach(b => UpdatePalettes(b.PaletteHash, compression.Decompress(b.CompressedPaletteBuffer)));
+			screenBuffers.Where(b => b.PaletteBuffer != null).ToList().ForEach(b => UpdatePalettes(b.PaletteHash, b.PaletteBuffer));
 
 			foreach (ScreenBuffer screenBuffer in screenBuffers)
 			{
-				CaptureAndQuit(compression.Decompress(screenBuffer.CompressedBuffer), screenBuffer.IgnoreColour, screenBuffer.PaletteHash, screenBuffer.X, screenBuffer.Y, screenBuffer.W, screenBuffer.H, noFrames, expectedFrameName);
+				CaptureAndQuit(screenBuffer.PictureBuffer, screenBuffer.IgnoreColour, screenBuffer.PaletteHash, screenBuffer.X, screenBuffer.Y, screenBuffer.W, screenBuffer.H, noFrames, expectedFrameName);
 			}
 		}
 
@@ -242,9 +241,9 @@ namespace DotNetScummTests
 			return result;
 		}
 
-		private void UpdatePalettes(uint paletteHash, byte[] decompressedPalette)
+		private void UpdatePalettes(uint paletteHash, byte[] palette)
 		{
-			string paletteString = Encoding.ASCII.GetString(decompressedPalette);
+			string paletteString = Encoding.ASCII.GetString(palette);
 			_palettes[paletteHash] = InitializePaletteHashDictionary();
 
 			if (paletteString.Length % (3 * NoBytesPerPixel) != 0)

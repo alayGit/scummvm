@@ -6,7 +6,6 @@ using ManagedCommon.Enums;
 using ManagedCommon.Enums.Actions;
 using ManagedCommon.Implementations;
 using ManagedCommon.Interfaces;
-using ManagedZLibCompression;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
@@ -52,8 +51,6 @@ namespace DotNetScummTests
 
 		public void Setup(String gameFolderLocation, SendScreenBuffers copyRectToScreen, AvailableGames game = AvailableGames.kq3)
 		{
-			ManagedZLibCompression.ManagedZLibCompression managedZLibCompression = new ManagedZLibCompression.ManagedZLibCompression();
-
 			_saveData = new ConcurrentDictionary<string, byte[]>();
 			_wrapper = new Wrapper(new JsonConfigStore());
 

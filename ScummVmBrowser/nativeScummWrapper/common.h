@@ -32,8 +32,8 @@ struct ScreenBuffer {
 	int ignoreColour;
 	byte *buffer;
 	uint32 paletteHash;
-	byte* compressedPalette;
-	int compressedPalletteLength;
+	byte* paletteBuffer;
+	int paletteBufferLength;
 };
 
 inline std::string PadPaletteValue(uint value) {

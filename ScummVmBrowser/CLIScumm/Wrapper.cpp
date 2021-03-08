@@ -140,12 +140,12 @@ array<byte> ^ CLIScumm::Wrapper::MarshalByteBuffer(byte *buffer, int length) {
 
 ScreenBuffer ^ CLIScumm::Wrapper::MarshalScreenBuffer(NativeScummWrapper::ScreenBuffer screenBuffer) {
 	ScreenBuffer ^ result = gcnew ScreenBuffer();
-	result->CompressedBuffer = MarshalByteBuffer(screenBuffer.buffer, screenBuffer.length);
+	result->PictureBuffer = MarshalByteBuffer(screenBuffer.buffer, screenBuffer.length);
 	result->H = screenBuffer.h;
 	result->W = screenBuffer.w;
 	result->X = screenBuffer.x;
 	result->Y = screenBuffer.y;
-	result->CompressedPaletteBuffer = screenBuffer.compressedPalette != nullptr ? MarshalByteBuffer(screenBuffer.compressedPalette, screenBuffer.compressedPalletteLength) : nullptr;
+	result->PaletteBuffer = screenBuffer.paletteBuffer != nullptr ? MarshalByteBuffer(screenBuffer.paletteBuffer, screenBuffer.paletteBufferLength) : nullptr;
 	result->PaletteHash = screenBuffer.paletteHash;
 	result->IgnoreColour = screenBuffer.ignoreColour;
 

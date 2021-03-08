@@ -18,8 +18,8 @@ namespace ManagedCommon.Interfaces
         public int Y { get; set; }
         public int W { get; set; }
         public int H { get; set; }
-        public byte[] CompressedBuffer { get; set; }
-		public byte[] CompressedPaletteBuffer { get; set; }
+        public byte[] PictureBuffer { get; set; }
+		public byte[] PaletteBuffer { get; set; }
 		public uint PaletteHash { get; set; }
 		public int IgnoreColour { get; set; }
     }
