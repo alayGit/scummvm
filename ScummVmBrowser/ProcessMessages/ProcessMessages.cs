@@ -36,7 +36,7 @@ namespace MessageBuffering
 					}
 					if (dataList.Count != 0 && MessagesProcessed != null)
 					{
-						string serialized = JsonConvert.SerializeObject(dataList);
+						string serialized = JsonConvert.SerializeObject(MergeLists(dataList));
 						byte[] serializedCompressed = messageCompression.Compress(Encoding.ASCII.GetBytes(serialized));
 
 						await MessagesProcessed(byteEncoder.AssciiByteEncode(serializedCompressed));

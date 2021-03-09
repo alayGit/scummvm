@@ -258,6 +258,7 @@
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\gameMessageWorker.js" />
     <Content Include="Scripts\deflateWorker.js" />
     <Content Include="Scripts\pako.min.js" />
     <Content Include="Scripts\soundProcessorWorker.js" />

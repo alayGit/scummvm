@@ -53,11 +53,13 @@ export const GameFrame = (props: GameFrameProps) => {
 
 	useEffect(
 		() => {
-			var channel = new MessageChannel();
+			var fromGameMessageMessageWorkerToPictureWorker = new MessageChannel();
+			props.gameMessageWorker.postMessage({ fromGameMessageMessageWorkerToPictureWorker: fromGameMessageMessageWorkerToPictureWorker.port1 }, [fromGameMessageMessageWorkerToPictureWorker.port1]);
+			var toOffScreenCanvasWorker = new MessageChannel();
 			let canvas = document.getElementById("canvas") as HTMLCanvasElement;
 			let pictureWorker = new Worker(`${WebServerSettings().ServerProtocol}://${WebServerSettings().ServerRoot}:${WebServerSettings().ServerPort}/Scripts/dataProcessorWorker.js`);
 			let offScreenCanvasWorker = new Worker(`${WebServerSettings().ServerProtocol}://${WebServerSettings().ServerRoot}:${WebServerSettings().ServerPort}/Scripts/offScreenCanvasWorker.js`);
-			pictureWorker.postMessage({ workerPort: channel.port2 }, [channel.port2]);
+			pictureWorker.postMessage({ toOffScreenCanvasWorker: toOffScreenCanvasWorker.port1, fromGameMessageMessageWorkerToPictureWorker: fromGameMessageMessageWorkerToPictureWorker.port2 }, [toOffScreenCanvasWorker.port1, fromGameMessageMessageWorkerToPictureWorker.port2]);
 			let offScreenCanvas = canvas.transferControlToOffscreen();
 			setPictureWorker(pictureWorker);
 			setOffScreenCanvasWorker(offScreenCanvasWorker);
@@ -66,7 +68,7 @@ export const GameFrame = (props: GameFrameProps) => {
 			setDeflateWorker(deflateWorker);
 
 			const transferable: unknown = offScreenCanvas; //To get around a known type script bug
-			offScreenCanvasWorker.postMessage({ offScreenCanvas: offScreenCanvas, port: channel.port1 }, [transferable as Transferable, channel.port1])
+			offScreenCanvasWorker.postMessage({ offScreenCanvas: offScreenCanvas, toOffScreenCanvasWorker: toOffScreenCanvasWorker.port2 }, [transferable as Transferable, toOffScreenCanvasWorker.port2])
 
 		}, []);
 
@@ -144,4 +146,5 @@ export interface GameFrameProps {
 	proxy: any;
 	frameSets: string;
 	controlKeys: any;
+	gameMessageWorker: Worker;
 }

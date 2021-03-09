@@ -1,19 +1,14 @@
 ﻿
-self.onmessage = function (e) {
+self.onmessage = function (postedMessage) {
 	importScripts("/scripts/pako.min.js");
 	importScripts("/scripts/yEncoding.js");
 
-	var port = e.data.workerPort;
-
-	self.onmessage = function (e) {
-
-		var frameSets = JSON.parse(e.data.frameSets);
-
-		frameSets.forEach(
+	postedMessage.data.fromGameMessageMessageWorkerToPictureWorker.onmessage = function (toOffScreenCanvasWorkerMessage) {
+		toOffScreenCanvasWorkerMessage.data.frameSets.forEach(
 			frameSet => {
 				let dataWithUncompressedBuffers = [];
 				frameSet.forEach(
-					frameSetPart => {				
+					frameSetPart => {
 						frameSetPart.UncompressedPictureBuffer = decompress(frameSetPart.CompressedBuffer);
 						frameSet.CompressedBuffer = undefined;
 
@@ -24,7 +19,7 @@ self.onmessage = function (e) {
 						frameSetPart.CompressedPaletteBuffer = undefined;
 						dataWithUncompressedBuffers.push(frameSetPart);
 					});
-				port.postMessage(dataWithUncompressedBuffers);
+				postedMessage.data.toOffScreenCanvasWorker.postMessage(dataWithUncompressedBuffers);
 			}
 		)
 
@@ -75,9 +70,9 @@ function convertPaletteByteArrayToPaletteDictionary(paletteString) {
 		}
 	}
 	);
-
 	return result;
 }
+
 
 function decompress(data) {
 	var deencoded = DecodeYEncode(data);

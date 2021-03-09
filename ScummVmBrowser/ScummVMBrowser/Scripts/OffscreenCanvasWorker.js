@@ -2,7 +2,7 @@
 self.onmessage = function (evt) {
 	var offScreenCanvasManager = new OffScreenCanvasManager(evt.data.offScreenCanvas);
 	offScreenCanvasManager.Init();
-	evt.data.port.onmessage = function (e) {
+	evt.data.toOffScreenCanvasWorker.onmessage = function (e) {
 		offScreenCanvasManager.UpdateCanvas(e.data);
 	}
 

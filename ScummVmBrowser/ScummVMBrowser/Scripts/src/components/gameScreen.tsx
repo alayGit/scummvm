@@ -12,19 +12,9 @@ const RegexGuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-
 
 export const GameScreen = (props: GameScreenProps) => {
 
-	interface Message {
-		Key: MessageType;
-		Value: string;
-	}
-
     const [proxy, setProxy] = useState<any>();
 
 	type typeGameState = 'retrieveId' | 'connecting' | 'running' | 'error';
-
-	enum MessageType {
-		AudioSamples,
-		Frames,
-	}
 
     const [gameState, setGameState] = useState<typeGameState>('retrieveId');
     const [gameId, setGameId] = useState<string>(undefined);
@@ -33,7 +23,9 @@ export const GameScreen = (props: GameScreenProps) => {
     //const [saveStorage, setSaveStorage] = useState<object>(undefined);
 	let [soundWorker, setSoundWorker] = useState<Worker>(undefined);
     const [webAudioStreamer, setWebAudioStreamer] = useState<WebAudioStreamer>(undefined);
-    const [nextAudioSample, setNextAudioSample] = useState<number[]>(undefined);
+	const [nextAudioSample, setNextAudioSample] = useState<number[]>(undefined);
+	let [gameMessageWorker, setGameMessageWorker] = useState<Worker>(undefined);
+	let [toGameWorkerChannel, setToGameWorkerChannel] = useState<MessageChannel>(undefined);
 
     const GetSaveStorage = (gameName: string) => {
         const gameSavesJson = localStorage.getItem(gameName);
@@ -48,7 +40,15 @@ export const GameScreen = (props: GameScreenProps) => {
 
     useEffect(
         () => {
-            if (gameState == 'connecting') {
+			if (gameState == 'connecting') {
+				gameMessageWorker = new Worker(`${WebServerSettings().ServerProtocol}://${WebServerSettings().ServerRoot}:${WebServerSettings().ServerPort}/Scripts/gameMessageWorker.js`);
+
+				toGameWorkerChannel = new MessageChannel();
+				setToGameWorkerChannel(toGameWorkerChannel);
+				gameMessageWorker.postMessage({ toGameWorkerChannel: toGameWorkerChannel.port2 }, [toGameWorkerChannel.port2]);
+
+				setGameMessageWorker(gameMessageWorker);
+
                 var connection = ($ as any).hubConnection(`${window.location.protocol}//${window.location.host}/`);
                 var hubServer = connection.createHubProxy('HubServer');
 
@@ -71,17 +71,7 @@ export const GameScreen = (props: GameScreenProps) => {
 
 				hubServer.on('SendGameMessages',
 					function (messages: string) {
-						//messages.forEach(function (item) {
-						//	switch (item.Key) {
-						//		case MessageType.Frames:
-						//			setFrameSets(item.Value);
-						//			break;
-						//		case MessageType.AudioSamples:
-						//			soundWorker.postMessage(item.Value);
-						//			break;
-						//	}
-						//});
-						var x = 4;
+						toGameWorkerChannel.port1.postMessage(messages);
                     }
 				);
 
@@ -147,7 +137,8 @@ export const GameScreen = (props: GameScreenProps) => {
             const gameFrameProps: GameFrameProps = {
                 proxy,
                 frameSets,
-                controlKeys: props.controlKeys
+				controlKeys: props.controlKeys, 
+				gameMessageWorker,
             }
             return <GameFrame {...gameFrameProps} />;
         case 'error':
