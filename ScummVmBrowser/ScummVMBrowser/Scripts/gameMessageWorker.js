@@ -13,7 +13,7 @@ self.onmessage = function (e) {
 
 		e.data.toGameWorkerChannel.onmessage = function (e) {
 
-			var inflated = decompress(e.data);
+			var inflated = decode(e.data);
 			var messages = JSON.parse(stringFromUTF8Array(inflated));
 
 			messages.forEach(function (item) {
@@ -22,7 +22,7 @@ self.onmessage = function (e) {
 						//soundWorker.postMessage(item.Value);
 						break;
 					case 1: //Frames
-						fromGameMessageMessageWorkerToPictureWorker.postMessage({ frameSets: item.Value });
+						fromGameMessageMessageWorkerToPictureWorker.postMessage({ frameSets: JSON.parse(item.Value) });
 						break;
 				}
 			});
@@ -59,7 +59,7 @@ function stringFromUTF8Array(data) {
 	return str;
 }
 
-function decompress(data) {
+function decode(data) {
 	var deencoded = DecodeYEncode(data);
 	var compressedUInt8 = Uint8Array.from(deencoded);
 

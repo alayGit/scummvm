@@ -65,7 +65,7 @@ namespace MessageBuffering
 				messageTypeDictionary[message.MessageType].Add(message);
 			}
 
-			return messageTypeDictionary.Select(kvp => new KeyValuePair<MessageType, string>(kvp.Key, JsonConvert.SerializeObject(kvp.Value.Select(m => m.MessageContents)))).ToList();
+			return messageTypeDictionary.Select(kvp => new KeyValuePair<MessageType, string>(kvp.Key, JsonConvert.SerializeObject(kvp.Value.Select(m => m.MessageContents), serializerSettings))).ToList();
 		}
 
 

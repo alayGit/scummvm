@@ -28,15 +28,15 @@ class OffScreenCanvasManager {
 		for (let i = 0; i < frames.length; i++) {
 			let byteNo = 0;
 			const frame = frames[i];
-			if (frame.UncompressedPaletteBuffer) {
-				this.PaletteMap[frame.PaletteHash] = frame.UncompressedPaletteBuffer;
+			if (frame.PaletteBuffer) {
+				this.PaletteMap[frame.PaletteHash] = frame.PaletteBuffer;
 			}
 
 			for (let heightCounter = frame.Y; heightCounter < frame.H + frame.Y; heightCounter++) {
 				for (let widthCounter = frame.X; widthCounter < frame.W + frame.X; widthCounter++) {
-					if (frame.UncompressedPictureBuffer[byteNo] !== frame.IgnoreColour || frame.ignoreColour === -1)
+					if (frame.PictureBuffer[byteNo] !== frame.IgnoreColour || frame.ignoreColour === -1)
 						for (let colorComponent = 0; colorComponent < NoBytesPerPixel; colorComponent++) {
-							this.ImageData.data[heightCounter * NoBytesPerPixel * Width + widthCounter * NoBytesPerPixel + colorComponent] = this.PaletteMap[frame.PaletteHash][frame.UncompressedPictureBuffer[byteNo]][colorComponent];
+							this.ImageData.data[heightCounter * NoBytesPerPixel * Width + widthCounter * NoBytesPerPixel + colorComponent] = this.PaletteMap[frame.PaletteHash][frame.PictureBuffer[byteNo]][colorComponent];
 						}
 					byteNo++;
 				}

@@ -9,11 +9,10 @@ self.onmessage = function (postedMessage) {
 				let dataWithUncompressedBuffers = [];
 				frameSet.forEach(
 					frameSetPart => {
-						frameSetPart.UncompressedPictureBuffer = decompress(frameSetPart.CompressedBuffer);
-						frameSet.CompressedBuffer = undefined;
-
-						if (frameSetPart.CompressedPaletteBuffer) {
-							frameSetPart.UncompressedPaletteBuffer = convertPaletteByteArrayToPaletteDictionary(decompress(frameSetPart.CompressedPaletteBuffer));
+						frameSetPart.PictureBuffer = decode(frameSetPart.PictureBuffer);
+			
+						if (frameSetPart.PaletteBuffer) {
+							frameSetPart.PaletteBuffer = convertPaletteByteArrayToPaletteDictionary(decode(frameSetPart.PaletteBuffer));
 						}
 
 						frameSetPart.CompressedPaletteBuffer = undefined;
@@ -74,11 +73,8 @@ function convertPaletteByteArrayToPaletteDictionary(paletteString) {
 }
 
 
-function decompress(data) {
-	var deencoded = DecodeYEncode(data);
-	var compressedUInt8 = Uint8Array.from(deencoded);
-
-	return pako.inflate(compressedUInt8);
+function decode(data) {
+	return DecodeYEncode(data);
 }
 
 
