@@ -3,15 +3,15 @@ self.onmessage = function (e) {
 	importScripts("/scripts/pako.min.js");
 	importScripts("/scripts/yEncoding.js");
 
-	var soundSamples = JSON.parse(e.data);
+	e.data.fromGameMessageMessageWorkerToSoundWorker.onmessage = function (e) {
+		e.data.soundSamples.forEach(
+			s => {
+				var decoded = DecodeYEncode(s);
+				var decodedUInt8 = Uint8Array.from(decoded);
 
-	soundSamples.forEach(
-		s => {
-			var deencoded = DecodeYEncode(s);
-			var compressedUInt8 = Uint8Array.from(deencoded);
-
-			postMessage(Array.from(pako.inflate(compressedUInt8)));
-		}
-	);
+				postMessage(Array.from(decodedUInt8));
+			}
+		);
+	}
 };
 

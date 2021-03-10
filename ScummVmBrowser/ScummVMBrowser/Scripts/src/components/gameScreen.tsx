@@ -26,6 +26,7 @@ export const GameScreen = (props: GameScreenProps) => {
 	const [nextAudioSample, setNextAudioSample] = useState<number[]>(undefined);
 	let [gameMessageWorker, setGameMessageWorker] = useState<Worker>(undefined);
 	let [toGameWorkerChannel, setToGameWorkerChannel] = useState<MessageChannel>(undefined);
+	let [fromGameMessageMessageWorkerToSoundWorker, setFromGameMessageMessageWorkerToSoundWorker] = useState<MessageChannel>(undefined);
 
     const GetSaveStorage = (gameName: string) => {
         const gameSavesJson = localStorage.getItem(gameName);
@@ -41,11 +42,14 @@ export const GameScreen = (props: GameScreenProps) => {
     useEffect(
         () => {
 			if (gameState == 'connecting') {
+				var fromGameMessageMessageWorkerToSoundWorker = new MessageChannel();
+				setFromGameMessageMessageWorkerToSoundWorker(toGameWorkerChannel);
+
 				gameMessageWorker = new Worker(`${WebServerSettings().ServerProtocol}://${WebServerSettings().ServerRoot}:${WebServerSettings().ServerPort}/Scripts/gameMessageWorker.js`);
 
 				toGameWorkerChannel = new MessageChannel();
 				setToGameWorkerChannel(toGameWorkerChannel);
-				gameMessageWorker.postMessage({ toGameWorkerChannel: toGameWorkerChannel.port2 }, [toGameWorkerChannel.port2]);
+				gameMessageWorker.postMessage({ toGameWorkerChannel: toGameWorkerChannel.port2, fromGameMessageMessageWorkerToSoundWorker: fromGameMessageMessageWorkerToSoundWorker.port1 }, [toGameWorkerChannel.port2, fromGameMessageMessageWorkerToSoundWorker.port1]);
 
 				setGameMessageWorker(gameMessageWorker);
 
@@ -76,7 +80,7 @@ export const GameScreen = (props: GameScreenProps) => {
 				);
 
 				soundWorker = new Worker(`${WebServerSettings().ServerProtocol}://${WebServerSettings().ServerRoot}:${WebServerSettings().ServerPort}/Scripts/soundProcessorWorker.js`);
-			
+				soundWorker.postMessage({ fromGameMessageMessageWorkerToSoundWorker: fromGameMessageMessageWorkerToSoundWorker.port2 }, [fromGameMessageMessageWorkerToSoundWorker.port2]);
 
 				soundWorker.onmessage = function(e) {
 					setNextAudioSample(e.data);

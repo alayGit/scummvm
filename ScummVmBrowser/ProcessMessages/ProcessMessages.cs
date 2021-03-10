@@ -24,7 +24,10 @@ namespace MessageBuffering
 		{
 			_messageQueue = new AsyncQueue<Message>();
 			_byteEncoder = byteEncoder;
-	
+
+			JsonSerializerSettings serializerSettings = new JsonSerializerSettings();
+			serializerSettings.Converters.Add(new ByteArrayConverter(_byteEncoder));
+
 			_processTask = Task.Run(async () =>
 			{
 				while (!_stopped || _messageQueue.Count != 0)
@@ -36,7 +39,7 @@ namespace MessageBuffering
 					}
 					if (dataList.Count != 0 && MessagesProcessed != null)
 					{
-						string serialized = JsonConvert.SerializeObject(MergeLists(dataList));
+						string serialized = JsonConvert.SerializeObject(MergeLists(dataList), serializerSettings);
 						byte[] serializedCompressed = messageCompression.Compress(Encoding.ASCII.GetBytes(serialized));
 
 						await MessagesProcessed(byteEncoder.AssciiByteEncode(serializedCompressed));
@@ -48,11 +51,8 @@ namespace MessageBuffering
 
 		public MessagesProcessed MessagesProcessed { get; set; }
 
-		private List<KeyValuePair<MessageType, string>> MergeLists(IEnumerable<Message> listToMerge)
+		private List<KeyValuePair<MessageType, object>> MergeLists(IEnumerable<Message> listToMerge)
 		{
-			JsonSerializerSettings serializerSettings = new JsonSerializerSettings();
-			serializerSettings.Converters.Add(new ByteArrayConverter(_byteEncoder));
-
 			Dictionary<MessageType, List<Message>> messageTypeDictionary = new Dictionary<MessageType, List<Message>>();
 
 			foreach (Message message in listToMerge)
@@ -65,7 +65,7 @@ namespace MessageBuffering
 				messageTypeDictionary[message.MessageType].Add(message);
 			}
 
-			return messageTypeDictionary.Select(kvp => new KeyValuePair<MessageType, string>(kvp.Key, JsonConvert.SerializeObject(kvp.Value.Select(m => m.MessageContents), serializerSettings))).ToList();
+			return messageTypeDictionary.Select(kvp => new KeyValuePair<MessageType, object>(kvp.Key, kvp.Value.Select(m => m.MessageContents))).ToList();
 		}
 
 
