@@ -40,9 +40,9 @@ namespace MessageBuffering
 					if (dataList.Count != 0 && MessagesProcessed != null)
 					{
 						string serialized = JsonConvert.SerializeObject(MergeLists(dataList), serializerSettings);
-						byte[] serializedCompressed = messageCompression.Compress(Encoding.ASCII.GetBytes(serialized));
+						byte[] serializedCompressed = messageCompression.Compress(Encoding.GetEncoding("iso-8859-1").GetBytes(serialized));
 
-						await MessagesProcessed(byteEncoder.AssciiByteEncode(serializedCompressed));
+						await MessagesProcessed(byteEncoder.ByteEncode(serializedCompressed));
 					}
 					await Task.Delay(configurationStore.GetValue<int>(ScummHubSettings.BufferAndProcessSleepTime));
 				}

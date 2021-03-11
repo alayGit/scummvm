@@ -6,7 +6,7 @@ ManagedYEncoder::ManagedYEncoder::ManagedYEncoder(ManagedCommon::Interfaces::ILo
 	_category = category;
 }
 
-System::String^ ManagedYEncoder::ManagedYEncoder::AssciiByteEncode(cli::array<System::Byte>^ input)
+System::String^ ManagedYEncoder::ManagedYEncoder::ByteEncode(cli::array<System::Byte>^ input)
 {
     yEnc::Encoder encoder;
     Byte* inputBuffer = nullptr;
@@ -43,7 +43,7 @@ System::String^ ManagedYEncoder::ManagedYEncoder::AssciiByteEncode(cli::array<Sy
     }
 }
 
-cli::array<System::Byte> ^ ManagedYEncoder::ManagedYEncoder::AssciiByteDecode(System::String ^ input) {
+cli::array<System::Byte> ^ ManagedYEncoder::ManagedYEncoder::ByteDecode(System::String ^ input) {
 	yEnc::Encoder encoder;
 	Byte *inputBuffer = nullptr;
 
@@ -81,13 +81,6 @@ cli::array<System::Byte> ^ ManagedYEncoder::ManagedYEncoder::AssciiByteDecode(Sy
 	}
 }
 
-System::String ^ ManagedYEncoder::ManagedYEncoder::AssciiStringEncode(System::String ^ input) {
-	return AssciiByteEncode(System::Text::Encoding::ASCII->GetBytes(input) );
-}
-
-System::String ^ ManagedYEncoder::ManagedYEncoder::AssciiStringDecode(System::String ^ input) {
-	return System::Text::Encoding::ASCII->GetString(AssciiByteDecode(input));
-}
 
 Crc32 ManagedYEncoder::ManagedYEncoder::GetEmptyCrc()
 {

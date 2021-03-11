@@ -13,10 +13,8 @@ namespace ManagedYEncoder {
 public ref class ManagedYEncoder: IByteEncoder
 	{
 	public:
-		virtual System::String^ AssciiByteEncode(cli::array<System::Byte>^ input);
-		virtual cli::array<System::Byte>^ AssciiByteDecode(System::String^ input);
-	    virtual System::String ^ AssciiStringEncode(System::String^ input);
-	    virtual System::String ^ AssciiStringDecode(System::String ^ input);
+		virtual System::String^ ByteEncode(cli::array<System::Byte>^ input);
+		virtual cli::array<System::Byte>^ ByteDecode(System::String^ input);
 
 		ManagedYEncoder(ManagedCommon::Interfaces::ILogger ^ logger, ManagedCommon::Enums::Logging::LoggingCategory category);
 	private:

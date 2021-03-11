@@ -9,10 +9,7 @@ namespace ManagedCommon.Interfaces
 {
    public interface IByteEncoder
     {
-        string AssciiByteEncode(byte[] input);
-        byte[] AssciiByteDecode(string input);
-
-		string AssciiStringEncode(string input);
-		string AssciiStringDecode(string input);
+        string ByteEncode(byte[] input);
+        byte[] ByteDecode(string input);
 	}
 }

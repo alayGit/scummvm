@@ -23,7 +23,7 @@ namespace ManagedCommon.Serializers
 
 		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
 		{
-			JValue jValue = new JValue(_byteEncoder.AssciiByteEncode((byte[])value));
+			JValue jValue = new JValue(_byteEncoder.ByteEncode((byte[])value));
 
 			jValue.WriteTo(writer);
 		}

@@ -21,9 +21,9 @@ namespace yEncDotNetTests
 
             ManagedYEncoder.ManagedYEncoder encoder = new ManagedYEncoder.ManagedYEncoder(logger.Object, LoggingCategory.CliScummSelfHost);
            
-            string encodedResult = encoder.AssciiByteEncode(Encoding.ASCII.GetBytes(TestString));
+            string encodedResult = encoder.ByteEncode(Encoding.ASCII.GetBytes(TestString));
 
-           Assert.AreEqual(TestString, Encoding.ASCII.GetString(encoder.AssciiByteDecode(encodedResult)));
+           Assert.AreEqual(TestString, Encoding.ASCII.GetString(encoder.ByteDecode(encodedResult)));
         }
     }
 }
