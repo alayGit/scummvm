@@ -21,7 +21,8 @@ NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_Sen
 
 NativeScummWrapper::NativeScummWrapperGraphics::~NativeScummWrapperGraphics() {
 	delete[] _wholeScreenBufferNoMouse;
-
+	free(_picturePalette);
+	free(_cursorPalette);
 	CloseHandle(_wholeScreenMutex);
 }
 
@@ -49,6 +50,8 @@ void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void
 				_drawingBuffers.push_back(GetMouseScreenBuffer(false));
 			}
 		}
+	} else {
+		delete[] pictureBuffer;
 	}
 
 	ReleaseSemaphore(_wholeScreenMutex, 1, NULL);
