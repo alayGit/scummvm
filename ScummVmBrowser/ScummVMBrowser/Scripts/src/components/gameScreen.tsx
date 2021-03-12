@@ -18,7 +18,6 @@ export const GameScreen = (props: GameScreenProps) => {
 
     const [gameState, setGameState] = useState<typeGameState>('retrieveId');
     const [gameId, setGameId] = useState<string>(undefined);
-    const [frameSets, setFrameSets] = useState<string>(undefined);
     const [availableGame, setAvailableGame] = useState<string>("");
     //const [saveStorage, setSaveStorage] = useState<object>(undefined);
 	let [soundWorker, setSoundWorker] = useState<Worker>(undefined);
@@ -140,7 +139,6 @@ export const GameScreen = (props: GameScreenProps) => {
         case 'running':
             const gameFrameProps: GameFrameProps = {
                 proxy,
-                frameSets,
 				controlKeys: props.controlKeys, 
 				gameMessageWorker,
             }

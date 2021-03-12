@@ -80,13 +80,6 @@ export const GameFrame = (props: GameFrameProps) => {
 			}
 		}, ClientSide().InputMessageTimerMs);
 
-	useEffect(
-		() => {
-			if (props.frameSets != undefined && offScreenCanvasWorker != undefined && pictureWorker != undefined) {
-				pictureWorker.postMessage({ frameSets: props.frameSets })
-			}
-		}
-		, [props.frameSets, offScreenCanvasWorker, pictureWorker]);
 
 	useEffect(
 		() => {
@@ -134,9 +127,9 @@ export const GameFrame = (props: GameFrameProps) => {
 	var onClick = (event: any) => {
 		updateEventQueue({ Key: InputMessageType.MouseClick.toString(), Value: event.button });
 	}
-	
+
 	return (
-		<div id="gameFrame" onKeyPress={onKeyPress} onKeyDown={onKeyDown} onMouseMove={onMouseMove} onClick={onClick} tabIndex={0} style={{ width: Width + CanvasWidthEdgeSize, height: Height + CanvasHeightEdgeSize, backgroundColor: "black", textAlign: "center", cursor:"none"}}>
+		<div id="gameFrame" onKeyPress={onKeyPress} onKeyDown={onKeyDown} onMouseMove={onMouseMove} onClick={onClick} tabIndex={0} style={{ width: Width + CanvasWidthEdgeSize, height: Height + CanvasHeightEdgeSize, backgroundColor: "black", textAlign: "center", cursor: "none" }}>
 			<canvas id="canvas" width={Width} height={Height} onContextMenu={e => { e.preventDefault(); e.stopPropagation(); updateEventQueue({ Key: InputMessageType.MouseClick.toString(), Value: "2" }); }} />
 		</div>
 	);
@@ -144,7 +137,6 @@ export const GameFrame = (props: GameFrameProps) => {
 
 export interface GameFrameProps {
 	proxy: any;
-	frameSets: string;
 	controlKeys: any;
 	gameMessageWorker: Worker;
 }
