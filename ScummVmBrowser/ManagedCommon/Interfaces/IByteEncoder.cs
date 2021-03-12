@@ -11,5 +11,7 @@ namespace ManagedCommon.Interfaces
     {
         string ByteEncode(byte[] input);
         byte[] ByteDecode(string input);
+
+		Encoding TextEncoding { get; }
 	}
 }

@@ -15,6 +15,8 @@ public ref class ManagedYEncoder: IByteEncoder
 	public:
 		virtual System::String^ ByteEncode(cli::array<System::Byte>^ input);
 		virtual cli::array<System::Byte>^ ByteDecode(System::String^ input);
+	    virtual property Encoding^ TextEncoding { System::Text::Encoding^ get(); }
+
 
 		ManagedYEncoder(ManagedCommon::Interfaces::ILogger ^ logger, ManagedCommon::Enums::Logging::LoggingCategory category);
 	private:

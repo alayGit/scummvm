@@ -6,12 +6,15 @@ ManagedYEncoder::ManagedYEncoder::ManagedYEncoder(ManagedCommon::Interfaces::ILo
 	_category = category;
 }
 
+System::Text::Encoding ^ ManagedYEncoder::ManagedYEncoder::TextEncoding::get() {
+	return System::Text::Encoding::GetEncoding("iso-8859-1");
+}
+
 System::String^ ManagedYEncoder::ManagedYEncoder::ByteEncode(cli::array<System::Byte>^ input)
 {
     yEnc::Encoder encoder;
     Byte* inputBuffer = nullptr;
-    Encoding^ encoding = Encoding::GetEncoding("iso-8859-1");
-
+ 
     try
     {
         if (input->Length == 0)
@@ -28,7 +31,7 @@ System::String^ ManagedYEncoder::ManagedYEncoder::ByteEncode(cli::array<System::
 
         int resultSize = encoder.encode_buffer(inputBuffer, outputBuffer, input->Length, &GetEmptyCrc(), &col);
 
-        return encoding->GetString(&outputBuffer[0], resultSize);
+        return TextEncoding->GetString(&outputBuffer[0], resultSize);
     }
     catch (...)
     {
