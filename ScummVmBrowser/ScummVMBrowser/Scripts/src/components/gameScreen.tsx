@@ -19,7 +19,6 @@ export const GameScreen = (props: GameScreenProps) => {
     const [gameState, setGameState] = useState<typeGameState>('retrieveId');
     const [gameId, setGameId] = useState<string>(undefined);
     const [availableGame, setAvailableGame] = useState<string>("");
-    //const [saveStorage, setSaveStorage] = useState<object>(undefined);
 	let [soundWorker, setSoundWorker] = useState<Worker>(undefined);
     const [webAudioStreamer, setWebAudioStreamer] = useState<WebAudioStreamer>(undefined);
 	const [nextAudioSample, setNextAudioSample] = useState<number[]>(undefined);
@@ -54,7 +53,6 @@ export const GameScreen = (props: GameScreenProps) => {
 
                 var connection = ($ as any).hubConnection(`${window.location.protocol}//${window.location.host}/`);
                 var hubServer = connection.createHubProxy('HubServer');
-
 
                 const saveFunc = function (saveData: number[], saveName: string) {
                     try {
