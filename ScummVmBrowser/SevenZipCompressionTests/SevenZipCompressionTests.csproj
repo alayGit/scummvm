@@ -56,9 +56,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SevenZipCompressor\SevenZipCompressor.csproj">
-      <Project>{48cbb1e8-534e-49e7-9cda-5f5b3d921a69}</Project>
-      <Name>SevenZipCompressor</Name>
+    <ProjectReference Include="..\Managed7LibCompression\Managed7LibCompression.vcxproj">
+      <Project>{4425558d-019e-43b5-8183-30eeef718efd}</Project>
+      <Name>Managed7LibCompression</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

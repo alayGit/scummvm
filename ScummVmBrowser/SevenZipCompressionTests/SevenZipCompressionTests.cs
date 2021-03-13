@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SevenZip;
+using SevenZCompression;
 using System;
 using System.Linq;
 
@@ -11,7 +11,7 @@ namespace SevenZipCompressionTests
 		[TestMethod]
 		public void CanCompressAndDecompress()
         {
-			SevenZipCompression sevenZipCompression = new SevenZipCompression();
+			SevenZCompressor sevenZipCompression = new SevenZCompressor();
 
 			byte[] testData = new byte[] { 12, 34, 55, 12, 45, 77, 88, 12, 34, 55, 12, 45, 77, 88, 12, 34, 55, 12, 45, 77, 82, 34, 55, 12, 45, 77, 12, 34, 55, 12, 45, 77, 82, 34, 55, 12, 45, 77, 12, 34, 55, 12, 45, 77, 88 };
 
