@@ -11,9 +11,15 @@ namespace SevenZipCompressionTests
 		[TestMethod]
 		public void CanCompressAndDecompress()
         {
+			const int testDataLength = 6000;
 			SevenZCompressor sevenZipCompression = new SevenZCompressor();
 
-			byte[] testData = new byte[] { 12, 34, 55, 12, 45, 77, 88, 12, 34, 55, 12, 45, 77, 88, 12, 34, 55, 12, 45, 77, 82, 34, 55, 12, 45, 77, 12, 34, 55, 12, 45, 77, 82, 34, 55, 12, 45, 77, 12, 34, 55, 12, 45, 77, 88 };
+			byte[] testData = new byte[testDataLength];
+
+			for(int i = 0; i < testDataLength; i++)
+			{
+				testData[i] = ((byte) (i % 256));
+			}
 
 			Assert.IsTrue(testData.SequenceEqual(sevenZipCompression.Decompress(sevenZipCompression.Compress(testData))));
 		}

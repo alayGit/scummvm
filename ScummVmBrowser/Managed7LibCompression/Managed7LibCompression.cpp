@@ -1,33 +1,29 @@
 #include "Managed7LibCompression.h"
 
 cli::array<System::Byte> ^ SevenZCompression::SevenZCompressor::Compress(cli::array<System::Byte> ^ data) {
-	std::vector<System::Byte> inputVector;
-	inputVector.resize(data->Length);
 
-	Marshal::Copy(data, 0, System::IntPtr(&inputVector[0]), inputVector.size());
+	byte *input = new byte[data->Length];
+	Marshal::Copy(data, 0, System::IntPtr(input), data->Length);
 
-	std::vector<System::Byte> outputVector;
+	unsigned int outputLength;
+	byte* output = SevenZCompression::Compress(input, data->Length, outputLength);
 
-	SevenZCompression::Compress(outputVector, inputVector);
-
-	cli::array<System::Byte> ^ result = gcnew cli::array<System::Byte>(outputVector.size());
-	Marshal::Copy(System::IntPtr(&outputVector[0]), result, 0, outputVector.size());
+	cli::array<System::Byte> ^ result = gcnew cli::array<System::Byte>(outputLength);
+	Marshal::Copy(System::IntPtr(output), result, 0, outputLength);
 
 	return result;
 }
 
 cli::array<System::Byte> ^ SevenZCompression::SevenZCompressor::Decompress(cli::array<System::Byte> ^ data) {
-	std::vector<System::Byte> inputVector;
-	inputVector.resize(data->Length);
 
-	Marshal::Copy(data, 0, System::IntPtr(&inputVector[0]), inputVector.size());
+	byte *input = new byte[data->Length];
+	Marshal::Copy(data, 0, System::IntPtr(input), data->Length);
 
-	std::vector<System::Byte> outputVector;
+	unsigned int outputLength;
+	byte *output = SevenZCompression::Uncompress(input, data->Length, outputLength);
 
-	SevenZCompression::Uncompress(outputVector, inputVector);
-
-	cli::array<System::Byte> ^ result = gcnew cli::array<System::Byte>(outputVector.size());
-	Marshal::Copy(System::IntPtr(&outputVector[0]), result, 0, outputVector.size());
+	cli::array<System::Byte> ^ result = gcnew cli::array<System::Byte>(outputLength);
+	Marshal::Copy(System::IntPtr(output), result, 0, outputLength);
 
 	return result;
 }

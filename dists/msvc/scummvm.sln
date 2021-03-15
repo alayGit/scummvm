@@ -258,6 +258,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "7ZCompression", "..\..\Scum
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Managed7LibCompression", "..\..\ScummVmBrowser\Managed7LibCompression\Managed7LibCompression.vcxproj", "{4425558D-019E-43B5-8183-30EEEF718EFD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Emscripten7ZCompression", "..\..\ScummVmBrowser\Emscripten7ZCompression\Emscripten7ZCompression.vcxproj", "{5527B43D-DC5E-496C-9FD5-8CA303B0D554}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "emscripten", "emscripten", "{6FE3660C-F6C1-4A07-870D-C0C16A7BD1A8}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\ScummVmBrowser\Emscripten7ZCompression\build.bat = ..\..\ScummVmBrowser\Emscripten7ZCompression\build.bat
+		..\..\ScummVmBrowser\Emscripten7ZCompression\Emscripten7ZCompression.cpp = ..\..\ScummVmBrowser\Emscripten7ZCompression\Emscripten7ZCompression.cpp
+		..\..\ScummVmBrowser\Emscripten7ZCompression\Emscripten7ZCompression.h = ..\..\ScummVmBrowser\Emscripten7ZCompression\Emscripten7ZCompression.h
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Analysis|Any CPU = Analysis|Any CPU
@@ -3606,6 +3615,34 @@ Global
 		{4425558D-019E-43B5-8183-30EEEF718EFD}.Release|Win32.Build.0 = Release|Win32
 		{4425558D-019E-43B5-8183-30EEEF718EFD}.Release|x64.ActiveCfg = Release|x64
 		{4425558D-019E-43B5-8183-30EEEF718EFD}.Release|x64.Build.0 = Release|x64
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Analysis|Any CPU.ActiveCfg = Debug|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Analysis|Any CPU.Build.0 = Debug|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Analysis|arm64.ActiveCfg = Debug|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Analysis|arm64.Build.0 = Debug|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Analysis|Win32.ActiveCfg = Debug|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Analysis|Win32.Build.0 = Debug|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Analysis|x64.ActiveCfg = Debug|x64
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Analysis|x64.Build.0 = Debug|x64
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Debug|arm64.ActiveCfg = Debug|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Debug|Win32.Build.0 = Debug|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Debug|x64.ActiveCfg = Debug|x64
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Debug|x64.Build.0 = Debug|x64
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.LLVM|Any CPU.ActiveCfg = Debug|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.LLVM|Any CPU.Build.0 = Debug|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.LLVM|arm64.ActiveCfg = Debug|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.LLVM|arm64.Build.0 = Debug|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.LLVM|Win32.ActiveCfg = Debug|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.LLVM|Win32.Build.0 = Debug|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.LLVM|x64.ActiveCfg = Debug|x64
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.LLVM|x64.Build.0 = Debug|x64
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Release|Any CPU.ActiveCfg = Release|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Release|arm64.ActiveCfg = Release|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Release|Win32.ActiveCfg = Release|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Release|Win32.Build.0 = Release|Win32
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Release|x64.ActiveCfg = Release|x64
+		{5527B43D-DC5E-496C-9FD5-8CA303B0D554}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

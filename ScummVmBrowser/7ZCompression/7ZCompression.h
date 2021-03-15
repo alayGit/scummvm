@@ -1,10 +1,10 @@
-#include "../../ExternalLibraries/include/7z/LzmaLib.h";
-#include <vector>
+#include "../../ExternalLibraries/include/7z/LzmaLib.h"
 #include <assert.h>
+#include <string>
 #pragma once
 typedef unsigned char byte;
 
 namespace SevenZCompression {
-void Compress(std::vector<unsigned char> &outBuf, const std::vector<unsigned char> &inBuf);
-void Uncompress(std::vector<unsigned char> &outBuf, const std::vector<unsigned char> &inBuf);
+byte* Compress(byte* inBuf, size_t inBufLength, size_t &outBufLength);
+byte* Uncompress(byte *inBuf, size_t inBufLength, size_t &outBufLength);
 } // namespace SevenZCompression

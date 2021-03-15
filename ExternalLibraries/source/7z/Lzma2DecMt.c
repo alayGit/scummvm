@@ -19,7 +19,7 @@
 #define PRF_STR_INT(s, d) PRF(printf("\n" s " %d\n", (unsigned)d))
 #define PRF_STR_INT_2(s, d1, d2) PRF(printf("\n" s " %d %d\n", (unsigned)d1, (unsigned)d2))
 
-// #define _7ZIP_ST
+#define _7ZIP_ST
 
 #include "Alloc.h"
 

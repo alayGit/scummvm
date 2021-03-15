@@ -1,29 +1,45 @@
 #include "7ZCompression.h"
 
-void SevenZCompression::Compress(std::vector<unsigned char> &outBuf, const std::vector<unsigned char> &inBuf) {
-	unsigned propsSize = LZMA_PROPS_SIZE;
-	unsigned destLen = inBuf.size() + inBuf.size() / 3 + 128;
-	outBuf.resize(propsSize + destLen);
+byte* SevenZCompression::Compress(byte *inBuf, size_t inBufLength, size_t &outBufLength) {
+	size_t propsSize = LZMA_PROPS_SIZE;
+	size_t dstLength = inBufLength + inBufLength / 3 + 128;
+	byte *outBuf = new byte[dstLength + propsSize];
 
 	int res = LzmaCompress(
-	    &outBuf[LZMA_PROPS_SIZE], &destLen,
-	    &inBuf[0], inBuf.size(),
-	    &outBuf[0], &propsSize,
+	    &outBuf[LZMA_PROPS_SIZE], &dstLength,
+	    inBuf, inBufLength,
+	    outBuf, &propsSize,
 	    -1, 0, -1, -1, -1, -1, -1);
 
 	assert(propsSize == LZMA_PROPS_SIZE);
 	assert(res == SZ_OK);
 
-	outBuf.resize(propsSize + destLen);
+	byte *result = new byte[dstLength + propsSize];
+	memcpy(result, outBuf, dstLength + propsSize);
+	outBufLength = dstLength + propsSize;
+
+
+	delete[] outBuf;
+
+	return result;
 }
 
-void SevenZCompression::Uncompress(std::vector<unsigned char> &outBuf, const std::vector<unsigned char> &inBuf) {
-	outBuf.resize(inBuf.size() * 1000);
-	unsigned dstLen = outBuf.size();
-	unsigned srcLen = inBuf.size() - LZMA_PROPS_SIZE;
+byte* SevenZCompression::Uncompress(byte *inBuf, size_t inBufLength, size_t &outBufLength)
+{
+	outBufLength = inBufLength * 1000;
+	size_t srcLen = inBufLength - LZMA_PROPS_SIZE;
+
+	byte *outBuf = new byte[outBufLength];
+
 	SRes res = LzmaUncompress(
-	    &outBuf[0], &dstLen,
+	    outBuf, (size_t *) &outBufLength,
 	    &inBuf[LZMA_PROPS_SIZE], &srcLen,
-	    &inBuf[0], LZMA_PROPS_SIZE);
-	outBuf.resize(dstLen); // If uncompressed data can be smaller
+	    inBuf, LZMA_PROPS_SIZE);
+
+	byte *result = new byte[outBufLength];
+	memcpy(result, outBuf, outBufLength);
+
+	delete[] outBuf;
+
+	return result;
 }

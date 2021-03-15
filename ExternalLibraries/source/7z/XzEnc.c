@@ -18,7 +18,7 @@
 
 #include "XzEnc.h"
 
-// #define _7ZIP_ST
+#define _7ZIP_ST
 
 #ifndef _7ZIP_ST
 #include "MtCoder.h"
