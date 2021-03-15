@@ -11,7 +11,7 @@ namespace SevenZipCompressionTests
 		[TestMethod]
 		public void CanCompressAndDecompress()
         {
-			const int testDataLength = 6000;
+			const int testDataLength = 655350;
 			SevenZCompressor sevenZipCompression = new SevenZCompressor();
 
 			byte[] testData = new byte[testDataLength];

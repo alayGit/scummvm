@@ -1,5 +1,5 @@
 #include "7ZCompression.h"
-const int COMPRESSED_SIZE = 2;
+const int COMPRESSED_SIZE = 4;
 
 byte* SevenZCompression::Compress(byte *inBuf, size_t inBufLength, size_t &outBufLength) {
 	size_t propsSize = LZMA_PROPS_SIZE;
@@ -13,9 +13,7 @@ byte* SevenZCompression::Compress(byte *inBuf, size_t inBufLength, size_t &outBu
 	    outBuf, &propsSize,
 	    -1, 0, -1, -1, -1, -1, -1);
 
-	unsigned short shortDstLength = (short)(inBufLength);
-
-	memcpy(&outBuf[LZMA_PROPS_SIZE], &shortDstLength, 2);
+	memcpy(&outBuf[LZMA_PROPS_SIZE], &inBufLength, COMPRESSED_SIZE);
 
 	assert(propsSize == LZMA_PROPS_SIZE);
 	assert(res == SZ_OK);
@@ -51,8 +49,8 @@ byte* SevenZCompression::Uncompress(byte *inBuf, size_t inBufLength, size_t &out
 	return result;
 }
 
-unsigned short SevenZCompression::GetUncompressedSize(byte *compressed) {
-	unsigned short result = 0;
+size_t SevenZCompression::GetUncompressedSize(byte *compressed) {
+	size_t result = 0;
 
 	memcpy(&result, compressed + LZMA_PROPS_SIZE, COMPRESSED_SIZE);
 
