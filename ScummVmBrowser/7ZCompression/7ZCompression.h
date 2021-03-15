@@ -7,4 +7,5 @@ typedef unsigned char byte;
 namespace SevenZCompression {
 byte* Compress(byte* inBuf, size_t inBufLength, size_t &outBufLength);
 byte* Uncompress(byte *inBuf, size_t inBufLength, size_t &outBufLength);
+unsigned short GetUncompressedSize(byte *compressed);
 } // namespace SevenZCompression

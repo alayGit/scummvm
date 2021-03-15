@@ -1,15 +1,21 @@
 #include "7ZCompression.h"
+const int COMPRESSED_SIZE = 2;
 
 byte* SevenZCompression::Compress(byte *inBuf, size_t inBufLength, size_t &outBufLength) {
 	size_t propsSize = LZMA_PROPS_SIZE;
 	size_t dstLength = inBufLength + inBufLength / 3 + 128;
-	byte *outBuf = new byte[dstLength + propsSize];
+
+	byte *outBuf = new byte[dstLength + propsSize + COMPRESSED_SIZE];
 
 	int res = LzmaCompress(
-	    &outBuf[LZMA_PROPS_SIZE], &dstLength,
+	    &outBuf[LZMA_PROPS_SIZE + COMPRESSED_SIZE], &dstLength,
 	    inBuf, inBufLength,
 	    outBuf, &propsSize,
 	    -1, 0, -1, -1, -1, -1, -1);
+
+	unsigned short shortDstLength = (short)(inBufLength);
+
+	memcpy(&outBuf[LZMA_PROPS_SIZE], &shortDstLength, 2);
 
 	assert(propsSize == LZMA_PROPS_SIZE);
 	assert(res == SZ_OK);
@@ -26,20 +32,29 @@ byte* SevenZCompression::Compress(byte *inBuf, size_t inBufLength, size_t &outBu
 
 byte* SevenZCompression::Uncompress(byte *inBuf, size_t inBufLength, size_t &outBufLength)
 {
-	outBufLength = inBufLength * 1000;
+	outBufLength = GetUncompressedSize(inBuf);
 	size_t srcLen = inBufLength - LZMA_PROPS_SIZE;
 
 	byte *outBuf = new byte[outBufLength];
 
 	SRes res = LzmaUncompress(
 	    outBuf, (size_t *) &outBufLength,
-	    &inBuf[LZMA_PROPS_SIZE], &srcLen,
+	    &inBuf[LZMA_PROPS_SIZE + COMPRESSED_SIZE], &srcLen,
 	    inBuf, LZMA_PROPS_SIZE);
+	assert(res == SZ_OK);
 
 	byte *result = new byte[outBufLength];
 	memcpy(result, outBuf, outBufLength);
 
 	delete[] outBuf;
+
+	return result;
+}
+
+unsigned short SevenZCompression::GetUncompressedSize(byte *compressed) {
+	unsigned short result = 0;
+
+	memcpy(&result, compressed + LZMA_PROPS_SIZE, COMPRESSED_SIZE);
 
 	return result;
 }
