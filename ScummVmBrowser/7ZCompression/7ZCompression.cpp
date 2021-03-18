@@ -17,21 +17,15 @@ byte* SevenZCompression::Compress(byte *inBuf, size_t inBufLength, size_t &outBu
 
 	assert(propsSize == LZMA_PROPS_SIZE);
 	assert(res == SZ_OK);
+	outBufLength = dstLength + propsSize + COMPRESSED_SIZE;
 
-	byte *result = new byte[dstLength + propsSize];
-	memcpy(result, outBuf, dstLength + propsSize);
-	outBufLength = dstLength + propsSize;
-
-
-	delete[] outBuf;
-
-	return result;
+	return outBuf;
 }
 
 byte* SevenZCompression::Uncompress(byte *inBuf, size_t inBufLength, size_t &outBufLength)
 {
 	outBufLength = GetUncompressedSize(inBuf);
-	size_t srcLen = inBufLength - LZMA_PROPS_SIZE;
+	size_t srcLen = inBufLength - LZMA_PROPS_SIZE - COMPRESSED_SIZE;
 
 	byte *outBuf = new byte[outBufLength];
 
