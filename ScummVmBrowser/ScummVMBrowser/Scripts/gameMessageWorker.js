@@ -1,11 +1,10 @@
 ﻿var fromGameMessageMessageWorkerToPictureWorker;
 var fromGameMessageMessageWorkerToSoundWorker;
 var decompressionModule;
-var Module = { arguments: '', thisProgram: '', quit: '', read: ''}
+
 self.onmessage = function (e) {
 	importScripts("/scripts/pako.min.js");
 	importScripts("/scripts/yEncoding.js");
-	importScripts("/scripts/emscripten7ZCompression.js");
 	
 	if (e.data.hasOwnProperty('fromGameMessageMessageWorkerToPictureWorker')) {
 		fromGameMessageMessageWorkerToPictureWorker = e.data.fromGameMessageMessageWorkerToPictureWorker;
