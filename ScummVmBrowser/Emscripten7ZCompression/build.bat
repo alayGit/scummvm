@@ -9,10 +9,10 @@ EmscriptenProcessGameMessages.cpp ^
 ..\..\ExternalLibraries\source\7z\LzmaDec.c ^
 ..\..\ExternalLibraries\source\7z\LzmaEnc.c ^
 ..\..\ExternalLibraries\source\7z\LzFind.c ^
---bind -o Emscripten7ZCompression.html -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -v --no-entry -s "EXTRA_EXPORTED_RUNTIME_METHODS=['getValue', 'setValue', 'cwrap', 'printErr']"
+--bind -o EmscriptenProcessGameMessages.html -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -v --no-entry -s "EXTRA_EXPORTED_RUNTIME_METHODS=['getValue', 'setValue', 'cwrap', 'printErr']"
 
-call copy Emscripten7ZCompression.wasm C:\scumm\ScummVmBrowser\Emscripten7ZCompression\..\ScummVMBrowser\Scripts
-call copy Emscripten7ZCompression.js C:\scumm\ScummVmBrowser\Emscripten7ZCompression\..\ScummVMBrowser\Scripts
+call copy EmscriptenProcessGameMessages.wasm C:\scumm\ScummVmBrowser\Emscripten7ZCompression\..\ScummVMBrowser\Scripts
+call copy EmscriptenProcessGameMessages.js C:\scumm\ScummVmBrowser\Emscripten7ZCompression\..\ScummVMBrowser\Scripts
 
 
 
