@@ -1,7 +1,7 @@
 #include "7ZCompression.h"
 const int COMPRESSED_SIZE = 4;
 
-byte* SevenZCompression::Compress(byte *inBuf, size_t inBufLength, size_t &outBufLength) {
+byte* SevenZCompression::Compress(const byte *inBuf, size_t inBufLength, size_t &outBufLength) {
 	size_t propsSize = LZMA_PROPS_SIZE;
 	size_t dstLength = inBufLength + inBufLength / 3 + 128;
 
@@ -22,7 +22,7 @@ byte* SevenZCompression::Compress(byte *inBuf, size_t inBufLength, size_t &outBu
 	return outBuf;
 }
 
-byte* SevenZCompression::Uncompress(byte *inBuf, size_t inBufLength, size_t &outBufLength)
+byte* SevenZCompression::Uncompress(const byte *inBuf, size_t inBufLength, size_t &outBufLength)
 {
 	outBufLength = GetUncompressedSize(inBuf);
 	size_t srcLen = inBufLength - LZMA_PROPS_SIZE - COMPRESSED_SIZE;
@@ -43,7 +43,7 @@ byte* SevenZCompression::Uncompress(byte *inBuf, size_t inBufLength, size_t &out
 	return result;
 }
 
-size_t SevenZCompression::GetUncompressedSize(byte *compressed) {
+size_t SevenZCompression::GetUncompressedSize(const byte *compressed) {
 	size_t result = 0;
 
 	memcpy(&result, compressed + LZMA_PROPS_SIZE, COMPRESSED_SIZE);

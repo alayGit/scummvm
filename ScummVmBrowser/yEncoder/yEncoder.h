@@ -1,5 +1,6 @@
+#pragma once
 #include "pch.h"
-#include <vector>;
+#include <vector>
 #define ZERO		0x00
 #define CR		0x0d
 #define	LF		0x0a
