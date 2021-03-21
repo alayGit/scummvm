@@ -2,6 +2,8 @@
 var fromGameMessageMessageWorkerToSoundWorker;
 var decompressionModule;
 
+importScripts("/scripts/emscripten/ProcessGameMessages.js");
+
 self.onmessage = function (e) {
 	importScripts("/scripts/pako.min.js");
 	importScripts("/scripts/yEncoding.js");
