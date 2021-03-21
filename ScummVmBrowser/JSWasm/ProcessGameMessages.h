@@ -5,5 +5,5 @@
 #include "../yEncoder/yEncoder.h"
 typedef unsigned char byte;
 namespace JSWasm {
-std::string InflateAndDecodeGameMessage(byte *deflatedAndEncoded, int deflatedAndEncodedLength);
+byte *InflateAndDecodeGameMessage(byte *deflatedAndEncoded, int deflatedAndEncodedLength, size_t &uncompressedLength);
 };
