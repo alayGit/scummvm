@@ -6,7 +6,8 @@ using namespace System;
 using namespace System::Runtime::InteropServices;
 
 namespace SevenZCompression {
-public ref class SevenZCompressor : ManagedCommon::Interfaces::ICompression
+public
+ref class SevenZCompressor : ManagedCommon::Interfaces::IMessageCompression
 	{
 	 public:
 	    virtual cli::array<System::Byte>^ Compress(cli::array<System::Byte>^ data);

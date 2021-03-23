@@ -1,5 +1,5 @@
 ﻿convertPointerToNumber = p => {
-	return Module.getValue(p, "i32");
+	return ProcessGameMessagesModule.getValue(p, "i32");
 }
 
 convertPointerToArray = (p, l, lengthIsPointer = true) => {
@@ -9,19 +9,19 @@ convertPointerToArray = (p, l, lengthIsPointer = true) => {
 		actualLength = convertPointerToNumber(l);
 	}
 
-	return Array.from(new Uint8Array(Module.HEAPU8.buffer, p, actualLength));
+	return Array.from(new Uint8Array(ProcessGameMessagesModule.HEAPU8.buffer, p, actualLength));
 }
 
 convertNumberToPointer = n => {
-	p = Module._malloc(4);
-	Module.setValue(p, n, "i32");
+	p = ProcessGameMessagesModule._malloc(4);
+	ProcessGameMessagesModule.setValue(p, n, "i32");
 
 	return p;
 }
 
 convertArrayToPointer = a => {
-	var array_ptr = Module._malloc(a.length);
-	Module.HEAPU8.set(testData, input_ptr);
+	var array_ptr = ProcessGameMessagesModule._malloc(a.length);
+	ProcessGameMessagesModule.HEAPU8.set(testData, input_ptr);
 
 	return array_ptr;
 }

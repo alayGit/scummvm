@@ -4,7 +4,7 @@ var decompressionModule;
 
 importScripts("/scripts/emscripten/ProcessGameMessages.js");
 
-self.onmessage = function (e) {
+self.onmessage = e => {
 	importScripts("/scripts/pako.min.js");
 	importScripts("/scripts/yEncoding.js");
 	
@@ -13,10 +13,10 @@ self.onmessage = function (e) {
 	}
 	else if (e.data.hasOwnProperty('toGameWorkerChannel') && e.data.hasOwnProperty('fromGameMessageMessageWorkerToSoundWorker')) {
 		fromGameMessageMessageWorkerToSoundWorker = e.data.fromGameMessageMessageWorkerToSoundWorker;
-		e.data.toGameWorkerChannel.onmessage = function (e) {
+		e.data.toGameWorkerChannel.onmessage = async e => {
 		
-			var inflated = decode(e.data);
-			var messages = JSON.parse(stringFromUTF8Array(inflated));
+			var inflated = await processGameMessages(e.data);
+			var messages = JSON.parse(inflated);
 
 			messages.forEach(function (item) {
 				switch (item.Key) {
@@ -36,21 +36,5 @@ self.onmessage = function (e) {
 }
 
 
-function stringFromUTF8Array(data) {
-	var result = "";
-
-	for (var i = 0; i < data.length; i++) {
-		result += String.fromCharCode(data[i]);
-	}
-
-	return result;
-}
-
-function decode(data) {
-	var deencoded = DecodeYEncode(data);
-	var compressedUInt8 = Uint8Array.from(deencoded);
-
-	return pako.inflate(compressedUInt8);
-}
 
 

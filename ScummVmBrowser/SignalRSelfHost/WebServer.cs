@@ -15,6 +15,7 @@ using Microsoft.Owin.Hosting;
 using Newtonsoft.Json;
 using PortSharer;
 using ScummVMBrowser.Utilities;
+using SevenZCompression;
 using SevenZip;
 using SignalR;
 using SignalRHostWithUnity.Unity;
@@ -88,7 +89,7 @@ namespace SignalRSelfHost
             container.RegisterType<IStarter, DynamicInstanceStarter>();
             container.RegisterType<ILogger, WindowsEventLogger>();
             container.RegisterType<ErrorHandlingPipelineModule, CliScummErrorHandingPipelineModule>();
-			container.RegisterType<IMessageCompression, ManagedZLibCompression.ManagedZLibCompression>();
+			container.RegisterType<IMessageCompression, SevenZCompressor>();
 			
 			container.RegisterType<IProcessMessageBuffers, ProcessMessages>();
 

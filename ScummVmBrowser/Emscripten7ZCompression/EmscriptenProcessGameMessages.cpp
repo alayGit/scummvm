@@ -3,6 +3,10 @@
 
 #include "EmscriptenProcessGameMessages.h"
 
-EMSCRIPTEN_BINDINGS(my_module) {
-	function("InflateAndDecodeGameMessage", &JSWasm::InflateAndDecodeGameMessage, emscripten::allow_raw_pointers());
+
+extern "C" {
+EMSCRIPTEN_KEEPALIVE
+byte *InflateAndDecodeGameMessage(byte *deflatedAndEncoded, size_t deflatedAndEncodedLength, size_t &uncompressedLength) {
+	return JSWasm::InflateAndDecodeGameMessage(deflatedAndEncoded, deflatedAndEncodedLength, uncompressedLength);
+}
 }
