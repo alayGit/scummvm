@@ -2,7 +2,7 @@
 var fromGameMessageMessageWorkerToSoundWorker;
 var decompressionModule;
 
-importScripts("/scripts/emscripten/ProcessGameMessages.js");
+var processGameMessagesWorker = new Worker("http://localhost:44365/scripts/processGameMessagesWorker.js");
 
 self.onmessage = e => {
 	importScripts("/scripts/pako.min.js");
@@ -13,20 +13,23 @@ self.onmessage = e => {
 	}
 	else if (e.data.hasOwnProperty('toGameWorkerChannel') && e.data.hasOwnProperty('fromGameMessageMessageWorkerToSoundWorker')) {
 		fromGameMessageMessageWorkerToSoundWorker = e.data.fromGameMessageMessageWorkerToSoundWorker;
-		e.data.toGameWorkerChannel.onmessage = async e => {
+		e.data.toGameWorkerChannel.onmessage = unprocessedMessage => {
 		
-			var inflated = await processGameMessages(e.data);
-			var messages = JSON.parse(inflated);
+			processGameMessagesWorker.postMessage(unprocessedMessage.data);
 
-			messages.forEach(function (item) {
-				switch (item.Key) {
-					case 0: //Audio 
-						fromGameMessageMessageWorkerToSoundWorker.postMessage({ soundSamples: item.Value } );
-						break;
-					case 1: //Frames
-						fromGameMessageMessageWorkerToPictureWorker.postMessage({ frameSets: item.Value });
-						break;
-				}
+			processGameMessagesWorker.onmessage = (processedMessage => {
+				var messages = JSON.parse(processedMessage.data);
+
+				messages.forEach(function (item) {
+					switch (item.Key) {
+						case 0: //Audio 
+							fromGameMessageMessageWorkerToSoundWorker.postMessage({ soundSamples: item.Value });
+							break;
+						case 1: //Frames
+							fromGameMessageMessageWorkerToPictureWorker.postMessage({ frameSets: item.Value });
+							break;
+					}
+				});
 			});
 		};
 	}

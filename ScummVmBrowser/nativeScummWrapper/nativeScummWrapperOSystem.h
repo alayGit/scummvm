@@ -30,6 +30,7 @@ namespace NativeScummWrapper {
 		void StopSound();
 	    NativeScummWrapper::NativeScummWrapperGraphics *getGraphicsManager();
 	    virtual void quit() override;
+	    virtual Common::SeekableReadStream *createConfigReadStream() override;
 	protected:
 		NativeScummWrapperEvents *_eventSource;
 

@@ -29,7 +29,7 @@
  */
 
 // FIXME: Avoid using printf
-#define FORBIDDEN_SYMBOL_EXCEPTION_printf
+#define FORBIDDEN_SYMBOL_ALLOW_ALL
 
 #include "engines/engine.h"
 #include "engines/metaengine.h"
@@ -377,7 +377,12 @@ static void setupKeymapper(OSystem &system) {
 	}
 }
 
+#include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
+
 extern "C" int scummvm_main(int argc, const char * const argv[]) {
+	//DebuggerTools::DebuggerLauncher l;
+	/*l.launchDebugger();*/
+
 	Common::String specialDebug;
 	Common::String command;
 

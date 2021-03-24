@@ -11,6 +11,9 @@ cli::array<System::Byte> ^ SevenZCompression::SevenZCompressor::Compress(cli::ar
 	cli::array<System::Byte> ^ result = gcnew cli::array<System::Byte>(outputLength);
 	Marshal::Copy(System::IntPtr(output), result, 0, outputLength);
 
+	delete[] input;
+	delete[] output;
+
 	return result;
 }
 
@@ -24,6 +27,9 @@ cli::array<System::Byte> ^ SevenZCompression::SevenZCompressor::Decompress(cli::
 
 	cli::array<System::Byte> ^ result = gcnew cli::array<System::Byte>(outputLength);
 	Marshal::Copy(System::IntPtr(output), result, 0, outputLength);
+
+	delete[] input;
+	delete[] output;
 
 	return result;
 }

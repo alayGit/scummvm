@@ -13,7 +13,10 @@
 #endif
 
 #include "LzmaEnc.h"
+
+#ifdef __EMSCRIPTEN__
 #define _7ZIP_ST
+#endif // __EMSCRIPTEN__
 
 #include "LzFind.h"
 #ifndef _7ZIP_ST

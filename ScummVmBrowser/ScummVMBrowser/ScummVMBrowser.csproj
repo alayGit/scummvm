@@ -261,7 +261,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\EmscriptenProcessGameMessages.js" />
-    <Content Include="Scripts\emscripten\ProcessGameMessages.js" />
+    <Content Include="Scripts\processGameMessagesWorker.js" />
     <Content Include="Scripts\emscripten\utils\utils.js" />
     <Content Include="Scripts\gameMessageWorker.js" />
     <Content Include="Scripts\deflateWorker.js" />

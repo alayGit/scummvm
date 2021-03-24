@@ -3,6 +3,7 @@
 #define FORBIDDEN_SYMBOL_ALLOW_ALL
 
 #include "nativeScummWrapperOSystem.h"
+#include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
 
 NativeScummWrapper::NativeScummWrapperOSystem::NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, f_SendScreenBuffers sendScreenBuffers, f_PollEvent queueEvent, f_SaveFileData saveData, SoundManagement::f_PlaySound playSound) : ModularBackend() {
 	_mixerImpl = nullptr;
@@ -89,6 +90,10 @@ void NativeScummWrapper::NativeScummWrapperOSystem::StartSound() {
 }
 
 void NativeScummWrapper::NativeScummWrapperOSystem::quit() {
+}
+
+Common::SeekableReadStream *NativeScummWrapper::NativeScummWrapperOSystem::createConfigReadStream() {
+	return nullptr;
 }
 
 void NativeScummWrapper::NativeScummWrapperOSystem::StopSound() {

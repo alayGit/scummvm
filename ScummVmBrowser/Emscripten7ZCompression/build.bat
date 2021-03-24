@@ -1,5 +1,5 @@
 call "C:\emsdk\emsdk\emsdk_env.bat"
-call em++ -o EmscriptenProcessGameMessages.js -g ^
+call em++ -o EmscriptenProcessGameMessages.js ^
 EmscriptenProcessGameMessages.cpp ^
 ..\JSWasm\ProcessGameMessages.cpp ^
 ..\7ZCompression\7ZCompression.cpp ^
