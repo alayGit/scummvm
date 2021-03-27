@@ -1,4 +1,5 @@
 ﻿importScripts("EmscriptenProcessGameMessages.js")
+
 var decompressModule;
 var moduleReady = Module().then(m=> decompressModule = m);
 
@@ -33,11 +34,9 @@ putStringBytesIntoMemory = string => {
 getStringBytesFromMemory = (stringBytesPointer, length) => {
 	var string = '';
 
-	var uInt8Array = new Uint8Array(decompressModule.HEAPU8.buffer, stringBytesPointer, length).forEach(
-		b => {
-			string = string +  String.fromCharCode(b);
-		}
-	);
+	for (var i = 0; i < length; i++) {
+		string = string + String.fromCharCode(decompressModule.getValue(stringBytesPointer + i, "i8"));
+	}
 
 	return string;
 }
