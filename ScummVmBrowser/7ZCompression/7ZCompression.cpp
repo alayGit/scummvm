@@ -11,7 +11,7 @@ byte* SevenZCompression::Compress(const byte *inBuf, size_t inBufLength, size_t 
 	    &outBuf[LZMA_PROPS_SIZE + COMPRESSED_SIZE], &dstLength,
 	    inBuf, inBufLength,
 	    outBuf, &propsSize,
-	    5, 0, -1, -1, -1, -1, -1);
+	    3, 0, -1, -1, -1, -1, -1);
 
 	memcpy(&outBuf[LZMA_PROPS_SIZE], &inBufLength, COMPRESSED_SIZE);
 
