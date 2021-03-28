@@ -11,27 +11,27 @@ TEST(ProcessGameMessages, CanInflateAndDecodeGameMessage) {
 
 	const int soundSize = 10;
 	byte sound[soundSize] = {12, 112, 33, 44, 55, 66, 55, 66, 122, 33};
-	std::vector<byte> encodedSoundBuffer;
 	yEnc::Encoder encoder;
 
-	uInt col = 0;
+    uInt encodedSize;
+	byte* encodedSoundBuffer = encoder.encode_buffer(sound, encodedSize, soundSize);
 
-	encoder.encode_buffer(sound, encodedSoundBuffer, soundSize, &crc, &col);
+	std::string strEncoded = std::string(reinterpret_cast<char const *>(&encodedSoundBuffer[0]), encodedSize);
 
-	std::string strEncoded = std::string(reinterpret_cast<char const *>(&encodedSoundBuffer[0]), encodedSoundBuffer.size());
+	delete[] encodedSoundBuffer;
 
 	std::string strEncodedJsonArray = "[" + strEncoded + "]";
 
 	size_t compressedLength;
-	byte *compressed = SevenZCompression::Compress(reinterpret_cast<const byte*>(strEncodedJsonArray.c_str()), strEncodedJsonArray.size(), compressedLength);
-	std::vector<byte> encodedJson;
+	byte*compressed = SevenZCompression::Compress(reinterpret_cast<const byte*>(strEncodedJsonArray.c_str()), strEncodedJsonArray.size(), compressedLength);
 
-	encoder.encode_buffer(compressed, encodedJson, compressedLength, &crc, &col);
+	uInt encodedJsonLength;
+    byte* encodedJson = encoder.encode_buffer(compressed, encodedJsonLength, compressedLength);
 
 	delete[] compressed;
 
 	size_t uncompressedSize;
-	byte *inflatedAndDecoded = JSWasm::InflateAndDecodeGameMessage(&encodedJson[0], encodedJson.size(), uncompressedSize);
+	byte *inflatedAndDecoded = JSWasm::InflateAndDecodeGameMessage(&encodedJson[0], encodedJsonLength, uncompressedSize);
 
 	std::string strInflatedAndDecoded = std::string(reinterpret_cast<const char *>(strEncodedJsonArray.c_str()), uncompressedSize);
 

@@ -73,21 +73,17 @@ namespace yEnc
     {
     public:
         Encoder();
-        int encode_buffer(
+        Byte* encode_buffer(
             Byte* input_buffer,
-            std::vector<Byte>& output_buffer,
-            uInt bytes,
-            Crc32* crc,
-            uInt* col
+            uInt& output_bufferLength,
+            uInt bytes
         );
-        int decode_buffer(
-            Byte* input_buffer,
-            std::vector<Byte>& output_buffer,
-            uInt bytes,
-            Crc32* crc,
-            bool* escape
-        );
+	    Byte* decode_buffer(
+	        Byte *input_buffer,
+	        uInt &output_bufferLength,
+	        uInt bytes);
     private:
+	    Crc32 getEmptyCrc();
         void crc_update(Crc32* crc, uInt c);
     };
 }

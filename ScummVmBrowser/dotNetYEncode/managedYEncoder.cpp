@@ -14,7 +14,8 @@ System::String^ ManagedYEncoder::ManagedYEncoder::ByteEncode(cli::array<System::
 {
     yEnc::Encoder encoder;
     Byte* inputBuffer = nullptr;
- 
+	Byte *outputBuffer = nullptr;
+
     try
     {
         if (input->Length == 0)
@@ -25,11 +26,10 @@ System::String^ ManagedYEncoder::ManagedYEncoder::ByteEncode(cli::array<System::
         inputBuffer = new Byte[input->Length];
         Marshal::Copy(input, 0, System::IntPtr(inputBuffer), input->Length);
 
-        std::vector<Byte> outputBuffer;
-
         uInt col = 0;
 
-        int resultSize = encoder.encode_buffer(inputBuffer, outputBuffer, input->Length, &GetEmptyCrc(), &col);
+		uInt resultSize;
+        outputBuffer = encoder.encode_buffer(inputBuffer, resultSize, input->Length);
 
         return TextEncoding->GetString(&outputBuffer[0], resultSize);
     }
@@ -43,6 +43,10 @@ System::String^ ManagedYEncoder::ManagedYEncoder::ByteEncode(cli::array<System::
         {
             delete[] inputBuffer;
         }
+
+		 if (outputBuffer != nullptr) {
+			delete[] outputBuffer;
+		}
     }
 }
 
@@ -52,7 +56,7 @@ cli::array<System::Byte> ^ ManagedYEncoder::ManagedYEncoder::ByteDecode(System::
 
 	try {
 		inputBuffer = new Byte[input->Length];
-		std::vector<Byte> outputBuffer;
+		Byte* outputBuffer;
 
 		cli::array<Byte> ^ charArray = gcnew cli::array<Byte>(input->Length);
 
@@ -66,7 +70,8 @@ cli::array<System::Byte> ^ ManagedYEncoder::ManagedYEncoder::ByteDecode(System::
 		Marshal::Copy(charArray, 0, System::IntPtr(inputBuffer), input->Length);
 
 		bool escape = false;
-		int resultSize = encoder.decode_buffer(inputBuffer, outputBuffer, input->Length, &GetEmptyCrc(), &escape);
+		uInt resultSize;
+		outputBuffer = encoder.decode_buffer(inputBuffer, resultSize, input->Length);
 
 		cli::array<System::Byte> ^ result = gcnew cli::array<System::Byte>(resultSize);
 
@@ -83,7 +88,6 @@ cli::array<System::Byte> ^ ManagedYEncoder::ManagedYEncoder::ByteDecode(System::
 		}
 	}
 }
-
 
 Crc32 ManagedYEncoder::ManagedYEncoder::GetEmptyCrc()
 {
