@@ -255,7 +255,6 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Properties\PublishProfiles\IISProfile1.pubxml" />
-    <Content Include="Scripts\Emscripten7ZCompression.wasm" />
     <Content Include="Scripts\EmscriptenProcessGameMessages.wasm" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />

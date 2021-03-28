@@ -16,7 +16,6 @@ using Newtonsoft.Json;
 using PortSharer;
 using ScummVMBrowser.Utilities;
 using SevenZCompression;
-using SevenZip;
 using SignalR;
 using SignalRHostWithUnity.Unity;
 using StartInstance;
