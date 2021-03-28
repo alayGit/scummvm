@@ -27,11 +27,12 @@ TEST(ProcessGameMessages, CanInflateAndDecodeGameMessage) {
 
 	uInt encodedJsonLength;
     byte* encodedJson = encoder.encode_buffer(compressed, encodedJsonLength, compressedLength);
-
 	delete[] compressed;
 
 	size_t uncompressedSize;
 	byte *inflatedAndDecoded = JSWasm::InflateAndDecodeGameMessage(&encodedJson[0], encodedJsonLength, uncompressedSize);
+	delete[] encodedJson;
+
 
 	std::string strInflatedAndDecoded = std::string(reinterpret_cast<const char *>(strEncodedJsonArray.c_str()), uncompressedSize);
 
