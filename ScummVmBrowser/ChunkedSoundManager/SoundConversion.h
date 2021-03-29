@@ -19,13 +19,14 @@ namespace SoundManagement
 		~SoundConverter();
 		void ConvertPcmToFlac(byte* pcm, int length, void* user);
 		void GetEncodedData(HENCODE handle, DWORD channel, const void* buffer, DWORD length);
-	    void ProcessSound(byte *pcm, int length, void *user) override;
+	    void ProcessSound(byte *pcm, int counter, int length, void *user) override;
 	private:
 		SoundOptions _soundOptions;
 		std::vector<byte> _workingBuffer;
 		SoundManagement::f_SoundOperated _soundConverted; //TODO:Fix we are force to do this because we cannot use member functions in C callbacks.
 		void* _user;
 	    bool _isInited;
+	    int _counter;
 	};
 
 }

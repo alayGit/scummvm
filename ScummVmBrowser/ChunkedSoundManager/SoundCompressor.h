@@ -6,7 +6,7 @@ namespace SoundManagement {
 class SoundCompressor : public SoundOperation {
 public:
 	SoundCompressor();
-	void ProcessSound(byte *soundData, int length, void *user) override;
+	void ProcessSound(byte *soundData, int counter, int length, void *user) override;
 	void Init(SoundOptions soundOptions, f_SoundOperated soundOperated) override;
 
 private:

@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "TestSoundOperation.h"
-void TestSoundOperation::ProcessSound(SoundManagement::byte *soundData, int length, void *user) {
+void TestSoundOperation::ProcessSound(SoundManagement::byte *soundData, int counter, int length, void *user) {
 	SoundManagement::byte *newSoundData = new SoundManagement::byte[length];
 
 	memcpy(newSoundData, soundData, length);
@@ -8,7 +8,7 @@ void TestSoundOperation::ProcessSound(SoundManagement::byte *soundData, int leng
 		newSoundData[i] += 1;
 	}
 
-	_soundConverted(newSoundData, length, user);
+	_soundConverted(newSoundData, counter, length, user);
 }
 
 void TestSoundOperation::Init(SoundManagement::SoundOptions soundOptions, SoundManagement::f_SoundOperated soundConverted) {
