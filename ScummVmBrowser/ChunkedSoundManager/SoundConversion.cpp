@@ -7,7 +7,6 @@ SoundManagement::SoundConverter::SoundConverter() {
 	_soundOptions = SoundOptions();
 	_user = nullptr;
 	_isInited = false;
-	_counter = 0;
 }
 
 void SoundManagement::SoundConverter::Init(SoundOptions soundOptions, f_SoundOperated soundConverted) {
@@ -75,13 +74,12 @@ void SoundManagement::SoundConverter::GetEncodedData(HENCODE handle, DWORD chann
 	{
 		byte* completeSound = new byte[_workingBuffer.size()];
 		memcpy(completeSound, &_workingBuffer[0], _workingBuffer.size());
-		_soundConverted(completeSound, _counter, _workingBuffer.size(), _user);
+		_soundConverted(completeSound, _workingBuffer.size(), _user);
 		_workingBuffer.resize(0);
 	}
 
 }
 
-void SoundManagement::SoundConverter::ProcessSound(byte *pcm, int counter, int length, void *user) {
-	_counter = counter;
+void SoundManagement::SoundConverter::ProcessSound(byte *pcm, int length, void *user) {
 	ConvertPcmToFlac(pcm, length, user);
 }

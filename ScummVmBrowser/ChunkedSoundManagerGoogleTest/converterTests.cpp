@@ -7,7 +7,7 @@ const SoundManagement::byte FLAC_PREAMBLE[FLAC_PREAMBLE_LENGTH] = {102, 76, 97, 
 
 bool converterCallbackCalled = false;
 
-void __stdcall SoundConverterCallback(SoundManagement::byte *data, int counter, int length, void *user) {
+void __stdcall SoundConverterCallback(SoundManagement::byte *data, int length, void *user) {
 	converterCallbackCalled = true;
 
 	EXPECT_TRUE(length > 0);

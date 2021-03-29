@@ -51,7 +51,7 @@ namespace SoundConverterTests
 		    SoundManagement::SoundConverter soundConverter;
 
 			try {
-			    soundConverter.ProcessSound(testData, 0, 4, nullptr);
+			    soundConverter.ProcessSound(testData, 4, nullptr);
 		    } catch (std::exception e) {
 			    exceptionThrown = true;
 			}
@@ -115,7 +115,7 @@ namespace SoundConverterTests
 			}
 		}
 
-		static void __stdcall encodeCallback(byte * buffer, int counter, int length, void *user)
+		static void __stdcall encodeCallback(byte* buffer, int length, void* user)
 		{
 			((SoundConverterTests*)user)->afterEncode(buffer, length);
 		}

@@ -1,6 +1,7 @@
 #include "SoundProcessor.h"
 
 SoundManagement::SoundProcessor::SoundProcessor() {
+	_operationCounter = 0;
 	_soundOperationsCompleted = nullptr;
 	_soundOptions = SoundOptions();
 	_user = nullptr;
@@ -18,12 +19,15 @@ void SoundManagement::SoundProcessor::Init(SoundOptions soundOptions, f_PlaySoun
 		throw std::exception("Cannot init twice, soundProcessor");
 	}
 
-	if (_operations.size() == 0) {
+	if (_operations.size() == 0)
+	{
 		throw std::exception("No operations added, and init called, add operations first and then call init");
 	}
 
 	_soundOptions = soundOptions;
 	_soundOperationsCompleted = soundOperationsCompleted;
+
+	_operationCounter = 0;
 
 	for (int i = 0; i < _operations.size(); i++) {
 		_operations[i]->Init(soundOptions, OperateOnSoundClb);
@@ -45,11 +49,13 @@ void SoundManagement::SoundProcessor::ProcessSound(byte *pcm, void *user) {
 	delete[] pcm;
 }
 
-void SoundManagement::SoundProcessor::OperateOnSound(SoundManagement::byte *soundBytes, int counter, int length) {
-	if (counter < _operations.size()) {
-		_operations[counter++]->ProcessSound(soundBytes, counter, length, this);
+void SoundManagement::SoundProcessor::OperateOnSound(byte *soundBytes, int length) {
+	if (_operationCounter < _operations.size()) {
+		_operations[_operationCounter++]->ProcessSound(soundBytes, length, this);
 		delete[] soundBytes;
-	} else {
+	}
+	else
+	{
 		_soundOperationsCompleted(soundBytes, length, _user);
 	}
 }
@@ -58,16 +64,13 @@ void SoundManagement::SoundProcessor::Flush() {
 	if (cachedSound.size()) {
 		byte *joinedPcm = new byte[cachedSound.size()];
 		memcpy(joinedPcm, &cachedSound[0], cachedSound.size());
-
-		int cachedSoundSize = cachedSound.size();
-		//std::thread([joinedPcm, cachedSoundSize, this] {
-		OperateOnSound(joinedPcm, 0, cachedSoundSize);
-		//});
+		OperateOnSound(joinedPcm, cachedSound.size());
 		cachedSound.clear();
+		_operationCounter = 0;
 	}
 }
 
-void SoundManagement::SoundProcessor::AddOperation(SoundOperation *operation) {
+void SoundManagement::SoundProcessor::AddOperation(SoundOperation* operation) {
 	if (_isInited) {
 		throw std::exception("Cannot add once inited, add first, and then init");
 	}
@@ -75,6 +78,6 @@ void SoundManagement::SoundProcessor::AddOperation(SoundOperation *operation) {
 	_operations.push_back(operation);
 }
 
-void __stdcall SoundManagement::OperateOnSoundClb(byte *soundBytes, int counter, int length, void *user) {
-	((SoundProcessor *)user)->OperateOnSound(soundBytes, counter, length);
+void __stdcall SoundManagement::OperateOnSoundClb(byte *soundBytes, int length, void *user) {
+    ((SoundProcessor *)user)->OperateOnSound(soundBytes, length);
 }
