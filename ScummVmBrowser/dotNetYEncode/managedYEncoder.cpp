@@ -29,7 +29,7 @@ System::String^ ManagedYEncoder::ManagedYEncoder::ByteEncode(cli::array<System::
         uInt col = 0;
 
 		uInt resultSize;
-        outputBuffer = encoder.encode_buffer(inputBuffer, resultSize, input->Length);
+        outputBuffer = encoder.encode_buffer(inputBuffer, input->Length, resultSize);
 
         return TextEncoding->GetString(&outputBuffer[0], resultSize);
     }
@@ -71,7 +71,7 @@ cli::array<System::Byte> ^ ManagedYEncoder::ManagedYEncoder::ByteDecode(System::
 
 		bool escape = false;
 		uInt resultSize;
-		outputBuffer = encoder.decode_buffer(inputBuffer, resultSize, input->Length);
+		outputBuffer = encoder.decode_buffer(inputBuffer, input->Length, resultSize);
 
 		cli::array<System::Byte> ^ result = gcnew cli::array<System::Byte>(resultSize);
 

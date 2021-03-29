@@ -14,7 +14,7 @@ TEST(ProcessGameMessages, CanInflateAndDecodeGameMessage) {
 	yEnc::Encoder encoder;
 
     uInt encodedSize;
-	byte* encodedSoundBuffer = encoder.encode_buffer(sound, encodedSize, soundSize);
+	byte* encodedSoundBuffer = encoder.encode_buffer(sound, soundSize, encodedSize);
 
 	std::string strEncoded = std::string(reinterpret_cast<char const *>(&encodedSoundBuffer[0]), encodedSize);
 
@@ -26,7 +26,7 @@ TEST(ProcessGameMessages, CanInflateAndDecodeGameMessage) {
 	byte*compressed = SevenZCompression::Compress(reinterpret_cast<const byte*>(strEncodedJsonArray.c_str()), strEncodedJsonArray.size(), compressedLength);
 
 	uInt encodedJsonLength;
-    byte* encodedJson = encoder.encode_buffer(compressed, encodedJsonLength, compressedLength);
+    byte* encodedJson = encoder.encode_buffer(compressed, compressedLength, encodedJsonLength);
 	delete[] compressed;
 
 	size_t uncompressedSize;

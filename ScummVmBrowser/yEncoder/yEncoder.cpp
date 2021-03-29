@@ -5,7 +5,7 @@ yEnc::Encoder::Encoder()
 {
 }
 
-Byte* yEnc::Encoder::encode_buffer(Byte *input_buffer, uInt &output_bufferLength, uInt inputLength) {
+Byte* yEnc::Encoder::encode_buffer(Byte *inputBuffer, uInt inputLength, uInt &output_bufferLength) {
     uInt encoded = 0;
     uInt in_ind;
     uInt out_ind;
@@ -19,8 +19,8 @@ Byte* yEnc::Encoder::encode_buffer(Byte *input_buffer, uInt &output_bufferLength
 
     out_ind = 0;
     for (in_ind = 0; in_ind < inputLength; in_ind++) {
-        byte = (Byte)(input_buffer[in_ind] + 42);
-		crc_update(&crcEmptyCrc, input_buffer[in_ind]);
+        byte = (Byte)(inputBuffer[in_ind] + 42);
+		crc_update(&crcEmptyCrc, inputBuffer[in_ind]);
         switch (byte) {
         case ZERO:
         case LF:
@@ -65,7 +65,7 @@ Byte* yEnc::Encoder::encode_buffer(Byte *input_buffer, uInt &output_bufferLength
     return output_buffer;
 }
 
-Byte* yEnc::Encoder::decode_buffer(Byte *input_buffer, uInt &output_bufferLength, uInt inputLength) {
+Byte* yEnc::Encoder::decode_buffer(Byte *inputBuffer, uInt inputLength, uInt &output_bufferLength) {
     uInt read_ind;
     uInt decoded_bytes;
     Byte byte;
@@ -76,7 +76,7 @@ Byte* yEnc::Encoder::decode_buffer(Byte *input_buffer, uInt &output_bufferLength
 
     decoded_bytes = 0;
     for (read_ind = 0; read_ind < inputLength; read_ind++) {
-        byte = input_buffer[read_ind];
+        byte = inputBuffer[read_ind];
         if (escape) {
             byte = (Byte)(byte - 106);
             escape = 0;

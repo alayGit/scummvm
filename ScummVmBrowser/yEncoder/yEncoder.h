@@ -75,13 +75,15 @@ namespace yEnc
         Encoder();
         Byte* encode_buffer(
             Byte* input_buffer,
-            uInt& output_bufferLength,
-            uInt bytes
+
+            uInt bytes,
+            uInt& output_bufferLength
         );
 	    Byte* decode_buffer(
 	        Byte *input_buffer,
-	        uInt &output_bufferLength,
-	        uInt bytes);
+
+	        uInt bytes,
+	        uInt &output_bufferLength);
     private:
 	    Crc32 getEmptyCrc();
         void crc_update(Crc32* crc, uInt c);

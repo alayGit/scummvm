@@ -5,7 +5,7 @@ byte* JSWasm::InflateAndDecodeGameMessage(byte *deflatedAndEncoded, int deflated
 	bool escape = false;
 
 	uInt decodedBufferLength;
-	Byte* decodedBuffer = encoder.decode_buffer(deflatedAndEncoded, decodedBufferLength, deflatedAndEncodedLength);
+	Byte* decodedBuffer = encoder.decode_buffer(deflatedAndEncoded, deflatedAndEncodedLength, decodedBufferLength);
 
 	return SevenZCompression::Uncompress(decodedBuffer, decodedBufferLength, uncompressedLength);
 }
