@@ -58,6 +58,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Resources\Dev\ClientSide.json" />
+    <None Include="Resources\Dev\CompressionSettings.json" />
     <None Include="Resources\Mode.json" />
     <None Include="Resources\Prod\AvailableGames.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

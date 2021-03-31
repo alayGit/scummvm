@@ -17,7 +17,7 @@ namespace CompressionTests
 			byte[] input = Convert.FromBase64String(Picture1);
 			ManagedZLibCompression.ManagedZLibCompression zLibCompression = new ManagedZLibCompression.ManagedZLibCompression();
 
-			Assert.IsTrue(input.SequenceEqual(zLibCompression.Decompress(zLibCompression.Compress(input))));
+			Assert.IsTrue(input.SequenceEqual(zLibCompression.Decompress(zLibCompression.Compress(input, 10))));
 		}
 
 		[TestMethod]
@@ -26,7 +26,7 @@ namespace CompressionTests
 			byte[] input = Convert.FromBase64String(Sound1);
 			ManagedZLibCompression.ManagedZLibCompression zLibCompression = new ManagedZLibCompression.ManagedZLibCompression();
 
-			Assert.IsTrue(input.SequenceEqual(zLibCompression.Decompress(zLibCompression.Compress(input))));
+			Assert.IsTrue(input.SequenceEqual(zLibCompression.Decompress(zLibCompression.Compress(input, 10))));
 		}
 	}
 }

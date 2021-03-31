@@ -1,7 +1,8 @@
 #include "7ZCompression.h"
 const int COMPRESSED_SIZE = 4;
+const int MAX_LEVEL = 10;
 
-byte* SevenZCompression::Compress(const byte *inBuf, size_t inBufLength, size_t &outBufLength) {
+byte* SevenZCompression::Compress(const byte *inBuf, size_t inBufLength, size_t &outBufLength, unsigned int level) {
 	size_t propsSize = LZMA_PROPS_SIZE;
 	size_t dstLength = inBufLength + inBufLength / 3 + 128;
 
@@ -11,7 +12,7 @@ byte* SevenZCompression::Compress(const byte *inBuf, size_t inBufLength, size_t 
 	    &outBuf[LZMA_PROPS_SIZE + COMPRESSED_SIZE], &dstLength,
 	    inBuf, inBufLength,
 	    outBuf, &propsSize,
-	    4, 0, -1, -1, -1, -1, -1);
+	    level <= MAX_LEVEL ? level : MAX_LEVEL, 0, -1, -1, -1, -1, -1);
 
 	memcpy(&outBuf[LZMA_PROPS_SIZE], &inBufLength, COMPRESSED_SIZE);
 

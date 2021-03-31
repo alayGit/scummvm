@@ -10,7 +10,7 @@ public
 ref class SevenZCompressor : ManagedCommon::Interfaces::IMessageCompression
 	{
 	 public:
-	    virtual cli::array<System::Byte>^ Compress(cli::array<System::Byte>^ data);
+	    virtual cli::array<System::Byte>^ Compress(cli::array<System::Byte>^ data, unsigned int level);
 	    virtual cli::array<System::Byte> ^ Decompress(cli::array<System::Byte> ^ data);
 	};
 }

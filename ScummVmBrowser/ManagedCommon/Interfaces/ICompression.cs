@@ -8,7 +8,7 @@ namespace ManagedCommon.Interfaces
 {
 	public interface ICompression
 	{
-		byte[] Compress(byte[] input);
+		byte[] Compress(byte[] input, uint level);
 		byte[] Decompress(byte[] input);
 	}
 }

@@ -23,7 +23,7 @@ TEST(ProcessGameMessages, CanInflateAndDecodeGameMessage) {
 	std::string strEncodedJsonArray = "[" + strEncoded + "]";
 
 	size_t compressedLength;
-	byte*compressed = SevenZCompression::Compress(reinterpret_cast<const byte*>(strEncodedJsonArray.c_str()), strEncodedJsonArray.size(), compressedLength);
+	byte*compressed = SevenZCompression::Compress(reinterpret_cast<const byte*>(strEncodedJsonArray.c_str()), strEncodedJsonArray.size(), compressedLength, 3);
 
 	uInt encodedJsonLength;
     byte* encodedJson = encoder.encode_buffer(compressed, compressedLength, encodedJsonLength);

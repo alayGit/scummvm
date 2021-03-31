@@ -48,7 +48,7 @@ namespace CompressTests
 
 			foreach(byte[] data in datas)
 			{
-			  int totalLength = compression.Compress(data).Length;
+			  int totalLength = compression.Compress(data, 3).Length;
 
 			  totalPercents += ((float) totalLength / data.Length) * 100;
 			}

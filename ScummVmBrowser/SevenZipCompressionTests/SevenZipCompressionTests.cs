@@ -21,7 +21,7 @@ namespace SevenZipCompressionTests
 				testData[i] = ((byte) (i % 256));
 			}
 
-			Assert.IsTrue(testData.SequenceEqual(sevenZipCompression.Decompress(sevenZipCompression.Compress(testData))));
+			Assert.IsTrue(testData.SequenceEqual(sevenZipCompression.Decompress(sevenZipCompression.Compress(testData, 10))));
 		}
     }
 }

@@ -11,7 +11,7 @@ public
 ref class ManagedZLibCompression : public ManagedCommon::Interfaces::IMessageCompression
 	{
 		public:
-			virtual cli::array<System::Byte>^ Compress(cli::array<System::Byte>^ input);
+			virtual cli::array<System::Byte>^ Compress(cli::array<System::Byte>^ input, unsigned int level);
 			virtual cli::array<System::Byte>^ Decompress(cli::array<System::Byte>^ input);
 	};
 };

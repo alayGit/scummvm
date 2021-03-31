@@ -2,7 +2,7 @@
 
 #include "ManagedZLibCompression.h"
 
-cli::array<System::Byte> ^ ManagedZLibCompression::ManagedZLibCompression::Compress(cli::array<System::Byte> ^ input) {
+cli::array<System::Byte> ^ ManagedZLibCompression::ManagedZLibCompression::Compress(cli::array<System::Byte> ^ input, unsigned int level) {
 	byte *inputBuffer = nullptr;
 	byte *outputBuffer = nullptr;
 	try {

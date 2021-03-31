@@ -25,6 +25,7 @@ namespace MessageBuffering
 			_messageQueue = new AsyncQueue<Message>();
 			_byteEncoder = byteEncoder;
 
+			Task compressAndSendTask = Task.CompletedTask;
 			JsonSerializerSettings serializerSettings = new JsonSerializerSettings();
 			serializerSettings.Converters.Add(new ByteArrayConverter(_byteEncoder));
 
@@ -39,10 +40,33 @@ namespace MessageBuffering
 					}
 					if (dataList.Count != 0 && MessagesProcessed != null)
 					{
-						string serialized = JsonConvert.SerializeObject(MergeLists(dataList), serializerSettings);
-						byte[] serializedCompressed = messageCompression.Compress(byteEncoder.TextEncoding.GetBytes(serialized));
+						Task previousCompressAndSendTask = compressAndSendTask;
+						compressAndSendTask = Task.Run(async () =>
+						{
+							string serialized = JsonConvert.SerializeObject(MergeLists(dataList), serializerSettings);
 
-						await MessagesProcessed(byteEncoder.ByteEncode(serializedCompressed));
+							uint level = configurationStore.GetValue<uint>(CompressionSettings.LargeCompressLevel);
+
+							if (serialized.Length <= configurationStore.GetValue<uint>(CompressionSettings.SmallSizeMax))
+							{
+								level = configurationStore.GetValue<uint>(CompressionSettings.SmallCompressLevel);
+							}
+							else if (serialized.Length <= configurationStore.GetValue<uint>(CompressionSettings.MediumSizeMax))
+							{
+								level = configurationStore.GetValue<uint>(CompressionSettings.MediumCompressLevel);
+							}
+
+							byte[] serializedCompressed = messageCompression.Compress(byteEncoder.TextEncoding.GetBytes(serialized), level);
+						
+							string result = byteEncoder.ByteEncode(serializedCompressed);
+							await previousCompressAndSendTask;
+
+							await MessagesProcessed(result);
+						});
+					}
+					else
+					{
+						await compressAndSendTask;
 					}
 					await Task.Delay(configurationStore.GetValue<int>(ScummHubSettings.BufferAndProcessSleepTime));
 				}
