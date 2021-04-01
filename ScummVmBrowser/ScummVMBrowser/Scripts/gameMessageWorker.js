@@ -2,7 +2,7 @@
 var fromGameMessageMessageWorkerToSoundWorker;
 var decompressionModule;
 
-var processGameMessagesWorker = new Worker("http://localhost:44365/scripts/processGameMessagesWorker.js");
+var processGameMessagesWorker = new Worker("/scripts/processGameMessagesWorker.js");
 
 self.onmessage = e => {
 	importScripts("/scripts/pako.min.js");
