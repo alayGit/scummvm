@@ -1,3 +1,4 @@
+#define NATIVE_CODE
 #include "SoundThreadManager.h";
 
 
@@ -11,7 +12,6 @@ SoundManagement::SoundThreadManager::SoundThreadManager()
 	_soundIsRunning = false;
 	_soundIsStoppedForeverPriorToDestructor = false;
 	_soundOptions = SoundOptions();
-	_soundThread = nullptr;
 	_user = nullptr;
 }
 
@@ -25,7 +25,6 @@ void SoundManagement::SoundThreadManager::Init(f_GetSoundSample getSoundSample, 
 	_soundOptions = soundOptions;
 	_getSoundSample = getSoundSample;
 	_user = user;
-	_soundThread = nullptr;
 	_soundProcessor = soundProcessor;
 }
 
@@ -40,7 +39,7 @@ void SoundManagement::SoundThreadManager::StartSound()
 		{
 			_soundIsRunning = true;
 
-			_soundThread = new std::thread( //TODO: Memory 
+			_soundThread = std::async(std::launch::async, 
 				[this] {
 					while (_soundIsRunning)
 					{
@@ -61,7 +60,9 @@ void SoundManagement::SoundThreadManager::StartSound()
 								ReleaseSemaphore(_stopSoundMutex, 1, NULL);
 							}
 
-							std::this_thread::sleep_for(std::chrono::milliseconds(_soundOptions.soundPollingFrequencyMs));
+							if (_soundIsRunning) {
+							    std::this_thread::sleep_for(std::chrono::milliseconds(_soundOptions.soundPollingFrequencyMs));
+						    }
 						}
 						catch (std::string e)
 						{
@@ -91,11 +92,7 @@ void SoundManagement::SoundThreadManager::StopSound(bool stopSoundForeverPriorTo
 			_soundProcessor->Flush();
 		}
 		ReleaseSemaphore(_stopSoundMutex, 1, NULL);
-
-		if (_soundThread != nullptr)
-		{
-			_soundThread->join();
-		}
+		_soundThread.wait();
 	}
 }
 
