@@ -1,16 +1,13 @@
 #pragma once
-#include "SoundConversion.h";
-#include "SoundOptions.h"
-#ifdef NATIVE_CODE
-#include <future>
-#endif
 #include "SoundCompressor.h";
 #include "SoundConversion.h";
+#include "SoundOptions.h"
 #include "SoundProcessor.h"
 #include <cassert>
 #include <functional>
 #include <mutex>
 #include <string>
+#include <thread>
 #include <windows.h>
 namespace SoundManagement {
 typedef std::function<byte *(byte *, int)> f_GetSoundSample;
@@ -28,11 +25,7 @@ private:
 	f_GetSoundSample _getSoundSample;
 	bool _soundIsRunning;
 	bool _soundIsStoppedForeverPriorToDestructor;
-
-	#ifdef NATIVE_CODE
-	std::future<void> _soundThread;
-	#endif
-
+	std::thread *_soundThread;
 	HANDLE _stopSoundMutex;
 	SoundOptions _soundOptions;
 	void *_user;
