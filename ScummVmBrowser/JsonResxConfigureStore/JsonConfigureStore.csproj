@@ -64,6 +64,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Prod\ClientSide.json" />
+    <None Include="Resources\Prod\CompressionSettings.json" />
     <None Include="Resources\Prod\IceRemoteProcBackEnd.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

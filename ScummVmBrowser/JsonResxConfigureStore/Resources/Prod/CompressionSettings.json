@@ -1,0 +1,7 @@
+﻿{
+	"SmallSizeMax": 300,
+	"MediumSizeMax": 20000,
+	"SmallCompressLevel": 1,
+	"MediumCompressLevel": 3,
+	"LargeCompressLevel": 3
+}
