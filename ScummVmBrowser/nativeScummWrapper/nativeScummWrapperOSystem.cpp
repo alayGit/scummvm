@@ -16,6 +16,7 @@ NativeScummWrapper::NativeScummWrapperOSystem::NativeScummWrapperOSystem(SoundMa
 	ModularBackend::_graphicsManager = _cliGraphicsManager;
 	_mutexManager = new StandardMutexManager();
 	_savefileManager = new NativeScummVmSaveManager(saveData);
+	queueEvent = nullptr;
 	_soundThreadManager = new SoundManagement::SoundThreadManager();
 	_playSound = playSound;
 	_soundProcessor = new SoundManagement::SoundProcessor();
