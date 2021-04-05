@@ -1,5 +1,4 @@
 #include "SoundThreadManager.h";
-#include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
 
 SoundManagement::SoundThreadManager::SoundThreadManager() {
 	_stopSoundMutex = CreateSemaphore( //Cannot use 'std::mutex due to an iteration issue with CLR
