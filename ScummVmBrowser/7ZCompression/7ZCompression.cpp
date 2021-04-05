@@ -36,12 +36,7 @@ byte* SevenZCompression::Uncompress(const byte *inBuf, size_t inBufLength, size_
 	    inBuf, LZMA_PROPS_SIZE);
 	assert(res == SZ_OK);
 
-	byte *result = new byte[outBufLength];
-	memcpy(result, outBuf, outBufLength);
-
-	delete[] outBuf;
-
-	return result;
+	return outBuf;
 }
 
 size_t SevenZCompression::GetUncompressedSize(const byte *compressed) {
