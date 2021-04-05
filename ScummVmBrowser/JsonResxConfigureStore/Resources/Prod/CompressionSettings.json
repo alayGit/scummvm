@@ -2,6 +2,6 @@
 	"SmallSizeMax": 300,
 	"MediumSizeMax": 20000,
 	"SmallCompressLevel": 1,
-	"MediumCompressLevel": 3,
-	"LargeCompressLevel": 3
+	"MediumCompressLevel": 1,
+	"LargeCompressLevel": 1
 }
