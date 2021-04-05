@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using ManagedCommon.Enums;
 using ManagedCommon.Enums.Logging;
@@ -9,6 +10,7 @@ using MessageBuffering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Newtonsoft.Json;
+using SevenZCompression;
 
 namespace ProcessMessageTests
 {
@@ -19,17 +21,19 @@ namespace ProcessMessageTests
 		Mock<IConfigurationStore<System.Enum>> _configStore;
 		Mock<ILogger> _logger;
 		ManagedYEncoder.ManagedYEncoder _managedYEncoder;
+		SevenZCompressor _compressor;
 
 		[TestInitialize]
 		public void ProcessMessages()
 		{
 			_logger = new Mock<ILogger>();
 			_managedYEncoder = new ManagedYEncoder.ManagedYEncoder(_logger.Object, LoggingCategory.CliScummSelfHost);
+			_compressor = new SevenZCompressor();
 
 			_configStore = new Mock<IConfigurationStore<Enum>>();
 			_configStore.Setup(c => c.GetValue<int>(It.Is<ScummHubSettings>(e => e == ScummHubSettings.BufferAndProcessSleepTime))).Returns(5);
 
-			_processMessages = null; //new ProcessMessages(_configStore.Object, _managedYEncoder);
+			_processMessages = new ProcessMessages(_configStore.Object, _managedYEncoder, _logger.Object, _compressor);
 		}
 
         [TestMethod]
@@ -49,13 +53,16 @@ namespace ProcessMessageTests
 
 			_processMessages.MessagesProcessed = async m =>
 			{
-				Assert.AreEqual(2, m.Count);
-			  	foreach(KeyValuePair<MessageType, string> kvp in m)
+				byte[] decodedMessages = _managedYEncoder.ByteDecode(m);
+				byte[] decompressed = _compressor.Decompress(decodedMessages);
+				KeyValuePair<MessageType, string[]>[] messages = JsonConvert.DeserializeObject<KeyValuePair<MessageType, string[]>[]>(_managedYEncoder.TextEncoding.GetString(decompressed));
+
+				Assert.AreEqual(2, messages.Length);
+			  	foreach(KeyValuePair<MessageType, string[]> kvp in messages)
 				{
-					List<string> sTestDatas = JsonConvert.DeserializeObject<List<string>>(kvp.Value);
 					if (kvp.Key == MessageType.Frames)
 					{
-					  List<byte[]> bTestDatas = sTestDatas.Select(y => _managedYEncoder.AssciiByteDecode(y)).ToList();
+					  List<byte[]> bTestDatas = kvp.Value.Select(y => _managedYEncoder.ByteDecode(y)).ToList();
 
 					   foreach(byte[] testData in bTestDatas)
 						{
@@ -76,7 +83,7 @@ namespace ProcessMessageTests
 					}
 					else if(kvp.Key == MessageType.Sound)
 					{
-						foreach (string testData in sTestDatas)
+						foreach (string testData in kvp.Value)
 						{
 							if (testData == TestValue3)
 							{
@@ -96,7 +103,6 @@ namespace ProcessMessageTests
 				}
 				await Task.CompletedTask;
 			};
-
 			await _processMessages.Stop();
 
 			Assert.AreEqual(1, timesSeen1);

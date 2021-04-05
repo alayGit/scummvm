@@ -70,6 +70,8 @@ namespace MessageBuffering
 					}
 					await Task.Delay(configurationStore.GetValue<int>(ScummHubSettings.BufferAndProcessSleepTime));
 				}
+
+				await compressAndSendTask;
 			});
 		}
 

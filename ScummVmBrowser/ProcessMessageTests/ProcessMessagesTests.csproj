@@ -54,6 +54,10 @@
       <Project>{D8F87AA0-1710-49CC-8CCF-7E1B74FEF911}</Project>
       <Name>ManagedCommon</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Managed7LibCompression\Managed7LibCompression.vcxproj">
+      <Project>{4425558d-019e-43b5-8183-30eeef718efd}</Project>
+      <Name>Managed7LibCompression</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProcessMessages\ProcessMessages.csproj">
       <Project>{785b9e59-580b-465d-a8c2-cc07534c8fd0}</Project>
       <Name>ProcessMessages</Name>
