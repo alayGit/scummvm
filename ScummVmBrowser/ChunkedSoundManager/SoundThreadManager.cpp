@@ -35,7 +35,7 @@ void SoundManagement::SoundThreadManager::StartSound() {
 			_soundIsRunning = true;
 
 			if (_soundThread == nullptr) {
-				_soundThread = new std::thread( //TODO: Memory
+				_soundThread = new std::thread(
 				    [this] {
 					    while (!this->_soundIsStoppedForeverPriorToDestructor) {
 						    try {
@@ -53,7 +53,6 @@ void SoundManagement::SoundThreadManager::StartSound() {
 							    }
 						    } catch (std::string e) {
 							    //TODO: Log
-							    int x = 4;
 						    }
 						    std::this_thread::sleep_for(std::chrono::milliseconds(_soundOptions.soundPollingFrequencyMs));
 					    }

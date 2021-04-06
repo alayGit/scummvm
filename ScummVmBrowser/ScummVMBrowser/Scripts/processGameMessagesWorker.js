@@ -15,7 +15,6 @@ self.onmessage = async e => {
 
 	var result = getStringBytesFromMemory(inflatedAndDecodedMessasgeBytes, decompressModule.getValue(lengthPointer, "i32"));
 
-	//dealloc(inflatedAndDecodedMessasgeBytes);
 	dealloc(deflatedAndEncodedMessageBytes);
 	dealloc(lengthPointer);
 
