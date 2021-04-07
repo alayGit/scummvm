@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "gtest/gtest.h"
 #include <vector>
 #include "../JSWasm/ProcessGameMessages.h"
 #include "../yEncoder/yEncoder.h"
