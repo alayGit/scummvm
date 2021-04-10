@@ -7,6 +7,7 @@ using ManagedCommon.Enums.Actions;
 using ManagedCommon.Implementations;
 using ManagedCommon.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
@@ -52,7 +53,7 @@ namespace DotNetScummTests
 		public void Setup(String gameFolderLocation, SendScreenBuffers copyRectToScreen, AvailableGames game = AvailableGames.kq3)
 		{
 			_saveData = new ConcurrentDictionary<string, byte[]>();
-			_wrapper = new Wrapper(new JsonConfigStore());
+			_wrapper = new Wrapper(new JsonConfigStore(), new Mock<ISaveCache>().Object);
 
 			_wrapper.SendScreenBuffers += (List<ScreenBuffer> l) => copyRectToScreen(l);
 

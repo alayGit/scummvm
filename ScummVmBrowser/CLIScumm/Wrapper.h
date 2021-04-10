@@ -44,7 +44,7 @@ extern OSystem* g_system;
 namespace CLIScumm {
 	public ref class Wrapper :IWrapper {
 	public:
-		Wrapper(IConfigurationStore<System::Enum^>^ configureStore);
+		Wrapper(IConfigurationStore<System::Enum^>^ configureStore, ISaveCache^ saveCache);
 		virtual void EnqueueGameEvent(IGameEvent^ keyboardEvent);
 		virtual void Quit();
 		virtual void CLIScumm::Wrapper::RunGame(AvailableGames game, cli::array<Byte>^ gameData, Dictionary<System::String^, cli::array<Byte>^>^ gameSaveData, PlayAudio^ playSound);
@@ -71,7 +71,7 @@ namespace CLIScumm {
 		ConcurrentQueue<IGameEvent^>^ eventQueue;
 		delegate void delCopyRectToScreen(NativeScummWrapper::ScreenBuffer*, int length);
 	    array<byte>^ MarshalByteBuffer(byte *buffer, int length);
-	    ScreenBuffer^ MarshalScreenBuffer(NativeScummWrapper::ScreenBuffer screenBuffer);
+	    ManagedCommon::Interfaces::ScreenBuffer ^ MarshalScreenBuffer(NativeScummWrapper::ScreenBuffer screenBuffer);
 		delegate bool delPollEvent(Common::Event& event);
 		delegate bool delSaveData(byte* saveData, int, Common::String fileName);
 		delegate void delPlaySound(byte* buffer, int size, void* user);

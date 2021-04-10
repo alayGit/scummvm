@@ -10,7 +10,7 @@ using SevenZCompression;
 using ManagedYEncoder;
 using ManagedCommon.Enums.Logging;
 
-namespace SaveCache
+namespace GameSaveCache
 {
 	public class SaveCache : ISaveCache
 	{

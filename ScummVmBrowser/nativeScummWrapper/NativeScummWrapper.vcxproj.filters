@@ -33,9 +33,6 @@
     <ClInclude Include="hashMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="nativeScummVmSaveManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="saveCache.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -57,9 +54,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="nativeScummWrapperEvents.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="nativeScummVmSaveManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="saveCache.cpp">

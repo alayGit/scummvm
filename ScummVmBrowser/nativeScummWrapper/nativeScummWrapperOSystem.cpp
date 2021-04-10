@@ -5,7 +5,7 @@
 #include "nativeScummWrapperOSystem.h"
 #include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
 
-NativeScummWrapper::NativeScummWrapperOSystem::NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, f_SendScreenBuffers sendScreenBuffers, f_PollEvent queueEvent, f_SaveFileData saveData, SoundManagement::f_PlaySound playSound) : ModularBackend() {
+NativeScummWrapper::NativeScummWrapperOSystem::NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, f_SendScreenBuffers sendScreenBuffers, f_PollEvent queueEvent, f_SaveFileData saveData, SoundManagement::f_PlaySound playSound, Common::SaveFileManager* _saveFileManager) : ModularBackend() {
 	_mixerImpl = nullptr;
 	_soundOptions = soundOptions;
 	_fsFactory = new WindowsFilesystemFactory();
@@ -15,7 +15,6 @@ NativeScummWrapper::NativeScummWrapperOSystem::NativeScummWrapperOSystem(SoundMa
 	});
 	ModularBackend::_graphicsManager = _cliGraphicsManager;
 	_mutexManager = new StandardMutexManager();
-	_savefileManager = new NativeScummVmSaveManager(saveData);
 	queueEvent = nullptr;
 	_soundThreadManager = new SoundManagement::SoundThreadManager();
 	_playSound = playSound;
@@ -68,10 +67,6 @@ void NativeScummWrapper::NativeScummWrapperOSystem::getTimeAndDate(TimeDate &t) 
 }
 
 void NativeScummWrapper::NativeScummWrapperOSystem::logMessage(LogMessageType::Type type, const char *message) {
-}
-
-void NativeScummWrapper::NativeScummWrapperOSystem::setGameSaveCache(SaveFileCache *cache) {
-	((NativeScummVmSaveManager *)_savefileManager)->setGameSaveCache(cache);
 }
 
 const int NO_CHANNELS = 2; //TODO: Read this value from Scumm VM don't assume 2

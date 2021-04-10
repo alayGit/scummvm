@@ -139,10 +139,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GetSaveManager.h" />
     <ClInclude Include="UnmanagedSaveManagerWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="GetSaveManager.cpp" />
     <ClCompile Include="UnmanagedSaveManagerWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>

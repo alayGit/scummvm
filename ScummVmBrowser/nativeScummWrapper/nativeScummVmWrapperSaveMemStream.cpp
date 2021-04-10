@@ -2,7 +2,7 @@
 
 #include "nativeScummVmWrapperSaveMemStream.h"
 
-NativeScummWrapper::NativeScummVmWrapperSaveMemStream::NativeScummVmWrapperSaveMemStream(Common::String fileName, NativeScummWrapper::f_SaveFileData saveData) : MemoryWriteStreamDynamic(DisposeAfterUse::NO) {
+NativeScummWrapper::NativeScummVmWrapperSaveMemStream::NativeScummVmWrapperSaveMemStream(Common::String fileName, NativeScummWrapper::f_SaveFileData saveData, AddToCache addToCache) : MemoryWriteStreamDynamic(DisposeAfterUse::NO) {
 	_fileName = fileName;
 	_saveData = saveData;
 }

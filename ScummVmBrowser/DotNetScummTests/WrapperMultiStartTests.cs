@@ -11,6 +11,7 @@ using ManagedCommon.Enums;
 using ConfigStore;
 using ManagedCommon.Interfaces;
 using ManagedCommon.Implementations;
+using Moq;
 
 namespace DotNetScummTests
 {
@@ -27,7 +28,7 @@ namespace DotNetScummTests
         public WrapperMultiStartTests(): base()
         {
             _start = false;
-            _wrapper = new Wrapper(new JsonConfigStore());
+            _wrapper = new Wrapper(new JsonConfigStore(), new Mock<ISaveCache>().Object);
             _wrapper.SendScreenBuffers+= (List<ScreenBuffer> screenBuffers) => { };
         }
 

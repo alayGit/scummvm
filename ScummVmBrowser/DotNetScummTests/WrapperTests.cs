@@ -2,7 +2,9 @@
 using ConfigStore;
 using ManagedCommon.Enums;
 using ManagedCommon.Implementations;
+using ManagedCommon.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +19,7 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task NoSubscribersToOnCopyRectToScreenDoesNotCauseException()
         {
-           Wrapper wrapper = new Wrapper(new JsonConfigStore());
+           Wrapper wrapper = new Wrapper(new JsonConfigStore(), new Mock<ISaveCache>().Object);
 
             Task runningGameTask = Task.Run(() =>
             { 

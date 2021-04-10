@@ -4,7 +4,6 @@
 #include "nativeScummWrapperGraphics.h"
 #include "nativeScummVMWrapperEvents.h"
 #include "nativeScummVmWrapperSaveMemStream.h"
-#include "nativeScummVmSaveManager.h"
 #include "standardMutexManager.h"
 #include "../chunkedSoundManager/SoundOptions.h"
 #include "../chunkedSoundManager/SoundThreadManager.h"
@@ -17,14 +16,13 @@
 namespace NativeScummWrapper {
 	class NativeScummWrapperOSystem: public ModularBackend {
 	public:
-	    NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, NativeScummWrapper::f_SendScreenBuffers copyRect, NativeScummWrapper::f_PollEvent queueEvent, NativeScummWrapper::f_SaveFileData saveData, SoundManagement::f_PlaySound soundConverted);
+	    NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, NativeScummWrapper::f_SendScreenBuffers copyRect, NativeScummWrapper::f_PollEvent queueEvent, NativeScummWrapper::f_SaveFileData saveData, SoundManagement::f_PlaySound soundConverted, Common::SaveFileManager* _saveFileManager);
 	    ~NativeScummWrapperOSystem();
 		virtual void initBackend() override;
 		virtual uint32 getMillis(bool skipRecord = false) override;
 		virtual void delayMillis(uint msecs) override;
 		virtual void getTimeAndDate(TimeDate &t) const override;
 		virtual void logMessage(LogMessageType::Type type, const char *message) override;
-		void setGameSaveCache(SaveFileCache *cache);
 	    byte* mixCallback(byte *samples, int sampleSize);
 		void StartSound();
 		void StopSound();

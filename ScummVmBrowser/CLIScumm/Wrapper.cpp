@@ -4,7 +4,7 @@ int main() {
 	return 0;
 }
 
-CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum ^> ^ configureStore) {
+CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum ^> ^ configureStore, ISaveCache^ saveCache) {
 	eventQueue = gcnew ConcurrentQueue<IGameEvent ^>();
 	imageUpdated = gcnew CLIScumm::Wrapper::Wrapper::delCopyRectToScreen(this, &CLIScumm::Wrapper::Wrapper::UpdatePicturesToBeSentBuffer);
 	pollEvent = gcnew CLIScumm::Wrapper::Wrapper::delPollEvent(this, &CLIScumm::Wrapper::Wrapper::pollEventWrapper);
@@ -22,7 +22,7 @@ CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum ^> ^ configureStore)
 
 	g_system = new NativeScummWrapper::NativeScummWrapperOSystem(soundOptions, static_cast<NativeScummWrapper::f_SendScreenBuffers>(Marshal::GetFunctionPointerForDelegate(imageUpdated).ToPointer()) //ToDo: Tidy these up as a whole they are a mess
 	                                                             ,
-	                                                             static_cast<NativeScummWrapper::f_PollEvent>(Marshal::GetFunctionPointerForDelegate(pollEvent).ToPointer()), static_cast<NativeScummWrapper::f_SaveFileData>(Marshal::GetFunctionPointerForDelegate(saveData).ToPointer()), static_cast<f_PlaySound>(Marshal::GetFunctionPointerForDelegate(GCHandle::Alloc(gcnew delPlaySound(this, &CLIScumm::Wrapper::Wrapper::PlaySound), GCHandleType::Normal).Target).ToPointer()));
+	                                                             static_cast<NativeScummWrapper::f_PollEvent>(Marshal::GetFunctionPointerForDelegate(pollEvent).ToPointer()), static_cast<NativeScummWrapper::f_SaveFileData>(Marshal::GetFunctionPointerForDelegate(saveData).ToPointer()), static_cast<f_PlaySound>(Marshal::GetFunctionPointerForDelegate(GCHandle::Alloc(gcnew delPlaySound(this, &CLIScumm::Wrapper::Wrapper::PlaySound), GCHandleType::Normal).Target).ToPointer()), SaveManager::GetSaveManager::GetSaveFileManager(saveCache));
 	_gSystemCli = reinterpret_cast<NativeScummWrapper::NativeScummWrapperOSystem *>(g_system);
 	_configureStore = configureStore;
 	_soundIsRunning = false;
@@ -138,8 +138,8 @@ array<byte> ^ CLIScumm::Wrapper::MarshalByteBuffer(byte *buffer, int length) {
 	return managedCompressedWholeScreenBuffer;
 }
 
-ScreenBuffer ^ CLIScumm::Wrapper::MarshalScreenBuffer(NativeScummWrapper::ScreenBuffer screenBuffer) {
-	ScreenBuffer ^ result = gcnew ScreenBuffer();
+ManagedCommon::Interfaces::ScreenBuffer ^ CLIScumm::Wrapper::MarshalScreenBuffer(NativeScummWrapper::ScreenBuffer screenBuffer) {
+	ManagedCommon::Interfaces::ScreenBuffer ^ result = gcnew ManagedCommon::Interfaces::ScreenBuffer();
 	result->PictureBuffer = MarshalByteBuffer(screenBuffer.buffer, screenBuffer.length);
 	result->H = screenBuffer.h;
 	result->W = screenBuffer.w;
@@ -153,10 +153,10 @@ ScreenBuffer ^ CLIScumm::Wrapper::MarshalScreenBuffer(NativeScummWrapper::Screen
 }
 
 void CLIScumm::Wrapper::UpdatePicturesToBeSentBuffer(NativeScummWrapper::ScreenBuffer *unmanagedScreenBuffers, int length) {
-	System::Collections::Generic::List<ScreenBuffer ^> ^ managedScreenScreenBuffers = gcnew System::Collections::Generic::List<ScreenBuffer ^>();
+	System::Collections::Generic::List<ManagedCommon::Interfaces::ScreenBuffer ^> ^ managedScreenScreenBuffers = gcnew System::Collections::Generic::List<ManagedCommon::Interfaces::ScreenBuffer ^>();
 
 	for (int i = 0; i < length; i++) {
-		ScreenBuffer ^ managedBuffer = MarshalScreenBuffer(unmanagedScreenBuffers[i]);
+		ManagedCommon::Interfaces::ScreenBuffer ^ managedBuffer = MarshalScreenBuffer(unmanagedScreenBuffers[i]);
 
 		managedScreenScreenBuffers->Add(managedBuffer);
 	}
