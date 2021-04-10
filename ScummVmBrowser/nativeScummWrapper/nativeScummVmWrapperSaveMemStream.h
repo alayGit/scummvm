@@ -5,7 +5,9 @@
 #include <vector>
 
 namespace NativeScummWrapper {
-    typedef std::function<void(Common::String input, std::vector<byte>)> AddToCache;
+    typedef std::function<Common::String(Common::String input, std::vector<byte>)> AddToCache;
+    typedef std::function<void(Common::String input)> RemoveFromCache;
+
 	typedef bool(__stdcall *f_SaveFileData)(const byte *, int, Common::String);
 	class NativeScummVmWrapperSaveMemStream : public Common::MemoryWriteStreamDynamic {
 	private:
@@ -15,7 +17,8 @@ namespace NativeScummWrapper {
 
 	public:
 		AddToCache _addToCache;
+	    RemoveFromCache _removeFromCache;
 		virtual bool flush() override;
-	    NativeScummVmWrapperSaveMemStream(Common::String fileName, f_SaveFileData saveData, AddToCache addToCache);
+	    NativeScummVmWrapperSaveMemStream(Common::String fileName, f_SaveFileData saveData, AddToCache addToCache, RemoveFromCache removeFromCache);
 	};
 } // namespace NativeScummWrapper

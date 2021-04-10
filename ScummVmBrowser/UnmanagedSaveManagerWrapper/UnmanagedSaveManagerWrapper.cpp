@@ -1,12 +1,14 @@
 #define FORBIDDEN_SYMBOL_ALLOW_ALL
 #include "UnmanagedSaveManagerWrapper.h"
+#include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
 
 SaveManager::UnmanagedSaveManagerWrapper::UnmanagedSaveManagerWrapper(ISaveCache ^ saveCache) {
 	_saveCache = gcroot<ISaveCache ^>(saveCache);
 }
 
 OutSaveFile *SaveManager::UnmanagedSaveManagerWrapper::openForSaving(const Common::String &name, bool compress) {
-	return new Common::OutSaveFile(new NativeScummVmWrapperSaveMemStream(name, _saveData, [this](Common::String name, std::vector<byte> saveData) {
+	return new Common::OutSaveFile(new NativeScummVmWrapperSaveMemStream(
+	    name, _saveData, [this](Common::String name, std::vector<byte> saveData) {
 		System::String ^ managedFileName = Converters::CommonStringToManagedString(&name);
 		cli::array<byte> ^ managedSaveData = gcnew cli::array<byte>(saveData.size());
 
@@ -16,23 +18,24 @@ OutSaveFile *SaveManager::UnmanagedSaveManagerWrapper::openForSaving(const Commo
 		gaveSave->Data = managedSaveData;
 
 		_saveCache->SaveToCache(managedFileName, gaveSave);
-	}));
+
+		return Converters::ManagedStringToCommonString(_saveCache->GetCompressedAndEncodedSaveData()); },
+	    [this](const Common::String name) {
+		    _saveCache->RemoveFromCache(Converters::CommonStringToManagedString(&name));
+	    }));
 }
 
 InSaveFile *SaveManager::UnmanagedSaveManagerWrapper::openForLoading(const Common::String &name) {
-	array<byte>^ managedSaveData = _saveCache->GetFromCache(Converters::CommonStringToManagedString(&name));
-	
-	if (managedSaveData -> Length > 0)
-	{
+	array<byte> ^ managedSaveData = _saveCache->GetFromCache(Converters::CommonStringToManagedString(&name));
+
+	if (managedSaveData->Length > 0) {
 		byte *unmanagedSaveData = new byte[managedSaveData->Length];
 		Marshal::Copy(managedSaveData, 0, System::IntPtr(unmanagedSaveData), managedSaveData->Length);
 
 		return new MemoryReadStream(unmanagedSaveData, managedSaveData->Length, DisposeAfterUse::YES);
-	}
-	else
-	{
+	} else {
 		return nullptr;
-	} 
+	}
 }
 
 InSaveFile *SaveManager::UnmanagedSaveManagerWrapper::openRawFile(const Common::String &name) {
@@ -47,12 +50,11 @@ bool SaveManager::UnmanagedSaveManagerWrapper::removeSavefile(const Common::Stri
 
 StringArray SaveManager::UnmanagedSaveManagerWrapper::listSavefiles(const Common::String &pattern) {
 	StringArray result;
-	IEnumerable<System::String^>^ managedSaveFileNames = _saveCache->ListCache();
+	IEnumerable<System::String ^> ^ managedSaveFileNames = _saveCache->ListCache();
 
-	for each (System::String ^ managedSaveFileName in managedSaveFileNames)
-	{
+	for each(System::String ^ managedSaveFileName in managedSaveFileNames) {
 			result.push_back(Converters::ManagedStringToCommonString(managedSaveFileName));
-	}
+		}
 
 	return result;
 }
@@ -60,6 +62,6 @@ StringArray SaveManager::UnmanagedSaveManagerWrapper::listSavefiles(const Common
 void SaveManager::UnmanagedSaveManagerWrapper::updateSavefilesList(StringArray &lockedFiles) {
 }
 
-void SaveManager::UnmanagedSaveManagerWrapper::setGameSaveCache(System::String^ yEncodedCompressedCache) {
+void SaveManager::UnmanagedSaveManagerWrapper::setGameSaveCache(System::String ^ yEncodedCompressedCache) {
 	_saveCache->SetCache(yEncodedCompressedCache);
 }
