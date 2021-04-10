@@ -181,6 +181,7 @@
     <Compile Include="ExtensionMethods\RpcBufferNamesExtensions.cs" />
     <Compile Include="Interfaces\IConfigurationStore.cs" />
     <Compile Include="Interfaces\IRealTimeDataBusServer.cs" />
+    <Compile Include="Interfaces\ISaveCache.cs" />
     <Compile Include="Interfaces\ITrashable.cs" />
     <Compile Include="Interfaces\Rpc\IClientProxyRemover.cs" />
     <Compile Include="Interfaces\Rpc\IRpcServerService.cs" />
@@ -200,6 +201,7 @@
     <Compile Include="Interfaces\Rpc\Protocol.cs" />
     <Compile Include="Interfaces\IProcessMessageBuffers.cs" />
     <Compile Include="Models\InputMessage.cs" />
+    <Compile Include="Models\GameSave.cs" />
     <Compile Include="Models\ScreenBuffer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Base\SharedMemoryBusBase.cs" />

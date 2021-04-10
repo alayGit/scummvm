@@ -8,6 +8,6 @@ namespace ScummToManagedMarshalling {
 	{
 	    public:
 	        static Common::String ManagedStringToCommonString(System::String ^ input);
-	        static System::String^ CommonStringToManagedString(Common::String* input);
+	        static System::String^ CommonStringToManagedString(const Common::String* input);
 	};
 }

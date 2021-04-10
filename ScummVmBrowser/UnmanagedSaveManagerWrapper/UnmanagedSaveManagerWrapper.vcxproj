@@ -154,11 +154,17 @@
     <ProjectReference Include="..\..\dists\msvc\scummvm.vcxproj">
       <Project>{ecea4af3-126a-31e0-aef8-e6f45e92de9c}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\dists\ScummToManagedMarshalling\ScummToManagedMarshalling.vcxproj">
+      <Project>{f9acea22-07f8-4564-bef6-603b84fdd4e5}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\ManagedCommon\ManagedCommon.csproj">
       <Project>{d8f87aa0-1710-49cc-8ccf-7e1b74fef911}</Project>
     </ProjectReference>
     <ProjectReference Include="..\nativeScummWrapper\NativeScummWrapper.vcxproj">
       <Project>{3c240ad7-4423-48f3-a2ca-e12afcb02196}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\SaveCache\SaveCache.csproj">
+      <Project>{8d6734aa-8e7c-4748-a34b-60151aeae1e6}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

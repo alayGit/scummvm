@@ -1,5 +1,5 @@
 #pragma once
-#include "../nativeScummWrapper/scummVm.h"
+#include "../nativeScummWrapper/nativeScummVmWrapperSaveMemStream.h"
 #include <msclr/gcroot.h>
 
 using namespace Common;
@@ -7,6 +7,9 @@ using namespace System::Collections::Generic;
 using namespace ManagedCommon::Models;
 using namespace ManagedCommon::Interfaces;
 using namespace msclr;
+using namespace ScummToManagedMarshalling;
+using namespace NativeScummWrapper;
+using namespace System::Runtime::InteropServices;
 namespace SaveManager {
 class UnmanagedSaveManagerWrapper : public SaveFileManager {
 public:
@@ -17,9 +20,10 @@ public:
 	virtual bool removeSavefile(const Common::String &name);
 	virtual StringArray listSavefiles(const Common::String &pattern);
 	virtual void updateSavefilesList(StringArray &lockedFiles);
-	void setGameSaveCache(Dictionary<System::String^, GameSave^>^ *cache);
+	void setGameSaveCache(System::String^ yEncodedCompressedCache);
 
 private:
 	gcroot<ISaveCache^> _saveCache;
+	f_SaveFileData _saveData;
 };
 } // namespace SaveManager
