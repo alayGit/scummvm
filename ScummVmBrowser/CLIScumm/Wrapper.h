@@ -89,6 +89,7 @@ namespace CLIScumm {
 		NativeScummWrapper::NativeScummWrapperOSystem* _gSystemCli;
 		PlayAudio^ _playAudio;
 		bool _soundIsRunning;
+		Common::SaveFileManager* _saveFileManager;
 	};
 
 }

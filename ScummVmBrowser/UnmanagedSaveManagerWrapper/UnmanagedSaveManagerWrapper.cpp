@@ -6,9 +6,17 @@ SaveManager::UnmanagedSaveManagerWrapper::UnmanagedSaveManagerWrapper(ISaveCache
 }
 
 OutSaveFile *SaveManager::UnmanagedSaveManagerWrapper::openForSaving(const Common::String &name, bool compress) {
-	return new Common::OutSaveFile(new NativeScummVmWrapperSaveMemStream(name, _saveData, [](Common::String name, std::vector<byte> byte) {
+	return new Common::OutSaveFile(new NativeScummVmWrapperSaveMemStream(name, _saveData, [this](Common::String name, std::vector<byte> saveData) {
 		System::String ^ managedFileName = Converters::CommonStringToManagedString(&name);
-		}));
+		cli::array<byte> ^ managedSaveData = gcnew cli::array<byte>(saveData.size());
+
+		Marshal::Copy(System::IntPtr(&saveData[0]), managedSaveData, 0, managedSaveData->Length);
+
+		ManagedCommon::Models::GameSave ^ gaveSave = gcnew ManagedCommon::Models::GameSave();
+		gaveSave->Data = managedSaveData;
+
+		_saveCache->SaveToCache(managedFileName, gaveSave);
+	}));
 }
 
 InSaveFile *SaveManager::UnmanagedSaveManagerWrapper::openForLoading(const Common::String &name) {

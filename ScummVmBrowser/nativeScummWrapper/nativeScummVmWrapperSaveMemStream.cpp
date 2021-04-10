@@ -19,7 +19,7 @@ bool NativeScummWrapper::NativeScummVmWrapperSaveMemStream::flush()
 	bool result = MemoryWriteStreamDynamic::flush() && _saveData(&dataCopy->at(0), size(), s);
 	if (result)
 	{
-		SaveCache::AddToCache(_fileName, *dataCopy);
+		_addToCache(_fileName, *dataCopy);
 	}
 	
 	delete dataCopy;

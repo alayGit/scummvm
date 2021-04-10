@@ -1,7 +1,6 @@
 #pragma once
 #include "../nativeScummWrapper/nativeScummVmWrapperSaveMemStream.h"
 #include <msclr/gcroot.h>
-
 using namespace Common;
 using namespace System::Collections::Generic;
 using namespace ManagedCommon::Models;
@@ -10,8 +9,10 @@ using namespace msclr;
 using namespace ScummToManagedMarshalling;
 using namespace NativeScummWrapper;
 using namespace System::Runtime::InteropServices;
+using namespace ManagedCommon::Models;
 namespace SaveManager {
 class UnmanagedSaveManagerWrapper : public SaveFileManager {
+
 public:
 	UnmanagedSaveManagerWrapper(ISaveCache^ saveCache);
 	virtual OutSaveFile *openForSaving(const Common::String &name, bool compress = true);

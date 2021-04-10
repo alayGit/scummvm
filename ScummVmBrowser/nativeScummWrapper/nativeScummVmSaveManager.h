@@ -1,6 +1,5 @@
 #pragma once
 #include "scummVm.h"
-#include "saveCache.h"
 #include "nativeScummVmWrapperSaveMemStream.h"
 
 using namespace Common;

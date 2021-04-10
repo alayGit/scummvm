@@ -167,7 +167,6 @@
     <ClInclude Include="nativeScummVmWrapperSaveMemStream.h" />
     <ClInclude Include="nativeScummWrapperGraphics.h" />
     <ClInclude Include="nativeScummWrapperOSystem.h" />
-    <ClInclude Include="saveCache.h" />
     <ClInclude Include="scummVm.h" />
   </ItemGroup>
   <ItemGroup>
@@ -176,7 +175,6 @@
     <ClCompile Include="nativeScummWrapperEvents.cpp" />
     <ClCompile Include="nativeScummWrapperGraphics.cpp" />
     <ClCompile Include="nativeScummWrapperOSystem.cpp" />
-    <ClCompile Include="saveCache.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LaunchDebugger\LaunchDebugger.vcxproj">

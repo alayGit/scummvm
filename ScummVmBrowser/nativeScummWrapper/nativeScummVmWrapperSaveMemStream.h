@@ -1,13 +1,13 @@
 #pragma once
 #include "scummVm.h"
-#include "saveCache.h"
 #include "Debugger.h"
 #include <functional>
+#include <vector>
 
 namespace NativeScummWrapper {
     typedef std::function<void(Common::String input, std::vector<byte>)> AddToCache;
 	typedef bool(__stdcall *f_SaveFileData)(const byte *, int, Common::String);
-	class NativeScummVmWrapperSaveMemStream : public MemoryWriteStreamDynamic {
+	class NativeScummVmWrapperSaveMemStream : public Common::MemoryWriteStreamDynamic {
 	private:
 		Common::String _fileName;
 		int _gameId;
