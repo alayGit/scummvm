@@ -115,6 +115,10 @@
       <Project>{d8f87aa0-1710-49cc-8ccf-7e1b74fef911}</Project>
       <Name>ManagedCommon</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SaveCache\SaveCache.csproj">
+      <Project>{8d6734aa-8e7c-4748-a34b-60151aeae1e6}</Project>
+      <Name>SaveCache</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ScummVMBrowser\ScummVMBrowser.csproj">
       <Project>{B89A1AAE-44B7-4D17-BE7F-175E6ADFBB02}</Project>
       <Name>ScummVMBrowser</Name>

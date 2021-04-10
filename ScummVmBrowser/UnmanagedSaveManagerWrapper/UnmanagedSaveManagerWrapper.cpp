@@ -1,6 +1,5 @@
 #define FORBIDDEN_SYMBOL_ALLOW_ALL
 #include "UnmanagedSaveManagerWrapper.h"
-#include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
 
 SaveManager::UnmanagedSaveManagerWrapper::UnmanagedSaveManagerWrapper(ISaveCache ^ saveCache) {
 	_saveCache = gcroot<ISaveCache ^>(saveCache);

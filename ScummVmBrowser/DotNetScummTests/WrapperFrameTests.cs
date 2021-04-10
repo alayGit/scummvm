@@ -1,6 +1,7 @@
 ﻿using CLIScumm;
 using CliScummEvents;
 using ConfigStore;
+using GameSaveCache;
 using ManagedCommon.Delegates;
 using ManagedCommon.Enums;
 using ManagedCommon.Enums.Actions;
@@ -53,7 +54,7 @@ namespace DotNetScummTests
 		public void Setup(String gameFolderLocation, SendScreenBuffers copyRectToScreen, AvailableGames game = AvailableGames.kq3)
 		{
 			_saveData = new ConcurrentDictionary<string, byte[]>();
-			_wrapper = new Wrapper(new JsonConfigStore(), new Mock<ISaveCache>().Object);
+			_wrapper = new Wrapper(new JsonConfigStore(), new SaveCache(new Mock<ILogger>().Object));
 
 			_wrapper.SendScreenBuffers += (List<ScreenBuffer> l) => copyRectToScreen(l);
 

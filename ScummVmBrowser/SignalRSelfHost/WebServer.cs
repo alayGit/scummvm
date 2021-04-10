@@ -1,5 +1,6 @@
 ﻿using CLIScumm;
 using ConfigStore;
+using GameSaveCache;
 using IceRpc;
 using ManagedCommon.Enums;
 using ManagedCommon.Enums.Logging;
@@ -89,6 +90,7 @@ namespace SignalRSelfHost
             container.RegisterType<ILogger, WindowsEventLogger>();
             container.RegisterType<ErrorHandlingPipelineModule, CliScummErrorHandingPipelineModule>();
 			container.RegisterType<IMessageCompression, SevenZCompressor>();
+			container.RegisterType<ISaveCache, SaveCache>();
 			
 			container.RegisterType<IProcessMessageBuffers, ProcessMessages>();
 

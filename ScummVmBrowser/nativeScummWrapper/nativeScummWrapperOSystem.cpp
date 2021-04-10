@@ -3,7 +3,6 @@
 #define FORBIDDEN_SYMBOL_ALLOW_ALL
 
 #include "nativeScummWrapperOSystem.h"
-#include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
 
 NativeScummWrapper::NativeScummWrapperOSystem::NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, f_SendScreenBuffers sendScreenBuffers, f_PollEvent queueEvent, f_SaveFileData saveData, SoundManagement::f_PlaySound playSound, Common::SaveFileManager* _saveFileManager) : ModularBackend() {
 	_mixerImpl = nullptr;

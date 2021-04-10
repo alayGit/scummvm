@@ -126,7 +126,7 @@ namespace SignalRSelfHost
         {
             try
             {
-                _wrapper.RunGame(game, null, compressedAndEncodedGameSaveData, PlaySound);
+				_wrapper.RunGame(game, null, compressedAndEncodedGameSaveData, PlaySound);
                 _onQuit.Invoke();
             }
             catch (System.Exception e)
