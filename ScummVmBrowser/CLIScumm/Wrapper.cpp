@@ -58,7 +58,7 @@ System::Drawing::Point CLIScumm::Wrapper::GetCurrentMousePosition() {
 }
 
 void CLIScumm::Wrapper::Init(AvailableGames game, Dictionary<System::String ^, cli::array<System::Byte> ^> ^ gameSaveData) {
-	_gSystemCli->setGameSaveCache(Utilities::Converters::CreateSaveFileCacheFromDictionary(gameSaveData));
+	//_gSystemCli->setGameSaveCache(Utilities::Converters::CreateSaveFileCacheFromDictionary(gameSaveData));
 
 	Common::String gamePath = GetGamePath(game);
 
@@ -129,7 +129,8 @@ void CLIScumm::Wrapper::RunGame(AvailableGames game, cli::array<System::Byte> ^ 
 }
 
 Common::String CLIScumm::Wrapper::GetGamePath(AvailableGames game) {
-	return Utilities::Converters::ManagedStringToCommonString(_configureStore->GetValue(game));
+	ScummToManagedMarshalling::Converters ^ converters  = gcnew ScummToManagedMarshalling::Converters();
+	return converters->ManagedStringToCommonString(_configureStore->GetValue(game));
 }
 
 array<byte> ^ CLIScumm::Wrapper::MarshalByteBuffer(byte *buffer, int length) {

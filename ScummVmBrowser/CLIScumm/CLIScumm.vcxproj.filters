@@ -21,14 +21,8 @@
     <ClCompile Include="Wrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Converters.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Converters.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Wrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -27,7 +27,6 @@
 #include <functional>
 #include <vector>
 #include "./ScummVmBrowser/ZLibCompression/ZLibCompression.h"
-#include "common.h"
 //#include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
 
 class NativeScummWrapperEvents;

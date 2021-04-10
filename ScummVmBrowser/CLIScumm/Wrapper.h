@@ -7,7 +7,6 @@
 #include <functional>
 #include <objidl.h>
 #include "../../engines/metaengine.h"
-#include "Converters.h";
 #include "../../common/config-manager.h"
 #include "../../base/main.h"
 #include "../../common/archive.h"

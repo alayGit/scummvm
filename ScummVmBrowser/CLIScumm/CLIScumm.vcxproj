@@ -150,16 +150,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Converters.cpp" />
     <ClCompile Include="Wrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Converters.h" />
     <ClInclude Include="Wrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\dists\msvc\scummvm.vcxproj">
       <Project>{ecea4af3-126a-31e0-aef8-e6f45e92de9c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dists\ScummToManagedMarshalling\ScummToManagedMarshalling.vcxproj">
+      <Project>{f9acea22-07f8-4564-bef6-603b84fdd4e5}</Project>
     </ProjectReference>
     <ProjectReference Include="..\ChunkedSoundManager\ChunkedSoundManager.vcxproj">
       <Project>{075bdd99-e541-49cd-824f-05c6cce069c4}</Project>
