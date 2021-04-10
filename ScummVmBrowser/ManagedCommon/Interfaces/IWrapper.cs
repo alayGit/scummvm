@@ -13,7 +13,7 @@ namespace ManagedCommon.Interfaces
 	{
 		void EnqueueGameEvent(IGameEvent keyboardEvent);
 		void Quit();
-		void RunGame(AvailableGames game, byte[] gameData, Dictionary<string, byte[]> saveData, PlayAudio playSound);
+		void RunGame(AvailableGames game, byte[] gameData, string compressedAndEncodedGameSaveData, PlayAudio playSound);
 		void ScheduleRedrawWholeScreen();
 		SendScreenBuffers SendScreenBuffers { get; set; }
 		SaveData OnSaveData { get; set; }

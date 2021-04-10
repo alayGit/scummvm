@@ -9,7 +9,7 @@ namespace ManagedCommon.Interfaces
 {
    public interface IScummHubRpc: IDisposable
     {
-        Task RunGameAsync(AvailableGames gameName, Dictionary<string,byte[]> gameStorage);
+        Task RunGameAsync(AvailableGames gameName, string compressedAndEncodedGameSaveData);
         void Quit();
     }
 }

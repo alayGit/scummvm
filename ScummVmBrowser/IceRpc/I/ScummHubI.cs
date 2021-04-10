@@ -21,7 +21,7 @@ namespace IceRpc.I
             _receiver = server;
         }
 
-        public async override Task RunGameAsync(string gameName, Dictionary<string, byte[]> gameStorage, Current current = null)
+        public async override Task RunGameAsync(string gameName, string gameStorage, Current current = null)
         {
           await _receiver.RunGameAsync((AvailableGames)Enum.Parse(typeof(AvailableGames), gameName), gameStorage);
         }

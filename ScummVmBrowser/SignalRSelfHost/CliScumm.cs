@@ -101,7 +101,7 @@ namespace SignalRSelfHost
         }
 
 
-        public Task RunGameAsync(AvailableGames game, Dictionary<string, byte[]> gameSaveData) //Doesn't need to be async but is forced to do so because it implements the same interface as the client. TODO: Fix
+        public Task RunGameAsync(AvailableGames game, string compressedAndEncodedGameSaveData) //Doesn't need to be async but is forced to do so because it implements the same interface as the client. TODO: Fix
         {
             _wrapper.SendScreenBuffers += (List<ScreenBuffer> screenBuffers) =>
             {
@@ -116,17 +116,17 @@ namespace SignalRSelfHost
                 return Task.CompletedTask;
             };
 
-            _runningGameTask = Task.Run(() => StartGameWrapper(game, gameSaveData));
+            _runningGameTask = Task.Run(() => StartGameWrapper(game, compressedAndEncodedGameSaveData));
 
 
             return Task.CompletedTask;
         }
 
-        private void StartGameWrapper(AvailableGames game, Dictionary<string, byte[]> gameSaveData)
+        private void StartGameWrapper(AvailableGames game, string compressedAndEncodedGameSaveData)
         {
             try
             {
-                _wrapper.RunGame(game, null, gameSaveData, PlaySound);
+                _wrapper.RunGame(game, null, compressedAndEncodedGameSaveData, PlaySound);
                 _onQuit.Invoke();
             }
             catch (System.Exception e)

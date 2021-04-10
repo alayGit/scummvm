@@ -134,7 +134,7 @@ namespace ScummVMBrowser.Clients
         }
 
 
-        public async Task StartGame(Dictionary<string, byte[]> gameStorage, AvailableGames gameName)
+        public async Task StartGame(string compressedAndEncodedGameSaveData, AvailableGames gameName)
         {
             if (!HasInited)
             {
@@ -148,7 +148,7 @@ namespace ScummVMBrowser.Clients
 
             GameName = gameName;
 
-            await _scummHubRpc.RunGameAsync(gameName, gameStorage);
+            await _scummHubRpc.RunGameAsync(gameName, compressedAndEncodedGameSaveData);
         }
 		 
 

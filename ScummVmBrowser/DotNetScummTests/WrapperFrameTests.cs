@@ -594,7 +594,7 @@ namespace DotNetScummTests
         private void RunGame(AvailableGames game = AvailableGames.kq3)
         {
             _saveData = GetSaveDataFromResourceFile();
-            _wrapper.RunGame(game, null, new Dictionary<string, byte[]>(_saveData), (byte[] aud) => { });
+            _wrapper.RunGame(game, null, string.Empty, (byte[] aud) => { });
         }
 
         protected override void Quit()

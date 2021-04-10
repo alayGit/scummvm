@@ -10,7 +10,7 @@ namespace ManagedCommon.Interfaces.Rpc
     public interface IScummWebServerRpc : IDisposable
     {
         Task InitAsync(string gameId);
-        Task RunGameAsync(AvailableGames gameName, string signalrConnectionId, Dictionary<string,byte[]> saveStorage);
+        Task RunGameAsync(AvailableGames gameName, string signalrConnectionId, string compressedAndEncodedGameSaveData);
         Task QuitAsync(string signalrConnectionId);
         string GetControlKeys();
     }

@@ -11,7 +11,7 @@ module ScummWebsServerVMSlices
 	{
 	  void addClient(ScummWebServerClient* receiver, string gameId);
     ["amd"]  void Init(string gameId); //Init and StartProcess
-	["amd"] void RunGame (string gameName, string signalrConnectionId, string saveStorageStr);
+	["amd"] void RunGame (string gameName, string signalrConnectionId, string compressedAndEncodedGameSaveData);
     ["amd"]  void Quit(string signalrConnectionId);
 	  string GetControlKeys();
 	}

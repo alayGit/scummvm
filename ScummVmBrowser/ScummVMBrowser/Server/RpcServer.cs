@@ -56,7 +56,7 @@ namespace ScummVMBrowser.Server
             }
         }
 
-        public async Task RunGameAsync(AvailableGames gameName, string signalrConnectionId, Dictionary<string, byte[]> saveStorage)
+        public async Task RunGameAsync(AvailableGames gameName, string signalrConnectionId, string saveStorage)
         {
             using (IAntiDisposalLock<IScummVMHubClient> alock = await _gameClientStore.GetByConnectionId(signalrConnectionId)?.GetClient())
             {

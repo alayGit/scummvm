@@ -24,9 +24,9 @@ namespace IceRpc
             _logger = logger;
         }
 
-        public async Task RunGameAsync(AvailableGames gameName, Dictionary<string, byte[]> gameStorage)
+        public async Task RunGameAsync(AvailableGames gameName, string compressedAndEncodedGameSaveData)
         {
-           await Sender.RunGameAsync(gameName.ToString(), gameStorage);
+           await Sender.RunGameAsync(gameName.ToString(), compressedAndEncodedGameSaveData);
         }
 
         public void Quit()

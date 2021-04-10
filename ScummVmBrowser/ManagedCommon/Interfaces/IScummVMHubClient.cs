@@ -27,7 +27,7 @@ namespace ManagedCommon.Interfaces
         Task Quit();
         void SetSendGameMessagesFunctionPointer(SendGameMessagesAsync screenDrawingCallback);
         void SetSaveGameFunctionPointer(SaveDataAsync saveGameCallback);
-        Task StartGame(Dictionary<string, byte[]> gameStorage, AvailableGames gameName);
+        Task StartGame(string compressedAndEncodedGameSaveData, AvailableGames gameName);
         Task ScheduleRedrawWholeScreen();
 
         Task StartSound();

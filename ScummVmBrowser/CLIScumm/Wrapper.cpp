@@ -12,6 +12,7 @@ CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum ^> ^ configureStore,
 	hasStarted = false;
 	gameEventLock = gcnew Object();
 	startLock = gcnew Object();
+	_saveCache = saveCache;
 
 	SoundManagement::SoundOptions soundOptions = SoundManagement::SoundOptions();
 
@@ -58,8 +59,9 @@ System::Drawing::Point CLIScumm::Wrapper::GetCurrentMousePosition() {
 	return System::Drawing::Point(mouseState.x, mouseState.y);
 }
 
-void CLIScumm::Wrapper::Init(AvailableGames game, Dictionary<System::String ^, cli::array<System::Byte> ^> ^ gameSaveData) {
-	//_gSystemCli->setGameSaveCache(Utilities::Converters::CreateSaveFileCacheFromDictionary(gameSaveData));
+void CLIScumm::Wrapper::Init(AvailableGames game, System::String^ compressedAndEncodedGameSaveData) {
+
+	_saveCache->SetCache(compressedAndEncodedGameSaveData);
 
 	Common::String gamePath = GetGamePath(game);
 
@@ -95,7 +97,7 @@ void CLIScumm::Wrapper::Init(AvailableGames game, Dictionary<System::String ^, c
 	ConfMan.setBool("originalsaveload", true);
 }
 
-void CLIScumm::Wrapper::RunGame(AvailableGames game, cli::array<System::Byte> ^ gameData, Dictionary<System::String ^, cli::array<Byte> ^> ^ gameSaveData, PlayAudio ^ playAudio) {
+void CLIScumm::Wrapper::RunGame(AvailableGames game, cli::array<System::Byte> ^ gameData, System::String ^ gameSaveData, PlayAudio ^ playAudio) {
 	if (!hasStarted) {
 		Monitor::Enter(startLock);
 		try {

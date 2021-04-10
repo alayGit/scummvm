@@ -65,14 +65,9 @@ namespace IceRpc.I
             await _receiver.QuitAsync(signalRConnectionId);
         }
 
-        public async override Task RunGameAsync(string gameName, string signalrConnectionId, string saveStorageStr, Current current = null)
+        public async override Task RunGameAsync(string gameName, string signalrConnectionId, string compressedAndEncodedGameSaveData, Current current = null)
         {
-            Dictionary<string, string> base64Dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(saveStorageStr);
-            Dictionary<string, byte[]> byteDict = base64Dict.Select(kvp => new KeyValuePair<string, byte[]>(kvp.Key, Convert.FromBase64String(kvp.Value))).ToDictionary(pair => pair.Key, pair => pair.Value);
-
-            //Dictionary<string, string> saveDict = JsonConvert.DeserializeObject<Dictionary<string,string>(saveStorageStr);
-
-            await _receiver.RunGameAsync((AvailableGames)Enum.Parse(typeof(AvailableGames),gameName), signalrConnectionId, byteDict);
+            await _receiver.RunGameAsync((AvailableGames)Enum.Parse(typeof(AvailableGames),gameName), signalrConnectionId, compressedAndEncodedGameSaveData);
         }
     }
 }

@@ -50,10 +50,17 @@ namespace GameSaveCache
 
 		public void SetCache(string yEncodedCompressedCache)
 		{
-			byte[] compressedCache = yEncoder.ByteDecode(yEncodedCompressedCache);
-			string serializedCache = yEncoder.TextEncoding.GetString(_sevenZCompressor.Decompress(compressedCache));
+			if (!String.IsNullOrEmpty(yEncodedCompressedCache))
+			{
+				byte[] compressedCache = yEncoder.ByteDecode(yEncodedCompressedCache);
+				string serializedCache = yEncoder.TextEncoding.GetString(_sevenZCompressor.Decompress(compressedCache));
 
-			_cache = JsonConvert.DeserializeObject<Dictionary<string, GameSave>>(serializedCache);
+				_cache = JsonConvert.DeserializeObject<Dictionary<string, GameSave>>(serializedCache);
+			}
+			else
+			{
+				_cache = new Dictionary<string, GameSave>();
+			}
 		}
 
 		public byte[] GetFromCache(string name)

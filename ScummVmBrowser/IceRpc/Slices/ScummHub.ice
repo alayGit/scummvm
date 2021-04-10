@@ -1,8 +1,7 @@
 module ScummVMSlices 
 {
 	sequence<byte> GameData;
-    dictionary<string, GameData> GameStorage;
-
+  
 	interface ScummHubClient {
 		["amd"] bool SaveGame(GameData saveData, string fileName);
 		["amd"] void BackEndQuit();
@@ -11,7 +10,7 @@ module ScummVMSlices
 	interface ScummHub
 	{
 	 void addClient(ScummHubClient* receiver);
-	["amd"] void RunGame(string gameName, GameStorage gameStorage);
+	["amd"] void RunGame(string gameName, string compressedAndEncodedGameSaveData);
 	 void Quit();
 	}
 }
