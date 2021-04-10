@@ -129,8 +129,7 @@ void CLIScumm::Wrapper::RunGame(AvailableGames game, cli::array<System::Byte> ^ 
 }
 
 Common::String CLIScumm::Wrapper::GetGamePath(AvailableGames game) {
-	ScummToManagedMarshalling::Converters ^ converters  = gcnew ScummToManagedMarshalling::Converters();
-	return converters->ManagedStringToCommonString(_configureStore->GetValue(game));
+	return ScummToManagedMarshalling::Converters::ManagedStringToCommonString(_configureStore->GetValue(game));
 }
 
 array<byte> ^ CLIScumm::Wrapper::MarshalByteBuffer(byte *buffer, int length) {

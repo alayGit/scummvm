@@ -271,7 +271,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JsWasmTests", "..\..\ScummV
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ScummToManagedMarshalling", "..\ScummToManagedMarshalling\ScummToManagedMarshalling.vcxproj", "{F9ACEA22-07F8-4564-BEF6-603B84FDD4E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConverterTestersWrapper", "..\..\ScummVmBrowser\ConverterTestersWrapper\ConverterTestersWrapper.csproj", "{8DDF7C55-A2AB-4B90-93EC-8357E141CA5B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScummToManagedMarshallingTestsWrapper", "..\..\ScummVmBrowser\ConverterTestersWrapper\ScummToManagedMarshallingTestsWrapper.csproj", "{8DDF7C55-A2AB-4B90-93EC-8357E141CA5B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ScummToManagedMarshallingTests", "..\..\ScummVmBrowser\ConverterTests\ConverterTests.vcxproj", "{184308C0-6BEA-41ED-96F1-20E2D783A5F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3733,6 +3735,34 @@ Global
 		{8DDF7C55-A2AB-4B90-93EC-8357E141CA5B}.Release|Win32.Build.0 = Release|Any CPU
 		{8DDF7C55-A2AB-4B90-93EC-8357E141CA5B}.Release|x64.ActiveCfg = Release|Any CPU
 		{8DDF7C55-A2AB-4B90-93EC-8357E141CA5B}.Release|x64.Build.0 = Release|Any CPU
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Analysis|Any CPU.ActiveCfg = Debug|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Analysis|Any CPU.Build.0 = Debug|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Analysis|arm64.ActiveCfg = Debug|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Analysis|arm64.Build.0 = Debug|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Analysis|Win32.ActiveCfg = Debug|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Analysis|Win32.Build.0 = Debug|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Analysis|x64.ActiveCfg = Debug|x64
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Analysis|x64.Build.0 = Debug|x64
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Debug|arm64.ActiveCfg = Debug|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Debug|Win32.Build.0 = Debug|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Debug|x64.ActiveCfg = Debug|x64
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Debug|x64.Build.0 = Debug|x64
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.LLVM|Any CPU.ActiveCfg = Debug|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.LLVM|Any CPU.Build.0 = Debug|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.LLVM|arm64.ActiveCfg = Debug|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.LLVM|arm64.Build.0 = Debug|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.LLVM|Win32.ActiveCfg = Debug|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.LLVM|Win32.Build.0 = Debug|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.LLVM|x64.ActiveCfg = Debug|x64
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.LLVM|x64.Build.0 = Debug|x64
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Release|Any CPU.ActiveCfg = Release|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Release|arm64.ActiveCfg = Release|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Release|Win32.ActiveCfg = Release|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Release|Win32.Build.0 = Release|Win32
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Release|x64.ActiveCfg = Release|x64
+		{184308C0-6BEA-41ED-96F1-20E2D783A5F5}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

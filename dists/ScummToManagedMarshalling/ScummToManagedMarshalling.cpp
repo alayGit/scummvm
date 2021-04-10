@@ -10,6 +10,6 @@ Common::String ScummToManagedMarshalling::Converters::ManagedStringToCommonStrin
 	return result;
 }
 
-System::String^ ScummToManagedMarshalling::Converters::CommonStringToManagedString(Common::String input) {
-	return gcnew System::String(input.c_str());
+System::String^ ScummToManagedMarshalling::Converters::CommonStringToManagedString(Common::String* input) {
+	return gcnew System::String(input->c_str());
 }

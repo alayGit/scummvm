@@ -7,7 +7,7 @@ namespace ScummToManagedMarshalling {
 	public ref class Converters
 	{
 	    public:
-	        Common::String ManagedStringToCommonString(System::String ^ input);
-	        System::String^ CommonStringToManagedString(Common::String input);
+	        static Common::String ManagedStringToCommonString(System::String ^ input);
+	        static System::String^ CommonStringToManagedString(Common::String* input);
 	};
 }
