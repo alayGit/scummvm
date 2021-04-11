@@ -27,14 +27,7 @@ export const GameScreen = (props: GameScreenProps) => {
 	let [fromGameMessageMessageWorkerToSoundWorker, setFromGameMessageMessageWorkerToSoundWorker] = useState<MessageChannel>(undefined);
 
     const GetSaveStorage = (gameName: string) => {
-        const gameSavesJson = localStorage.getItem(gameName);
-        var result: object = new Object();
-
-        if (gameSavesJson != null) {
-            result = JSON.parse(gameSavesJson) as object;
-        }
-
-        return result;
+        return localStorage.getItem(gameName);
     }
 
     useEffect(

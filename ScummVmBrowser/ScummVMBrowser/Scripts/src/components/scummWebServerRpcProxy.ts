@@ -33,8 +33,8 @@ export async function Init(gameId: string) {
     await _scummWebServer.Init(gameId);
 }
 
-export async function RunGame(gameName: string, signalrConnectionId: string, saveStorage: object) {
-    await _scummWebServer.RunGame(gameName, signalrConnectionId, JSON.stringify(saveStorage));
+export async function RunGame(gameName: string, signalrConnectionId: string, saveStorage: string) {
+    await _scummWebServer.RunGame(gameName, signalrConnectionId, saveStorage);
 }
 
 export async function Quit(signalRConnectionId: string) {
