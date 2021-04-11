@@ -16,6 +16,7 @@
 #include <stringapiset.h>
 #include "../ChunkedSoundManager/SoundThreadManager.h"
 #include "../ChunkedSoundManager/SoundOptions.h"
+#include "../UnmanagedSaveManagerWrapper/UnmanagedSaveManagerWrapper.h"
 #include <string.h>
 
 
