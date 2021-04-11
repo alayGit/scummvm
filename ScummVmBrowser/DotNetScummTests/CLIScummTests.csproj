@@ -107,6 +107,10 @@
       <Project>{0bfba939-d509-4179-af9a-1bc0b4abea77}</Project>
       <Name>ManagedZLibCompression</Name>
     </ProjectReference>
+    <ProjectReference Include="..\dotNetYEncode\dotNetYEncode.vcxproj">
+      <Project>{4893dd7c-2b10-48ee-beaf-875793dab9ff}</Project>
+      <Name>managedYEncoder</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JsonResxConfigureStore\JsonConfigureStore.csproj">
       <Project>{56AF0FD1-245E-4CD7-AC45-CF2BD6B23F4F}</Project>
       <Name>JsonConfigureStore</Name>
@@ -126,6 +130,10 @@
     <ProjectReference Include="..\Trasher\Trasher.csproj">
       <Project>{de6f95da-af91-4afd-890c-0efa007e2be9}</Project>
       <Name>Trasher</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UnmanagedSaveManagerWrapper\UnmanagedSaveManagerWrapper.vcxproj">
+      <Project>{7b33238e-15ca-4765-9404-a28f1db0bb30}</Project>
+      <Name>UnmanagedSaveManagerWrapper</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

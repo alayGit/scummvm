@@ -5,6 +5,8 @@ Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934
 	hash=None, flags=None
 Assembly ManagedCommon, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
 	hash=None, flags=None
+Assembly managedYEncoder, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=None, flags=None
 Assembly SaveCache, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
 	hash=None, flags=None
 Assembly ScummToManagedMarshalling, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
@@ -18,6 +20,6 @@ Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c5619
 Class SaveManager.GetSaveManager: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
-    GetSaveFileManager(ISaveCache): PrivateScope, Public, Static, HideBySig
+    GetSaveFileManager(ISaveCache, Void*, IByteEncoder): PrivateScope, Public, Static, HideBySig
 Struct Common.SaveFileManager: AutoLayout, AnsiClass, Class, Public, SequentialLayout, Abstract, Sealed, BeforeFieldInit
   :System.ValueType

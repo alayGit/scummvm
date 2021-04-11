@@ -8,6 +8,6 @@ using namespace ManagedCommon::Interfaces;
 namespace SaveManager {
 public ref class GetSaveManager {
 public:
-	static Common::SaveFileManager *GetSaveFileManager(ISaveCache ^ saveCache);
-};
+	    static Common::SaveFileManager *GetSaveFileManager(ISaveCache ^ saveCache, void* saveData, IByteEncoder^ byteEncoder);
+    };
 } // namespace SaveManager

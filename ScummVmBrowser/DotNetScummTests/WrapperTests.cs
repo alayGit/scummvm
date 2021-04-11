@@ -1,6 +1,7 @@
 ﻿using CLIScumm;
 using ConfigStore;
 using ManagedCommon.Enums;
+using ManagedCommon.Enums.Logging;
 using ManagedCommon.Implementations;
 using ManagedCommon.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,7 +20,8 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task NoSubscribersToOnCopyRectToScreenDoesNotCauseException()
         {
-           Wrapper wrapper = new Wrapper(new JsonConfigStore(), new Mock<ISaveCache>().Object);
+			ILogger logger = new Mock<ILogger>().Object;
+			Wrapper wrapper = new Wrapper(new JsonConfigStore(), new Mock<ISaveCache>().Object, new ManagedYEncoder.ManagedYEncoder(logger, LoggingCategory.CliScummSelfHost));
 
             Task runningGameTask = Task.Run(() =>
             { 

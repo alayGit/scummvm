@@ -5,6 +5,9 @@
       <FullPath>C:\scumm\dists\msvc\Debug\ScummToManagedMarshalling.dll</FullPath>
     </ProjectOutput>
     <ProjectOutput>
+      <FullPath>C:\scumm\dists\msvc\Debug\managedYEncoder.dll</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
       <FullPath>C:\scumm\ScummVmBrowser\UnmanagedSaveManagerWrapper\Debugx86\UnmanagedSaveManagerWrapper.dll</FullPath>
     </ProjectOutput>
   </ProjectOutputs>

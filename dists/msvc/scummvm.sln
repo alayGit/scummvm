@@ -183,6 +183,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CLIScummTests", "..\..\ScummVmBrowser\DotNetScummTests\CLIScummTests.csproj", "{8A8D7764-4C67-4313-9778-17BC7980DC45}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7B33238E-15CA-4765-9404-A28F1DB0BB30} = {7B33238E-15CA-4765-9404-A28F1DB0BB30}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "managedYEncoder", "..\..\ScummVmBrowser\dotNetYEncode\dotNetYEncode.vcxproj", "{4893DD7C-2B10-48EE-BEAF-875793DAB9FF}"
 EndProject

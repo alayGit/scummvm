@@ -159,6 +159,9 @@
     <ProjectReference Include="..\..\dists\ScummToManagedMarshalling\ScummToManagedMarshalling.vcxproj">
       <Project>{f9acea22-07f8-4564-bef6-603b84fdd4e5}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\dotNetYEncode\dotNetYEncode.vcxproj">
+      <Project>{4893dd7c-2b10-48ee-beaf-875793dab9ff}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\ManagedCommon\ManagedCommon.csproj">
       <Project>{d8f87aa0-1710-49cc-8ccf-7e1b74fef911}</Project>
     </ProjectReference>

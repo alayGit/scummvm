@@ -28,7 +28,8 @@ namespace DotNetScummTests
         public WrapperMultiStartTests(): base()
         {
             _start = false;
-            _wrapper = new Wrapper(new JsonConfigStore(), new Mock<ISaveCache>().Object);
+			ILogger logger = new Mock<ILogger>().Object;
+			_wrapper = new Wrapper(new JsonConfigStore(), new Mock<ISaveCache>().Object, new ManagedYEncoder.ManagedYEncoder(logger, ManagedCommon.Enums.Logging.LoggingCategory.CliScummSelfHost));
             _wrapper.SendScreenBuffers+= (List<ScreenBuffer> screenBuffers) => { };
         }
 

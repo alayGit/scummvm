@@ -5,6 +5,7 @@ using GameSaveCache;
 using ManagedCommon.Delegates;
 using ManagedCommon.Enums;
 using ManagedCommon.Enums.Actions;
+using ManagedCommon.Enums.Logging;
 using ManagedCommon.Implementations;
 using ManagedCommon.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -54,7 +55,8 @@ namespace DotNetScummTests
 		public void Setup(String gameFolderLocation, SendScreenBuffers copyRectToScreen, AvailableGames game = AvailableGames.kq3)
 		{
 			_saveData = new ConcurrentDictionary<string, byte[]>();
-			_wrapper = new Wrapper(new JsonConfigStore(), new SaveCache(new Mock<ILogger>().Object));
+			ILogger logger = new Mock<ILogger>().Object;
+			_wrapper = new Wrapper(new JsonConfigStore(), new SaveCache(new Mock<ILogger>().Object), new ManagedYEncoder.ManagedYEncoder(logger, LoggingCategory.CliScummSelfHost));
 
 			_wrapper.SendScreenBuffers += (List<ScreenBuffer> l) => copyRectToScreen(l);
 

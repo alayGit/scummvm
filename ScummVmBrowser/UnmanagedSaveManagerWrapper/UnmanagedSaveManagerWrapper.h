@@ -14,7 +14,7 @@ namespace SaveManager {
 class UnmanagedSaveManagerWrapper : public SaveFileManager {
 
 public:
-	UnmanagedSaveManagerWrapper(ISaveCache^ saveCache);
+	UnmanagedSaveManagerWrapper(ISaveCache ^ saveCache, f_SaveFileData saveData, IByteEncoder^ encoder);
 	virtual OutSaveFile *openForSaving(const Common::String &name, bool compress = true);
 	virtual InSaveFile *openForLoading(const Common::String &name);
 	virtual InSaveFile *openRawFile(const Common::String &name);
@@ -26,5 +26,6 @@ public:
 private:
 	gcroot<ISaveCache^> _saveCache;
 	f_SaveFileData _saveData;
+	gcroot<IByteEncoder^> _encoder;
 };
 } // namespace SaveManager
