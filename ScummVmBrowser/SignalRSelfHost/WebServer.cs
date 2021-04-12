@@ -31,6 +31,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Unity;
 using Unity.Lifetime;
+using Saving;
 
 namespace SignalRSelfHost
 {
@@ -91,7 +92,9 @@ namespace SignalRSelfHost
             container.RegisterType<ErrorHandlingPipelineModule, CliScummErrorHandingPipelineModule>();
 			container.RegisterType<IMessageCompression, SevenZCompressor>();
 			container.RegisterType<ISaveCache, SaveCache>();
-			
+			container.RegisterType<ISaveDataEncoderAndDecompresser, SaveDataEncoderAndCompressor>();
+			container.RegisterType<ISaveDataCompression, SevenZCompressor>();
+
 			container.RegisterType<IProcessMessageBuffers, ProcessMessages>();
 
             container.RegisterInstance(container.Resolve<IRealTimeEndPointCallbackRepo>() as IRealTimeDataEndpointServer);

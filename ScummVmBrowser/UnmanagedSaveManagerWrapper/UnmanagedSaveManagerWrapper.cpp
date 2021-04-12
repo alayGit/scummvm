@@ -11,7 +11,7 @@ OutSaveFile *SaveManager::UnmanagedSaveManagerWrapper::openForSaving(const Commo
 	return new Common::OutSaveFile(new NativeScummVmWrapperSaveMemStream(
 	    name, _saveData, [this](Common::String name, std::vector<byte> saveData)
 		{
-			System::String ^ managedFileName = Converters::CommonStringToManagedString(&name);
+ 			System::String ^ managedFileName = Converters::CommonStringToManagedString(&name);
 			cli::array<byte> ^ managedSaveData = gcnew cli::array<byte>(saveData.size());
 
 			Marshal::Copy(System::IntPtr(&saveData[0]), managedSaveData, 0, managedSaveData->Length);
@@ -25,7 +25,7 @@ OutSaveFile *SaveManager::UnmanagedSaveManagerWrapper::openForSaving(const Commo
 			std::vector<byte>* unmanagedSaveDataBytes = new std::vector<byte>();
 		    unmanagedSaveDataBytes->resize(managedSaveDataBytes->Length);
 
-			Marshal::Copy(managedSaveData, 0, System::IntPtr(&(*unmanagedSaveDataBytes)[0]), managedSaveDataBytes->Length);
+			Marshal::Copy(managedSaveDataBytes, 0, System::IntPtr(&(*unmanagedSaveDataBytes)[0]), managedSaveDataBytes->Length);
 
 			return unmanagedSaveDataBytes;
 		},

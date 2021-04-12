@@ -37,6 +37,7 @@ namespace DotNetScummTests
 		ISaveDataEncoderAndDecompresser _saveDataEncoderAndDecompresser;
 		IByteEncoder _byteEncoder;
 		ISaveDataCompression _compressor;
+		SaveCache _saveCache;
 
         const string ExpectedSaveFilePrefix = "kq3.";
         const string SaveDataResourceName = "SaveData";
@@ -60,11 +61,13 @@ namespace DotNetScummTests
 
 		public void Setup(String gameFolderLocation, SendScreenBuffers copyRectToScreen, AvailableGames game = AvailableGames.kq3)
 		{
+			ILogger logger = new Mock<ILogger>().Object;
+			_byteEncoder = new ManagedYEncoder.ManagedYEncoder(logger, LoggingCategory.CliScummSelfHost);
 			_compressor = new SevenZCompressor();
 			_saveDataEncoderAndDecompresser = new SaveDataEncoderAndCompressor(_byteEncoder, _compressor);
+			_saveCache = new SaveCache(_saveDataEncoderAndDecompresser);
 
-			ILogger logger = new Mock<ILogger>().Object;
-			_wrapper = new Wrapper(new JsonConfigStore(), new SaveCache(new Mock<ILogger>().Object), new ManagedYEncoder.ManagedYEncoder(logger, LoggingCategory.CliScummSelfHost));
+			_wrapper = new Wrapper(new JsonConfigStore(), _saveCache , new ManagedYEncoder.ManagedYEncoder(logger, LoggingCategory.CliScummSelfHost));
 
 			_wrapper.SendScreenBuffers += (List<ScreenBuffer> l) => copyRectToScreen(l);
 
@@ -539,7 +542,7 @@ namespace DotNetScummTests
 
             string expectedSaveFileName = $"{ExpectedSaveFilePrefix}001";
 
-			IDictionary<string, GameSave> gameSaves = _saveDataEncoderAndDecompresser.Decompress(_saveData);
+			IDictionary<string, GameSave> gameSaves = _saveDataEncoderAndDecompresser.DecompressAndDecode(_saveData);
 
             Assert.IsTrue(gameSaves.ContainsKey(expectedSaveFileName));
 
@@ -607,7 +610,7 @@ namespace DotNetScummTests
         private void RunGame(AvailableGames game = AvailableGames.kq3)
         {
             _saveData = GetSaveDataFromResourceFile();
-            _wrapper.RunGame(game, null, string.Empty, (byte[] aud) => { });
+            _wrapper.RunGame(game, null, _saveData, (byte[] aud) => { });
         }
 
         protected override void Quit()

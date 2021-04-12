@@ -28,7 +28,7 @@ namespace Saving
 			return _byteEncoder.ByteEncode(compressed);
 		}
 
-		public IDictionary<string, GameSave> Decompress(string compressedAndEncoded)
+		public IDictionary<string, GameSave> DecompressAndDecode(string compressedAndEncoded)
 		{
 			byte[] compressed = _byteEncoder.ByteDecode(compressedAndEncoded);
 			string json = Encoding.UTF8.GetString(_saveDataCompression.Decompress(compressed));

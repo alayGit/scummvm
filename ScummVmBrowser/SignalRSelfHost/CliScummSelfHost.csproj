@@ -153,6 +153,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\dists\SaveDataEncoderAndCompressor\SaveDataEncoderAndCompressor.csproj">
+      <Project>{2bf84471-aeae-4fc0-8c6d-f3f26af8fbb4}</Project>
+      <Name>SaveDataEncoderAndCompressor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\dists\ScummToManagedMarshalling\ScummToManagedMarshalling.vcxproj">
       <Project>{f9acea22-07f8-4564-bef6-603b84fdd4e5}</Project>
       <Name>ScummToManagedMarshalling</Name>

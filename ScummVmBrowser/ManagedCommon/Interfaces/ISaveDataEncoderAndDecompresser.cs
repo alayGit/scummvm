@@ -11,6 +11,6 @@ namespace ManagedCommon.Interfaces
 	public interface ISaveDataEncoderAndDecompresser
 	{
 		string CompressAndEncode(IDictionary<string, GameSave> saveData);
-		IDictionary<string, GameSave> Decompress(string compressedAndEncoded);
+		IDictionary<string, GameSave> DecompressAndDecode(string compressedAndEncoded);
 	}
 }

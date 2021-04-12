@@ -72,6 +72,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\dists\SaveDataEncoderAndCompressor\SaveDataEncoderAndCompressor.csproj">
+      <Project>{2bf84471-aeae-4fc0-8c6d-f3f26af8fbb4}</Project>
+      <Name>SaveDataEncoderAndCompressor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\dotNetYEncode\dotNetYEncode.vcxproj">
       <Project>{4893dd7c-2b10-48ee-beaf-875793dab9ff}</Project>
       <Name>managedYEncoder</Name>

@@ -9,28 +9,25 @@ using Newtonsoft.Json;
 using SevenZCompression;
 using ManagedYEncoder;
 using ManagedCommon.Enums.Logging;
+using System.Diagnostics;
 
 namespace GameSaveCache
 {
 	public class SaveCache : ISaveCache
 	{
-		private Dictionary<string, GameSave> _cache;
+		private IDictionary<string, GameSave> _cache;
 		public const string NotInitedError = "The cache has not yet being set.";
-		SevenZCompressor _sevenZCompressor;
-		ManagedYEncoder.ManagedYEncoder yEncoder;
+		ISaveDataEncoderAndDecompresser _saveDataEncoderAndDecompresser;
 
-		public SaveCache(ILogger logger)
+		public SaveCache(ISaveDataEncoderAndDecompresser saveDataEncoderAndDecompresser)
 		{
-			_sevenZCompressor = new SevenZCompressor();
-			yEncoder = new ManagedYEncoder.ManagedYEncoder(logger, LoggingCategory.CliScummSelfHost); //TODO: Fix category
+			_saveDataEncoderAndDecompresser = saveDataEncoderAndDecompresser;
 			_cache = new Dictionary<string, GameSave>();
 		}
 
 		public string GetCompressedAndEncodedSaveData()
 		{
-			string serializedCache = JsonConvert.SerializeObject(_cache);
-			byte[] compressed = _sevenZCompressor.Compress(Encoding.UTF8.GetBytes(serializedCache), 10);
-			return  yEncoder.ByteEncode(compressed);
+			return _saveDataEncoderAndDecompresser.CompressAndEncode(_cache);
 		}
 
 		public IEnumerable<string> ListCache()
@@ -52,10 +49,7 @@ namespace GameSaveCache
 		{
 			if (!String.IsNullOrEmpty(yEncodedCompressedCache))
 			{
-				byte[] compressedCache = yEncoder.ByteDecode(yEncodedCompressedCache);
-				string serializedCache = yEncoder.TextEncoding.GetString(_sevenZCompressor.Decompress(compressedCache));
-
-				_cache = JsonConvert.DeserializeObject<Dictionary<string, GameSave>>(serializedCache);
+				_cache = _saveDataEncoderAndDecompresser.DecompressAndDecode(yEncodedCompressedCache);
 			}
 			else
 			{

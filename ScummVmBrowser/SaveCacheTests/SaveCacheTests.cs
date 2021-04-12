@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Saving;
 
 namespace SaveCacheTests
 {
@@ -17,6 +18,7 @@ namespace SaveCacheTests
     public class SaveCacheTests
     {
 		SaveCache _saveCache;
+		ISaveDataEncoderAndDecompresser _saveDataEncoderAndDecompresser;
 		ManagedYEncoder.ManagedYEncoder _managedYEncoder;
 		SevenZCompressor _sevenZCompressor;
 		ILogger _logger;
@@ -30,7 +32,8 @@ namespace SaveCacheTests
 			_logger = new Mock<ILogger>().Object;
 			_sevenZCompressor = new SevenZCompressor();
 			_managedYEncoder = new ManagedYEncoder.ManagedYEncoder(_logger, LoggingCategory.CliScummSelfHost);
-			_saveCache = new SaveCache(new Mock<ILogger>().Object);
+			_saveDataEncoderAndDecompresser = new SaveDataEncoderAndCompressor(_managedYEncoder, _sevenZCompressor);
+			_saveCache = new SaveCache(_saveDataEncoderAndDecompresser);
 		}
 
 		[TestMethod]
