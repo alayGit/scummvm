@@ -8,7 +8,7 @@ namespace ManagedCommon.Interfaces.Rpc
 {
    public interface IScummHubClientRpc
     {
-        bool SaveGame(byte[] saveData, string fileName);
+        bool SaveGame(string saveData, string fileName);
         void BackEndQuit();
     }
 }

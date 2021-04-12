@@ -23,7 +23,7 @@ namespace IceRpc.I
              return _receiver.BackEndQuitAsync();
         }
 
-        public override Task<bool> SaveGameAsync(byte[] saveData, string fileName, Current current = null)
+        public override Task<bool> SaveGameAsync(string saveData, string fileName, Current current = null)
         {
             return _receiver.SaveGameAsync(saveData, fileName);
         }

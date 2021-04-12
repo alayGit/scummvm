@@ -340,14 +340,7 @@ namespace DotNetScummTests
 			}
 		}
 
-		protected ConcurrentDictionary<string, byte[]> GetSaveDataFromResourceFile()
-		{
-			string jsonData = GetJsonData();
-
-			return JsonConvert.DeserializeObject<ConcurrentDictionary<string, byte[]>>(jsonData);
-		}
-
-		protected string GetJsonData()
+		protected string GetSaveDataFromResourceFile()
 		{
 			return (string)ResourceManager.GetObject($"{SaveDataResourceName}");
 		}

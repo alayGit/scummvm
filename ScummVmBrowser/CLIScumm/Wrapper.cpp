@@ -13,6 +13,7 @@ CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum ^> ^ configureStore,
 	gameEventLock = gcnew Object();
 	startLock = gcnew Object();
 	_saveCache = saveCache;
+	_byteEncoder = byteEncoder;
 
 	SoundManagement::SoundOptions soundOptions = SoundManagement::SoundOptions();
 
@@ -182,7 +183,7 @@ void CLIScumm::Wrapper::EnqueueGameEvent(IGameEvent ^ gameEvent) {
 bool CLIScumm::Wrapper::SaveData(byte *data, int size, Common::String fileName) {
 	array<System::Byte> ^ managedData = gcnew array<System::Byte>(size);
 	Marshal::Copy((System::IntPtr)data, managedData, 0, size);
-	return _saveData(managedData, gcnew System::String(fileName.c_str()));
+	return _saveData(_byteEncoder->TextEncoding->GetString(data, size), gcnew System::String(fileName.c_str()));
 }
 
 int gameCounter = 0;

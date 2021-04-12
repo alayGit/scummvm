@@ -8,9 +8,12 @@ using ManagedCommon.Enums.Actions;
 using ManagedCommon.Enums.Logging;
 using ManagedCommon.Implementations;
 using ManagedCommon.Interfaces;
+using ManagedCommon.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Newtonsoft.Json;
+using Saving;
+using SevenZCompression;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -30,7 +33,10 @@ namespace DotNetScummTests
     {
         Wrapper _wrapper;
         Task gameTask;
-        ConcurrentDictionary<string, byte[]> _saveData;
+        string _saveData;
+		ISaveDataEncoderAndDecompresser _saveDataEncoderAndDecompresser;
+		IByteEncoder _byteEncoder;
+		ISaveDataCompression _compressor;
 
         const string ExpectedSaveFilePrefix = "kq3.";
         const string SaveDataResourceName = "SaveData";
@@ -54,14 +60,16 @@ namespace DotNetScummTests
 
 		public void Setup(String gameFolderLocation, SendScreenBuffers copyRectToScreen, AvailableGames game = AvailableGames.kq3)
 		{
-			_saveData = new ConcurrentDictionary<string, byte[]>();
+			_compressor = new SevenZCompressor();
+			_saveDataEncoderAndDecompresser = new SaveDataEncoderAndCompressor(_byteEncoder, _compressor);
+
 			ILogger logger = new Mock<ILogger>().Object;
 			_wrapper = new Wrapper(new JsonConfigStore(), new SaveCache(new Mock<ILogger>().Object), new ManagedYEncoder.ManagedYEncoder(logger, LoggingCategory.CliScummSelfHost));
 
 			_wrapper.SendScreenBuffers += (List<ScreenBuffer> l) => copyRectToScreen(l);
 
-            _wrapper.OnSaveData += (byte[] data, string fileName) => {
-                _saveData[fileName] = data;
+            _wrapper.OnSaveData += (string data, string fileName) => {
+                _saveData = data;
                 return true;
              };
             gameTask = Task.Run(() => RunGame(game));
@@ -531,11 +539,13 @@ namespace DotNetScummTests
 
             string expectedSaveFileName = $"{ExpectedSaveFilePrefix}001";
 
-            Assert.IsTrue(_saveData.ContainsKey(expectedSaveFileName));
+			IDictionary<string, GameSave> gameSaves = _saveDataEncoderAndDecompresser.Decompress(_saveData);
+
+            Assert.IsTrue(gameSaves.ContainsKey(expectedSaveFileName));
 
             byte[] actualSaveDataPrefix = new byte[ExpectedAGISaveDataPrefix.Length];
 
-            Array.Copy(_saveData[expectedSaveFileName], actualSaveDataPrefix, ExpectedAGISaveDataPrefix.Length);
+            Array.Copy(gameSaves[expectedSaveFileName].Data, actualSaveDataPrefix, ExpectedAGISaveDataPrefix.Length);
 
             Assert.IsTrue(ExpectedAGISaveDataPrefix.SequenceEqual(actualSaveDataPrefix));
 

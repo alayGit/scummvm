@@ -107,7 +107,7 @@ namespace SignalRSelfHost
             {
 				_processMessageBuffers.Enqueue(screenBuffers, MessageType.Frames);
             };
-            _wrapper.OnSaveData += (byte[] saveData, String fileName) => _scummVMHubClient.SaveGame(saveData, fileName);
+            _wrapper.OnSaveData += (string gameSaves, string fileName) => _scummVMHubClient.SaveGame(gameSaves, fileName);
 
             OnQuit += () =>
             {

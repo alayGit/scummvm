@@ -203,7 +203,7 @@ namespace ScummVMBrowser.Clients
             _saveDataCallback = saveDataCallback;
         }
 
-        public async Task<bool> SaveGameAsync(byte[] saveData, String fileName)
+        public async Task<bool> SaveGameAsync(string saveData, String fileName)
         {
             return await _saveDataCallback?.Invoke(saveData, fileName);
         }

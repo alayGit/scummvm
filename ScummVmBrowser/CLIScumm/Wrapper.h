@@ -92,6 +92,7 @@ namespace CLIScumm {
 		bool _soundIsRunning;
 		Common::SaveFileManager* _saveFileManager;
 	    ISaveCache^ _saveCache;
+	    IByteEncoder ^ _byteEncoder;
 	};
 
 }

@@ -95,6 +95,10 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\dists\SaveDataEncoderAndCompressor\SaveDataEncoderAndCompressor.csproj">
+      <Project>{2bf84471-aeae-4fc0-8c6d-f3f26af8fbb4}</Project>
+      <Name>SaveDataEncoderAndCompressor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CliScummData\CliScummData.vcxproj">
       <Project>{165f09da-34c9-437b-9b0a-860150e7e830}</Project>
       <Name>CliScummData</Name>
@@ -114,6 +118,10 @@
     <ProjectReference Include="..\JsonResxConfigureStore\JsonConfigureStore.csproj">
       <Project>{56AF0FD1-245E-4CD7-AC45-CF2BD6B23F4F}</Project>
       <Name>JsonConfigureStore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Managed7LibCompression\Managed7LibCompression.vcxproj">
+      <Project>{4425558d-019e-43b5-8183-30eeef718efd}</Project>
+      <Name>Managed7LibCompression</Name>
     </ProjectReference>
     <ProjectReference Include="..\ManagedCommon\ManagedCommon.csproj">
       <Project>{d8f87aa0-1710-49cc-8ccf-7e1b74fef911}</Project>

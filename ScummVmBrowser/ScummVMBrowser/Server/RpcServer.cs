@@ -51,7 +51,7 @@ namespace ScummVMBrowser.Server
                 if (!client.IsGameRunning)
                 {
                     await client.Init();
-                    client.SetSaveGameFunctionPointer(async (byte[] saveData, string saveName) => await _scummWebServerClientRpcProxy.SaveGameAsync(saveData, saveName, gameId));
+                    client.SetSaveGameFunctionPointer(async (string saveData, string saveName) => await _scummWebServerClientRpcProxy.SaveGameAsync(saveData, saveName, gameId));
                 }
             }
         }

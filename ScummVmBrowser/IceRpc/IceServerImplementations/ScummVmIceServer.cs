@@ -43,7 +43,7 @@ namespace IceRpc
             _logger = logger;
         }
 
-        public bool SaveGame(byte[] saveData, string fileName)
+        public bool SaveGame(string saveData, string fileName)
         {
             return Sender.SaveGame(saveData, fileName);
         }

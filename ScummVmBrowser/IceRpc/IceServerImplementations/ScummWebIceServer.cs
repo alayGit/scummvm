@@ -27,9 +27,9 @@ namespace IceRpc.IceServerImplementations
             _logger = logger;
         }
 
-        public Task<bool> SaveGameAsync(byte[] saveData, string fileName, string id)
+        public Task<bool> SaveGameAsync(string saveData, string fileName, string id)
         {
-            return GetSender(id).SaveGameAsync(Convert.ToBase64String(saveData), fileName);
+            return GetSender(id).SaveGameAsync(saveData, fileName);
         }
 
        
