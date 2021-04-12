@@ -301,10 +301,7 @@ namespace DotNetScummTests.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ***.¦k***g²³{$Ó Ë qQÙ¼is;©æûÀ3[^m¾¬=MvvËýnCsÚ2î§âø©æ/^øA¹í!ùÊ)}7íÁ57`ê³*Ø,&apos;Àøãeúbâ.BP&apos;q³åj5*b]Ñ
-        ///H`ôJÎrû+]Å]ãù[¬åºïÅ±kÆS¢Ä j`Þ2{.O¬3m+À&lt;ÆmW1HÞÖâ¯lç¤mÝ¿y¬ËéÕ/6Þ\/âz&quot;äÄ&quot;ÿÈálüiÎÉÈuÅOÔ0^Ë1xÎ¢VÙðRÜÚUoL¢ lª½f
-        ///ýØ²ë///£¸|DI¨6`Üpÿ6ÌúË8²ÜÛMÒþ5h;ì!9ÍØÇ¤¥²ÏcÄ&lt;}Q8JÌrB·ÈËGþ18ØA&lt;EðgmbÀ\O&apos;=J¤	¼Ú¯î///íH@ÅÅ;ÐúéË°×¡0ÖJÜ`ï#¢êk®
-        ///¥o~çÏ!¹.Ø\&quot;æ£Aì:fÄrbþ&lt;Lì¼ó]àðµt°	FþåE=Mî=M.Ø`ªo-ÔYVÂs§NÝ¤Düg\	ÉÈ¹Ë ÏBØøà///~	ñîÆ)àÓ=MdØDã­SøÀ9=}uó( [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to ***.¦k***g²³{$Ó Ë qQÙ¼is;©æûÀ3=}:©sèµäX©ÁT=}M3ZÄjL@[ÆgywÚ1É]~_+IR¬[v&amp;§¨Èîßp.òOßf&lt;uVy///üþEáÈ£Eð³ûµÊY=M^`ªñjÖÆ/¬Pà_Ö$©÷-Þ:!m$KIÍäïMKWÝ8-^L#¶Ëe{ ¹VòÏ,ì÷N¸L=@p¯³°ðMµHø½Ã¥ÚÞ¶ª  ÿèÔ§UæÑ§·NI9±®=@³ÉûÝ§ÇJÌÜ|*¦«AEüB8ÝCØ`Ú=@Ëj~~UgÆ¢ñ×3sBÇV B×zë=})tåÝ4¥Ñ·Ò²#z£ãÞËä®i@W:5Â)àæx0äeDófÚSÑiíå½8Úu}ûTõH#&amp;k///)=n½JÜvò7Á0G|Â¹Àûý{öO4~ø¦H&gt;&lt;~åu&amp;ÝCâñ &apos;ÚÃîå&lt;n&amp;7ð¬]ÿèA*nQäA1bÏ·Ý;Áàú«ÿh/ëvKGm¹¼S}qGÁnÕW©?fÊv6Yÿ=J [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SaveData {
             get {
