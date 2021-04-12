@@ -47,11 +47,9 @@ export const GameScreen = (props: GameScreenProps) => {
                 var connection = ($ as any).hubConnection(`${window.location.protocol}//${window.location.host}/`);
                 var hubServer = connection.createHubProxy('HubServer');
 
-                const saveFunc = function (saveData: number[], saveName: string) {
+                const saveFunc = function (saveData: string, saveName: string) {
                     try {
-                        const saveStorage = GetSaveStorage(availableGame);
-                        (saveStorage as any)[saveName] = saveData;
-                        localStorage.setItem(availableGame, JSON.stringify(saveStorage));
+                        localStorage.setItem(availableGame, saveData);
 
                         return true;
                     }

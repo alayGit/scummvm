@@ -1,7 +1,7 @@
 ﻿declare var ScummWebsServerVMSlices: any;
 
 export interface ISaveCallback {
-    (saveData: number[], fileName: string): boolean
+    (saveData: string, fileName: string): boolean
 }
 
 export class ScummWebServerClientI extends ScummWebsServerVMSlices.ScummWebServerClient {
