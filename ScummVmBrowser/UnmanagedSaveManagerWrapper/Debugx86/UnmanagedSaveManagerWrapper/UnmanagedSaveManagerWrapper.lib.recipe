@@ -2,9 +2,6 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\scumm\dists\msvc\Debug\ScummToManagedMarshalling.dll</FullPath>
-    </ProjectOutput>
-    <ProjectOutput>
       <FullPath>C:\scumm\dists\msvc\Debug\managedYEncoder.dll</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
