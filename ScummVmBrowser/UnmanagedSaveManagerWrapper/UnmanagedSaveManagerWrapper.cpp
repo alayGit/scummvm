@@ -18,6 +18,7 @@ OutSaveFile *SaveManager::UnmanagedSaveManagerWrapper::openForSaving(const Commo
 
 			ManagedCommon::Models::GameSave ^ gaveSave = gcnew ManagedCommon::Models::GameSave();
 			gaveSave->Data = managedSaveData;
+		    gaveSave->Thumbnail = Converters::MarshalVectorToManagedArray(SaveManager::GetThumbnail::getThumbnail());
 
 			_saveCache->SaveToCache(managedFileName, gaveSave);
 

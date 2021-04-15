@@ -120,18 +120,25 @@ namespace DotNetScummTests
 						alreadyCropped = true;
 					}
 
-					bool frameCouldBeExpected = true; //If the sizes don't match we are not even going to bother checking. Some frames such as the inventory screen in KQ3 are different sizes to the rest of the game
-					for (int x = 0; x < actualBitmap.Size.Width && frameCouldBeExpected; x++)
-					{
-						for (int y = 0; y < actualBitmap.Size.Height && frameCouldBeExpected; y++)
-						{
-							frameCouldBeExpected = expectedBitmap.GetPixel(x, y) == actualBitmap.GetPixel(x, y);
-						}
-					}
-					expectedFrameFound = frameCouldBeExpected;
+					bool arePicturesEqual = ArePicturesEqual(expectedBitmap, actualBitmap);
+					expectedFrameFound = arePicturesEqual;
 				}
 				return expectedFrameFound;
 			}
+		}
+
+		private static bool ArePicturesEqual(Bitmap expectedBitmap, Bitmap actualBitmap)
+		{
+			bool frameCouldBeExpected = true;
+			for (int x = 0; x < actualBitmap.Size.Width && frameCouldBeExpected; x++)
+			{
+				for (int y = 0; y < actualBitmap.Size.Height && frameCouldBeExpected; y++)
+				{
+					frameCouldBeExpected = expectedBitmap.GetPixel(x, y) == actualBitmap.GetPixel(x, y);
+				}
+			}
+
+			return frameCouldBeExpected;
 		}
 
 		protected async Task WaitForFrame(int frame)
@@ -161,13 +168,19 @@ namespace DotNetScummTests
 		static int counter = 0;
 		protected unsafe virtual void CaptureAndQuit(byte[] picBuff, int ignoreColour, UInt32 paletteHash, int x, int y, int w, int h, int noFrames, string expectedFrameName)
 		{
+			SetBitmapData(picBuff, _b, ignoreColour, paletteHash, x, y, w, h);
+			CaptureAndQuit(_b, noFrames, expectedFrameName);
+		}
+
+		private unsafe void SetBitmapData(byte[] picBuff, Bitmap bitmap, int ignoreColour, uint paletteHash, int x, int y, int w, int h)
+		{
 			BitmapData bitmapData = null;
 			try
 			{
 				if (w > 0 && h > 0)
 				{
 					int byteNo = 0;
-					bitmapData = _b.LockBits(new Rectangle(x, y, w, h), ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
+					bitmapData = bitmap.LockBits(new Rectangle(x, y, w, h), ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
 					byte* scan0 = (byte*)bitmapData.Scan0.ToPointer();
 					for (int heightCounter = 0; heightCounter < h; heightCounter++)
 					{
@@ -186,7 +199,7 @@ namespace DotNetScummTests
 							}
 						}
 					}
-					CaptureAndQuit(_b, noFrames, expectedFrameName);
+
 				}
 			}
 			finally

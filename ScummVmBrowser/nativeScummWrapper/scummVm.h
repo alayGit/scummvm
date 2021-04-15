@@ -14,6 +14,7 @@
 #include "../../common/system.h"
 
 #include "../../graphics/mode.h"
+#include "../../graphics/surface.h"
 
 #include "../../backends/mutex/mutex.h"
 #include "../../backends/fs/windows/windows-fs-factory.h"

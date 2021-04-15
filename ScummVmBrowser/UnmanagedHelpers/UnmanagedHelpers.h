@@ -3,10 +3,16 @@
 #include "../../common/stream.h"
 #include <vector>;
 namespace UnmanagedHelpers {
-class ScummByteStream : Common::WriteStream {
-	std::vector<byte> _stream;
-	uint32 write(const void *dataPtr, uint32 dataSize) override;
+class ScummByteStream : public Common::WriteStream {
+public:
+	ScummByteStream();
+	~ScummByteStream();
+	std::vector<byte> *getData();
 
-	std::vector<byte> getStream();
+protected:
+	uint32 write(const void *dataPtr, uint32 dataSize) override;
+	int32 pos() const override;
+
+	std::vector<byte>* _data;
 };
 } // namespace UnmanagedHelpers

@@ -1,6 +1,7 @@
 #pragma once
 #include "../nativeScummWrapper/nativeScummVmWrapperSaveMemStream.h"
 #include "../ScummToManagedMarshalling/ScummToManagedMarshalling.h"
+#include "GetThumbnail.h"
 #include <msclr/gcroot.h>
 using namespace Common;
 using namespace System::Collections::Generic;

@@ -18,12 +18,18 @@
     <ClInclude Include="UnmanagedSaveManagerWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GetThumbnail.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UnmanagedSaveManagerWrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AssemblyInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GetThumbnail.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

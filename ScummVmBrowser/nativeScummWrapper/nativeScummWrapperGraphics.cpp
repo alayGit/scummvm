@@ -17,6 +17,7 @@ NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_Sen
 	    NULL);                           // unnamed semaphore
 	_currentPaletteHash = 0;
 	_currentCursorPaletteHash = 0;
+	_pictureColor = nullptr;
 	InitScreen();
 }
 
@@ -25,6 +26,11 @@ NativeScummWrapper::NativeScummWrapperGraphics::~NativeScummWrapperGraphics() {
 	free(_picturePalette);
 	free(_cursorPalette);
 	CloseHandle(_wholeScreenMutex);
+
+	if (_pictureColor)
+	{
+		delete[] _pictureColor;
+	}
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void *buf, int pitch, int x, int y, int w, int h) {
@@ -139,17 +145,30 @@ void NativeScummWrapper::NativeScummWrapperGraphics::setPalette(const byte *colo
 		_currentCursorPaletteHash = _currentPaletteHash;
 	}
 
+	if (!_pictureColor)
+	{
+		delete[] _pictureColor;
+	}
+	_pictureColor = new byte[num];
+
+	memcpy(_pictureColor, colors, num);
+
 	ScheduleRedrawWholeScreen();
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::grabPalette(byte *colors, uint start, uint num) const {
+    memcpy(colors, _pictureColor + start, num);
 }
 
 Graphics::Surface *NativeScummWrapper::NativeScummWrapperGraphics::lockScreen() {
-	return nullptr;
+	WaitForSingleObject(_wholeScreenMutex, INFINITE);
+	_framebuffer.init(DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT, DISPLAY_DEFAULT_WIDTH, _wholeScreenBufferNoMouse, Graphics::PixelFormat::createFormatCLUT8());
+
+	return &_framebuffer;
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::unlockScreen() {
+	ReleaseSemaphore(_wholeScreenMutex, 1, NULL);
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::fillScreen(uint32 col) {
@@ -266,7 +285,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::setCursorPalette(const byte
 }
 
 Graphics::PixelFormat NativeScummWrapper::NativeScummWrapperGraphics::getScreenFormat() const {
-	return Graphics::PixelFormat();
+	return Graphics::PixelFormat::createFormatCLUT8();
 }
 
 Common::List<Graphics::PixelFormat> NativeScummWrapper::NativeScummWrapperGraphics::getSupportedFormats() const {

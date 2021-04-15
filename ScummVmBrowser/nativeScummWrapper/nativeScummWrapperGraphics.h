@@ -108,6 +108,7 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 		f_SendScreenBuffers _copyRect;
 		PalletteColor *_picturePalette;
 		PalletteColor *_cursorPalette;
+	    byte *_pictureColor;
 		PalletteColor *allocatePallette();
 		MouseState _cliMouse;
 	    bool _screenInited = false;
@@ -131,5 +132,6 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 	    std::unordered_map<int, bool> palettesSeen;
 	    uint32 _currentPaletteHash;
 	    uint32 _currentCursorPaletteHash;
+	    Graphics::Surface _framebuffer;
 	};
 } // namespace NativeScummWrapper

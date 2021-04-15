@@ -139,10 +139,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GetThumbnail.h" />
     <ClInclude Include="UnmanagedSaveManagerWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="GetThumbnail.cpp" />
     <ClCompile Include="UnmanagedSaveManagerWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +170,9 @@
     </ProjectReference>
     <ProjectReference Include="..\ScummToManagedMarshalling\ScummToManagedMarshalling.vcxproj">
       <Project>{f9acea22-07f8-4564-bef6-603b84fdd4e5}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\UnmanagedHelpers\UnmanagedHelpers.vcxproj">
+      <Project>{51f1b7b0-d593-46b4-aa62-8dece5d06ea1}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

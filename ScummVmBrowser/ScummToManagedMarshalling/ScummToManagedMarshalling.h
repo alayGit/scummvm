@@ -12,16 +12,21 @@ public:
 	static System::String ^ CommonStringToManagedString(const Common::String *input);
 
 	template<typename T>
-	    static cli::array<T> ^ MarshalVectorToManagedArray(std::vector<T> *input);
+	    static cli::array<T> ^ MarshalVectorToManagedArray(std::vector<T> *input, bool deleteVectorAfterUse = true);
 
 	template<typename T>
 	static std::vector<T> *MarshalManagedArrayToVector(static cli::array<T> ^ input);
 };
 template<typename T>
-    inline cli::array<T> ^ Converters::MarshalVectorToManagedArray(std::vector<T> *input) {
+    inline cli::array<T> ^ Converters::MarshalVectorToManagedArray(std::vector<T> *input, bool deleteVectorAfterUse) {
 	cli::array<T> ^ result = gcnew cli::array<T>(input -> size());
 
 	Marshal::Copy(System::IntPtr(&input->at(0)), result, 0, input->size());
+
+	if (deleteVectorAfterUse)
+	{
+		delete input;
+	}
 
 	return result;
 }
