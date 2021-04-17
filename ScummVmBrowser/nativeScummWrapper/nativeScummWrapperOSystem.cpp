@@ -8,7 +8,8 @@ NativeScummWrapper::NativeScummWrapperOSystem::NativeScummWrapperOSystem(SoundMa
 	_mixerImpl = nullptr;
 	_soundOptions = soundOptions;
 	_fsFactory = new WindowsFilesystemFactory();
-	_cliGraphicsManager = new NativeScummWrapperGraphics(sendScreenBuffers);
+	_paletteManager = new nativeScummWrapperPaletteManager();
+	_cliGraphicsManager = new NativeScummWrapperGraphics(sendScreenBuffers, _paletteManager);
 	_eventSource = new NativeScummWrapperEvents(queueEvent, [this](int x, int y) {
 		_graphicsManager->warpMouse(x, y);
 	});

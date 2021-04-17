@@ -20,7 +20,7 @@ namespace NativeScummWrapper {
 	    int prevHotX;
 	    int prevHotY;
 		const void *buffer;
-		PalletteColor *cursorPallette;
+		//PalletteColor *cursorPallette;
 		byte keyColor;
 
 		int adjustedX()
@@ -56,7 +56,7 @@ namespace NativeScummWrapper {
 			width = -1;
 			height = -1;
 			buffer = nullptr;
-			cursorPallette = nullptr;
+			///cursorPallette = nullptr;
 			prevX = -1;
 			prevY = -1;
 			prevW = -1;

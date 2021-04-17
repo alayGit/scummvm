@@ -2,35 +2,23 @@
 #include "nativeScummWrapperGraphics.h"
 #include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
 #define DO_NOT_IGNORE_ANY_COLOR -1
-
-NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_SendScreenBuffers copyRect) : GraphicsManager() {
+NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_SendScreenBuffers copyRect, nativeScummWrapperPaletteManager* paletteManager) : GraphicsManager() {
 	_copyRect = copyRect;
-	_picturePalette = allocatePallette();
-	_cursorPalette = allocatePallette();
-
+	
 	_wholeScreenBufferNoMouse = new byte[WHOLE_SCREEN_BUFFER_LENGTH];
 
 	_wholeScreenMutex = CreateSemaphore( //Cannot use 'std::mutex due to an iteration issue with CLR
 	    NULL,                            // default security attributes
 	    1,                               // initial count
 	    1,                               // maximum count
-	    NULL);                           // unnamed semaphore
-	_currentPaletteHash = 0;
-	_currentCursorPaletteHash = 0;
-	_pictureColor = nullptr;
-	InitScreen();
+	    NULL);                          // unnamed semaphore
+	_paletteManager = paletteManager;
+	//InitScreen();
 }
 
 NativeScummWrapper::NativeScummWrapperGraphics::~NativeScummWrapperGraphics() {
 	delete[] _wholeScreenBufferNoMouse;
-	free(_picturePalette);
-	free(_cursorPalette);
 	CloseHandle(_wholeScreenMutex);
-
-	if (_pictureColor)
-	{
-		delete[] _pictureColor;
-	}
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void *buf, int pitch, int x, int y, int w, int h) {
@@ -41,7 +29,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void
 		int _;
 		byte *wholeScreenBuffer = GetWholeScreenBufferRaw(_, _, _);
 
-		ScreenBuffer initScreen = GetScreenBuffer(wholeScreenBuffer, DISPLAY_DEFAULT_WIDTH, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT, _currentPaletteHash, false, false);
+		ScreenBuffer initScreen = GetScreenBuffer(wholeScreenBuffer, DISPLAY_DEFAULT_WIDTH, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT, _paletteManager->getCurrentCursorPaletteHash(), false, false);
 
 		_drawingBuffers.push_back(initScreen);
 	}
@@ -50,7 +38,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void
 	byte *pictureBuffer = ScreenUpdated(buf, pitch, x, y, w, h, false, differenceDetected);
 
 	if (differenceDetected) {
-		_drawingBuffers.push_back(GetScreenBuffer((byte *)pictureBuffer, pitch, x, y, w, h, _currentPaletteHash, false, false));
+		_drawingBuffers.push_back(GetScreenBuffer((byte *)pictureBuffer, pitch, x, y, w, h, _paletteManager->getCurrentPaletteHash(), false, false));
 
 		if (_cliMouse.adjustedX() < DISPLAY_DEFAULT_WIDTH && _cliMouse.adjustedY() < DISPLAY_DEFAULT_HEIGHT && _cliMouse.width > 0 && _cliMouse.height > 0 && screenUpdateOverlapsMouse(x, y, w, h)) {
 			if (_cliMouse.width > 0 && _cliMouse.height > 0) {
@@ -76,7 +64,7 @@ bool NativeScummWrapper::NativeScummWrapperGraphics::hasFeature(OSystem::Feature
 void NativeScummWrapper::NativeScummWrapperGraphics::setFeatureState(OSystem::Feature f, bool enable) {
 	switch (f) {
 	case OSystem::kFeatureCursorPalette:
-		_cursorPaletteDisabled = !enable;
+		_paletteManager->setCursorPaletteDisabled(!enable);
 		break;
 	default:
 		break;
@@ -136,28 +124,13 @@ int16 NativeScummWrapper::NativeScummWrapperGraphics::getWidth() const {
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::setPalette(const byte *colors, uint start, uint num) {
-	populatePalette(_picturePalette, colors, start, num);
-
-	_currentPaletteHash = RememberPalette(_picturePalette, NO_COLOURS);
-
-	if (_cursorPaletteDisabled)
-	{
-		_currentCursorPaletteHash = _currentPaletteHash;
-	}
-
-	if (!_pictureColor)
-	{
-		delete[] _pictureColor;
-	}
-	_pictureColor = new byte[num];
-
-	memcpy(_pictureColor, colors, num);
+	_paletteManager->populatePicturePalette(colors, start, num);
 
 	ScheduleRedrawWholeScreen();
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::grabPalette(byte *colors, uint start, uint num) const {
-    memcpy(colors, _pictureColor + start, num);
+	_paletteManager->grabPalette(colors, start, num);
 }
 
 Graphics::Surface *NativeScummWrapper::NativeScummWrapperGraphics::lockScreen() {
@@ -249,7 +222,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::warpMouse(int x, int y) {
 
 			if (shouldBlot) {
 				byte *blotBuffer = GetBlottedBuffer(_cliMouse.adjustedPrevX(), _cliMouse.adjustedPrevY(), _cliMouse.prevW, _cliMouse.prevH);
-				_drawingBuffers.push_back(GetScreenBuffer(blotBuffer, _cliMouse.fullWidth, _cliMouse.adjustedPrevX(), _cliMouse.adjustedPrevY(), _cliMouse.prevW, _cliMouse.prevH, _currentPaletteHash, false, false));
+				_drawingBuffers.push_back(GetScreenBuffer(blotBuffer, _cliMouse.fullWidth, _cliMouse.adjustedPrevX(), _cliMouse.adjustedPrevY(), _cliMouse.prevW, _cliMouse.prevH, _paletteManager->getCurrentPaletteHash(), false, false));
 			}
 
 			if (shouldSendNewMouseExample) {
@@ -271,17 +244,15 @@ void NativeScummWrapper::NativeScummWrapperGraphics::setMouseCursor(const void *
 	_cliMouse.width = restrictWidthToScreenBounds(hotspotX, w);
 	_cliMouse.fullHeight = h;
 	_cliMouse.fullWidth = w;
-	_cliMouse.cursorPallette = _cursorPaletteDisabled ? _picturePalette : _cursorPalette;
+	//_cliMouse.cursorPallette = _paletteManager.
 	_cliMouse.keyColor = keycolor;
 
 	warpMouse(_cliMouse.x, _cliMouse.y);
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::setCursorPalette(const byte *colors, uint start, uint num) {
-	populatePalette(_cursorPalette, colors, start, num);
-
-	_currentCursorPaletteHash = RememberPalette(_cursorPalette, NO_COLOURS);
-	_cursorPaletteDisabled = false;
+	_paletteManager->populateCursorPalette(colors, start, num);
+	_paletteManager->setCursorPaletteDisabled(false);
 }
 
 Graphics::PixelFormat NativeScummWrapper::NativeScummWrapperGraphics::getScreenFormat() const {
@@ -290,28 +261,6 @@ Graphics::PixelFormat NativeScummWrapper::NativeScummWrapperGraphics::getScreenF
 
 Common::List<Graphics::PixelFormat> NativeScummWrapper::NativeScummWrapperGraphics::getSupportedFormats() const {
 	return Common::List<Graphics::PixelFormat>();
-}
-
-NativeScummWrapper::PalletteColor *NativeScummWrapper::NativeScummWrapperGraphics::allocatePallette() {
-	return (NativeScummWrapper::PalletteColor *)calloc(sizeof(NativeScummWrapper::PalletteColor), NO_COLOURS);
-}
-
-void NativeScummWrapper::NativeScummWrapperGraphics::populatePalette(NativeScummWrapper::PalletteColor *pallette, const byte *colors, uint start, uint num) {
-	assert(colors);
-
-	// Setting the palette before _screen is created is allowed - for now -
-	// since we don't actually set the palette until the screen is updated.
-	// But it could indicate a programming error, so let's warn about it.
-
-	const byte *b = colors;
-	uint i;
-	NativeScummWrapper::PalletteColor *base = pallette + start;
-	for (i = 0; i < num; i++, b += NO_COLOUR_COMPONENTS_SCUMM_VM) {
-		base[i].r = b[0];
-		base[i].g = b[1];
-		base[i].b = b[2];
-		base[i].a = 255;
-	}
 }
 
 int NativeScummWrapper::NativeScummWrapperGraphics::restrictWidthToScreenBounds(int x, int width) {
@@ -384,7 +333,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::ScheduleRedrawWholeScreen()
 
 	memcpy(cpyWholeScreenBuffer, _wholeScreenBufferNoMouse, WHOLE_SCREEN_BUFFER_LENGTH);
 
-	_drawingBuffers.push_back(GetScreenBuffer(cpyWholeScreenBuffer, DISPLAY_DEFAULT_WIDTH, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT, _currentPaletteHash, false, true));
+	_drawingBuffers.push_back(GetScreenBuffer(cpyWholeScreenBuffer, DISPLAY_DEFAULT_WIDTH, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT, _paletteManager->getCurrentPaletteHash(), false, true));
 	_drawingBuffers.push_back(GetMouseScreenBuffer(true));
 
 	ReleaseSemaphore(_wholeScreenMutex, 1, NULL);
@@ -467,12 +416,12 @@ NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics:
 	screenBuffer.paletteBuffer = nullptr;
 	screenBuffer.paletteBufferLength = 0;
 
-	if (!palettesSeen[paletteHash] || forcePaletteToBeSent) {
-		screenBuffer.paletteBuffer = (byte *)palettes[paletteHash].c_str();
+	if (!_paletteManager->haveSeenPalette(paletteHash) || forcePaletteToBeSent) {
+		screenBuffer.paletteBuffer = (byte *)(_paletteManager->getPalette(paletteHash));
 		screenBuffer.paletteBufferLength = NO_DIGITS_IN_PALETTE_VALUE * NO_COLOURS * NO_BYTES_PER_PIXEL;
 	}
 	screenBuffer.paletteHash = paletteHash;
-	palettesSeen[paletteHash] = true;
+	_paletteManager->registerSeenPalette(paletteHash);
 
 	return screenBuffer;
 }
@@ -483,35 +432,15 @@ NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics:
 
 	if (_cliMouse.hasInited() && positionInRange(_cliMouse.adjustedX(), _cliMouse.adjustedY()) && _cliMouse.width > 0 && _cliMouse.height > 0) {
 		byte *pictureBuffer = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.adjustedX(), _cliMouse.adjustedY(), _cliMouse.width, _cliMouse.height, true, _);
-		result = GetScreenBuffer(pictureBuffer, _cliMouse.fullWidth, _cliMouse.adjustedX(), _cliMouse.adjustedY(), _cliMouse.width, _cliMouse.height, _currentCursorPaletteHash, true, forcePalettesToBeSent);
+		result = GetScreenBuffer(pictureBuffer, _cliMouse.fullWidth, _cliMouse.adjustedX(), _cliMouse.adjustedY(), _cliMouse.width, _cliMouse.height, _paletteManager->getCurrentCursorPaletteHash(), true, forcePalettesToBeSent);
 	}
 	else {
 		byte *pictureBuffer = new byte[0];
-		result = GetScreenBuffer(pictureBuffer, _cliMouse.fullWidth, 0, 0, 0, 0, _currentCursorPaletteHash, true, forcePalettesToBeSent);
+		result = GetScreenBuffer(pictureBuffer, _cliMouse.fullWidth, 0, 0, 0, 0, _paletteManager->getCurrentCursorPaletteHash(), true, forcePalettesToBeSent);
 	}
 	return result;
 }
 
-
-uint32 NativeScummWrapper::NativeScummWrapperGraphics::RememberPalette(PalletteColor *pallette, int length) {
-	std::string paletteString = NativeScummWrapper::GetPalettesAsString(pallette, length);
-	std::hash<std::string> str_hash;
-
-	uint32 paletteHash = std::hash<std::string>()(paletteString);
-
-	palettes.emplace(paletteHash, paletteString); //Doesn't matter if it already exists we are just overwritting with the same value anyway
-
-	return paletteHash;
-}
-
 void NativeScummWrapper::NativeScummWrapperGraphics::InitScreen() {
 	memset(_wholeScreenBufferNoMouse, 0, WHOLE_SCREEN_BUFFER_LENGTH);
-	byte colours[NO_COLOURS * NO_COLOUR_COMPONENTS_SCUMM_VM];
-
-	memset(colours, 0, NO_COLOURS * NO_COLOUR_COMPONENTS_SCUMM_VM);
-
-		populatePalette(_picturePalette, colours, 0, NO_COLOURS);
-	_currentPaletteHash = RememberPalette(_picturePalette, NO_COLOURS);
-	populatePalette(_cursorPalette, colours, 0, NO_COLOURS);
-	_currentCursorPaletteHash = RememberPalette(_cursorPalette, NO_COLOURS);
 }

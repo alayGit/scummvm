@@ -172,7 +172,7 @@ namespace DotNetScummTests
 			CaptureAndQuit(_b, noFrames, expectedFrameName);
 		}
 
-		private unsafe void SetBitmapData(byte[] picBuff, Bitmap bitmap, int ignoreColour, uint paletteHash, int x, int y, int w, int h)
+		protected unsafe void SetBitmapData(byte[] picBuff, Bitmap bitmap, int ignoreColour, uint paletteHash, int x, int y, int w, int h)
 		{
 			BitmapData bitmapData = null;
 			try

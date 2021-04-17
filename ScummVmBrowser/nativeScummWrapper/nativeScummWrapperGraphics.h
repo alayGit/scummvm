@@ -27,6 +27,7 @@
 #include <functional>
 #include <vector>
 #include "./ScummVmBrowser/ZLibCompression/ZLibCompression.h"
+#include "PaletteManager.h"
 //#include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
 
 class NativeScummWrapperEvents;
@@ -49,7 +50,7 @@ namespace NativeScummWrapper {
 
 class NativeScummWrapperGraphics : virtual public GraphicsManager {
 	public:
-		NativeScummWrapperGraphics(f_SendScreenBuffers copyRect);
+	NativeScummWrapperGraphics(f_SendScreenBuffers copyRect, nativeScummWrapperPaletteManager* paletteManager);
 	    ~NativeScummWrapperGraphics();
 
 		virtual void copyRectToScreen(const void *buf, int pitch, int x, int y, int w, int h) override;
@@ -104,16 +105,11 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 	    byte* GetWholeScreenBufferRaw(int &width, int &height, int &bufferSize);
 
 	private:
+	    nativeScummWrapperPaletteManager* _paletteManager;
 	    std::vector<ScreenBuffer> _drawingBuffers;
 		f_SendScreenBuffers _copyRect;
-		PalletteColor *_picturePalette;
-		PalletteColor *_cursorPalette;
-	    byte *_pictureColor;
-		PalletteColor *allocatePallette();
 		MouseState _cliMouse;
 	    bool _screenInited = false;
-	    bool _cursorPaletteDisabled = false; //If the cursor palette is disabled the picturePalette is used for the mouse as well
-		void populatePalette(PalletteColor *pallette, const byte *colors, uint start, uint num);
 		int restrictWidthToScreenBounds(int x, int width);
 		int restrictHeightToScreenBounds(int y, int height);
 		void setCurrentMouseStateToPrevious();
@@ -124,14 +120,9 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 	    bool IsScreenUpdateRequired(byte *pictureArray, int x, int y, int w, int h);
 		ScreenBuffer GetScreenBuffer(const void *buf, int pitch, int x, int y, int w, int h, uint32 paletteHash, bool isMouseUpdate, bool forcePaletteToBeSent);
 	    ScreenBuffer GetMouseScreenBuffer(bool forcePalettesToBeSent);
-		uint32 RememberPalette(PalletteColor* palette, int length);
 	    void InitScreen();
 	    byte *_wholeScreenBufferNoMouse;
 	    HANDLE _wholeScreenMutex;
-	    std::unordered_map<int, std::string> palettes;
-	    std::unordered_map<int, bool> palettesSeen;
-	    uint32 _currentPaletteHash;
-	    uint32 _currentCursorPaletteHash;
 	    Graphics::Surface _framebuffer;
 	};
 } // namespace NativeScummWrapper

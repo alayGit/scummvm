@@ -40,6 +40,7 @@ namespace NativeScummWrapper {
 		Audio::MixerImpl *_mixerImpl;
 		SoundManagement::SoundThreadManager *_soundThreadManager;
 		NativeScummWrapper::NativeScummWrapperGraphics*_cliGraphicsManager;
-	    SoundManagement::SoundProcessor* _soundProcessor; 
+	    SoundManagement::SoundProcessor* _soundProcessor;
+	    nativeScummWrapperPaletteManager* _paletteManager;
 	};
 } // namespace NativeScummWrapper

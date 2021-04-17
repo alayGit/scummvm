@@ -162,6 +162,7 @@
     <ClInclude Include="Debugger.h" />
     <ClInclude Include="hashMap.h" />
     <ClInclude Include="mouseState.h" />
+    <ClInclude Include="PaletteManager.h" />
     <ClInclude Include="standardMutexManager.h" />
     <ClInclude Include="nativeScummVMWrapperEvents.h" />
     <ClInclude Include="nativeScummVmWrapperSaveMemStream.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="scummVm.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="paletteManager.cpp" />
     <ClCompile Include="standardMutexManager.cpp" />
     <ClCompile Include="nativeScummVmWrapperSaveMemStream.cpp" />
     <ClCompile Include="nativeScummWrapperEvents.cpp" />
