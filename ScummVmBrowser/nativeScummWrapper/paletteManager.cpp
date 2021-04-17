@@ -4,8 +4,6 @@
 NativeScummWrapper::nativeScummWrapperPaletteManager::nativeScummWrapperPaletteManager() {
 	_picturePalette = allocatePallette();
 	_cursorPalette = allocatePallette();
-	_currentPaletteHash = 0;
-	_currentCursorPaletteHash = 0;
 	_pictureColor = nullptr;
 
 
@@ -15,6 +13,7 @@ NativeScummWrapper::nativeScummWrapperPaletteManager::nativeScummWrapperPaletteM
 	populatePalette(_picturePalette, colours, 0, NO_COLOURS);
 	int32 paletteHash = RememberPalette(_picturePalette, NO_COLOURS);
 	populatePalette(_cursorPalette, colours, 0, NO_COLOURS);
+	_currentPaletteHash = RememberPalette(_picturePalette, NO_COLOURS);
 	_currentCursorPaletteHash = RememberPalette(_cursorPalette, NO_COLOURS);
 }
 
@@ -75,7 +74,7 @@ uint32 NativeScummWrapper::nativeScummWrapperPaletteManager::getCurrentCursorPal
 		return _currentCursorPaletteHash;
 	}
 	else {
-		return _currentCursorPaletteHash;
+		return _currentPaletteHash;
 	}
 
 }

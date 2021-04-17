@@ -124,7 +124,8 @@ int16 NativeScummWrapper::NativeScummWrapperGraphics::getWidth() const {
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::setPalette(const byte *colors, uint start, uint num) {
-	_paletteManager->populatePicturePalette(colors, start, num);
+	uint32 paletteHash = _paletteManager->populatePicturePalette(colors, start, num);
+	_paletteManager->setCurrentPaletteHash(paletteHash);
 
 	ScheduleRedrawWholeScreen();
 }
@@ -251,7 +252,9 @@ void NativeScummWrapper::NativeScummWrapperGraphics::setMouseCursor(const void *
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::setCursorPalette(const byte *colors, uint start, uint num) {
-	_paletteManager->populateCursorPalette(colors, start, num);
+	 uint32 currentPaletteHash = _paletteManager->populateCursorPalette(colors, start, num);
+	_paletteManager->setCurrentCursorPaletteHash(currentPaletteHash);
+
 	_paletteManager->setCursorPaletteDisabled(false);
 }
 
@@ -417,8 +420,9 @@ NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics:
 	screenBuffer.paletteBufferLength = 0;
 
 	if (!_paletteManager->haveSeenPalette(paletteHash) || forcePaletteToBeSent) {
-		screenBuffer.paletteBuffer = (byte *)(_paletteManager->getPalette(paletteHash));
-		screenBuffer.paletteBufferLength = NO_DIGITS_IN_PALETTE_VALUE * NO_COLOURS * NO_BYTES_PER_PIXEL;
+		const char *paletteBuffer = _paletteManager->getPalette(paletteHash);
+		screenBuffer.paletteBuffer = (byte *)paletteBuffer;
+		screenBuffer.paletteBufferLength = strlen(paletteBuffer);
 	}
 	screenBuffer.paletteHash = paletteHash;
 	_paletteManager->registerSeenPalette(paletteHash);
