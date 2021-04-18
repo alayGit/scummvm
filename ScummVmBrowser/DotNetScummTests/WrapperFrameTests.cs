@@ -150,6 +150,7 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanSendEnter()
         {
+			Cropping = new Rectangle(5, 0, 10, 10);
             const string expectedFrameName = "CanSendEnter";
             const int noFrames = 150;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
@@ -162,8 +163,8 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanSendEsc()
         {
-            Cropping = new Rectangle(0, 20, 48, 35);
-            const string expectedFrameName = "CanSendEsc";
+			Cropping = new Rectangle(5, 0, 10, 30);
+			const string expectedFrameName = "CanSendEsc";
             const int noFrames = 310;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
             Setup(gameDirectory, noFrames, expectedFrameName);
@@ -214,17 +215,15 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanSendF4_Inventory()
         {
+			Cropping = new Rectangle(100, 100, 10, 10);
             const string expectedFrameName = "CanSendF4";
-            const int noFrames = 650;
+            const int noFrames = 350;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
             Setup(gameDirectory, noFrames, expectedFrameName);
             await WaitForFrame(250);
             _wrapper.EnqueueGameEvent(new SendString("\r"));
-			await WaitForFrame(510);
+			await WaitForFrame(300);
 			_wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.F4));
-
-            await Task.Delay(1000);
-            _wrapper.EnqueueGameEvent(new SendString("\r"));
 
             await CheckForExpectedFrame(expectedFrameName, noFrames);
         }
@@ -284,7 +283,7 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanSendLeft()
         {
-            Cropping = new Rectangle(10, 8,310, 12);
+			Cropping = new Rectangle(0,0, 30, 10);
             const string expectedFrameName = "CanSendLeft";
 			const int noFrames = 140;
             //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
@@ -295,8 +294,7 @@ namespace DotNetScummTests
             _wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.Escape));
             await WaitAdditionalFrames(10);
             _wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.ArrowLeft));
-
-            await Task.Delay(1000);
+			await Task.Delay(1000);
 
             await CheckForExpectedFrame(expectedFrameName, noFrames);
         }
@@ -328,7 +326,7 @@ namespace DotNetScummTests
         {
             Cropping = new Rectangle(86, 83, 138, 18);
             const string expectedFrameName = "CanSendBackspace";
-            const int noFrames = 500;
+            const int noFrames = 290;
 
             Setup(gameDirectory, noFrames, expectedFrameName);
 
@@ -543,7 +541,7 @@ namespace DotNetScummTests
             string expectedSaveFileName = $"{ExpectedSaveFilePrefix}001";
 
 			IDictionary<string, GameSave> gameSaves = _saveDataEncoderAndDecompresser.DecompressAndDecode(_saveData);
-			Bitmap.FromStream(new MemoryStream(gameSaves[expectedSaveFileName].Thumbnail)).Save($"C:\\temp\\First100\\TestThumbnail.bmp");
+			//Bitmap.FromStream(new MemoryStream(gameSaves[expectedSaveFileName].Thumbnail)).Save($"C:\\temp\\First100\\TestThumbnail.bmp");
 			
 
             Assert.IsTrue(gameSaves.ContainsKey(expectedSaveFileName));
