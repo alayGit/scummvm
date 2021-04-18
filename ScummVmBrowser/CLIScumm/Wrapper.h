@@ -17,6 +17,7 @@
 #include "../ChunkedSoundManager/SoundThreadManager.h"
 #include "../ChunkedSoundManager/SoundOptions.h"
 #include "../UnmanagedSaveManagerWrapper/UnmanagedSaveManagerWrapper.h"
+#include "../nativeScummWrapper/PaletteManager.h"
 #include <string.h>
 
 
@@ -46,6 +47,7 @@ namespace CLIScumm {
 	public ref class Wrapper :IWrapper {
 	public:
 		Wrapper(IConfigurationStore<System::Enum^>^ configureStore, ISaveCache^ saveCache, IByteEncoder^ byteEncoder);
+	    ~Wrapper();
 		virtual void EnqueueGameEvent(IGameEvent^ keyboardEvent);
 		virtual void Quit();
 	    virtual void CLIScumm::Wrapper::RunGame(AvailableGames game, cli::array<Byte> ^ gameData, System::String ^ compressedAndEncodedGameSaveData, PlayAudio ^ playSound);
@@ -93,6 +95,7 @@ namespace CLIScumm {
 		Common::SaveFileManager* _saveFileManager;
 	    ISaveCache^ _saveCache;
 	    IByteEncoder ^ _byteEncoder;
+	    NativeScummWrapperPaletteManager *_paletteManager;
 	};
 
 }

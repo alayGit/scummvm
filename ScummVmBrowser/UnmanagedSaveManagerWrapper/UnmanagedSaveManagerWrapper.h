@@ -1,6 +1,7 @@
 #pragma once
 #include "../nativeScummWrapper/nativeScummVmWrapperSaveMemStream.h"
 #include "../ScummToManagedMarshalling/ScummToManagedMarshalling.h"
+#include "../nativeScummWrapper/PaletteManager.h"
 #include "GetThumbnail.h"
 #include <msclr/gcroot.h>
 using namespace Common;
@@ -16,7 +17,7 @@ namespace SaveManager {
 class UnmanagedSaveManagerWrapper : public SaveFileManager {
 
 public:
-	UnmanagedSaveManagerWrapper(ISaveCache ^ saveCache, f_SaveFileData saveData, IByteEncoder^ encoder);
+	UnmanagedSaveManagerWrapper(ISaveCache ^ saveCache, f_SaveFileData saveData, IByteEncoder^ encoder, NativeScummWrapperPaletteManager* paletteManager);
 	virtual OutSaveFile *openForSaving(const Common::String &name, bool compress = true);
 	virtual InSaveFile *openForLoading(const Common::String &name);
 	virtual InSaveFile *openRawFile(const Common::String &name);
@@ -29,5 +30,6 @@ private:
 	gcroot<ISaveCache^> _saveCache;
 	f_SaveFileData _saveData;
 	gcroot<IByteEncoder^> _encoder;
+	NativeScummWrapperPaletteManager* _paletteManager;
 };
 } // namespace SaveManager

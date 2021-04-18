@@ -50,7 +50,7 @@ namespace NativeScummWrapper {
 
 class NativeScummWrapperGraphics : virtual public GraphicsManager {
 	public:
-	NativeScummWrapperGraphics(f_SendScreenBuffers copyRect, nativeScummWrapperPaletteManager* paletteManager);
+	NativeScummWrapperGraphics(f_SendScreenBuffers copyRect, NativeScummWrapperPaletteManager* paletteManager);
 	    ~NativeScummWrapperGraphics();
 
 		virtual void copyRectToScreen(const void *buf, int pitch, int x, int y, int w, int h) override;
@@ -105,7 +105,7 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 	    byte* GetWholeScreenBufferRaw(int &width, int &height, int &bufferSize);
 
 	private:
-	    nativeScummWrapperPaletteManager* _paletteManager;
+	    NativeScummWrapperPaletteManager* _paletteManager;
 	    std::vector<ScreenBuffer> _drawingBuffers;
 		f_SendScreenBuffers _copyRect;
 		MouseState _cliMouse;

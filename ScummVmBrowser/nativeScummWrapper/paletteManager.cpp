@@ -1,7 +1,7 @@
 #define FORBIDDEN_SYMBOL_ALLOW_ALL
 #include "PaletteManager.h"
 
-NativeScummWrapper::nativeScummWrapperPaletteManager::nativeScummWrapperPaletteManager() {
+NativeScummWrapper::NativeScummWrapperPaletteManager::NativeScummWrapperPaletteManager() {
 	_picturePalette = allocatePallette();
 	_cursorPalette = allocatePallette();
 	_pictureColor = new byte[NO_COLOURS * NO_COLOUR_COMPONENTS_SCUMM_VM];
@@ -15,7 +15,7 @@ NativeScummWrapper::nativeScummWrapperPaletteManager::nativeScummWrapperPaletteM
 	_currentCursorPaletteHash = RememberPalette(_cursorPalette, NO_COLOURS);
 }
 
-NativeScummWrapper::nativeScummWrapperPaletteManager::~nativeScummWrapperPaletteManager() {
+NativeScummWrapper::NativeScummWrapperPaletteManager::~NativeScummWrapperPaletteManager() {
 	free(_picturePalette);
 	free(_cursorPalette);
 
@@ -24,11 +24,11 @@ NativeScummWrapper::nativeScummWrapperPaletteManager::~nativeScummWrapperPalette
 	}
 }
 
-NativeScummWrapper::PalletteColor* NativeScummWrapper::nativeScummWrapperPaletteManager::allocatePallette() {
+NativeScummWrapper::PalletteColor* NativeScummWrapper::NativeScummWrapperPaletteManager::allocatePallette() {
 	return (NativeScummWrapper::PalletteColor *)calloc(sizeof(NativeScummWrapper::PalletteColor), NO_COLOURS);
 }
 
-uint32 NativeScummWrapper::nativeScummWrapperPaletteManager::RememberPalette(NativeScummWrapper::PalletteColor *palette, int length) {
+uint32 NativeScummWrapper::NativeScummWrapperPaletteManager::RememberPalette(NativeScummWrapper::PalletteColor *palette, int length) {
 	std::string paletteString = NativeScummWrapper::GetPalettesAsString(palette, length);
 	std::hash<std::string> str_hash;
 
@@ -39,7 +39,7 @@ uint32 NativeScummWrapper::nativeScummWrapperPaletteManager::RememberPalette(Nat
 	return paletteHash;
 }
 
-uint32 NativeScummWrapper::nativeScummWrapperPaletteManager::populatePalette(NativeScummWrapper::PalletteColor *palette, const byte *colors, uint start, uint num) {
+uint32 NativeScummWrapper::NativeScummWrapperPaletteManager::populatePalette(NativeScummWrapper::PalletteColor *palette, const byte *colors, uint start, uint num) {
 	assert(colors);
 
 	// Setting the palette before _screen is created is allowed - for now -
@@ -59,15 +59,15 @@ uint32 NativeScummWrapper::nativeScummWrapperPaletteManager::populatePalette(Nat
 	return RememberPalette(palette, NO_COLOURS);
 }
 
-uint32 NativeScummWrapper::nativeScummWrapperPaletteManager::getCurrentPaletteHash() {
+uint32 NativeScummWrapper::NativeScummWrapperPaletteManager::getCurrentPaletteHash() {
 	return _currentPaletteHash;
 }
 
-void NativeScummWrapper::nativeScummWrapperPaletteManager::setCurrentPaletteHash(uint32 value) {
+void NativeScummWrapper::NativeScummWrapperPaletteManager::setCurrentPaletteHash(uint32 value) {
 	_currentPaletteHash = value;
 }
 
-uint32 NativeScummWrapper::nativeScummWrapperPaletteManager::getCurrentCursorPaletteHash() {
+uint32 NativeScummWrapper::NativeScummWrapperPaletteManager::getCurrentCursorPaletteHash() {
 	if (!_cursorPaletteDisabled) {
 		return _currentCursorPaletteHash;
 	}
@@ -77,34 +77,38 @@ uint32 NativeScummWrapper::nativeScummWrapperPaletteManager::getCurrentCursorPal
 
 }
 
-void NativeScummWrapper::nativeScummWrapperPaletteManager::setCurrentCursorPaletteHash(uint32 value) {
+void NativeScummWrapper::NativeScummWrapperPaletteManager::setCurrentCursorPaletteHash(uint32 value) {
 	_currentCursorPaletteHash = value;
 }
 
-uint32 NativeScummWrapper::nativeScummWrapperPaletteManager::populatePicturePalette(const byte *colors, uint start, uint num) {
+uint32 NativeScummWrapper::NativeScummWrapperPaletteManager::populatePicturePalette(const byte *colors, uint start, uint num) {
 	return populatePalette(_picturePalette, colors, start, num);
 }
 
-uint32 NativeScummWrapper::nativeScummWrapperPaletteManager::populateCursorPalette(const byte *colors, uint start, uint num) {
+uint32 NativeScummWrapper::NativeScummWrapperPaletteManager::populateCursorPalette(const byte *colors, uint start, uint num) {
 	return populatePalette(_cursorPalette, colors, start, num);
 }
 
-void NativeScummWrapper::nativeScummWrapperPaletteManager::setCursorPaletteDisabled(bool value) {
+void NativeScummWrapper::NativeScummWrapperPaletteManager::setCursorPaletteDisabled(bool value) {
 	_cursorPaletteDisabled = value;
 }
 
-void NativeScummWrapper::nativeScummWrapperPaletteManager::grabPalette(byte *colors, uint start, uint num) const {
+void NativeScummWrapper::NativeScummWrapperPaletteManager::grabPalette(byte *colors, uint start, uint num) const {
 	memcpy(colors, _pictureColor + start, num);
 }
 
-bool NativeScummWrapper::nativeScummWrapperPaletteManager::haveSeenPalette(uint32 paletteHash) {
+bool NativeScummWrapper::NativeScummWrapperPaletteManager::haveSeenPalette(uint32 paletteHash) {
 	return palettesSeen[paletteHash];
 }
 
-void NativeScummWrapper::nativeScummWrapperPaletteManager::registerSeenPalette(uint32 paletteHash) {
+void NativeScummWrapper::NativeScummWrapperPaletteManager::registerSeenPalette(uint32 paletteHash) {
 	palettesSeen[paletteHash] = true;
 }
 
-const char* NativeScummWrapper::nativeScummWrapperPaletteManager::getPalette(uint32 paletteHash) {
+const char* NativeScummWrapper::NativeScummWrapperPaletteManager::getPalette(uint32 paletteHash) {
 	return palettes[paletteHash].c_str();
+}
+
+const char *NativeScummWrapper::NativeScummWrapperPaletteManager::getPalette() {
+	return getPalette(_currentPaletteHash);
 }

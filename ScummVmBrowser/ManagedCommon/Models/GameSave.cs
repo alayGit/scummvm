@@ -10,5 +10,6 @@ namespace ManagedCommon.Models
 	{
 		public byte[] Data { get; set; }
 		public byte[] Thumbnail { get; set; }
+		public string PaletteString { get; set; }
 	}
 }

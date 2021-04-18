@@ -2,7 +2,7 @@
 #include "scummVm.h"
 #include "common.h"
 namespace NativeScummWrapper {
-class nativeScummWrapperPaletteManager {
+class NativeScummWrapperPaletteManager {
 	PalletteColor *_picturePalette;
 	PalletteColor *_cursorPalette;
 	byte *_pictureColor;
@@ -15,8 +15,8 @@ class nativeScummWrapperPaletteManager {
 	uint32 populatePalette(NativeScummWrapper::PalletteColor *pallette, const byte *colors, uint start, uint num);
 
 public:
-	nativeScummWrapperPaletteManager();
-	~nativeScummWrapperPaletteManager();
+	NativeScummWrapperPaletteManager();
+	~NativeScummWrapperPaletteManager();
 	uint32 RememberPalette(NativeScummWrapper::PalletteColor *palette, int length);
 	uint32 getCurrentPaletteHash();
 	void setCurrentPaletteHash(uint32 value);
@@ -29,5 +29,6 @@ public:
 	bool haveSeenPalette(uint32 paletteHash);
 	void registerSeenPalette(uint32 paletteHash);
 	const char* getPalette(uint32 paletteHash);
+	const char* getPalette();
 };
 } // namespace NativeScummWrapper

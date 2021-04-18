@@ -1,10 +1,11 @@
 #define FORBIDDEN_SYMBOL_ALLOW_ALL
 #include "UnmanagedSaveManagerWrapper.h"
 
-SaveManager::UnmanagedSaveManagerWrapper::UnmanagedSaveManagerWrapper(ISaveCache ^ saveCache, f_SaveFileData saveData, IByteEncoder ^ yEncoder) {
+SaveManager::UnmanagedSaveManagerWrapper::UnmanagedSaveManagerWrapper(ISaveCache ^ saveCache, f_SaveFileData saveData, IByteEncoder ^ yEncoder, NativeScummWrapperPaletteManager* paletteManager) {
 	_saveCache = gcroot<ISaveCache ^>(saveCache);
 	_saveData = saveData;
 	_encoder = yEncoder;
+	_paletteManager = paletteManager;
 }
 
 OutSaveFile *SaveManager::UnmanagedSaveManagerWrapper::openForSaving(const Common::String &name, bool compress) {
@@ -16,11 +17,12 @@ OutSaveFile *SaveManager::UnmanagedSaveManagerWrapper::openForSaving(const Commo
 
 			Marshal::Copy(System::IntPtr(&saveData[0]), managedSaveData, 0, managedSaveData->Length);
 
-			ManagedCommon::Models::GameSave ^ gaveSave = gcnew ManagedCommon::Models::GameSave();
-			gaveSave->Data = managedSaveData;
-		    gaveSave->Thumbnail = Converters::MarshalVectorToManagedArray(SaveManager::GetThumbnail::getThumbnail());
+			ManagedCommon::Models::GameSave ^ gameSave = gcnew ManagedCommon::Models::GameSave();
+			gameSave->Data = managedSaveData;
+		    gameSave->Thumbnail = Converters::MarshalVectorToManagedArray(SaveManager::GetThumbnail::getThumbnail());
+		    gameSave->PaletteString = gcnew System::String(_paletteManager->getPalette());
 
-			_saveCache->SaveToCache(managedFileName, gaveSave);
+			_saveCache->SaveToCache(managedFileName, gameSave);
 
 			cli::array<byte>^ managedSaveDataBytes = _encoder->TextEncoding->GetBytes(_saveCache->GetCompressedAndEncodedSaveData());
 			std::vector<byte>* unmanagedSaveDataBytes = new std::vector<byte>();

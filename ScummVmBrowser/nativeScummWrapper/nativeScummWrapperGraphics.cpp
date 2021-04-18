@@ -2,7 +2,7 @@
 #include "nativeScummWrapperGraphics.h"
 #include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
 #define DO_NOT_IGNORE_ANY_COLOR -1
-NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_SendScreenBuffers copyRect, nativeScummWrapperPaletteManager* paletteManager) : GraphicsManager() {
+NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_SendScreenBuffers copyRect, NativeScummWrapperPaletteManager* paletteManager) : GraphicsManager() {
 	_copyRect = copyRect;
 	
 	_wholeScreenBufferNoMouse = new byte[WHOLE_SCREEN_BUFFER_LENGTH];
