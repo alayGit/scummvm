@@ -56,7 +56,7 @@ uint32 NativeScummWrapper::nativeScummWrapperPaletteManager::populatePalette(Nat
 		base[i].a = 255;
 	}
 
-	return RememberPalette(palette, num - start);
+	return RememberPalette(palette, NO_COLOURS);
 }
 
 uint32 NativeScummWrapper::nativeScummWrapperPaletteManager::getCurrentPaletteHash() {
