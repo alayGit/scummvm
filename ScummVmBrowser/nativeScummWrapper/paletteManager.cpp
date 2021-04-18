@@ -4,15 +4,13 @@
 NativeScummWrapper::nativeScummWrapperPaletteManager::nativeScummWrapperPaletteManager() {
 	_picturePalette = allocatePallette();
 	_cursorPalette = allocatePallette();
-	_pictureColor = nullptr;
+	_pictureColor = new byte[NO_COLOURS * NO_COLOUR_COMPONENTS_SCUMM_VM];
 
+	memset(_pictureColor, 0, NO_COLOURS * NO_COLOUR_COMPONENTS_SCUMM_VM);
 
-	byte colours[NO_COLOURS * NO_COLOUR_COMPONENTS_SCUMM_VM];
-	memset(colours, 0, NO_COLOURS * NO_COLOUR_COMPONENTS_SCUMM_VM);
-
-	populatePalette(_picturePalette, colours, 0, NO_COLOURS);
+	populatePalette(_picturePalette, _pictureColor, 0, NO_COLOURS);
 	int32 paletteHash = RememberPalette(_picturePalette, NO_COLOURS);
-	populatePalette(_cursorPalette, colours, 0, NO_COLOURS);
+	populatePalette(_cursorPalette, _pictureColor, 0, NO_COLOURS);
 	_currentPaletteHash = RememberPalette(_picturePalette, NO_COLOURS);
 	_currentCursorPaletteHash = RememberPalette(_cursorPalette, NO_COLOURS);
 }

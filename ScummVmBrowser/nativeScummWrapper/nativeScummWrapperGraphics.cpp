@@ -13,7 +13,7 @@ NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_Sen
 	    1,                               // maximum count
 	    NULL);                          // unnamed semaphore
 	_paletteManager = paletteManager;
-	//InitScreen();
+	InitScreen();
 }
 
 NativeScummWrapper::NativeScummWrapperGraphics::~NativeScummWrapperGraphics() {
