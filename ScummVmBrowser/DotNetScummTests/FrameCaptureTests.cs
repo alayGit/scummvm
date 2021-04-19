@@ -174,6 +174,11 @@ namespace DotNetScummTests
 
 		protected unsafe void SetBitmapData(byte[] picBuff, Bitmap bitmap, int ignoreColour, uint paletteHash, int x, int y, int w, int h)
 		{
+			SetBitmapData(picBuff, bitmap, ignoreColour, _palettes[paletteHash], x, y, w, h);
+		}
+
+		protected unsafe void SetBitmapData(byte[] picBuff, Bitmap bitmap, int ignoreColour, Dictionary<int, byte[]> palette, int x, int y, int w, int h)
+		{
 			BitmapData bitmapData = null;
 			try
 			{
@@ -186,7 +191,7 @@ namespace DotNetScummTests
 					{
 						for (int widthCounter = 0; widthCounter < w; widthCounter++, byteNo++)
 						{
-							byte[] colourComponents = _palettes[paletteHash][picBuff[byteNo]];
+							byte[] colourComponents = palette[picBuff[byteNo]];
 
 							if (picBuff[byteNo] != ignoreColour || ignoreColour == NoIgnoreColor)
 							{

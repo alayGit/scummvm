@@ -541,6 +541,8 @@ namespace DotNetScummTests
             string expectedSaveFileName = $"{ExpectedSaveFilePrefix}001";
 
 			IDictionary<string, GameSave> gameSaves = _saveDataEncoderAndDecompresser.DecompressAndDecode(_saveData);
+			Bitmap thumbnailBitmap = new Bitmap(DisplayDefaultWidth, DisplayDefaultHeight);
+			//SetBitmapData(gameSaves[expectedSaveFileName], thumbnailBitmap, NoIgnoreColor, )
 			//Bitmap.FromStream(new MemoryStream(gameSaves[expectedSaveFileName].Thumbnail)).Save($"C:\\temp\\First100\\TestThumbnail.bmp");
 			
 
