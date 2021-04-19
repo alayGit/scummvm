@@ -26,6 +26,10 @@ namespace DotNetScummTests
 		bool saveEnabled = true;
 		public const int DisplayDefaultWidth = 320;
 		public const int DisplayDefaultHeight = 200;
+		public const int DisplayDefaultStride = 1280;
+		public const int DisplayDefaultWidthThumbnail = 160;
+		public const int DisplayDefaultHeightThumbnail = 100;
+		public const int DisplayDefaultStrideThumbnail = 320;
 		public const string GameDirectory = "C:\\scumm\\GamesKQ3";
 		public const int NoBytesPerPixel = 4;
 		public const int NoColors = 256;
@@ -177,7 +181,7 @@ namespace DotNetScummTests
 			SetBitmapData(picBuff, bitmap, ignoreColour, _palettes[paletteHash], x, y, w, h);
 		}
 
-		protected unsafe void SetBitmapData(byte[] picBuff, Bitmap bitmap, int ignoreColour, Dictionary<int, byte[]> palette, int x, int y, int w, int h)
+		protected unsafe void SetBitmapData(byte[] picBuff, Bitmap bitmap, int ignoreColour, Dictionary<int, byte[]> palette, int x, int y, int w, int h, int stride = DisplayDefaultStride)
 		{
 			BitmapData bitmapData = null;
 			try
@@ -186,6 +190,8 @@ namespace DotNetScummTests
 				{
 					int byteNo = 0;
 					bitmapData = bitmap.LockBits(new Rectangle(x, y, w, h), ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
+					bitmapData.Stride = stride;
+
 					byte* scan0 = (byte*)bitmapData.Scan0.ToPointer();
 					for (int heightCounter = 0; heightCounter < h; heightCounter++)
 					{
@@ -259,10 +265,20 @@ namespace DotNetScummTests
 			return result;
 		}
 
-		private void UpdatePalettes(uint paletteHash, byte[] palette)
+		private void UpdatePalettes(UInt32 paletteHash, byte[] palette)
+		{
+			_palettes[paletteHash] = GetPalette(palette);
+		}
+
+		protected Dictionary<int, byte[]> GetPalette(string palette)
+		{
+			return GetPalette(Encoding.ASCII.GetBytes(palette));
+		}
+
+		protected Dictionary<int, byte[]> GetPalette(byte[] palette)
 		{
 			string paletteString = Encoding.ASCII.GetString(palette);
-			_palettes[paletteHash] = InitializePaletteHashDictionary();
+			Dictionary<int, byte[]> result = InitializePaletteHashDictionary();
 
 			if (paletteString.Length % (3 * NoBytesPerPixel) != 0)
 			{
@@ -287,7 +303,7 @@ namespace DotNetScummTests
 						throw new Exception("Fail out of range digit");
 					}
 
-					_palettes[paletteHash][paletteNo][colourComponent] = Byte.Parse(digit);
+					result[paletteNo][colourComponent] = Byte.Parse(digit);
 
 					colourComponent = (colourComponent + 1) % NoBytesPerPixel;
 
@@ -300,6 +316,7 @@ namespace DotNetScummTests
 				}
 			}
 
+			return result;
 		}
 
 		public void CopyRectToQueue(Bitmap bitmap)

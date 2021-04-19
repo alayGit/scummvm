@@ -541,9 +541,9 @@ namespace DotNetScummTests
             string expectedSaveFileName = $"{ExpectedSaveFilePrefix}001";
 
 			IDictionary<string, GameSave> gameSaves = _saveDataEncoderAndDecompresser.DecompressAndDecode(_saveData);
-			Bitmap thumbnailBitmap = new Bitmap(DisplayDefaultWidth, DisplayDefaultHeight);
-			//SetBitmapData(gameSaves[expectedSaveFileName], thumbnailBitmap, NoIgnoreColor, )
-			//Bitmap.FromStream(new MemoryStream(gameSaves[expectedSaveFileName].Thumbnail)).Save($"C:\\temp\\First100\\TestThumbnail.bmp");
+			Bitmap thumbnailBitmap = new Bitmap(DisplayDefaultWidthThumbnail, DisplayDefaultHeightThumbnail);
+			SetBitmapData(gameSaves[expectedSaveFileName].Thumbnail, thumbnailBitmap, NoIgnoreColor, GetPalette(gameSaves[expectedSaveFileName].PaletteString), 0, 0, DisplayDefaultWidthThumbnail, DisplayDefaultHeightThumbnail, DisplayDefaultStrideThumbnail);
+			
 			
 
             Assert.IsTrue(gameSaves.ContainsKey(expectedSaveFileName));
