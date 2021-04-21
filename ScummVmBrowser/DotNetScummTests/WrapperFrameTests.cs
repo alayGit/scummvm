@@ -43,6 +43,7 @@ namespace DotNetScummTests
         const string SaveDataResourceName = "SaveData";
 		const string KingsQuest4CopyProtectionWord = "Game";
 		const int Kq4HotCursorOffset = 8;
+		const string ThumbnailResourceName = "Thumbnail";
 
 
 
@@ -544,6 +545,8 @@ namespace DotNetScummTests
 			Bitmap thumbnailBitmap = new Bitmap(DisplayDefaultWidthThumbnail, DisplayDefaultHeightThumbnail);
 			SetBitmapData(gameSaves[expectedSaveFileName].Thumbnail, thumbnailBitmap, NoIgnoreColor, GetPalette(gameSaves[expectedSaveFileName].PaletteString), 0, 0, DisplayDefaultWidthThumbnail, DisplayDefaultHeightThumbnail);
 			thumbnailBitmap.Save($"C:\\temp\\First100\\Thumbnail.bmp");
+
+			Assert.IsTrue(ArePicturesEqual(ThumbnailResourceName, thumbnailBitmap));
 
             Assert.IsTrue(gameSaves.ContainsKey(expectedSaveFileName));
 

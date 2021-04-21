@@ -308,5 +308,15 @@ namespace DotNetScummTests.Properties {
                 return ResourceManager.GetString("SaveData", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Thumbnail {
+            get {
+                object obj = ResourceManager.GetObject("Thumbnail", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

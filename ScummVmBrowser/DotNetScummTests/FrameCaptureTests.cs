@@ -131,6 +131,12 @@ namespace DotNetScummTests
 			}
 		}
 
+		protected static bool ArePicturesEqual(string expectedBitmapName, Bitmap actualBitmap)
+		{
+			Bitmap expectedBitmap = (Bitmap)ResourceManager.GetObject(expectedBitmapName);
+			return ArePicturesEqual(expectedBitmap, actualBitmap);
+		}
+
 		private static bool ArePicturesEqual(Bitmap expectedBitmap, Bitmap actualBitmap)
 		{
 			bool frameCouldBeExpected = true;
