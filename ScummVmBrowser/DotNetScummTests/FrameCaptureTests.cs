@@ -190,8 +190,7 @@ namespace DotNetScummTests
 				{
 					int byteNo = 0;
 					bitmapData = bitmap.LockBits(new Rectangle(x, y, w, h), ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
-					bitmapData.Stride = stride;
-
+				
 					byte* scan0 = (byte*)bitmapData.Scan0.ToPointer();
 					for (int heightCounter = 0; heightCounter < h; heightCounter++)
 					{
@@ -217,7 +216,7 @@ namespace DotNetScummTests
 			{
 				if (bitmapData != null)
 				{
-					_b.UnlockBits(bitmapData);
+					bitmap.UnlockBits(bitmapData);
 				}
 			}
 		}

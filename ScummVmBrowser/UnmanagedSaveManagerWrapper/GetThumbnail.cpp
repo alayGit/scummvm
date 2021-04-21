@@ -3,12 +3,12 @@
 std::vector<byte> *SaveManager::GetThumbnail::getThumbnail(GraphicsManager *graphics, NativeScummWrapper::NativeScummWrapperPaletteManager * paletteManager) {
 
 	std::vector<byte> *result = new std::vector<byte>();
-	result->resize(DISPLAY_DEFAULT_WIDTH * DISPLAY_DEFAULT_HEIGHT * graphics->getScreenFormat().bytesPerPixel);
+	result->resize(THUMBNAIL_DEFAULT_WIDTH * THUMBNAIL_DEFAULT_HEIGHT * graphics->getScreenFormat().bytesPerPixel);
 
 	Graphics::Surface* currentScreen = graphics->lockScreen();
-	Graphics::Surface *x = currentScreen->scale(100, 160);
+	Graphics::Surface *smaller = currentScreen->scale(THUMBNAIL_DEFAULT_WIDTH, THUMBNAIL_DEFAULT_HEIGHT);
 
-	memcpy(&(*result)[0], currentScreen->getPixels(), result->size());
+	memcpy(&(*result)[0], smaller->getPixels(), result->size());
 
 	graphics->unlockScreen();
 
