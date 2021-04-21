@@ -96,6 +96,7 @@ namespace CLIScumm {
 	    ISaveCache^ _saveCache;
 	    IByteEncoder ^ _byteEncoder;
 	    NativeScummWrapperPaletteManager *_paletteManager;
+	    NativeScummWrapperGraphics *_graphics;
 	};
 
 }

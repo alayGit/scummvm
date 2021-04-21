@@ -536,13 +536,13 @@ namespace DotNetScummTests
 
             await Save();
 
-            await Task.Delay(2000);
+            await Task.Delay(5000);
 
             string expectedSaveFileName = $"{ExpectedSaveFilePrefix}001";
 
 			IDictionary<string, GameSave> gameSaves = _saveDataEncoderAndDecompresser.DecompressAndDecode(_saveData);
 			Bitmap thumbnailBitmap = new Bitmap(DisplayDefaultWidthThumbnail, DisplayDefaultHeightThumbnail);
-			SetBitmapData(gameSaves[expectedSaveFileName].Thumbnail, thumbnailBitmap, NoIgnoreColor, GetPalette(gameSaves[expectedSaveFileName].PaletteString), 0, 0, DisplayDefaultWidthThumbnail, DisplayDefaultHeightThumbnail, DisplayDefaultStrideThumbnail);
+			//SetBitmapData(gameSaves[expectedSaveFileName].Thumbnail, thumbnailBitmap, NoIgnoreColor, GetPalette(gameSaves[expectedSaveFileName].PaletteString), 0, 0, DisplayDefaultWidthThumbnail, DisplayDefaultHeightThumbnail);
 			
 			
 

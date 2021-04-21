@@ -4,12 +4,11 @@
 
 #include "nativeScummWrapperOSystem.h"
 
-NativeScummWrapper::NativeScummWrapperOSystem::NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, f_SendScreenBuffers sendScreenBuffers, f_PollEvent queueEvent, f_SaveFileData saveData, SoundManagement::f_PlaySound playSound, Common::SaveFileManager *saveFileManager, NativeScummWrapperPaletteManager *paletteManager) : ModularBackend() {
-	_paletteManager = paletteManager;
+NativeScummWrapper::NativeScummWrapperOSystem::NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, NativeScummWrapperGraphics* cliGraphicsManager, f_PollEvent queueEvent, f_SaveFileData saveData, SoundManagement::f_PlaySound playSound, Common::SaveFileManager *saveFileManager) : ModularBackend() {
 	_mixerImpl = nullptr;
 	_soundOptions = soundOptions;
 	_fsFactory = new WindowsFilesystemFactory();
-	_cliGraphicsManager = new NativeScummWrapperGraphics(sendScreenBuffers, _paletteManager);
+	_cliGraphicsManager = cliGraphicsManager;
 	_eventSource = new NativeScummWrapperEvents(queueEvent, [this](int x, int y) {
 		_graphicsManager->warpMouse(x, y);
 	});

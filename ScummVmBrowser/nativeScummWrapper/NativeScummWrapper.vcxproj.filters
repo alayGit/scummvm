@@ -42,9 +42,6 @@
     <ClInclude Include="Debugger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PaletteManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -1,11 +1,12 @@
 #define FORBIDDEN_SYMBOL_ALLOW_ALL
 #include "UnmanagedSaveManagerWrapper.h"
 
-SaveManager::UnmanagedSaveManagerWrapper::UnmanagedSaveManagerWrapper(ISaveCache ^ saveCache, f_SaveFileData saveData, IByteEncoder ^ yEncoder, NativeScummWrapperPaletteManager* paletteManager) {
+SaveManager::UnmanagedSaveManagerWrapper::UnmanagedSaveManagerWrapper(ISaveCache ^ saveCache, f_SaveFileData saveData, IByteEncoder ^ yEncoder, NativeScummWrapperPaletteManager *paletteManager, GraphicsManager *graphics) {
 	_saveCache = gcroot<ISaveCache ^>(saveCache);
 	_saveData = saveData;
 	_encoder = yEncoder;
 	_paletteManager = paletteManager;
+	_graphics = graphics;
 }
 
 OutSaveFile *SaveManager::UnmanagedSaveManagerWrapper::openForSaving(const Common::String &name, bool compress) {
@@ -19,7 +20,7 @@ OutSaveFile *SaveManager::UnmanagedSaveManagerWrapper::openForSaving(const Commo
 
 			ManagedCommon::Models::GameSave ^ gameSave = gcnew ManagedCommon::Models::GameSave();
 			gameSave->Data = managedSaveData;
-		    gameSave->Thumbnail = Converters::MarshalVectorToManagedArray(SaveManager::GetThumbnail::getThumbnail());
+		    gameSave->Thumbnail = Converters::MarshalVectorToManagedArray(SaveManager::GetThumbnail::getThumbnail(_graphics, _paletteManager));
 		    gameSave->PaletteString = gcnew System::String(_paletteManager->getPalette());
 
 			_saveCache->SaveToCache(managedFileName, gameSave);

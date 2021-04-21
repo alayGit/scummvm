@@ -19,6 +19,7 @@ public:
 	~NativeScummWrapperPaletteManager();
 	uint32 RememberPalette(NativeScummWrapper::PalletteColor *palette, int length);
 	uint32 getCurrentPaletteHash();
+	PalletteColor* getCurrentPaletteAsPaletteColor();
 	void setCurrentPaletteHash(uint32 value);
 	uint32 getCurrentCursorPaletteHash();
 	void setCurrentCursorPaletteHash(uint32 value);
