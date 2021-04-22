@@ -6,11 +6,14 @@ std::vector<byte> *SaveManager::GetThumbnail::getThumbnail(GraphicsManager *grap
 	result->resize(THUMBNAIL_DEFAULT_WIDTH * THUMBNAIL_DEFAULT_HEIGHT * graphics->getScreenFormat().bytesPerPixel);
 
 	Graphics::Surface* currentScreen = graphics->lockScreen();
-	Graphics::Surface *smaller = currentScreen->scale(THUMBNAIL_DEFAULT_WIDTH, THUMBNAIL_DEFAULT_HEIGHT);
+	Graphics::Surface *smallerScreen = currentScreen->scale(THUMBNAIL_DEFAULT_WIDTH, THUMBNAIL_DEFAULT_HEIGHT);
 
-	memcpy(&(*result)[0], smaller->getPixels(), result->size());
+	memcpy(&(*result)[0], smallerScreen->getPixels(), result->size());
 
 	graphics->unlockScreen();
+
+	smallerScreen->free();
+	delete smallerScreen;
 
 	return result;
 }

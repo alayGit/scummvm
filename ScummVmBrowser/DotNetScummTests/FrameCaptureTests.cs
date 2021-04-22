@@ -84,7 +84,7 @@ namespace DotNetScummTests
 		}
 
 
-		private Bitmap Crop(Bitmap toCrop)
+		protected Bitmap Crop(Bitmap toCrop)
 		{
 			try
 			{
@@ -131,9 +131,11 @@ namespace DotNetScummTests
 			}
 		}
 
-		protected static bool ArePicturesEqual(string expectedBitmapName, Bitmap actualBitmap)
+		protected bool ArePicturesEqual(string expectedBitmapName, Bitmap actualBitmap)
 		{
 			Bitmap expectedBitmap = (Bitmap)ResourceManager.GetObject(expectedBitmapName);
+			expectedBitmap = Crop(expectedBitmap);
+
 			return ArePicturesEqual(expectedBitmap, actualBitmap);
 		}
 

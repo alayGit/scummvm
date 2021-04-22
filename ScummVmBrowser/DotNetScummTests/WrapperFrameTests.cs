@@ -525,6 +525,7 @@ namespace DotNetScummTests
         [TestMethod]
         public async Task CanSave()
         {
+			Cropping = new Rectangle(0, 0, 160, 80);
             const int noFrames = 1000;
 			Setup(gameDirectory, noFrames, "_");//Not checking against the capture frames
 
@@ -543,7 +544,9 @@ namespace DotNetScummTests
 
 			IDictionary<string, GameSave> gameSaves = _saveDataEncoderAndDecompresser.DecompressAndDecode(_saveData);
 			Bitmap thumbnailBitmap = new Bitmap(DisplayDefaultWidthThumbnail, DisplayDefaultHeightThumbnail);
+			
 			SetBitmapData(gameSaves[expectedSaveFileName].Thumbnail, thumbnailBitmap, NoIgnoreColor, GetPalette(gameSaves[expectedSaveFileName].PaletteString), 0, 0, DisplayDefaultWidthThumbnail, DisplayDefaultHeightThumbnail);
+			thumbnailBitmap = Crop(thumbnailBitmap);
 			thumbnailBitmap.Save($"C:\\temp\\First100\\Thumbnail.bmp");
 
 			Assert.IsTrue(ArePicturesEqual(ThumbnailResourceName, thumbnailBitmap));
