@@ -100,7 +100,7 @@ void CLIScumm::Wrapper::Init(AvailableGames game, System::String^ compressedAndE
 	ConfMan.addGameDomain(domain);
 	ConfMan.setActiveDomain(domain);
 
-	if (saveSlotToLoad != ManagedCommon::Constants::Constants::DoNotLoadSaveSlot && saveSlotToLoad < _saveCache->SaveCount) {
+	if (saveSlotToLoad != ManagedCommon::Constants::Constants::DoNotLoadSaveSlot && saveSlotToLoad <= _saveCache->SaveCount) {
 		ConfMan.setInt("save_slot", saveSlotToLoad);
 	}
 	ConfMan.setInt("autosave_period", 0, domain);
