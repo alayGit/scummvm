@@ -293,6 +293,16 @@ namespace DotNetScummTests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CanStartKq5 {
+            get {
+                object obj = ResourceManager.GetObject("CanStartKq5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CursorCropsFarRight {
             get {
                 object obj = ResourceManager.GetObject("CursorCropsFarRight", resourceCulture);
@@ -325,6 +335,15 @@ namespace DotNetScummTests.Properties {
         internal static string Kq3CanRestore {
             get {
                 return ResourceManager.GetString("Kq3CanRestore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ***.Æò,**g²³|6Fêßf7Â&quot;è©©`VëÉD!÷éY¾ÐdÏÞbÏÅÌÃ&amp;?AºÝ³Q0vÿþÈsV¦ØÛwV­äAé&quot;»²ÈGÕê kaPCÆHhZÐ}©à(BdvaåÞyD­:htfÆèØâíe6ÙLå¨9âÔ&gt;Ååt¢¶t³ÃxEh¢âøÒAc¿[ì®&lt;$¿wfk©hØYýÀÃcüo&apos;ìZÍ¥î­ïÛë=@ö½&quot;ûñ±ÕýC&lt;Ypå°Ì¶ª:WZÙ:4):§þ[l¤À¤®Å]±\wÈI³¶R	Å ÎL¤­U!É¦yÁa|å=@éuÏµ¦¿ÊÛ-GÆ¯×mTVv~ZüÆAäP¾X~5£ÿHr8öy6&amp;¦¥Áÿ///Íù2q1/¬x¥b SÆ ¸¼àËÎUØÓª=}u ÐG½6/ZÔéa­fìC~RY+ü///NÙ*M/$JRlôÚõ¨æ¼3N¥ñ=MÏÒê÷ÓHÀ:ó¾ñ;ß%-Y&apos;Ô0×	+=Jü¼¤nË+×NÂ#ï&lt;SGà¨ýÓqHmOrÌ¥;Nö®_	Oëù [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Kq5CanStart {
+            get {
+                return ResourceManager.GetString("Kq5CanStart", resourceCulture);
             }
         }
         

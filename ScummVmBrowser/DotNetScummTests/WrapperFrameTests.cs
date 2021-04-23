@@ -132,6 +132,18 @@ namespace DotNetScummTests
 		}
 
 		[TestMethod]
+		public async Task CanStartKq5()
+		{
+			Cropping = new Rectangle(100, 100, 20, 20);
+			const string expectedFrameName = "CanStartKq5";
+			const int noFrames = 50;
+			//DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
+			Setup(gameDirectory, noFrames, expectedFrameName, AvailableGames.kq5, Kq5CanStart, 1);
+			await CheckForExpectedFrame(expectedFrameName, noFrames);
+		}
+
+
+		[TestMethod]
 		public async Task CanClickNonZeroHotSpot()
 		{
 			Cropping = null;
