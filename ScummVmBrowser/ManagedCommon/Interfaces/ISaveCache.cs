@@ -15,5 +15,7 @@ namespace ManagedCommon.Interfaces
 		void SetCache(string yEncodedCompressedCache);
 		string GetCompressedAndEncodedSaveData();
 		byte[] GetFromCache(string name);
+
+		int SaveCount { get; }
 	}
 }

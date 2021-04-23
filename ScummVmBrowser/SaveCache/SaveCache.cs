@@ -61,5 +61,13 @@ namespace GameSaveCache
 		{
 			return _cache[name].Data;
 		}
+
+		public int SaveCount
+		{
+			get
+			{
+				return _cache.Count();
+			}
+		}
 	}
 }

@@ -2,6 +2,7 @@
 using CliScummEvents;
 using ConfigStore;
 using GameSaveCache;
+using ManagedCommon.Constants;
 using ManagedCommon.Delegates;
 using ManagedCommon.Enums;
 using ManagedCommon.Enums.Actions;
@@ -619,7 +620,7 @@ namespace DotNetScummTests
         private void RunGame(AvailableGames game = AvailableGames.kq3)
         {
             _saveData = GetSaveDataFromResourceFile();
-            _wrapper.RunGame(game, null, _saveData, (byte[] aud) => { });
+            _wrapper.RunGame(game, null, _saveData, (byte[] aud) => { }, Constants.DoNotLoadSaveSlot);
         }
 
         protected override void Quit()

@@ -29,6 +29,7 @@ using System.Diagnostics;
 using ManagedCommon.Enums.Logging;
 using ManagedCommon.Models;
 using ManagedCommon.Enums.Other;
+using ManagedCommon.Constants;
 
 namespace SignalRSelfHost
 {
@@ -126,7 +127,7 @@ namespace SignalRSelfHost
         {
             try
             {
-				_wrapper.RunGame(game, null, compressedAndEncodedGameSaveData, PlaySound);
+				_wrapper.RunGame(game, null, compressedAndEncodedGameSaveData, PlaySound, Constants.DoNotLoadSaveSlot);
                 _onQuit.Invoke();
             }
             catch (System.Exception e)

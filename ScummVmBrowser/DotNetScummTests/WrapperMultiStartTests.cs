@@ -12,6 +12,7 @@ using ConfigStore;
 using ManagedCommon.Interfaces;
 using ManagedCommon.Implementations;
 using Moq;
+using ManagedCommon.Constants;
 
 namespace DotNetScummTests
 {
@@ -63,7 +64,7 @@ namespace DotNetScummTests
             {
                 Thread.Sleep(15);
             }
-            _wrapper.RunGame(AvailableGames.kq3, null, null, async (aud) => { await Task.CompletedTask; });
+            _wrapper.RunGame(AvailableGames.kq3, null, null, async (aud) => { await Task.CompletedTask; }, Constants.DoNotLoadSaveSlot);
         }
     }
 }

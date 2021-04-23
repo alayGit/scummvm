@@ -65,7 +65,7 @@ System::Drawing::Point CLIScumm::Wrapper::GetCurrentMousePosition() {
 	return System::Drawing::Point(mouseState.x, mouseState.y);
 }
 
-void CLIScumm::Wrapper::Init(AvailableGames game, System::String^ compressedAndEncodedGameSaveData) {
+void CLIScumm::Wrapper::Init(AvailableGames game, System::String^ compressedAndEncodedGameSaveData, uint saveSlotToLoad) {
 
 	_saveCache->SetCache(compressedAndEncodedGameSaveData);
 
@@ -99,11 +99,15 @@ void CLIScumm::Wrapper::Init(AvailableGames game, System::String^ compressedAndE
 	//Common::String domain = "kq3";
 	ConfMan.addGameDomain(domain);
 	ConfMan.setActiveDomain(domain);
+
+	if (saveSlotToLoad != ManagedCommon::Constants::Constants::DoNotLoadSaveSlot && saveSlotToLoad < _saveCache->SaveCount) {
+		ConfMan.setInt("save_slot", saveSlotToLoad);
+	}
 	ConfMan.setInt("autosave_period", 0, domain);
 	ConfMan.setBool("originalsaveload", true);
 }
 
-void CLIScumm::Wrapper::RunGame(AvailableGames game, cli::array<System::Byte> ^ gameData, System::String ^ gameSaveData, PlayAudio ^ playAudio) {
+void CLIScumm::Wrapper::RunGame(AvailableGames game, cli::array<System::Byte> ^ gameData, System::String ^ gameSaveData, PlayAudio ^ playAudio, uint saveSlotToLoad) {
 	if (!hasStarted) {
 		Monitor::Enter(startLock);
 		try {
@@ -114,7 +118,7 @@ void CLIScumm::Wrapper::RunGame(AvailableGames game, cli::array<System::Byte> ^ 
 
 					_playAudio = playAudio;
 
-					Init(game, gameSaveData);
+					Init(game, gameSaveData, saveSlotToLoad);
 
 					ConfMan.hasKey("debuglevel");
 					scummvm_main(0, {});

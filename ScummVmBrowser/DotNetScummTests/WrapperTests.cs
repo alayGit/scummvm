@@ -1,5 +1,6 @@
 ﻿using CLIScumm;
 using ConfigStore;
+using ManagedCommon.Constants;
 using ManagedCommon.Enums;
 using ManagedCommon.Enums.Logging;
 using ManagedCommon.Implementations;
@@ -25,7 +26,7 @@ namespace DotNetScummTests
 
             Task runningGameTask = Task.Run(() =>
             { 
-                wrapper.RunGame(AvailableGames.kq3, null, null, async (byte[] aud) => { await Task.CompletedTask; });
+                wrapper.RunGame(AvailableGames.kq3, null, null, async (byte[] aud) => { await Task.CompletedTask; }, Constants.DoNotLoadSaveSlot);
             });
             wrapper.Quit();
 

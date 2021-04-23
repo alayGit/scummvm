@@ -50,7 +50,7 @@ namespace CLIScumm {
 	    ~Wrapper();
 		virtual void EnqueueGameEvent(IGameEvent^ keyboardEvent);
 		virtual void Quit();
-	    virtual void CLIScumm::Wrapper::RunGame(AvailableGames game, cli::array<Byte> ^ gameData, System::String ^ compressedAndEncodedGameSaveData, PlayAudio ^ playSound);
+	    virtual void CLIScumm::Wrapper::RunGame(AvailableGames game, cli::array<Byte> ^ gameData, System::String ^ compressedAndEncodedGameSaveData, PlayAudio ^ playSound, uint saveSlotToLoad);
 		virtual void CLIScumm::Wrapper::ScheduleRedrawWholeScreen();
 		virtual property SendScreenBuffers^ SendScreenBuffers {
 		    ManagedCommon::Delegates::SendScreenBuffers ^ get();
@@ -64,7 +64,7 @@ namespace CLIScumm {
 		virtual void StopSound();
 	    virtual System::Drawing::Point GetCurrentMousePosition();
 	private:
-		void Init(AvailableGames game, System::String^ compressedAndEncodedGameSaveData);
+		void Init(AvailableGames game, System::String^ compressedAndEncodedGameSaveData, uint saveSlotToLoad);
 		bool SaveData(byte* data, int size);
 		bool pollEventWrapper(Common::Event& event);
 		void PlaySound(byte* buffer, int size, void* user);
