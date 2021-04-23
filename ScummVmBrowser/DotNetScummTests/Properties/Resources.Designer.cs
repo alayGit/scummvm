@@ -301,11 +301,20 @@ namespace DotNetScummTests.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ***.K-**g²³|.Õq:õc=@RÅ¢í&lt;G¸|ÞÃÈïßñOdNÓØD&lt;§µa///wÃ;½Ç±&quot;¿Éµw¸L2,Àç`üÎÃÛCþwÓE7c3¢½êy:þÓn2»Bo¾-Q(¡êÀPá´øñ¤G¡OìýïÓÆSÖ_ÇxÚÉ±õæu+m-Jð¤Hv¸Ï///xlT=Je&gt;ï)èIÚ©}·½Ýß Û`e#âÁÂ¡q¼·«YÍÎ©&quot;«`êêZmn m=@þ½Gã#äWQH|¹mB¾äì&gt;¨R¯/Ö///n=}ÍÄVr¿|daA\Âö¶0»Øµ3×ªÕ¤L©hl¤7ç}RåÏ.YEEÁÈ³ÊÜ¶m A(¦ýj?ÆC/p³Q&quot;§ÉGa»©/ÇøÙçNIL&apos;Ä9Ã¸ùN,M1©&quot;~Ä([¹²=@~»sÊk§Ê®»Î´Ïá«;ý=@¼ÍxX4yk^gGè|½néy7Ì*¸ÁÁýÿ»&lt;&gt;ÈÝ|=}ayoÐÏÒ¶C&lt;­vðpuÓáÌ=Mó ºéP///¹â[bá&lt;âÖþüôD Àíªñ²Å9O&lt;· [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string KingsQuest4OnMountain {
+            get {
+                return ResourceManager.GetString("KingsQuest4OnMountain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ***.¦k***g²³{$Ó Ë qQÙ¼is;©æûÀ3=}:©sèµäX©ÁT=}M3ZÄjL@[ÆgywÚ1É]~_+IR¬[v&amp;§¨Èîßp.òOßf&lt;uVy///üþEáÈ£Eð³ûµÊY=M^`ªñjÖÆ/¬Pà_Ö$©÷-Þ:!m$KIÍäïMKWÝ8-^L#¶Ëe{ ¹VòÏ,ì÷N¸L=@p¯³°ðMµHø½Ã¥ÚÞ¶ª  ÿèÔ§UæÑ§·NI9±®=@³ÉûÝ§ÇJÌÜ|*¦«AEüB8ÝCØ`Ú=@Ëj~~UgÆ¢ñ×3sBÇV B×zë=})tåÝ4¥Ñ·Ò²#z£ãÞËä®i@W:5Â)àæx0äeDófÚSÑiíå½8Úu}ûTõH#&amp;k///)=n½JÜvò7Á0G|Â¹Àûý{öO4~ø¦H&gt;&lt;~åu&amp;ÝCâñ &apos;ÚÃîå&lt;n&amp;7ð¬]ÿèA*nQäA1bÏ·Ý;Áàú«ÿh/ëvKGm¹¼S}qGÁnÕW©?fÊv6Yÿ=J [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string SaveData {
+        internal static string Kq3CanRestore {
             get {
-                return ResourceManager.GetString("SaveData", resourceCulture);
+                return ResourceManager.GetString("Kq3CanRestore", resourceCulture);
             }
         }
         

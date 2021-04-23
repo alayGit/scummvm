@@ -35,7 +35,9 @@ namespace DotNetScummTests
 		public const int NoColors = 256;
 		public const int NoIgnoreColor = -1;
 
-		const string SaveDataResourceName = "SaveData";
+		public const string DefaultSavesDataResourceName = "Kq3CanRestore";
+		public const string KingsQuest4OnMountain = "KingsQuest4OnMountain";
+
 		protected static ResourceManager ResourceManager = DotNetScummTests.Properties.Resources.ResourceManager;
 		private object _clearLock;
 
@@ -382,9 +384,9 @@ namespace DotNetScummTests
 			}
 		}
 
-		protected string GetSaveDataFromResourceFile()
+		protected string GetSaveDataFromResourceFile(string saveDataResourceName )
 		{
-			return (string)ResourceManager.GetObject($"{SaveDataResourceName}");
+			return (string)ResourceManager.GetObject(saveDataResourceName);
 		}
 
 		protected abstract void Quit();

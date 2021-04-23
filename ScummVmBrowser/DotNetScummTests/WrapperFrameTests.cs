@@ -57,12 +57,12 @@ namespace DotNetScummTests
 			System.IO.File.Delete("scummvm.ini");
 		}
 
-		public void Setup(String gameFolderLocation, int noFrames, string expectedFrameName, AvailableGames game = AvailableGames.kq3)
+		public void Setup(String gameFolderLocation, int noFrames, string expectedFrameName, AvailableGames game = AvailableGames.kq3, string saveDataResourceName = DefaultSavesDataResourceName, uint saveSlotToLoad = Constants.DoNotLoadSaveSlot)
 		{
-			Setup(gameFolderLocation, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers, noFrames, expectedFrameName));
+			Setup(gameFolderLocation, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers, noFrames, expectedFrameName), game, saveDataResourceName, saveSlotToLoad);
 		}
 
-		public void Setup(String gameFolderLocation, SendScreenBuffers copyRectToScreen, AvailableGames game = AvailableGames.kq3)
+		public void Setup(String gameFolderLocation, SendScreenBuffers copyRectToScreen, AvailableGames game = AvailableGames.kq3, string saveDataResourceName = DefaultSavesDataResourceName, uint saveSlotToLoad = Constants.DoNotLoadSaveSlot)
 		{
 			ILogger logger = new Mock<ILogger>().Object;
 			_byteEncoder = new ManagedYEncoder.ManagedYEncoder(logger, LoggingCategory.CliScummSelfHost);
@@ -79,7 +79,7 @@ namespace DotNetScummTests
                 _saveData = data;
                 return true;
              };
-            gameTask = Task.Run(() => RunGame(game));
+            gameTask = Task.Run(() => RunGame(game,saveDataResourceName, saveSlotToLoad));
         }
 
         [TestMethod]
@@ -117,6 +117,17 @@ namespace DotNetScummTests
 			const int noFrames = 1;
 			//DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
 			Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers, noFrames, expectedFrameName));
+			await CheckForExpectedFrame(expectedFrameName, noFrames);
+		}
+
+		[TestMethod]
+		public async Task CanRunGameRequiringLockScreen()
+		{
+			Cropping = null;
+			const string expectedFrameName = "DoesDisplayBlackFirstFrame";
+			const int noFrames = 300;
+			//DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
+			Setup(gameDirectory, noFrames, expectedFrameName, AvailableGames.kq4, KingsQuest4OnMountain, 1);
 			await CheckForExpectedFrame(expectedFrameName, noFrames);
 		}
 
@@ -617,10 +628,10 @@ namespace DotNetScummTests
             await WaitForExpectedFrameAndQuit(expectedFrameName, noFrames, gameTask, delay);
         }
 
-        private void RunGame(AvailableGames game = AvailableGames.kq3)
+        private void RunGame(AvailableGames game = AvailableGames.kq3, string saveDataResourceName = DefaultSavesDataResourceName, uint saveSlotToLoad = Constants.DoNotLoadSaveSlot)
         {
-            _saveData = GetSaveDataFromResourceFile();
-            _wrapper.RunGame(game, null, _saveData, (byte[] aud) => { }, Constants.DoNotLoadSaveSlot);
+            _saveData = GetSaveDataFromResourceFile(saveDataResourceName);
+            _wrapper.RunGame(game, null, _saveData, (byte[] aud) => { }, saveSlotToLoad);
         }
 
         protected override void Quit()
