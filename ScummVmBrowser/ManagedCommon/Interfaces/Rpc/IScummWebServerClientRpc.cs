@@ -9,6 +9,6 @@ namespace ManagedCommon.Interfaces.Rpc
 {
     public interface IScummWebServerClientRpc
     {
-        Task<bool> SaveGameAsync(string saveData, string fileName, string id);
+        Task<bool> SaveGameAsync(string saveData, string id);
     }
 }

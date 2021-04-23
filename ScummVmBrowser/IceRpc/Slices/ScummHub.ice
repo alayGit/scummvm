@@ -1,7 +1,7 @@
 module ScummVMSlices 
 {
 	interface ScummHubClient {
-		["amd"] bool SaveGame(string saveData, string fileName);
+		["amd"] bool SaveGame(string saveData);
 		["amd"] void BackEndQuit();
 	}
 

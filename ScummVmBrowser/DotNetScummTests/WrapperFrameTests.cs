@@ -74,7 +74,7 @@ namespace DotNetScummTests
 
 			_wrapper.SendScreenBuffers += (List<ScreenBuffer> l) => copyRectToScreen(l);
 
-            _wrapper.OnSaveData += (string data, string fileName) => {
+            _wrapper.OnSaveData += (string data) => {
                 _saveData = data;
                 return true;
              };

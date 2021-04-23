@@ -19,7 +19,7 @@ bool NativeScummWrapper::NativeScummVmWrapperSaveMemStream::flush()
 	Common::String fileName = Common::String(_fileName.c_str());
 	std::vector<byte>* saveCacheData = _addToCache(_fileName, *dataCopy);
 
-	bool result = MemoryWriteStreamDynamic::flush() && _saveData(&saveCacheData->at(0), saveCacheData->size(), fileName);
+	bool result = MemoryWriteStreamDynamic::flush() && _saveData(&saveCacheData->at(0), saveCacheData->size());
 
 	delete saveCacheData;
 

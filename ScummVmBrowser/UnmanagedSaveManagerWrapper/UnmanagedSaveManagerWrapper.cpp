@@ -59,8 +59,15 @@ InSaveFile *SaveManager::UnmanagedSaveManagerWrapper::openRawFile(const Common::
 
 bool SaveManager::UnmanagedSaveManagerWrapper::removeSavefile(const Common::String &name) {
 	_saveCache->RemoveFromCache(Converters::CommonStringToManagedString(&name));
+	System::String^ managedStringCompressedAndEncodedSaveData = _saveCache->GetCompressedAndEncodedSaveData();
 
-	return true;
+	byte *unmanagedCompressedAndEncodedSaveData = ScummToManagedMarshalling::Converters::MarshalManagedStringToByteArray(managedStringCompressedAndEncodedSaveData, _encoder->TextEncoding);
+
+	bool result = _saveData(unmanagedCompressedAndEncodedSaveData, managedStringCompressedAndEncodedSaveData->Length);
+
+	delete unmanagedCompressedAndEncodedSaveData;
+
+	return result;
 }
 
 StringArray SaveManager::UnmanagedSaveManagerWrapper::listSavefiles(const Common::String &pattern) {

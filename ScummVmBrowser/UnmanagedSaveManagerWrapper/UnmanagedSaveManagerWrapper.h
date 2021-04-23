@@ -5,6 +5,10 @@
 #include "backends/graphics/graphics.h"
 #include "GetThumbnail.h"
 #include <msclr/gcroot.h>
+
+#ifdef _DEBUG
+	#include "../ScummVMBrowser/LaunchDebugger/LaunchDebugger.h"
+#endif
 using namespace Common;
 using namespace System::Collections::Generic;
 using namespace ManagedCommon::Models;

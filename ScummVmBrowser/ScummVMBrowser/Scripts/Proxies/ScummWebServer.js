@@ -41,7 +41,7 @@
 
     Slice.defineOperations(ScummWebsServerVMSlices.ScummWebServerClient, ScummWebsServerVMSlices.ScummWebServerClientPrx, iceC_ScummWebsServerVMSlices_ScummWebServerClient_ids, 1,
     {
-        "SaveGame": [, , , , [1], [[7], [7]], , , , ]
+        "SaveGame": [, , , , [1], [[7]], , , , ]
     });
 
     const iceC_ScummWebsServerVMSlices_ScummWebServer_ids = [

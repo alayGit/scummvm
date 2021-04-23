@@ -43,9 +43,9 @@ namespace IceRpc
             _logger = logger;
         }
 
-        public bool SaveGame(string saveData, string fileName)
+        public bool SaveGame(string saveData)
         {
-            return Sender.SaveGame(saveData, fileName);
+            return Sender.SaveGame(saveData);
         }
 
         protected override ScummHubClientPrx GetSender(string id)

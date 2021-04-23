@@ -185,10 +185,10 @@ void CLIScumm::Wrapper::EnqueueGameEvent(IGameEvent ^ gameEvent) {
 	}
 }
 
-bool CLIScumm::Wrapper::SaveData(byte *data, int size, Common::String fileName) {
+bool CLIScumm::Wrapper::SaveData(byte *data, int size) {
 	array<System::Byte> ^ managedData = gcnew array<System::Byte>(size);
 	Marshal::Copy((System::IntPtr)data, managedData, 0, size);
-	return _saveData(_byteEncoder->TextEncoding->GetString(data, size), gcnew System::String(fileName.c_str()));
+	return _saveData(_byteEncoder->TextEncoding->GetString(data, size));
 }
 
 int gameCounter = 0;

@@ -3,6 +3,7 @@
 #include <vector>
 #pragma make_public(Common::String)
 using namespace System::Runtime::InteropServices;
+using namespace System::Text;
 
 namespace ScummToManagedMarshalling {
 public
@@ -10,6 +11,8 @@ class Converters {
 public:
 	static Common::String ManagedStringToCommonString(System::String ^ input);
 	static System::String ^ CommonStringToManagedString(const Common::String *input);
+
+	static byte *MarshalManagedStringToByteArray(System::String^ input, Encoding^ encoder);
 
 	template<typename T>
 	    static cli::array<T> ^ MarshalVectorToManagedArray(std::vector<T> *input, bool deleteVectorAfterUse = true);

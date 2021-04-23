@@ -4,7 +4,7 @@ module ScummWebsServerVMSlices
 
 	interface ScummWebServerClient 
 	{
-		["amd"] bool SaveGame(string saveData, string fileName);
+		["amd"] bool SaveGame(string saveData);
 	}
 
 	interface ScummWebServer

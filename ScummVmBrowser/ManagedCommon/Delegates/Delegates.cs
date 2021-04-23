@@ -13,8 +13,8 @@ namespace ManagedCommon.Delegates
 {
     public delegate void SendScreenBuffers(List<ScreenBuffer> screenBuffers);
     public delegate Task SendGameMessagesAsync(string gameMessages);
-    public delegate bool SaveData(string compressedAndEncodedGameSaveData, string saveName);
-    public delegate Task<bool> SaveDataAsync(string data, string saveName);
+    public delegate bool SaveData(string compressedAndEncodedGameSaveData);
+    public delegate Task<bool> SaveDataAsync(string data);
 	public delegate void PlayAudio(byte[] data);
 	public delegate Task Quit();
     public delegate Point GetCurrentMousePosition();
