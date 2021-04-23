@@ -1,4 +1,5 @@
-﻿using ManagedCommon.Interfaces;
+﻿using ConfigStore;
+using ManagedCommon.Interfaces;
 using ManagedCommon.Models;
 using Moq;
 using Newtonsoft.Json;
@@ -17,20 +18,57 @@ namespace SaveFileCompressorTool
     public partial class Form1 : Form
     {
 		Saving.SaveDataEncoderAndCompressor _compressor;
-        public Form1()
+		IConfigurationStore<System.Enum> _configStore;
+		public Form1()
         {
-			_compressor = new Saving.SaveDataEncoderAndCompressor(new ManagedYEncoder.ManagedYEncoder(new Mock<ILogger>().Object, ManagedCommon.Enums.Logging.LoggingCategory.CliScummSelfHost), new SevenZCompression.SevenZCompressor());
+			_compressor = new Saving.SaveDataEncoderAndCompressor(new ManagedYEncoder.ManagedYEncoder(new Mock<ILogger>().Object, ManagedCommon.Enums.Logging.LoggingCategory.CliScummSelfHost), new SevenZCompression.SevenZCompressor(), new JsonConfigStore());
             InitializeComponent();
         }
 
 		private void button2_Click(object sender, EventArgs e)
 		{
-			textBox1.Text = _compressor.CompressAndEncode(JsonConvert.DeserializeObject<Dictionary<string, GameSave>>(textBox1.Text));
+			try
+			{
+				textBox1.Text = _compressor.CompressAndEncode(JsonConvert.DeserializeObject<Dictionary<string, GameSave>>(textBox1.Text));
+			}
+			catch(Exception ex)
+			{
+
+			}
 		}
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			textBox1.Text = JsonConvert.SerializeObject(_compressor.DecompressAndDecode(textBox1.Text));
+			try
+			{
+				textBox1.Text = JsonConvert.SerializeObject(_compressor.DecompressAndDecode(textBox1.Text));
+			}
+			catch(Exception ex)
+			{
+
+			}
+		}
+
+		private void button3_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				var toFill = _compressor.DecompressAndDecode(textBox1.Text);
+				int number = int.Parse(toFill.First().Key.Split('.')[1]);
+				string prefix = toFill.First().Key.Split('.')[0];
+				for (int i = number + 1; i < int.Parse(txtFillAmount.Text); i++)
+				{
+					toFill[prefix + "." + (i.ToString()).PadLeft(3, '0')] = toFill[prefix + ".001"];
+				}
+
+				string x = JsonConvert.SerializeObject(toFill);
+				string compressed = _compressor.CompressAndEncode(JsonConvert.DeserializeObject<Dictionary<string, GameSave>>(x));
+				int xx = 4;
+			}
+			catch(Exception ex)
+			{
+
+			}
 		}
 	}
 }

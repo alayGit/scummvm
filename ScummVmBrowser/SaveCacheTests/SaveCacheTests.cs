@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Saving;
+using ConfigStore;
 
 namespace SaveCacheTests
 {
@@ -22,6 +23,7 @@ namespace SaveCacheTests
 		ManagedYEncoder.ManagedYEncoder _managedYEncoder;
 		SevenZCompressor _sevenZCompressor;
 		ILogger _logger;
+		IConfigurationStore<System.Enum> _configStore = new JsonConfigStore();
 
 		GameSave GameSave1 = new GameSave() { Data = new byte[] { 12, 33, 33, 12 }, Thumbnail = new byte[] { 11, 33, 12 } };
 		GameSave GameSave2 = new GameSave() { Data = new byte[] { 11, 23, 13, 133 }, Thumbnail = new byte[] { 1, 13, 2 } };
@@ -32,7 +34,7 @@ namespace SaveCacheTests
 			_logger = new Mock<ILogger>().Object;
 			_sevenZCompressor = new SevenZCompressor();
 			_managedYEncoder = new ManagedYEncoder.ManagedYEncoder(_logger, LoggingCategory.CliScummSelfHost);
-			_saveDataEncoderAndDecompresser = new SaveDataEncoderAndCompressor(_managedYEncoder, _sevenZCompressor);
+			_saveDataEncoderAndDecompresser = new SaveDataEncoderAndCompressor(_managedYEncoder, _sevenZCompressor, _configStore);
 			_saveCache = new SaveCache(_saveDataEncoderAndDecompresser);
 		}
 

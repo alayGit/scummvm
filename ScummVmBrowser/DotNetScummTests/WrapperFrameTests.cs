@@ -37,6 +37,7 @@ namespace DotNetScummTests
 		ISaveDataEncoderAndDecompresser _saveDataEncoderAndDecompresser;
 		IByteEncoder _byteEncoder;
 		ISaveDataCompression _compressor;
+		IConfigurationStore<System.Enum> _configStore;
 		SaveCache _saveCache;
 
         const string ExpectedSaveFilePrefix = "kq3.";
@@ -65,7 +66,8 @@ namespace DotNetScummTests
 			ILogger logger = new Mock<ILogger>().Object;
 			_byteEncoder = new ManagedYEncoder.ManagedYEncoder(logger, LoggingCategory.CliScummSelfHost);
 			_compressor = new SevenZCompressor();
-			_saveDataEncoderAndDecompresser = new SaveDataEncoderAndCompressor(_byteEncoder, _compressor);
+			_configStore = new JsonConfigStore();
+			_saveDataEncoderAndDecompresser = new SaveDataEncoderAndCompressor(_byteEncoder, _compressor, _configStore);
 			_saveCache = new SaveCache(_saveDataEncoderAndDecompresser);
 
 			_wrapper = new Wrapper(new JsonConfigStore(), _saveCache , new ManagedYEncoder.ManagedYEncoder(logger, LoggingCategory.CliScummSelfHost));

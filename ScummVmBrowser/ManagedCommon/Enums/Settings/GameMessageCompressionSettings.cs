@@ -1,4 +1,4 @@
-﻿public enum CompressionSettings
+﻿public enum GameMessageCompressionSettings
 {
 	SmallSizeMax,
 	MediumSizeMax,

@@ -58,13 +58,14 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Resources\Dev\ClientSide.json" />
-    <None Include="Resources\Dev\CompressionSettings.json" />
+    <None Include="Resources\Dev\SaveCompressionSettings.json" />
+    <None Include="Resources\Dev\GameMessageCompressionSettings.json" />
     <None Include="Resources\Mode.json" />
     <None Include="Resources\Prod\AvailableGames.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Prod\ClientSide.json" />
-    <None Include="Resources\Prod\CompressionSettings.json" />
+    <None Include="Resources\Prod\GameMessageCompressionSettings.json" />
     <None Include="Resources\Prod\IceRemoteProcBackEnd.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

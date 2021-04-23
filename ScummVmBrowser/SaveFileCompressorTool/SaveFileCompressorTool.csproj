@@ -109,6 +109,10 @@
       <Project>{4893dd7c-2b10-48ee-beaf-875793dab9ff}</Project>
       <Name>managedYEncoder</Name>
     </ProjectReference>
+    <ProjectReference Include="..\JsonResxConfigureStore\JsonConfigureStore.csproj">
+      <Project>{56af0fd1-245e-4cd7-ac45-cf2bd6b23f4f}</Project>
+      <Name>JsonConfigureStore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Managed7LibCompression\Managed7LibCompression.vcxproj">
       <Project>{4425558d-019e-43b5-8183-30eeef718efd}</Project>
       <Name>Managed7LibCompression</Name>

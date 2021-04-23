@@ -1,4 +1,5 @@
 ﻿using ManagedCommon.Delegates;
+using ManagedCommon.Enums.Settings;
 using ManagedCommon.Interfaces;
 using ManagedCommon.Models;
 using Newtonsoft.Json;
@@ -14,17 +15,19 @@ namespace Saving
 	{
 		private IByteEncoder _byteEncoder;
 		private ISaveDataCompression _saveDataCompression;
+		private IConfigurationStore<System.Enum> _configStore;
 
-		public SaveDataEncoderAndCompressor(IByteEncoder byteEncoder, ISaveDataCompression saveDataCompression)
+		public SaveDataEncoderAndCompressor(IByteEncoder byteEncoder, ISaveDataCompression saveDataCompression, IConfigurationStore<System.Enum> configStore)
 		{
 			_byteEncoder = byteEncoder;
 			_saveDataCompression = saveDataCompression;
+			_configStore = configStore;
 		}
 
 		public string CompressAndEncode(IDictionary<string, GameSave> saveData)
 		{
 			string json = JsonConvert.SerializeObject(saveData);
-			byte[] compressed = _saveDataCompression.Compress(Encoding.UTF8.GetBytes(json), 10); //TODO: Add in compression level
+			byte[] compressed = _saveDataCompression.Compress(Encoding.UTF8.GetBytes(json), _configStore.GetValue<uint>(SaveCompressionSettings.CompressionLevel));
 			return _byteEncoder.ByteEncode(compressed);
 		}
 

@@ -45,15 +45,15 @@ namespace MessageBuffering
 						{
 							string serialized = JsonConvert.SerializeObject(MergeLists(dataList), serializerSettings);
 
-							uint level = configurationStore.GetValue<uint>(CompressionSettings.LargeCompressLevel);
+							uint level = configurationStore.GetValue<uint>(GameMessageCompressionSettings.LargeCompressLevel);
 
-							if (serialized.Length <= configurationStore.GetValue<uint>(CompressionSettings.SmallSizeMax))
+							if (serialized.Length <= configurationStore.GetValue<uint>(GameMessageCompressionSettings.SmallSizeMax))
 							{
-								level = configurationStore.GetValue<uint>(CompressionSettings.SmallCompressLevel);
+								level = configurationStore.GetValue<uint>(GameMessageCompressionSettings.SmallCompressLevel);
 							}
-							else if (serialized.Length <= configurationStore.GetValue<uint>(CompressionSettings.MediumSizeMax))
+							else if (serialized.Length <= configurationStore.GetValue<uint>(GameMessageCompressionSettings.MediumSizeMax))
 							{
-								level = configurationStore.GetValue<uint>(CompressionSettings.MediumCompressLevel);
+								level = configurationStore.GetValue<uint>(GameMessageCompressionSettings.MediumCompressLevel);
 							}
 
 							byte[] serializedCompressed = messageCompression.Compress(byteEncoder.TextEncoding.GetBytes(serialized), level);

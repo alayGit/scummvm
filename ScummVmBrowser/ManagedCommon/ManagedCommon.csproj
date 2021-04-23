@@ -150,9 +150,10 @@
     <Compile Include="Enums\Other\InputType.cs" />
     <Compile Include="Enums\Other\MessageType.cs" />
     <Compile Include="Enums\Settings\ClientSide.cs" />
-    <Compile Include="Enums\Settings\CompressionSettings.cs" />
+    <Compile Include="Enums\Settings\GameMessageCompressionSettings.cs" />
     <Compile Include="Enums\Settings\IceRemoteProcBackEnd.cs" />
     <Compile Include="Enums\Settings\IceRemoteProcFrontEnd.cs" />
+    <Compile Include="Enums\Settings\SaveCompressionSettings.cs" />
     <Compile Include="Enums\Settings\WebServerSettings.cs" />
     <Compile Include="Exceptions\UnmanagedException.cs" />
     <Compile Include="ExtensionMethods\AppBuilderExtensions.cs" />
