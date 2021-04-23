@@ -123,9 +123,9 @@ namespace DotNetScummTests
 		[TestMethod]
 		public async Task CanRunGameRequiringLockScreen()
 		{
-			Cropping = null;
-			const string expectedFrameName = "DoesDisplayBlackFirstFrame";
-			const int noFrames = 300;
+			Cropping = new Rectangle(100, 100, 20, 20);
+			const string expectedFrameName = "CanRunGameRequiringLockScreen";
+			const int noFrames = 530;
 			//DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
 			Setup(gameDirectory, noFrames, expectedFrameName, AvailableGames.kq4, KingsQuest4OnMountain, 1);
 			await CheckForExpectedFrame(expectedFrameName, noFrames);

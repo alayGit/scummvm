@@ -153,6 +153,16 @@ namespace DotNetScummTests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CanRunGameRequiringLockScreen {
+            get {
+                object obj = ResourceManager.GetObject("CanRunGameRequiringLockScreen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CanSendBackspace {
             get {
                 object obj = ResourceManager.GetObject("CanSendBackspace", resourceCulture);
@@ -301,7 +311,7 @@ namespace DotNetScummTests.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ***.G,**g²³|.Õq:õc=@RÅ¢í&lt;G¸|ÞÃÈïßñOdNÓØD&lt;§µa///wÃ;½Ç±&quot;¿Édzïl¡·PI­í)ÌQ)c)³m4Öt¥ØÅ¹)8t¡÷âêçjc{þo|qÕ^ÆÝÒûJ­äüïÔHN=JÐ%ÂÀi·}¿»M¡ÒäO»üÇ¦¥D°.´î&apos;ãÖzGò õíô#îwºyJ[aÂR$=@êt&lt;«EÔÕcNYW ÒZ|WØÇº=}Ë#íA¦N5	®P¿Õú-Öeë![@ûY×Çþ¬_ì9///C¬ÙcÙÃjúK&quot;iê½6L=M+NÞÑò3}U¥ëàÅAeWìö¹t2(+nzS|ÑðµUïøÆÔ¸ä///áhM3Öâ_ä4ÆI]A0~rdûß§&amp;3Ùhã$1ãÍ©Bqª=}=}«¸I.Õtkw­KCFa¨Ã ¿E0ó§°×Ü~`a÷åz?ÜIÓ®mdîDl«9jWÑJ///Kö©Põ¸¾/C:çüØÎÆ¨cZ«©o-rF1TòþõåÃãºP¢qJDo Å5@ÞÙ}-.j [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to ***.Æß,**g²³|.Õq:õc=@RÅ¢í&lt;G¸|ÞÃÈïßñOdNÓØD&lt;§µa///wÃ;½Ç±&quot;¿É¦jðXaÆ¦à&gt;Rã¼q­=MÉß\Bþ~hÞ@6Â^¼=JÈåà]¼Ä¯///i¸Ù¼ä&gt;5}EÈÓðºÝ|ÛP·ø=M&apos;Û×aù)&quot;¸÷3ÚB@¨y·ÆªÕ´å*z2@zÓ=M¤SIUðÄ©Áè=}æì[àéªöó¤D2&amp;ÓoG¨³XV¾Þ&lt;!]l^®@Úv!HáÈnT}Bußý´_XÁ&lt;ð¿DþÁ.oé¹ÿöã[È³)äSÿÊWáÜZÔûFÒ!=MÒKÊ&quot;ÿ¦I2Ã,,=MÑ¬$Ô1Êû1®=Jä±=}bÿÚ6CÓ?±¶dqÜ=@ÑÏ¡nØyõl mÐÀ_cÖÊC ÙFJc¯?&lt;±·»Ýð¯*n©»º:ÝJ///x¸½à)2?Ú `,1øAêÛâ²kRidv|lG``î°ôÌ	ó¶.øÝ÷ï/îSîA&lt;»SÏÆß+T:îNþéî0+?Ê]aS@ÁÕa´Ì%#(0ÆÇ [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string KingsQuest4OnMountain {
             get {
