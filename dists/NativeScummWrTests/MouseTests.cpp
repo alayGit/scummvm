@@ -92,7 +92,7 @@ namespace TestCustomScummVMSubclasses
 		byte pallette[NO_IN_PALLETTE];
 
 		byte mousePallette[NO_IN_MOUSE_PALLETTE];
-	    NativeScummWrapper::NativeScummWrapperPaletteManager *_paletteManager = new NativeScummWrapper::NativeScummWrapperPaletteManager();
+	    NativeScummWrapper::NativeScummWrapperPaletteManager *_paletteManager;
 
 		static const int NO_IN_MOUSE_BUFFER = START_MOUSE_W * START_MOUSE_H;
 		static const int NO_IN_PIC_BUFFER = DISPLAY_DEFAULT_WIDTH * DISPLAY_DEFAULT_HEIGHT;
@@ -103,7 +103,7 @@ namespace TestCustomScummVMSubclasses
 
 		TestNativeScummWrapperGraphics _graphicsManager;
 		int _callOrder;
-		MouseTest() :_graphicsManager((f_SendScreenBuffers)&CopyRect, _paletteManager)
+		MouseTest() :_graphicsManager((f_SendScreenBuffers)&CopyRect, _paletteManager = new NativeScummWrapper::NativeScummWrapperPaletteManager())
 		{
 			RandomiseContentsOfPallette(pallette, NO_IN_PALLETTE);
 			RandomiseContentsOfPallette(mousePallette, NO_IN_MOUSE_PALLETTE);
