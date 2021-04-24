@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\scumm\dists\NativeScummWrTests\Debugx86\NativeScummWrTests.exe</FullPath>
+      <FullPath>C:\scumm\ScummVmBrowser\NativeScummWrTests\Debugx86\NativeScummWrTests.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

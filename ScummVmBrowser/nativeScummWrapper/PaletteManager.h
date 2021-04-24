@@ -1,6 +1,7 @@
 #pragma once
 #include "scummVm.h"
 #include "common.h"
+
 namespace NativeScummWrapper {
 class NativeScummWrapperPaletteManager {
 	PalletteColor *_picturePalette;
