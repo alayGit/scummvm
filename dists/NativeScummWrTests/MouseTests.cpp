@@ -36,7 +36,7 @@ namespace TestCustomScummVMSubclasses
 	class TestNativeScummWrapperGraphics: public NativeScummWrapper::NativeScummWrapperGraphics {
 	public:
 
-		TestNativeScummWrapperGraphics(f_SendScreenBuffers copyRect): NativeScummWrapperGraphics(copyRect) {
+		TestNativeScummWrapperGraphics(f_SendScreenBuffers copyRect, NativeScummWrapper::NativeScummWrapperPaletteManager* _paletteManager) : NativeScummWrapperGraphics(copyRect, _paletteManager) {
 
 		}
 
@@ -92,6 +92,7 @@ namespace TestCustomScummVMSubclasses
 		byte pallette[NO_IN_PALLETTE];
 
 		byte mousePallette[NO_IN_MOUSE_PALLETTE];
+	    NativeScummWrapper::NativeScummWrapperPaletteManager *_paletteManager = new NativeScummWrapper::NativeScummWrapperPaletteManager();
 
 		static const int NO_IN_MOUSE_BUFFER = START_MOUSE_W * START_MOUSE_H;
 		static const int NO_IN_PIC_BUFFER = DISPLAY_DEFAULT_WIDTH * DISPLAY_DEFAULT_HEIGHT;
@@ -102,7 +103,7 @@ namespace TestCustomScummVMSubclasses
 
 		TestNativeScummWrapperGraphics _graphicsManager;
 		int _callOrder;
-		MouseTest() :_graphicsManager((f_SendScreenBuffers)&CopyRect)
+		MouseTest() :_graphicsManager((f_SendScreenBuffers)&CopyRect, _paletteManager)
 		{
 			RandomiseContentsOfPallette(pallette, NO_IN_PALLETTE);
 			RandomiseContentsOfPallette(mousePallette, NO_IN_MOUSE_PALLETTE);
@@ -170,14 +171,6 @@ namespace TestCustomScummVMSubclasses
 	{
 		MouseState mouseState = _mouseTest->_graphicsManager.getMouseState();
 		EXPECT_EQ((const void*)&_mouseTest->mouseBuffer, mouseState.buffer);
-
-		for (int i = 0, j = 0; i < NO_IN_MOUSE_PALLETTE; i += 3, j++)
-		{
-			EXPECT_EQ(_mouseTest->mousePallette[i], (byte)mouseState.cursorPallette[j].r);
-			EXPECT_EQ(_mouseTest->mousePallette[i + 1], (byte)mouseState.cursorPallette[j].g);
-			EXPECT_EQ(_mouseTest->mousePallette[i + 2], (byte)mouseState.cursorPallette[j].b);
-			EXPECT_EQ((byte)255, (byte)mouseState.cursorPallette[j].a);
-		}
 
 		EXPECT_EQ(expectedFullWidth, mouseState.fullWidth);
 		EXPECT_EQ(expectedFullHeight, mouseState.fullHeight);
