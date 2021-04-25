@@ -1,6 +1,7 @@
 #pragma once
 #include "scummVm.h"
 #include "common.h"
+#include <string>
 
 namespace NativeScummWrapper {
 class NativeScummWrapperPaletteManager {
@@ -24,8 +25,8 @@ public:
 	void setCurrentPaletteHash(uint32 value);
 	uint32 getCurrentCursorPaletteHash();
 	void setCurrentCursorPaletteHash(uint32 value);
-	uint32 populatePicturePalette(const byte *colors, uint start, uint num);
-	uint32 populateCursorPalette(const byte *colors, uint start, uint num);
+	uint32 createNewPaletteBasedOnPicturePalette(const byte *newColors, uint start, uint num);
+	uint32 createNewPaletteBasedOnCursorPalette(const byte *colors, uint start, uint num);
 	void setCursorPaletteDisabled(bool value);
 	void grabPalette(byte *colors, uint start, uint num) const;
 	bool haveSeenPalette(uint32 paletteHash);

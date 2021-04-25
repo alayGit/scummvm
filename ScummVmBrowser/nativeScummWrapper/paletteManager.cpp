@@ -82,14 +82,19 @@ uint32 NativeScummWrapper::NativeScummWrapperPaletteManager::getCurrentCursorPal
 }
 
 void NativeScummWrapper::NativeScummWrapperPaletteManager::setCurrentCursorPaletteHash(uint32 value) {
+	if (palettes[value] == "") {
+		palettes.erase(value);
+
+		throw std::exception("Fail palette does not exist");
+	}
 	_currentCursorPaletteHash = value;
 }
 
-uint32 NativeScummWrapper::NativeScummWrapperPaletteManager::populatePicturePalette(const byte *colors, uint start, uint num) {
+uint32 NativeScummWrapper::NativeScummWrapperPaletteManager::createNewPaletteBasedOnPicturePalette(const byte *colors, uint start, uint num) {
 	return populatePalette(_picturePalette, colors, start, num);
 }
 
-uint32 NativeScummWrapper::NativeScummWrapperPaletteManager::populateCursorPalette(const byte *colors, uint start, uint num) {
+uint32 NativeScummWrapper::NativeScummWrapperPaletteManager::createNewPaletteBasedOnCursorPalette(const byte *colors, uint start, uint num) {
 	return populatePalette(_cursorPalette, colors, start, num);
 }
 

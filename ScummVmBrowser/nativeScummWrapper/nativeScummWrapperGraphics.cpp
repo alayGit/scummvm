@@ -124,7 +124,7 @@ int16 NativeScummWrapper::NativeScummWrapperGraphics::getWidth() const {
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::setPalette(const byte *colors, uint start, uint num) {
-	uint32 paletteHash = _paletteManager->populatePicturePalette(colors, start, num);
+	uint32 paletteHash = _paletteManager->createNewPaletteBasedOnPicturePalette(colors, start, num);
 	_paletteManager->setCurrentPaletteHash(paletteHash);
 
 	ScheduleRedrawWholeScreen();
@@ -252,7 +252,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::setMouseCursor(const void *
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::setCursorPalette(const byte *colors, uint start, uint num) {
-	 uint32 currentPaletteHash = _paletteManager->populateCursorPalette(colors, start, num);
+	 uint32 currentPaletteHash = _paletteManager->createNewPaletteBasedOnCursorPalette(colors, start, num);
 	_paletteManager->setCurrentCursorPaletteHash(currentPaletteHash);
 
 	_paletteManager->setCursorPaletteDisabled(false);
