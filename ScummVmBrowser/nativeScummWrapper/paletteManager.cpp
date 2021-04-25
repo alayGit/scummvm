@@ -63,10 +63,6 @@ uint32 NativeScummWrapper::NativeScummWrapperPaletteManager::getCurrentPaletteHa
 	return _currentPaletteHash;
 }
 
-NativeScummWrapper::PalletteColor* NativeScummWrapper::NativeScummWrapperPaletteManager::getCurrentPaletteAsPaletteColor() {
-	return _picturePalette;
-}
-
 void NativeScummWrapper::NativeScummWrapperPaletteManager::setCurrentPaletteHash(uint32 value) {
 	_currentPaletteHash = value;
 }

@@ -29,16 +29,6 @@ TEST_F(PaletteManagerTest, IsCorrectlyInitedCursorPaletteHash) {
 	EXPECT_TRUE(_paletteManager.getCurrentPaletteHash() > 0);
 }
 
-TEST_F(PaletteManagerTest, IsCorrectlyInitedCurrentPaletteColor) {
-	NativeScummWrapper::PalletteColor *paletteColor = _paletteManager.getCurrentPaletteAsPaletteColor();
-	for (int i = 0; i < NO_COLOURS; i++) {
-		EXPECT_EQ(paletteColor[i].a, 255);
-		EXPECT_EQ(paletteColor[i].r, 0);
-		EXPECT_EQ(paletteColor[i].g, 0);
-		EXPECT_EQ(paletteColor[i].b, 0);
-	}
-}
-
 TEST_F(PaletteManagerTest, IsCorrectlyInitedGrabPalette) {
 	uint32 currentPaletteHash = _paletteManager.getCurrentPaletteHash();
 	byte *colors = new byte[NO_COLOURS];
