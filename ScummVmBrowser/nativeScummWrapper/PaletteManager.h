@@ -24,7 +24,7 @@ public:
 	PalletteColor* getCurrentPaletteAsPaletteColor();
 	void setCurrentPaletteHash(uint32 value);
 	uint32 getCurrentCursorPaletteHash();
-	void setCurrentCursorPaletteHash(uint32 value);
+	void setCurrentCursorPaletteHash(uint32 paletteHash);
 	uint32 createNewPaletteBasedOnPicturePalette(const byte *newColors, uint start, uint num);
 	uint32 createNewPaletteBasedOnCursorPalette(const byte *colors, uint start, uint num);
 	void setCursorPaletteDisabled(bool value);
@@ -32,5 +32,8 @@ public:
 	bool haveSeenPalette(uint32 paletteHash);
 	void registerSeenPalette(uint32 paletteHash);
 	const char* getPalette(uint32 paletteHash);
+
+private:
+	void throwIfPaletteHashIsUnknown(uint32 paletteHash);
 };
 } // namespace NativeScummWrapper

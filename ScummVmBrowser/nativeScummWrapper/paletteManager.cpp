@@ -81,13 +81,9 @@ uint32 NativeScummWrapper::NativeScummWrapperPaletteManager::getCurrentCursorPal
 
 }
 
-void NativeScummWrapper::NativeScummWrapperPaletteManager::setCurrentCursorPaletteHash(uint32 value) {
-	if (palettes[value] == "") {
-		palettes.erase(value);
-
-		throw std::exception("Fail palette does not exist");
-	}
-	_currentCursorPaletteHash = value;
+void NativeScummWrapper::NativeScummWrapperPaletteManager::setCurrentCursorPaletteHash(uint32 paletteHash) {
+	throwIfPaletteHashIsUnknown(paletteHash);
+	_currentCursorPaletteHash = paletteHash;
 }
 
 uint32 NativeScummWrapper::NativeScummWrapperPaletteManager::createNewPaletteBasedOnPicturePalette(const byte *colors, uint start, uint num) {
@@ -111,9 +107,17 @@ bool NativeScummWrapper::NativeScummWrapperPaletteManager::haveSeenPalette(uint3
 }
 
 void NativeScummWrapper::NativeScummWrapperPaletteManager::registerSeenPalette(uint32 paletteHash) {
+	throwIfPaletteHashIsUnknown(paletteHash);
 	palettesSeen[paletteHash] = true;
 }
 
 const char* NativeScummWrapper::NativeScummWrapperPaletteManager::getPalette(uint32 paletteHash) {
 	return palettes[paletteHash].c_str();
+}
+
+void NativeScummWrapper::NativeScummWrapperPaletteManager::throwIfPaletteHashIsUnknown(uint32 paletteHash) {
+	if (palettes[paletteHash] == "") {
+		palettes.erase(paletteHash);
+		throw std::exception("Fail palette does not exist");
+	}
 }
