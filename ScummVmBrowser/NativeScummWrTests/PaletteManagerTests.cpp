@@ -89,10 +89,10 @@ TEST_F(PaletteManagerTest, IsCorrectlyInitedPicturePalette) {
 
 	byte *initialPaletteColor = getColorByteArrayFromString(_paletteManager.getPalette(_paletteManager.getCurrentPaletteHash()));
 	for (int i = 0; i < NO_COLOURS; i++) {
-		ASSERT_EQ(initialPaletteColor[i * NO_BYTES_PER_PIXEL], 0);
-		ASSERT_EQ(initialPaletteColor[i * NO_BYTES_PER_PIXEL + 1], 0);
-		ASSERT_EQ(initialPaletteColor[i * NO_BYTES_PER_PIXEL + 2], 0);
-		ASSERT_EQ(initialPaletteColor[i * NO_BYTES_PER_PIXEL + 3], 255);
+		EXPECT_EQ(initialPaletteColor[i * NO_BYTES_PER_PIXEL], 0);
+		EXPECT_EQ(initialPaletteColor[i * NO_BYTES_PER_PIXEL + 1], 0);
+		EXPECT_EQ(initialPaletteColor[i * NO_BYTES_PER_PIXEL + 2], 0);
+		EXPECT_EQ(initialPaletteColor[i * NO_BYTES_PER_PIXEL + 3], 255);
 	}
 }
 
@@ -104,10 +104,10 @@ TEST_F(PaletteManagerTest, IsCorrectlyInitedCursorPalette) {
 
 	byte *initialPaletteColor = getColorByteArrayFromString(_paletteManager.getPalette(_paletteManager.getCurrentCursorPaletteHash()));
 	for (int i = 0; i < NO_COLOURS; i++) {
-		ASSERT_EQ(initialPaletteColor[i * NO_BYTES_PER_PIXEL], 0);
-		ASSERT_EQ(initialPaletteColor[i * NO_BYTES_PER_PIXEL + 1], 0);
-		ASSERT_EQ(initialPaletteColor[i * NO_BYTES_PER_PIXEL + 2], 0);
-		ASSERT_EQ(initialPaletteColor[i * NO_BYTES_PER_PIXEL + 3], 255);
+		EXPECT_EQ(initialPaletteColor[i * NO_BYTES_PER_PIXEL], 0);
+		EXPECT_EQ(initialPaletteColor[i * NO_BYTES_PER_PIXEL + 1], 0);
+		EXPECT_EQ(initialPaletteColor[i * NO_BYTES_PER_PIXEL + 2], 0);
+		EXPECT_EQ(initialPaletteColor[i * NO_BYTES_PER_PIXEL + 3], 255);
 	}
 }
 
@@ -147,15 +147,15 @@ TEST_F(PaletteManagerTest, CanCreateNewPaletteBasedOnPicturePalette) {
 	for (int i = 0; i < NO_COLOURS; i++) {
 
 		if (i < START_NEW_COLORS || i >= START_NEW_COLORS + NO_NEW_COLORS) {
-			ASSERT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL], 0);
-			ASSERT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL + 1], 0);
-			ASSERT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL + 2], 0);
-			ASSERT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL + 3], 255);
+			EXPECT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL], 0);
+			EXPECT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL + 1], 0);
+			EXPECT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL + 2], 0);
+			EXPECT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL + 3], 255);
 		} else {
-			ASSERT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL], newColors[(i - START_NEW_COLORS) * NO_COLOUR_COMPONENTS_SCUMM_VM]);
-			ASSERT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL + 1], newColors[(i - START_NEW_COLORS) * NO_COLOUR_COMPONENTS_SCUMM_VM + 1]);
-			ASSERT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL + 2], newColors[(i - START_NEW_COLORS) * NO_COLOUR_COMPONENTS_SCUMM_VM + 2]);
-			ASSERT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL + 3], 255);
+			EXPECT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL], newColors[(i - START_NEW_COLORS) * NO_COLOUR_COMPONENTS_SCUMM_VM]);
+			EXPECT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL + 1], newColors[(i - START_NEW_COLORS) * NO_COLOUR_COMPONENTS_SCUMM_VM + 1]);
+			EXPECT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL + 2], newColors[(i - START_NEW_COLORS) * NO_COLOUR_COMPONENTS_SCUMM_VM + 2]);
+			EXPECT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL + 3], 255);
 		}
 	}
 }
