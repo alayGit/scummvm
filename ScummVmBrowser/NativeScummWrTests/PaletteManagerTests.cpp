@@ -1,4 +1,5 @@
 #include "gtest/gtest.h"
+#include <string>
 #include "../nativeScummWrapper/PaletteManager.h"
 
 class PaletteManagerTest : public ::testing::Test {
@@ -34,7 +35,7 @@ TEST_F(PaletteManagerTest, IsCorrectlyInitedGrabPalette) {
 		}
 	}
 
-	delete colors;
+	delete[] colors;
 }
 
 TEST_F(PaletteManagerTest, IsCorrectlyInitedHaveSeenPalette) {
@@ -62,13 +63,27 @@ TEST_F(PaletteManagerTest, CanRememberAndRetrievePalette) {
 	EXPECT_EQ(paletteHash, _paletteManager.getCurrentCursorPaletteHash());
 }
 
-TEST_F(PaletteManagerTest, CanCreateNewPaletteBasedOnPicturePalette)
+byte* getColorByteArrayFromString(const char* s)
 {
+	byte *result = new byte[NO_BYTES_PER_PIXEL * NO_COLOURS];
+
+	for (int i = 0; i < NO_COLOURS * NO_BYTES_PER_PIXEL; i++) {
+		char colorComponent[3];
+
+		for (int j = 0; j < NO_DIGITS_IN_PALETTE_VALUE; j++) {
+			colorComponent[j] = s[i * NO_DIGITS_IN_PALETTE_VALUE + j];
+		}
+
+		result[i] = std::atoi(colorComponent);
+	}
+
+	return result;
+}
+
+TEST_F(PaletteManagerTest, CanCreateNewPaletteBasedOnPicturePalette) {
 	const int NO_NEW_COLORS = 10;
 	const int START_NEW_COLORS = 20;
 	byte newColors[NO_NEW_COLORS * NO_COLOUR_COMPONENTS_SCUMM_VM];
-
-	NativeScummWrapper::PalletteColor *initialPaletteColor = _paletteManager.getCurrentPaletteAsPaletteColor();
 
 	for (int i = 0; i < NO_NEW_COLORS * NO_COLOUR_COMPONENTS_SCUMM_VM; i++) {
 		newColors[i] = i;
@@ -77,20 +92,19 @@ TEST_F(PaletteManagerTest, CanCreateNewPaletteBasedOnPicturePalette)
 	uint32 paletteHash = _paletteManager.createNewPaletteBasedOnPicturePalette(&newColors[0], START_NEW_COLORS, NO_NEW_COLORS);
 	_paletteManager.setCurrentPaletteHash(paletteHash);
 
-	NativeScummWrapper::PalletteColor *newPaletteColor = _paletteManager.getCurrentPaletteAsPaletteColor();
+	byte *newPaletteColor = getColorByteArrayFromString(_paletteManager.getPalette(_paletteManager.getCurrentCursorPaletteHash()));
 	for (int i = 0; i < NO_COLOURS; i++) {
 
 		if (i < START_NEW_COLORS || i >= START_NEW_COLORS + NO_NEW_COLORS) {
-			ASSERT_EQ(initialPaletteColor[i].a, 255);
-			ASSERT_EQ(initialPaletteColor[i].r, 0);
-			ASSERT_EQ(initialPaletteColor[i].g, 0);
-			ASSERT_EQ(initialPaletteColor[i].b, 0);
+			ASSERT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL], 0);
+			ASSERT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL + 1], 0);
+			ASSERT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL + 2], 0);
+			ASSERT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL + 3], 255);
 		} else {
-			ASSERT_EQ(newPaletteColor[i].a, 255);
-			ASSERT_EQ(newPaletteColor[i].r, newColors[(i - START_NEW_COLORS) * NO_COLOUR_COMPONENTS_SCUMM_VM]);
-			ASSERT_EQ(newPaletteColor[i].g, newColors[(i - START_NEW_COLORS) * NO_COLOUR_COMPONENTS_SCUMM_VM + 1]);
-			ASSERT_EQ(newPaletteColor[i].b, newColors[(i - START_NEW_COLORS) * NO_COLOUR_COMPONENTS_SCUMM_VM + 2]);
+			ASSERT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL], newColors[(i - START_NEW_COLORS) * NO_COLOUR_COMPONENTS_SCUMM_VM]);
+			ASSERT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL + 1], newColors[(i - START_NEW_COLORS) * NO_COLOUR_COMPONENTS_SCUMM_VM + 1]);
+			ASSERT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL + 2], newColors[(i - START_NEW_COLORS) * NO_COLOUR_COMPONENTS_SCUMM_VM + 2]);
+			ASSERT_EQ(newPaletteColor[i * NO_BYTES_PER_PIXEL + 3], 255);
 		}
 	}
-	
 }

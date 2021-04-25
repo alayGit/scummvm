@@ -117,7 +117,3 @@ void NativeScummWrapper::NativeScummWrapperPaletteManager::registerSeenPalette(u
 const char* NativeScummWrapper::NativeScummWrapperPaletteManager::getPalette(uint32 paletteHash) {
 	return palettes[paletteHash].c_str();
 }
-
-const char *NativeScummWrapper::NativeScummWrapperPaletteManager::getPalette() {
-	return getPalette(_currentPaletteHash);
-}

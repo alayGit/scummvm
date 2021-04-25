@@ -21,7 +21,7 @@ OutSaveFile *SaveManager::UnmanagedSaveManagerWrapper::openForSaving(const Commo
 			ManagedCommon::Models::GameSave ^ gameSave = gcnew ManagedCommon::Models::GameSave();
 			gameSave->Data = managedSaveData;
 		    gameSave->Thumbnail = Converters::MarshalVectorToManagedArray(SaveManager::GetThumbnail::getThumbnail(_graphics, _paletteManager));
-		    gameSave->PaletteString = gcnew System::String(_paletteManager->getPalette());
+		    gameSave->PaletteString = gcnew System::String(_paletteManager->getPalette(_paletteManager->getCurrentPaletteHash()));
 
 			_saveCache->SaveToCache(managedFileName, gameSave);
 
