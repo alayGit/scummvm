@@ -290,6 +290,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NativeScummWrTests", "..\..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Based64ByteEncoder", "..\..\ScummVmBrowser\Based64ByteEncoder\Based64ByteEncoder.csproj", "{9C6C4DD9-9D6E-451F-B881-168DA2F1FDF9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Base64ByteEncoderTest", "..\..\ScummVmBrowser\Base64ByteEncoderTest\Base64ByteEncoderTest.csproj", "{E06081E2-02EF-4DA2-9138-F5A0B19922D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Analysis|Any CPU = Analysis|Any CPU
@@ -3966,6 +3968,38 @@ Global
 		{9C6C4DD9-9D6E-451F-B881-168DA2F1FDF9}.Release|Win32.Build.0 = Release|Any CPU
 		{9C6C4DD9-9D6E-451F-B881-168DA2F1FDF9}.Release|x64.ActiveCfg = Release|Any CPU
 		{9C6C4DD9-9D6E-451F-B881-168DA2F1FDF9}.Release|x64.Build.0 = Release|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Analysis|Any CPU.ActiveCfg = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Analysis|Any CPU.Build.0 = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Analysis|arm64.ActiveCfg = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Analysis|arm64.Build.0 = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Analysis|Win32.ActiveCfg = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Analysis|Win32.Build.0 = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Analysis|x64.ActiveCfg = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Analysis|x64.Build.0 = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Debug|arm64.Build.0 = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Debug|Win32.Build.0 = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Debug|x64.Build.0 = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.LLVM|Any CPU.ActiveCfg = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.LLVM|Any CPU.Build.0 = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.LLVM|arm64.ActiveCfg = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.LLVM|arm64.Build.0 = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.LLVM|Win32.ActiveCfg = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.LLVM|Win32.Build.0 = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.LLVM|x64.ActiveCfg = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.LLVM|x64.Build.0 = Debug|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Release|arm64.ActiveCfg = Release|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Release|arm64.Build.0 = Release|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Release|Win32.ActiveCfg = Release|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Release|Win32.Build.0 = Release|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Release|x64.ActiveCfg = Release|Any CPU
+		{E06081E2-02EF-4DA2-9138-F5A0B19922D7}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
