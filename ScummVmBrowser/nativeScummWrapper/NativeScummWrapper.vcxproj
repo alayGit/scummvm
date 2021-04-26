@@ -184,6 +184,7 @@
     </ProjectReference>
     <ProjectReference Include="..\msvc\scummvm.vcxproj">
       <Project>{ecea4af3-126a-31e0-aef8-e6f45e92de9c}</Project>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <ProjectReference Include="..\ZLibCompression\ZLibCompression.vcxproj">
       <Project>{dd428103-65c3-4153-b6a6-e8de628e3c3f}</Project>
