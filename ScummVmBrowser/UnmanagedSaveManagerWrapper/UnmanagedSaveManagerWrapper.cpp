@@ -14,21 +14,11 @@ OutSaveFile *SaveManager::UnmanagedSaveManagerWrapper::openForSaving(const Commo
 	    name, _saveData, [this](Common::String name, std::vector<byte> saveData)
 		{
  			System::String ^ managedFileName = Converters::CommonStringToManagedString(&name);
-			cli::array<byte> ^ managedSaveData = gcnew cli::array<byte>(saveData.size());
+			cli::array<byte> ^ managedSaveData = ScummToManagedMarshalling::Converters::MarshalVectorToManagedArray(&saveData, false);
 
-			Marshal::Copy(System::IntPtr(&saveData[0]), managedSaveData, 0, managedSaveData->Length);
-
-			ManagedCommon::Models::GameSave ^ gameSave = gcnew ManagedCommon::Models::GameSave();
-			gameSave->Data = managedSaveData;
-		    gameSave->Thumbnail = Converters::MarshalVectorToManagedArray(SaveManager::GetThumbnail::getThumbnail(_graphics, _paletteManager));
-		    gameSave->PaletteString = gcnew System::String(_paletteManager->getPalette(_paletteManager->getCurrentPaletteHash()));
-
-			_saveCache->SaveToCache(managedFileName, gameSave);
-
-			System::String^ managedCompressAndEncodedSaveData = _saveCache->GetCompressedAndEncodedSaveData();
-			
-
-			return Converters::ManagedStringToCommonString(managedCompressAndEncodedSaveData);
+			_saveCache->SaveToCache(managedFileName, getGameSave(managedSaveData));
+	
+			return Converters::ManagedStringToCommonString(_saveCache->GetCompressedAndEncodedSaveData());
 		},
 
 
@@ -79,4 +69,13 @@ void SaveManager::UnmanagedSaveManagerWrapper::updateSavefilesList(StringArray &
 
 void SaveManager::UnmanagedSaveManagerWrapper::setGameSaveCache(System::String ^ yEncodedCompressedCache) {
 	_saveCache->SetCache(yEncodedCompressedCache);
+}
+
+GameSave ^ SaveManager::UnmanagedSaveManagerWrapper::getGameSave(cli::array<byte> ^ saveData) {
+	ManagedCommon::Models::GameSave ^ gameSave = gcnew ManagedCommon::Models::GameSave();
+	gameSave->Data = saveData;
+	gameSave->Thumbnail = Converters::MarshalVectorToManagedArray(SaveManager::GetThumbnail::getThumbnail(_graphics, _paletteManager));
+	gameSave->PaletteString = gcnew System::String(_paletteManager->getPalette(_paletteManager->getCurrentPaletteHash()));
+
+	return gameSave;
 }

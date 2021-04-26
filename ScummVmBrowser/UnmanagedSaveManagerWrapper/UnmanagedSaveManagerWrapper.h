@@ -37,5 +37,7 @@ private:
 	gcroot<IByteEncoder^> _encoder;
 	NativeScummWrapperPaletteManager* _paletteManager;
 	GraphicsManager*_graphics;
+
+	GameSave ^ getGameSave(cli::array<byte>^ saveData);
 };
 } // namespace SaveManager
