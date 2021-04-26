@@ -22,7 +22,7 @@ namespace SaveFileCompressorTool
 		IConfigurationStore<System.Enum> _configStore;
 		public Form1()
         {
-			_compressor = new Saving.SaveDataEncoderAndCompressor(new ManagedYEncoder.ManagedYEncoder(new Mock<ILogger>().Object, ManagedCommon.Enums.Logging.LoggingCategory.CliScummSelfHost), new SevenZCompression.SevenZCompressor(), new JsonConfigStore());
+			_compressor = new Saving.SaveDataEncoderAndCompressor(new Base64ByteEncoder.Base64ByteEncoder(), new SevenZCompression.SevenZCompressor(), new JsonConfigStore());
             InitializeComponent();
         }
 

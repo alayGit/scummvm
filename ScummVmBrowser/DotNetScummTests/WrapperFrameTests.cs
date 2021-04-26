@@ -36,7 +36,7 @@ namespace DotNetScummTests
         Task gameTask;
         string _saveData;
 		ISaveDataEncoderAndDecompresser _saveDataEncoderAndDecompresser;
-		IByteEncoder _byteEncoder;
+		ISaveDataEncoder _byteEncoder;
 		ISaveDataCompression _compressor;
 		IConfigurationStore<System.Enum> _configStore;
 		SaveCache _saveCache;
@@ -65,13 +65,13 @@ namespace DotNetScummTests
 		public void Setup(String gameFolderLocation, SendScreenBuffers copyRectToScreen, AvailableGames game = AvailableGames.kq3, string saveDataResourceName = DefaultSavesDataResourceName, uint saveSlotToLoad = Constants.DoNotLoadSaveSlot)
 		{
 			ILogger logger = new Mock<ILogger>().Object;
-			_byteEncoder = new ManagedYEncoder.ManagedYEncoder(logger, LoggingCategory.CliScummSelfHost);
+			_byteEncoder = new Base64ByteEncoder.Base64ByteEncoder();
 			_compressor = new SevenZCompressor();
 			_configStore = new JsonConfigStore();
 			_saveDataEncoderAndDecompresser = new SaveDataEncoderAndCompressor(_byteEncoder, _compressor, _configStore);
 			_saveCache = new SaveCache(_saveDataEncoderAndDecompresser);
 
-			_wrapper = new Wrapper(new JsonConfigStore(), _saveCache , new ManagedYEncoder.ManagedYEncoder(logger, LoggingCategory.CliScummSelfHost));
+			_wrapper = new Wrapper(new JsonConfigStore(), _saveCache , new Base64ByteEncoder.Base64ByteEncoder());
 
 			_wrapper.SendScreenBuffers += (List<ScreenBuffer> l) => copyRectToScreen(l);
 
@@ -353,7 +353,7 @@ namespace DotNetScummTests
         {
             Cropping = new Rectangle(86, 83, 138, 18);
             const string expectedFrameName = "CanSendBackspace";
-            const int noFrames = 290;
+            const int noFrames = 300;
 
             Setup(gameDirectory, noFrames, expectedFrameName);
 

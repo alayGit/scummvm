@@ -65,7 +65,7 @@ namespace CLIScumm {
 	    virtual System::Drawing::Point GetCurrentMousePosition();
 	private:
 		void Init(AvailableGames game, System::String^ compressedAndEncodedGameSaveData, uint saveSlotToLoad);
-		bool SaveData(byte* data, int size);
+		bool SaveData(Common::String data);
 		bool pollEventWrapper(Common::Event& event);
 		void PlaySound(byte* buffer, int size, void* user);
 		byte* GetSoundSample(byte* buffer, int size);
@@ -76,7 +76,7 @@ namespace CLIScumm {
 	    array<byte>^ MarshalByteBuffer(byte *buffer, int length);
 	    ManagedCommon::Interfaces::ScreenBuffer ^ MarshalScreenBuffer(NativeScummWrapper::ScreenBuffer screenBuffer);
 		delegate bool delPollEvent(Common::Event& event);
-		delegate bool delSaveData(byte* saveData, int);
+		delegate bool delSaveData(Common::String saveData);
 		delegate void delPlaySound(byte* buffer, int size, void* user);
 		delegate byte* delGetSound(byte* buffer, int size);
 		delCopyRectToScreen^ imageUpdated;
@@ -94,7 +94,7 @@ namespace CLIScumm {
 		bool _soundIsRunning;
 		Common::SaveFileManager* _saveFileManager;
 	    ISaveCache^ _saveCache;
-	    IByteEncoder ^ _byteEncoder;
+	    ISaveDataEncoder ^ _byteEncoder;
 	    NativeScummWrapperPaletteManager *_paletteManager;
 	    NativeScummWrapperGraphics *_graphics;
 	};

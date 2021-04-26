@@ -30,7 +30,7 @@ namespace DotNetScummTests
         {
             _start = false;
 			ILogger logger = new Mock<ILogger>().Object;
-			_wrapper = new Wrapper(new JsonConfigStore(), new Mock<ISaveCache>().Object, new ManagedYEncoder.ManagedYEncoder(logger, ManagedCommon.Enums.Logging.LoggingCategory.CliScummSelfHost));
+			_wrapper = new Wrapper(new JsonConfigStore(), new Mock<ISaveCache>().Object, new Base64ByteEncoder.Base64ByteEncoder());
             _wrapper.SendScreenBuffers+= (List<ScreenBuffer> screenBuffers) => { };
         }
 

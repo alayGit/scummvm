@@ -321,7 +321,7 @@ namespace DotNetScummTests.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ***.Æß,**g²³|.Õq:õc=@RÅ¢í&lt;G¸|ÞÃÈïßñOdNÓØD&lt;§µa///wÃ;½Ç±&quot;¿É¦jðXaÆ¦à&gt;Rã¼q­=MÉß\Bþ~hÞ@6Â^¼=JÈåà]¼Ä¯///i¸Ù¼ä&gt;5}EÈÓðºÝ|ÛP·ø=M&apos;Û×aù)&quot;¸÷3ÚB@¨y·ÆªÕ´å*z2@zÓ=M¤SIUðÄ©Áè=}æì[àéªöó¤D2&amp;ÓoG¨³XV¾Þ&lt;!]l^®@Úv!HáÈnT}Bußý´_XÁ&lt;ð¿DþÁ.oé¹ÿöã[È³)äSÿÊWáÜZÔûFÒ!=MÒKÊ&quot;ÿ¦I2Ã,,=MÑ¬$Ô1Êû1®=Jä±=}bÿÚ6CÓ?±¶dqÜ=@ÑÏ¡nØyõl mÐÀ_cÖÊC ÙFJc¯?&lt;±·»Ýð¯*n©»º:ÝJ///x¸½à)2?Ú `,1øAêÛâ²kRidv|lG``î°ôÌ	ó¶.øÝ÷ï/îSîA&lt;»SÏÆß+T:îNþéî0+?Ê]aS@ÁÕa´Ì%#(0ÆÇ [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to XQAAAAQYAQMAAD2IiWdSBKtHEMs51iibeMMSYx1vjlLhtIoRSxXka15GpogVVBDl9sByoiSYt4aZatDrXGzdtM40E1sB7NERkOmqgpfHnzDf9GGQ8qxUX3hlF44QvAF8Lt9BzyjaB9C2wTqNH21ZIlhxBrbYWlcpjNhUncTHAeMyf/yiZPVtM4EIEoKXl2IrbMzy6RvUoGvOsgiinmrKxCXMsPgIyIizCmmtTxYAeEEh7BPYrumgttJ+SBUSPMxhvs6CExi++odUwS84Oe0l1oDiRjbz7YkH1xE2OksM96hXlCiB3kewwJd6ZCFsTdcNmiy0g3Vs+ZYPQsDldHm5KHOCaHQHZ/OpySTlLGI3kRuU4uaF43ds3HgOcgTK5eMp1DqYX8uf5YCIEKg30E7ei5iF3cP9bdqNzoSgMX84kak/hL5m0T1LD9+jXIAWjnVpRIHLD0aPt3faTolY8PCVqr2ThSCmIfX5w96f62vied5x/bLzEUO+H/x0lAfMZRL8 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string KingsQuest4OnMountain {
             get {
@@ -330,7 +330,7 @@ namespace DotNetScummTests.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ***.¦k***g²³{$Ó Ë qQÙ¼is;©æûÀ3=}:©sèµäX©ÁT=}M3ZÄjL@[ÆgywÚ1É]~_+IR¬[v&amp;§¨Èîßp.òOßf&lt;uVy///üþEáÈ£Eð³ûµÊY=M^`ªñjÖÆ/¬Pà_Ö$©÷-Þ:!m$KIÍäïMKWÝ8-^L#¶Ëe{ ¹VòÏ,ì÷N¸L=@p¯³°ðMµHø½Ã¥ÚÞ¶ª  ÿèÔ§UæÑ§·NI9±®=@³ÉûÝ§ÇJÌÜ|*¦«AEüB8ÝCØ`Ú=@Ëj~~UgÆ¢ñ×3sBÇV B×zë=})tåÝ4¥Ñ·Ò²#z£ãÞËä®i@W:5Â)àæx0äeDófÚSÑiíå½8Úu}ûTõH#&amp;k///)=n½JÜvò7Á0G|Â¹Àûý{öO4~ø¦H&gt;&lt;~åu&amp;ÝCâñ &apos;ÚÃîå&lt;n&amp;7ð¬]ÿèA*nQäA1bÏ·Ý;Áàú«ÿh/ëvKGm¹¼S}qGÁnÕW©?fÊv6Yÿ=J [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to XQAAAAStRwEAAD2IiWdR+qn2aKH22kcnaa+S2T9JEWJ/vNGWCWIT8BB/YVrmSb7Zi7oupeh0WCufzWl07Zby/uAdwZFoO7mdMJF7Mjv2Oy8TzOC+ZJVMcvFxYxJOUTfx08smYvxuaegjrZmOAjeTqFAn3dm5nFpp59Gb16Ovaec4NC0nPlJwRxZHzX6GpnmIyZkXr6U+xaZ/IPBxJh1hVIfTomRS9iTeeEADpx0Q+SeEkWExMPY3qCLs1ophJ+LwK2+5W6OrIPZFyNOjvJXZ5cRsFDMryeEq2DC2eIYADLAMLjk93JxtJriihKFQjBQWSLHfh9biIQongdb3gPCw93t9ngX3K8MX3n6HUS9XG5LZk9q8dfz8XmLL2Jna7rmD1weqDkyIocyBoqFis8loacVFvkeOeg3vL0QGoEni2Oy9pYo5arLOqU+eyqJVloBNE46DwevXidNOz5/IfdS4OOpTLUeWumX3XHucwzx2lIYZrHAvwlbcjQJp8b6eT1Qr [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Kq3CanRestore {
             get {
@@ -339,7 +339,7 @@ namespace DotNetScummTests.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ***.Æò,**g²³|6Fêßf7Â&quot;è©©`VëÉD!÷éY¾ÐdÏÞbÏÅÌÃ&amp;?AºÝ³Q0vÿþÈsV¦ØÛwV­äAé&quot;»²ÈGÕê kaPCÆHhZÐ}©à(BdvaåÞyD­:htfÆèØâíe6ÙLå¨9âÔ&gt;Ååt¢¶t³ÃxEh¢âøÒAc¿[ì®&lt;$¿wfk©hØYýÀÃcüo&apos;ìZÍ¥î­ïÛë=@ö½&quot;ûñ±ÕýC&lt;Ypå°Ì¶ª:WZÙ:4):§þ[l¤À¤®Å]±\wÈI³¶R	Å ÎL¤­U!É¦yÁa|å=@éuÏµ¦¿ÊÛ-GÆ¯×mTVv~ZüÆAäP¾X~5£ÿHr8öy6&amp;¦¥Áÿ///Íù2q1/¬x¥b SÆ ¸¼àËÎUØÓª=}u ÐG½6/ZÔéa­fìC~RY+ü///NÙ*M/$JRlôÚõ¨æ¼3N¥ñ=MÏÒê÷ÓHÀ:ó¾ñ;ß%-Y&apos;Ô0×	+=Jü¼¤nË+×NÂ#ï&lt;SGà¨ýÓqHmOrÌ¥;Nö®_	Oëù [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to XQAAAARgdAIAAD2IiWdSDBzswLVpPG0N2Zj4vuZ/fzZYLMHDxu9sNeJLdQlqCOrOt2MKrNxfzVxSL9MUpFVobpzK15buVwqPccA83DCIeqpmui7fCFtZRrKzhzTUbRgDPo42tOcczEsvS+eWJNN4Grj1rFNmf6VIC/AmkEFp6HOFoauJGC4srP2N0Tqrw1YouxqZtw5yfgYDF+cs/hpD+NzUx/RKv0PrJlJ3KMe8UHNr/zcwQ5jsa1gjJpxYI1OYphaf+GsR/LuqWr+akKU4J7+/M5GuNwy/CdfX5n1/a/iWaTwrkFifAho49omZ/K/hQOXGUgd9BySlteHzEf8ySiXWOXh9JbssSlM5gu/Wx88bPWfSC/nQUKLBE4N/shLszgK6EjIYYwLnA7e5o1KC2wSW99On3pRnvQBTlFbwbpGr+Rw47dphH3kO1JEztTvjiRyWtxbenZ9IjxdrvUAP3JcjHIKdndX0cBt89XheEgr1/p+nAEOfJhhGvmJnKD/b [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Kq5CanStart {
             get {

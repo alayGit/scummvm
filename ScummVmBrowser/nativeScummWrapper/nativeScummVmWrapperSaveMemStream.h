@@ -5,10 +5,10 @@
 #include <vector>
 
 namespace NativeScummWrapper {
-    typedef std::function<std::vector<byte>*(Common::String input, std::vector<byte>)> AddToCache;
+    typedef std::function<Common::String(Common::String input, std::vector<byte>)> AddToCache;
     typedef std::function<void(Common::String input)> RemoveFromCache;
 
-	typedef bool(__stdcall *f_SaveFileData)(const byte *, int);
+	typedef bool(__stdcall *f_SaveFileData)(Common::String);
 	class NativeScummVmWrapperSaveMemStream : public Common::MemoryWriteStreamDynamic {
 	private:
 		Common::String _fileName;

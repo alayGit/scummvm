@@ -12,7 +12,5 @@ cli::array<int> ^ ScummToManagedMarshallingTests::ConverterTests::CanConvertBetw
 
 	cli::array<int> ^ convertToManaged = Converters::MarshalVectorToManagedArray<int>(convertToUnmanaged);
 
-	delete convertToUnmanaged;
-
 	return convertToManaged;
 } 

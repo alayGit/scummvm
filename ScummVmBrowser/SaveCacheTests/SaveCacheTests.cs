@@ -20,10 +20,10 @@ namespace SaveCacheTests
     {
 		SaveCache _saveCache;
 		ISaveDataEncoderAndDecompresser _saveDataEncoderAndDecompresser;
-		ManagedYEncoder.ManagedYEncoder _managedYEncoder;
+		Base64ByteEncoder.Base64ByteEncoder _base64Encoder;
 		SevenZCompressor _sevenZCompressor;
 		ILogger _logger;
-		IConfigurationStore<System.Enum> _configStore = new JsonConfigStore();
+		IConfigurationStore<System.Enum> _configStore;
 
 		GameSave GameSave1 = new GameSave() { Data = new byte[] { 12, 33, 33, 12 }, Thumbnail = new byte[] { 11, 33, 12 } };
 		GameSave GameSave2 = new GameSave() { Data = new byte[] { 11, 23, 13, 133 }, Thumbnail = new byte[] { 1, 13, 2 } };
@@ -31,10 +31,11 @@ namespace SaveCacheTests
 
 		public SaveCacheTests()
 		{
+			_configStore = new Mock<IConfigurationStore<System.Enum>>().Object;
 			_logger = new Mock<ILogger>().Object;
 			_sevenZCompressor = new SevenZCompressor();
-			_managedYEncoder = new ManagedYEncoder.ManagedYEncoder(_logger, LoggingCategory.CliScummSelfHost);
-			_saveDataEncoderAndDecompresser = new SaveDataEncoderAndCompressor(_managedYEncoder, _sevenZCompressor, _configStore);
+			_base64Encoder = new Base64ByteEncoder.Base64ByteEncoder();
+			_saveDataEncoderAndDecompresser = new SaveDataEncoderAndCompressor(_base64Encoder, _sevenZCompressor, _configStore);
 			_saveCache = new SaveCache(_saveDataEncoderAndDecompresser);
 		}
 
@@ -102,7 +103,7 @@ namespace SaveCacheTests
 
 		private void CheckSaveCacheEqual(Dictionary<string, GameSave> expected, string actual)
 		{
-			byte[] decoded = _managedYEncoder.ByteDecode(actual);
+			byte[] decoded = _base64Encoder.ByteDecode(actual);
 			byte[] decompressed = _sevenZCompressor.Decompress(decoded);
 			string json = Encoding.ASCII.GetString(decompressed);
 			Dictionary<string, GameSave> dictActual = JsonConvert.DeserializeObject<Dictionary<string, GameSave>>(json);
@@ -125,7 +126,7 @@ namespace SaveCacheTests
 
 			string json = JsonConvert.SerializeObject(expected);
 			byte[] compressed = _sevenZCompressor.Compress(Encoding.ASCII.GetBytes(json), 10);
-			string encoded = _managedYEncoder.ByteEncode(compressed);
+			string encoded = _base64Encoder.ByteEncode(compressed);
 
 			_saveCache.SetCache(encoded);
 

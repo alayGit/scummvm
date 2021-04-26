@@ -13,11 +13,11 @@ namespace Saving
 {
 	public class SaveDataEncoderAndCompressor : ISaveDataEncoderAndDecompresser
 	{
-		private IByteEncoder _byteEncoder;
+		private ISaveDataEncoder _byteEncoder;
 		private ISaveDataCompression _saveDataCompression;
 		private IConfigurationStore<System.Enum> _configStore;
 
-		public SaveDataEncoderAndCompressor(IByteEncoder byteEncoder, ISaveDataCompression saveDataCompression, IConfigurationStore<System.Enum> configStore)
+		public SaveDataEncoderAndCompressor(ISaveDataEncoder byteEncoder, ISaveDataCompression saveDataCompression, IConfigurationStore<System.Enum> configStore)
 		{
 			_byteEncoder = byteEncoder;
 			_saveDataCompression = saveDataCompression;

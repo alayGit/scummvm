@@ -25,13 +25,10 @@ OutSaveFile *SaveManager::UnmanagedSaveManagerWrapper::openForSaving(const Commo
 
 			_saveCache->SaveToCache(managedFileName, gameSave);
 
-			cli::array<byte>^ managedSaveDataBytes = _encoder->TextEncoding->GetBytes(_saveCache->GetCompressedAndEncodedSaveData());
-			std::vector<byte>* unmanagedSaveDataBytes = new std::vector<byte>();
-		    unmanagedSaveDataBytes->resize(managedSaveDataBytes->Length);
+			System::String^ managedCompressAndEncodedSaveData = _saveCache->GetCompressedAndEncodedSaveData();
+			
 
-			Marshal::Copy(managedSaveDataBytes, 0, System::IntPtr(&(*unmanagedSaveDataBytes)[0]), managedSaveDataBytes->Length);
-
-			return unmanagedSaveDataBytes;
+			return Converters::ManagedStringToCommonString(managedCompressAndEncodedSaveData);
 		},
 
 
@@ -61,11 +58,7 @@ bool SaveManager::UnmanagedSaveManagerWrapper::removeSavefile(const Common::Stri
 	_saveCache->RemoveFromCache(Converters::CommonStringToManagedString(&name));
 	System::String^ managedStringCompressedAndEncodedSaveData = _saveCache->GetCompressedAndEncodedSaveData();
 
-	byte *unmanagedCompressedAndEncodedSaveData = ScummToManagedMarshalling::Converters::MarshalManagedStringToByteArray(managedStringCompressedAndEncodedSaveData, _encoder->TextEncoding);
-
-	bool result = _saveData(unmanagedCompressedAndEncodedSaveData, managedStringCompressedAndEncodedSaveData->Length);
-
-	delete unmanagedCompressedAndEncodedSaveData;
+	bool result = _saveData(Converters::ManagedStringToCommonString(managedStringCompressedAndEncodedSaveData));
 
 	return result;
 }
