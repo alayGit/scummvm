@@ -63,7 +63,7 @@ namespace SaveFileCompressorTool
             this.textBox1.MaxLength = 10000000;
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(670, 26);
+            this.textBox1.Size = new System.Drawing.Size(670, 223);
             this.textBox1.TabIndex = 2;
             // 
             // button3

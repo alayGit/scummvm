@@ -46,7 +46,7 @@ extern OSystem* g_system;
 namespace CLIScumm {
 	public ref class Wrapper :IWrapper {
 	public:
-		Wrapper(IConfigurationStore<System::Enum^>^ configureStore, ISaveCache^ saveCache, IByteEncoder^ byteEncoder);
+		Wrapper(IConfigurationStore<System::Enum^>^ configureStore, ISaveCache^ saveCache, ISaveDataEncoder^ byteEncoder);
 	    ~Wrapper();
 		virtual void EnqueueGameEvent(IGameEvent^ keyboardEvent);
 		virtual void Quit();

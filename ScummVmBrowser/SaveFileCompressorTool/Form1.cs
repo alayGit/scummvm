@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,7 +64,7 @@ namespace SaveFileCompressorTool
 
 				string x = JsonConvert.SerializeObject(toFill);
 				string compressed = _compressor.CompressAndEncode(JsonConvert.DeserializeObject<Dictionary<string, GameSave>>(x));
-				int xx = 4;
+				File.WriteAllText("c:\\temp\\compressedSaved.txt", compressed);
 			}
 			catch(Exception ex)
 			{

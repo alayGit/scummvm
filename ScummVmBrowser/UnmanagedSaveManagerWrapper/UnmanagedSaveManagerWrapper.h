@@ -22,7 +22,7 @@ namespace SaveManager {
 class UnmanagedSaveManagerWrapper : public SaveFileManager {
 
 public:
-	UnmanagedSaveManagerWrapper(ISaveCache ^ saveCache, f_SaveFileData saveData, IByteEncoder ^ encoder, NativeScummWrapperPaletteManager *paletteManager, GraphicsManager* graphics);
+	UnmanagedSaveManagerWrapper(ISaveCache ^ saveCache, f_SaveFileData saveData, ISaveDataEncoder^ encoder, NativeScummWrapperPaletteManager *paletteManager, GraphicsManager *graphics);
 	virtual OutSaveFile *openForSaving(const Common::String &name, bool compress = true);
 	virtual InSaveFile *openForLoading(const Common::String &name);
 	virtual InSaveFile *openRawFile(const Common::String &name);

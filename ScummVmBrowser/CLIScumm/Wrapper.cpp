@@ -4,7 +4,7 @@ int main() {
 	return 0;
 }
 
-CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum ^> ^ configureStore, ISaveCache^ saveCache, IByteEncoder^ byteEncoder) {
+CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum ^> ^ configureStore, ISaveCache ^ saveCache, ISaveDataEncoder^ byteEncoder) {
 	eventQueue = gcnew ConcurrentQueue<IGameEvent ^>();
 	imageUpdated = gcnew CLIScumm::Wrapper::Wrapper::delCopyRectToScreen(this, &CLIScumm::Wrapper::Wrapper::UpdatePicturesToBeSentBuffer);
 	pollEvent = gcnew CLIScumm::Wrapper::Wrapper::delPollEvent(this, &CLIScumm::Wrapper::Wrapper::pollEventWrapper);

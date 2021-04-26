@@ -157,6 +157,10 @@
       <Project>{2bf84471-aeae-4fc0-8c6d-f3f26af8fbb4}</Project>
       <Name>SaveDataEncoderAndCompressor</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Based64ByteEncoder\Based64ByteEncoder.csproj">
+      <Project>{9c6c4dd9-9d6e-451f-b881-168da2f1fdf9}</Project>
+      <Name>Based64ByteEncoder</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CliScummData\CliScummData.vcxproj">
       <Project>{165f09da-34c9-437b-9b0a-860150e7e830}</Project>
       <Name>CliScummData</Name>

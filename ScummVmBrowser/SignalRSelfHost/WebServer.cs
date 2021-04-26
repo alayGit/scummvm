@@ -32,6 +32,7 @@ using System.Threading.Tasks;
 using Unity;
 using Unity.Lifetime;
 using Saving;
+using Base64ByteEncoder;
 
 namespace SignalRSelfHost
 {
@@ -96,6 +97,7 @@ namespace SignalRSelfHost
 			container.RegisterType<ISaveDataCompression, SevenZCompressor>();
 
 			container.RegisterType<IProcessMessageBuffers, ProcessMessages>();
+			container.RegisterType<ISaveDataEncoder, Base64ByteEncoder.Base64ByteEncoder>();
 
             container.RegisterInstance(container.Resolve<IRealTimeEndPointCallbackRepo>() as IRealTimeDataEndpointServer);
 			//container.RegisterFactory(typeof(IByteEncoder))(ManagedYEncoder.ManagedYEncoder());

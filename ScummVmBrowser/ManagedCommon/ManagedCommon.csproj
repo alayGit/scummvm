@@ -185,6 +185,7 @@
     <Compile Include="Interfaces\IRealTimeDataBusServer.cs" />
     <Compile Include="Interfaces\ISaveCache.cs" />
     <Compile Include="Interfaces\ISaveDataCompression.cs" />
+    <Compile Include="Interfaces\ISaveDataEncoder.cs" />
     <Compile Include="Interfaces\ISaveDataEncoderAndDecompresser.cs" />
     <Compile Include="Interfaces\ITrashable.cs" />
     <Compile Include="Interfaces\Rpc\IClientProxyRemover.cs" />

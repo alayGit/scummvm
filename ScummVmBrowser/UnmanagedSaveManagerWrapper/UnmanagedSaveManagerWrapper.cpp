@@ -1,7 +1,7 @@
 #define FORBIDDEN_SYMBOL_ALLOW_ALL
 #include "UnmanagedSaveManagerWrapper.h"
 
-SaveManager::UnmanagedSaveManagerWrapper::UnmanagedSaveManagerWrapper(ISaveCache ^ saveCache, f_SaveFileData saveData, IByteEncoder ^ yEncoder, NativeScummWrapperPaletteManager *paletteManager, GraphicsManager *graphics) {
+SaveManager::UnmanagedSaveManagerWrapper::UnmanagedSaveManagerWrapper(ISaveCache ^ saveCache, f_SaveFileData saveData, ISaveDataEncoder ^ yEncoder, NativeScummWrapperPaletteManager *paletteManager, GraphicsManager *graphics) {
 	_saveCache = gcroot<ISaveCache ^>(saveCache);
 	_saveData = saveData;
 	_encoder = yEncoder;

@@ -33,6 +33,10 @@ namespace Saving
 
 		public IDictionary<string, GameSave> DecompressAndDecode(string compressedAndEncoded)
 		{
+			if(compressedAndEncoded == String.Empty)
+			{
+				return new Dictionary<string, GameSave>();
+			}
 			byte[] compressed = _byteEncoder.ByteDecode(compressedAndEncoded);
 			string json = Encoding.UTF8.GetString(_saveDataCompression.Decompress(compressed));
 			return JsonConvert.DeserializeObject<Dictionary<string, GameSave>>(json);
