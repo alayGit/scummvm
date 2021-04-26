@@ -10,7 +10,7 @@ using namespace ManagedCommon::Enums::Logging;
 using namespace ManagedCommon::Exceptions;
 
 namespace ManagedYEncoder {
-public ref class ManagedYEncoder: IByteEncoder
+public ref class ManagedYEncoder: IByteEncoder, IMessageEncoder, ISaveDataEncoder
 	{
 	public:
 		virtual System::String^ ByteEncode(cli::array<System::Byte>^ input);

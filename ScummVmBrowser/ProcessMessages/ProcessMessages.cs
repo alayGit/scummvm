@@ -18,9 +18,9 @@ namespace MessageBuffering
 		AsyncQueue<Message> _messageQueue;
 		Task _processTask;
 		bool _stopped = false;
-		IByteEncoder _byteEncoder;
+		IMessageEncoder _byteEncoder;
 
-		public ProcessMessages(IConfigurationStore<Enum> configurationStore, IByteEncoder byteEncoder, ILogger logger, IMessageCompression messageCompression)
+		public ProcessMessages(IConfigurationStore<Enum> configurationStore, IMessageEncoder byteEncoder, ILogger logger, IMessageCompression messageCompression)
 		{
 			_messageQueue = new AsyncQueue<Message>();
 			_byteEncoder = byteEncoder;

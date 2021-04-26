@@ -144,6 +144,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Serializers\ByteArrayConverter.cs" />
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Enums\Logging\ErrorMessage.cs" />
     <Compile Include="Enums\Logging\LoggingCategory.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="Interfaces\IMessage.cs" />
     <Compile Include="Interfaces\IInputMessageProcessor.cs" />
     <Compile Include="Interfaces\IMessageCompression.cs" />
+    <Compile Include="Interfaces\IMessageEncoder.cs" />
     <Compile Include="Interfaces\IRealTimeDataBusClient.cs" />
     <Compile Include="Interfaces\IRealTimeDataEndpointServer.cs" />
     <Compile Include="Interfaces\IRealTimeDataEndpointClient.cs" />
@@ -215,7 +217,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Serializers\ByteArrayConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IGameEvent.cs" />

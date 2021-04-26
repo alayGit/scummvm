@@ -76,7 +76,7 @@ namespace SignalRSelfHost
         }
 
 
-        public CliScumm(IWrapper wrapper, IConfigurationStore<Enum> configurationStore, IRealTimeDataBusServer realTimeDataBus, IScummHubClientRpcProxy scummVMHubClient, IRealTimeDataEndpointServer realTimeDataEndpointServer, ILogger logger, IByteEncoder byteEncoder, IProcessMessageBuffers processMessageBuffers)
+        public CliScumm(IWrapper wrapper, IConfigurationStore<Enum> configurationStore, IRealTimeDataBusServer realTimeDataBus, IScummHubClientRpcProxy scummVMHubClient, IRealTimeDataEndpointServer realTimeDataEndpointServer, ILogger logger, IProcessMessageBuffers processMessageBuffers)
         {
             _wrapper = wrapper;
             _configurationStore = configurationStore;

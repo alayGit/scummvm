@@ -34,7 +34,7 @@ public:
 private:
 	gcroot<ISaveCache^> _saveCache;
 	f_SaveFileData _saveData;
-	gcroot<IByteEncoder^> _encoder;
+	gcroot<ISaveDataEncoder^> _encoder;
 	NativeScummWrapperPaletteManager* _paletteManager;
 	GraphicsManager*_graphics;
 

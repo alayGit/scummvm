@@ -100,9 +100,7 @@ namespace SignalRSelfHost
 			container.RegisterType<ISaveDataEncoder, Base64ByteEncoder.Base64ByteEncoder>();
 
             container.RegisterInstance(container.Resolve<IRealTimeEndPointCallbackRepo>() as IRealTimeDataEndpointServer);
-			//container.RegisterFactory(typeof(IByteEncoder))(ManagedYEncoder.ManagedYEncoder());
-
-			container.RegisterFactory<IByteEncoder>((c) => new ManagedYEncoder.ManagedYEncoder(c.Resolve<ILogger>(), LoggingCategory.CliScummSelfHost), FactoryLifetime.Singleton);
+			container.RegisterFactory<IMessageEncoder>((c) => new ManagedYEncoder.ManagedYEncoder(c.Resolve<ILogger>(), LoggingCategory.CliScummSelfHost), FactoryLifetime.Singleton);
 		}
     }
 }
