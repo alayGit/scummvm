@@ -2,14 +2,18 @@ Leak Tests
 KQ3:
 Manannan's Office Take Books
 Save 
+Start New Game And Restore
 Refresh
 
 
 Kq5:
 Move Mouse All Over Screen
 Save
+Start New Game and Restore
+Remove Save
 Refresh
 Toy Shop Test (Make sure text doesn't break up)
+
 
 Open Kq5 and Kq3 at the same time
 
