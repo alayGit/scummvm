@@ -1,4 +1,3 @@
-#include "pch.h"
 #define FORBIDDEN_SYMBOL_ALLOW_ALL
 #include "ScummToManagedMarshalling.h"
 
