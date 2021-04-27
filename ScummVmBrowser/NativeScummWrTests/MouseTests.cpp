@@ -1,13 +1,10 @@
-#include "pch.h"
-
-
-
 struct PalletteColor;
 
 
 #define FORBIDDEN_SYMBOL_ALLOW_ALL
 #include "./ScummVmBrowser/nativeScummWrapper/nativeScummWrapperGraphics.h"
 #include "./ScummVmBrowser/nativeScummWrapper/mouseState.h"
+#include "gtest/gtest.h"
 #include <stdlib.h>
 #include <ctime>
 #include <queue>

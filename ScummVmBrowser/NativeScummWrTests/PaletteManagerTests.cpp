@@ -128,7 +128,7 @@ TEST_F(PaletteManagerTest, CanRememberAndRetrievePalette) {
 	uint32 paletteHash = _paletteManager.RememberPalette(&palettes[0], NO_COLOURS);
 	_paletteManager.setCurrentPaletteHash(paletteHash);
 
-	EXPECT_EQ(paletteHash, _paletteManager.getCurrentCursorPaletteHash());
+	EXPECT_EQ(paletteHash, _paletteManager.getCurrentPaletteHash());
 }
 
 TEST_F(PaletteManagerTest, CanCreateNewPaletteBasedOnPicturePalette) {
