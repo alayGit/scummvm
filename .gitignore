@@ -1,5 +1,4 @@
-*.new.obj.enc
-*~
+/Debugx86/*
 .*.swp
 .*.swo
 *.o
