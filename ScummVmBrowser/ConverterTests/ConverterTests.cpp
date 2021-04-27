@@ -1,5 +1,3 @@
-#include "pch.h"
-
 #include "ConverterTests.h"
 
 bool ScummToManagedMarshallingTests::ConverterTests::CanConvertBetweenManagedAndCommonString() {

@@ -29,7 +29,7 @@ public:
 	virtual bool removeSavefile(const Common::String &name);
 	virtual StringArray listSavefiles(const Common::String &pattern);
 	virtual void updateSavefilesList(StringArray &lockedFiles);
-	void setGameSaveCache(System::String^ yEncodedCompressedCache);
+	void setGameSaveCache(System::String^ encodedCompressedCache);
 
 private:
 	gcroot<ISaveCache^> _saveCache;

@@ -12,7 +12,7 @@ namespace ManagedCommon.Interfaces
 		void SaveToCache(string name, GameSave saveData);
 		void RemoveFromCache(string name);
 		IEnumerable<string> ListCache();
-		void SetCache(string yEncodedCompressedCache);
+		void SetCache(string encodedCompressedCache);
 		string GetCompressedAndEncodedSaveData();
 		byte[] GetFromCache(string name);
 

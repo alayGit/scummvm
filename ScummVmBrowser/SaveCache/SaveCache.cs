@@ -45,11 +45,11 @@ namespace GameSaveCache
 			_cache[name] = saveData;
 		}
 
-		public void SetCache(string yEncodedCompressedCache)
+		public void SetCache(string encodedCompressedCache)
 		{
-			if (!String.IsNullOrEmpty(yEncodedCompressedCache))
+			if (!String.IsNullOrEmpty(encodedCompressedCache))
 			{
-				_cache = _saveDataEncoderAndDecompresser.DecompressAndDecode(yEncodedCompressedCache);
+				_cache = _saveDataEncoderAndDecompresser.DecompressAndDecode(encodedCompressedCache);
 			}
 			else
 			{

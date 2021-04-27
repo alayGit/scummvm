@@ -26,7 +26,6 @@ namespace DotNetScummTests
 		bool saveEnabled = true;
 		public const int DisplayDefaultWidth = 320;
 		public const int DisplayDefaultHeight = 200;
-		public const int DisplayDefaultStride = 1280;
 		public const int DisplayDefaultWidthThumbnail = 160;
 		public const int DisplayDefaultHeightThumbnail = 100;
 		public const int DisplayDefaultStrideThumbnail = 320;
@@ -192,7 +191,7 @@ namespace DotNetScummTests
 			SetBitmapData(picBuff, bitmap, ignoreColour, _palettes[paletteHash], x, y, w, h);
 		}
 
-		protected unsafe void SetBitmapData(byte[] picBuff, Bitmap bitmap, int ignoreColour, Dictionary<int, byte[]> palette, int x, int y, int w, int h, int stride = DisplayDefaultStride)
+		protected unsafe void SetBitmapData(byte[] picBuff, Bitmap bitmap, int ignoreColour, Dictionary<int, byte[]> palette, int x, int y, int w, int h)
 		{
 			BitmapData bitmapData = null;
 			try

@@ -126,7 +126,6 @@ namespace DotNetScummTests
 			Cropping = new Rectangle(100, 100, 20, 20);
 			const string expectedFrameName = "CanRunGameRequiringLockScreen";
 			const int noFrames = 530;
-			//DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
 			Setup(gameDirectory, noFrames, expectedFrameName, AvailableGames.kq4, KingsQuest4OnMountain, 1);
 			await CheckForExpectedFrame(expectedFrameName, noFrames);
 		}
@@ -137,7 +136,6 @@ namespace DotNetScummTests
 			Cropping = new Rectangle(100, 100, 20, 20);
 			const string expectedFrameName = "CanStartKq5";
 			const int noFrames = 50;
-			//DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
 			Setup(gameDirectory, noFrames, expectedFrameName, AvailableGames.kq5, Kq5CanStart, 1);
 			await CheckForExpectedFrame(expectedFrameName, noFrames);
 		}
@@ -313,7 +311,6 @@ namespace DotNetScummTests
 			Cropping = new Rectangle(0,0, 30, 10);
             const string expectedFrameName = "CanSendLeft";
 			const int noFrames = 140;
-            //DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
             Setup(gameDirectory, noFrames, expectedFrameName);
             await WaitForFrame(30);
             _wrapper.EnqueueGameEvent(new SendString("\r"));
@@ -564,7 +561,7 @@ namespace DotNetScummTests
 
             await Save();
 
-            await Task.Delay(5000);
+            await Task.Delay(2000);
 
             string expectedSaveFileName = $"{ExpectedSaveFilePrefix}001";
 
