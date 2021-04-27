@@ -1,5 +1,5 @@
- /ScummVmBrowser/UnmanagedSaveManagerWrapper/Debugx86*
- /ScummVmBrowser/UnmanagedSaveManagerWrapper/Debugx86/UnmanagedSaveManagerWrapper*
+ /ScummVmBrowser/UnmanagedSaveManagerWrapper/Debugx86
+ /ScummVmBrowser/UnmanagedSaveManagerWrapper/Debugx86/UnmanagedSaveManagerWrapper
 .*.swp
 .*.swo
 *.o
