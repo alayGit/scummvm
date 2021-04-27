@@ -97,7 +97,7 @@ int AgiEngine::saveGame(const Common::String &fileName, const Common::String &de
 	debugC(5, kDebugLevelMain | kDebugLevelSavegame, "Writing save game version (%d)", SAVEGAME_CURRENT_VERSION);
 
 	// Thumbnail
-	Graphics::saveThumbnail(*out); //Here is the thumbnail
+	Graphics::saveThumbnail(*out);
 
 	// Creation date/time
 	TimeDate curTime;
