@@ -135,6 +135,10 @@
       <Project>{8d6734aa-8e7c-4748-a34b-60151aeae1e6}</Project>
       <Name>SaveCache</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ScummTimer\ScummTimer.csproj">
+      <Project>{45329c35-0252-4142-bc94-8af60f4ee658}</Project>
+      <Name>ScummTimer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ScummVMBrowser\ScummVMBrowser.csproj">
       <Project>{B89A1AAE-44B7-4D17-BE7F-175E6ADFBB02}</Project>
       <Name>ScummVMBrowser</Name>

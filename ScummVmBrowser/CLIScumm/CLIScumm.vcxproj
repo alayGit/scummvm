@@ -180,6 +180,9 @@
     <ProjectReference Include="..\UnmanagedSaveManagerWrapper\UnmanagedSaveManagerWrapper.vcxproj">
       <Project>{7b33238e-15ca-4765-9404-a28f1db0bb30}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\UnmanagedScummTimerWrapper\UnmanagedScummTimerWrapper.vcxproj">
+      <Project>{f72da0c6-7281-453e-9ded-b45a6c5aaf7a}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\ZLibCompression\ZLibCompression.vcxproj">
       <Project>{dd428103-65c3-4153-b6a6-e8de628e3c3f}</Project>
     </ProjectReference>

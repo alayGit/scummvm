@@ -13,6 +13,7 @@ using ManagedCommon.Interfaces;
 using ManagedCommon.Implementations;
 using Moq;
 using ManagedCommon.Constants;
+using ScummTimer;
 
 namespace DotNetScummTests
 {
@@ -30,7 +31,7 @@ namespace DotNetScummTests
         {
             _start = false;
 			ILogger logger = new Mock<ILogger>().Object;
-			_wrapper = new Wrapper(new JsonConfigStore(), new Mock<ISaveCache>().Object, new Base64ByteEncoder.Base64ByteEncoder());
+			_wrapper = new Wrapper(new JsonConfigStore(), new Mock<ISaveCache>().Object, new Base64ByteEncoder.Base64ByteEncoder(), new ManagedScummTimer());
             _wrapper.SendScreenBuffers+= (List<ScreenBuffer> screenBuffers) => { };
         }
 

@@ -14,6 +14,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Newtonsoft.Json;
 using Saving;
+using ScummTimer;
 using SevenZCompression;
 using System;
 using System.Collections.Concurrent;
@@ -71,7 +72,7 @@ namespace DotNetScummTests
 			_saveDataEncoderAndDecompresser = new SaveDataEncoderAndCompressor(_byteEncoder, _compressor, _configStore);
 			_saveCache = new SaveCache(_saveDataEncoderAndDecompresser);
 
-			_wrapper = new Wrapper(new JsonConfigStore(), _saveCache , new Base64ByteEncoder.Base64ByteEncoder());
+			_wrapper = new Wrapper(new JsonConfigStore(), _saveCache , new Base64ByteEncoder.Base64ByteEncoder(), new ManagedScummTimer());
 
 			_wrapper.SendScreenBuffers += (List<ScreenBuffer> l) => copyRectToScreen(l);
 

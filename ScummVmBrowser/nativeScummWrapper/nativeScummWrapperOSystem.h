@@ -10,13 +10,14 @@
 #include "../chunkedSoundManager/SoundProcessor.h"
 #include "../chunkedSoundManager/SoundCompressor.h"
 #include "../chunkedSoundManager/SoundConversion.h"
+#include "../common/timer.h"
 #include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
 #include <assert.h>
 
 namespace NativeScummWrapper {
 	class NativeScummWrapperOSystem: public ModularBackend {
 	public:
-	    NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, NativeScummWrapperGraphics* cliGraphicsManager, NativeScummWrapper::f_PollEvent queueEvent, NativeScummWrapper::f_SaveFileData saveData, SoundManagement::f_PlaySound soundConverted, Common::SaveFileManager *_saveFileManager);
+	    NativeScummWrapperOSystem(SoundManagement::SoundOptions soundOptions, NativeScummWrapperGraphics* cliGraphicsManager, NativeScummWrapper::f_PollEvent queueEvent, NativeScummWrapper::f_SaveFileData saveData, SoundManagement::f_PlaySound soundConverted, Common::SaveFileManager *_saveFileManager, Common::TimerManager* unmanagedScummTimerWrapper);
 	    ~NativeScummWrapperOSystem();
 		virtual void initBackend() override;
 		virtual uint32 getMillis(bool skipRecord = false) override;
@@ -41,5 +42,6 @@ namespace NativeScummWrapper {
 		SoundManagement::SoundThreadManager *_soundThreadManager;
 		NativeScummWrapper::NativeScummWrapperGraphics*_cliGraphicsManager;
 	    SoundManagement::SoundProcessor* _soundProcessor;
+	    Common::TimerManager* _unmanagedScummTimerWrapper;
 	};
 } // namespace NativeScummWrapper

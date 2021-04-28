@@ -18,6 +18,7 @@
 #include "../ChunkedSoundManager/SoundOptions.h"
 #include "../UnmanagedSaveManagerWrapper/UnmanagedSaveManagerWrapper.h"
 #include "../nativeScummWrapper/PaletteManager.h"
+#include "../UnmanagedScummTimerWrapper/UnmanagedScummTimerManagerWrapper.h"
 #include <string.h>
 
 
@@ -36,6 +37,8 @@ using namespace ManagedCommon::Enums;
 using namespace ManagedCommon::Delegates;
 using namespace SoundManagement;
 using namespace System::Collections::Generic;
+using namespace UnmanagedScummTimerWrapper;
+using namespace ManagedCommon::Interfaces;
 
 
 
@@ -46,7 +49,7 @@ extern OSystem* g_system;
 namespace CLIScumm {
 	public ref class Wrapper :IWrapper {
 	public:
-		Wrapper(IConfigurationStore<System::Enum^>^ configureStore, ISaveCache^ saveCache, ISaveDataEncoder^ byteEncoder);
+		Wrapper(IConfigurationStore<System::Enum^>^ configureStore, ISaveCache^ saveCache, ISaveDataEncoder^ byteEncoder, IScummTimer^ scummtimer);
 	    ~Wrapper();
 		virtual void EnqueueGameEvent(IGameEvent^ keyboardEvent);
 		virtual void Quit();
@@ -97,6 +100,7 @@ namespace CLIScumm {
 	    ISaveDataEncoder ^ _byteEncoder;
 	    NativeScummWrapperPaletteManager *_paletteManager;
 	    NativeScummWrapperGraphics *_graphics;
+	    UnmanagedScummTimerWrapper::UnmanagedScummTimerManagerWrapper* _unManagedScummTimerManagerWrapper;
 	};
 
 }
