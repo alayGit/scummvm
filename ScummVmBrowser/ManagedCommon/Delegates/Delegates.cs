@@ -24,6 +24,7 @@ namespace ManagedCommon.Delegates
     public delegate void StopSound();
     public delegate void ScheduleRedrawWholeScreen();
     public delegate bool StartConnection(int port);
+	public delegate void ScummTimerCallback(IntPtr refCon);
     public class Delegates
     {
     }
