@@ -205,6 +205,10 @@
       <Project>{8d6734aa-8e7c-4748-a34b-60151aeae1e6}</Project>
       <Name>SaveCache</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ScummTimer\ScummTimer.csproj">
+      <Project>{45329c35-0252-4142-bc94-8af60f4ee658}</Project>
+      <Name>ScummTimer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SignalRHostWithUnity\SignalRHostWithUnity.csproj">
       <Project>{ba553759-5355-4ce2-bfa4-c23757edeb84}</Project>
       <Name>SignalRHostWithUnity</Name>

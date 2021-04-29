@@ -28,13 +28,13 @@ namespace ScummTimer
 		private object _syncLock;
 		private ILogger _logger;
 
-		public bool InstallTimerProc(ScummTimerCallback proc, int interval, IntPtr refCon, string id)
+		public bool InstallTimerProc(ScummTimerCallback proc, int intervalMicroseconds, IntPtr refCon, string id)
 		{
 			lock (_syncLock)
 			{
 				ThrowIfDuplicates(proc, id);
 
-				Timer timer = new Timer(interval);
+				Timer timer = new Timer(intervalMicroseconds / 1000);
 				timer.Elapsed += (s, e) => proc(refCon);
 				timer.Start();
 

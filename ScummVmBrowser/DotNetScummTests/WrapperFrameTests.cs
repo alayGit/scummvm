@@ -150,6 +150,15 @@ namespace DotNetScummTests
 			await CheckForExpectedFrame(expectedFrameName, noFrames);
 		}
 
+		[TestMethod]
+		public async Task CanStartSmi()
+		{
+			const string expectedFrameName = "CanStartKq5";
+			const int noFrames = 1000;
+			Setup(gameDirectory, noFrames, expectedFrameName, AvailableGames.smi, Kq5CanStart, Constants.DoNotLoadSaveSlot);
+			await CheckForExpectedFrame(expectedFrameName, noFrames);
+		}
+
 
 		[TestMethod]
 		public async Task CanClickNonZeroHotSpot()

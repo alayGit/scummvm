@@ -7,6 +7,8 @@ namespace ManagedCommon.Enums
 		kq5,
 		kq6,
 		sq2,
-		pq1
+		pq1,
+		gob,
+		smi
 	}
 }

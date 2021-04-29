@@ -5,8 +5,8 @@ UnmanagedScummTimerWrapper::UnmanagedScummTimerManagerWrapper::UnmanagedScummTim
 	_scummTimer = gcroot<ManagedCommon::Interfaces::IScummTimer^>(scummTimer);
 }
 
-bool UnmanagedScummTimerWrapper::UnmanagedScummTimerManagerWrapper::installTimerProc(TimerProc proc, int32 interval, void *refCon, const Common::String &id) {
-	return _scummTimer->InstallTimerProc(Marshal::GetDelegateForFunctionPointer<ScummTimerCallback^>(System::IntPtr(proc)), interval, System::IntPtr(refCon), ScummToManagedMarshalling::Converters::CommonStringToManagedString(&id));
+bool UnmanagedScummTimerWrapper::UnmanagedScummTimerManagerWrapper::installTimerProc(TimerProc proc, int32 intervalMicroseconds, void *refCon, const Common::String &id) {
+	return _scummTimer->InstallTimerProc(Marshal::GetDelegateForFunctionPointer<ScummTimerCallback ^>(System::IntPtr(proc)), intervalMicroseconds, System::IntPtr(refCon), ScummToManagedMarshalling::Converters::CommonStringToManagedString(&id));
 }
 
 void UnmanagedScummTimerWrapper::UnmanagedScummTimerManagerWrapper::removeTimerProc(TimerProc proc) {

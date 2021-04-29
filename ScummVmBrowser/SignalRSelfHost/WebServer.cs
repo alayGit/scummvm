@@ -33,6 +33,7 @@ using Unity;
 using Unity.Lifetime;
 using Saving;
 using Base64ByteEncoder;
+using ScummTimer;
 
 namespace SignalRSelfHost
 {
@@ -98,9 +99,11 @@ namespace SignalRSelfHost
 
 			container.RegisterType<IProcessMessageBuffers, ProcessMessages>();
 			container.RegisterType<ISaveDataEncoder, Base64ByteEncoder.Base64ByteEncoder>();
+			container.RegisterType<IScummTimer, ManagedScummTimer>();
 
             container.RegisterInstance(container.Resolve<IRealTimeEndPointCallbackRepo>() as IRealTimeDataEndpointServer);
 			container.RegisterFactory<IMessageEncoder>((c) => new ManagedYEncoder.ManagedYEncoder(c.Resolve<ILogger>(), LoggingCategory.CliScummSelfHost), FactoryLifetime.Singleton);
+
 		}
     }
 }
