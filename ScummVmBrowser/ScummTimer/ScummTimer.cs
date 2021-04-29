@@ -1,4 +1,5 @@
 ﻿using ManagedCommon.Delegates;
+using ManagedCommon.Enums.Logging;
 using ManagedCommon.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,32 +12,58 @@ namespace ScummTimer
 {
 	public class ManagedScummTimer : IScummTimer
 	{
-		public ManagedScummTimer()
+		public const string AlreadyExistsIdError = "Fail, timer id {0} already exists with a different callback";
+		public const string AlreadyExistsTimerError = "Fail, timer callback already exists. The id is {0}";
+
+		public ManagedScummTimer(ILogger logger)
 		{
 			_timers = new Dictionary<ScummTimerCallback, Timer>();
+			_timerIds = new Dictionary<ScummTimerCallback, string>();
 			_syncLock = new object();
+			_logger = logger;
 		}
 
 		private Dictionary<ScummTimerCallback, Timer> _timers;
+		private Dictionary<ScummTimerCallback, string> _timerIds;
 		private object _syncLock;
+		private ILogger _logger;
 
 		public bool InstallTimerProc(ScummTimerCallback proc, int interval, IntPtr refCon, string id)
 		{
-			Timer timer = new Timer(interval);
-			timer.Elapsed += (s, e) => proc(refCon);
-			timer.Start();
-
 			lock (_syncLock)
 			{
-				if (_timers.ContainsKey(proc))
-				{
-					removeTimerProcNoLock(proc);
-				}
+				ThrowIfDuplicates(proc, id);
+
+				Timer timer = new Timer(interval);
+				timer.Elapsed += (s, e) => proc(refCon);
+				timer.Start();
 
 				_timers.Add(proc, timer);
 			}
 
 			return true;
+		}
+
+		private string ThrowIfDuplicates(ScummTimerCallback proc, string id)
+		{
+			string error = null;
+			if (_timerIds.ContainsKey(proc) && _timerIds[proc] != id)
+			{
+				error = String.Format(AlreadyExistsIdError, id);
+			}
+
+			if (_timers.ContainsKey(proc))
+			{
+				error = String.Format(AlreadyExistsTimerError, id);
+			}
+
+			if (error != null)
+			{
+				_logger.LogMessage(LoggingLevel.Error, LoggingCategory.CliScummSelfHost, ErrorMessage.GeneralErrorCliScumm, error);
+				throw new Exception(error);
+			}
+
+			return error;
 		}
 
 		public void removeTimerProc(ScummTimerCallback proc)
@@ -49,8 +76,11 @@ namespace ScummTimer
 
 		private void removeTimerProcNoLock(ScummTimerCallback proc)
 		{
-			_timers[proc].Stop();
-			_timers[proc] = null;
+			if (_timers.ContainsKey(proc))
+			{
+				_timers[proc].Stop();
+				_timers[proc] = null;
+			}
 		}
 	}
 }

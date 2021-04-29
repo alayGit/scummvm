@@ -72,7 +72,7 @@ namespace DotNetScummTests
 			_saveDataEncoderAndDecompresser = new SaveDataEncoderAndCompressor(_byteEncoder, _compressor, _configStore);
 			_saveCache = new SaveCache(_saveDataEncoderAndDecompresser);
 
-			_wrapper = new Wrapper(new JsonConfigStore(), _saveCache , new Base64ByteEncoder.Base64ByteEncoder(), new ManagedScummTimer());
+			_wrapper = new Wrapper(new JsonConfigStore(), _saveCache , new Base64ByteEncoder.Base64ByteEncoder(), new ManagedScummTimer(new Mock<ILogger>().Object));
 
 			_wrapper.SendScreenBuffers += (List<ScreenBuffer> l) => copyRectToScreen(l);
 

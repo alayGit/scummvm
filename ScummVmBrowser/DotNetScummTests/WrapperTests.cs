@@ -22,7 +22,7 @@ namespace DotNetScummTests
         public async Task NoSubscribersToOnCopyRectToScreenDoesNotCauseException()
         {
 			ILogger logger = new Mock<ILogger>().Object;
-			Wrapper wrapper = new Wrapper(new JsonConfigStore(), new Mock<ISaveCache>().Object, new Base64ByteEncoder.Base64ByteEncoder(), new ScummTimer.ManagedScummTimer());
+			Wrapper wrapper = new Wrapper(new JsonConfigStore(), new Mock<ISaveCache>().Object, new Base64ByteEncoder.Base64ByteEncoder(), new ScummTimer.ManagedScummTimer(new Mock<ILogger>().Object));
 
             Task runningGameTask = Task.Run(() =>
             { 
