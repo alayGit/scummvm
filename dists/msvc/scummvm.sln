@@ -296,6 +296,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScummTimer", "..\..\ScummVm
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnmanagedScummTimerWrapper", "..\..\ScummVmBrowser\UnmanagedScummTimerWrapper\UnmanagedScummTimerWrapper.vcxproj", "{F72DA0C6-7281-453E-9DED-B45A6C5AAF7A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScummTimerTests", "..\..\ScummVmBrowser\ScummTimerTests\ScummTimerTests.csproj", "{7C668160-2DF5-436F-84E6-ADCB1B04907C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Analysis|Any CPU = Analysis|Any CPU
@@ -4064,6 +4066,38 @@ Global
 		{F72DA0C6-7281-453E-9DED-B45A6C5AAF7A}.Release|Win32.Build.0 = Release|Win32
 		{F72DA0C6-7281-453E-9DED-B45A6C5AAF7A}.Release|x64.ActiveCfg = Release|x64
 		{F72DA0C6-7281-453E-9DED-B45A6C5AAF7A}.Release|x64.Build.0 = Release|x64
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Analysis|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Analysis|Any CPU.Build.0 = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Analysis|arm64.ActiveCfg = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Analysis|arm64.Build.0 = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Analysis|Win32.ActiveCfg = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Analysis|Win32.Build.0 = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Analysis|x64.ActiveCfg = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Analysis|x64.Build.0 = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Debug|arm64.Build.0 = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Debug|Win32.Build.0 = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Debug|x64.Build.0 = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.LLVM|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.LLVM|Any CPU.Build.0 = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.LLVM|arm64.ActiveCfg = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.LLVM|arm64.Build.0 = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.LLVM|Win32.ActiveCfg = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.LLVM|Win32.Build.0 = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.LLVM|x64.ActiveCfg = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.LLVM|x64.Build.0 = Debug|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Release|arm64.ActiveCfg = Release|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Release|arm64.Build.0 = Release|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Release|Win32.ActiveCfg = Release|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Release|Win32.Build.0 = Release|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Release|x64.ActiveCfg = Release|Any CPU
+		{7C668160-2DF5-436F-84E6-ADCB1B04907C}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

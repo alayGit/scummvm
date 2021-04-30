@@ -4,7 +4,7 @@
 #include "../../common/scummsys.h";
 #include "../../common/str.h";
 #include "../ScummToManagedMarshalling/ScummToManagedMarshalling.h";
-#include <msclr/gcroot.h>
+#include <msclr/auto_gcroot.h>
 
 using namespace msclr;
 using namespace System::Runtime::InteropServices;
@@ -20,6 +20,6 @@ public:
 		virtual void removeTimerProc(TimerProc proc);
 
 	private:
-	    gcroot<IScummTimer ^> _scummTimer;
+	    auto_gcroot<IScummTimer ^> _scummTimer;
 	};
 }

@@ -10,6 +10,6 @@ namespace ManagedCommon.Interfaces
 	public interface IScummTimer
 	{
 		bool InstallTimerProc(ScummTimerCallback proc, int intervalMicroseconds, IntPtr refCon, string id);
-		void removeTimerProc(ScummTimerCallback proc);
+		void RemoveTimerProc(ScummTimerCallback proc);
 	}
 }

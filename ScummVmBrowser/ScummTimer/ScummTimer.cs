@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Timers;
 namespace ScummTimer
 {
-	public class ManagedScummTimer : IScummTimer
+	public class ManagedScummTimer : IScummTimer, IDisposable
 	{
 		public const string AlreadyExistsIdError = "Fail, timer id {0} already exists with a different callback";
 		public const string AlreadyExistsTimerError = "Fail, timer callback already exists. The id is {0}";
@@ -21,18 +21,26 @@ namespace ScummTimer
 			_timerIds = new Dictionary<ScummTimerCallback, string>();
 			_syncLock = new object();
 			_logger = logger;
+			disposedValue = false;
 		}
 
 		private Dictionary<ScummTimerCallback, Timer> _timers;
 		private Dictionary<ScummTimerCallback, string> _timerIds;
 		private object _syncLock;
 		private ILogger _logger;
+		private bool disposedValue;
 
 		public bool InstallTimerProc(ScummTimerCallback proc, int intervalMicroseconds, IntPtr refCon, string id)
 		{
 			lock (_syncLock)
 			{
+				if(disposedValue)
+				{
+					throw new ObjectDisposedException(nameof(ScummTimer));
+				}
+
 				ThrowIfDuplicates(proc, id);
+				_timerIds.Add(proc, id);
 
 				Timer timer = new Timer(intervalMicroseconds / 1000);
 				timer.Elapsed += (s, e) => proc(refCon);
@@ -49,10 +57,9 @@ namespace ScummTimer
 			string error = null;
 			if (_timerIds.ContainsKey(proc) && _timerIds[proc] != id)
 			{
-				error = String.Format(AlreadyExistsIdError, id);
+				error = String.Format(AlreadyExistsIdError, _timerIds[proc]);
 			}
-
-			if (_timers.ContainsKey(proc))
+			else if (_timers.ContainsKey(proc))
 			{
 				error = String.Format(AlreadyExistsTimerError, id);
 			}
@@ -66,21 +73,50 @@ namespace ScummTimer
 			return error;
 		}
 
-		public void removeTimerProc(ScummTimerCallback proc)
+		public void RemoveTimerProc(ScummTimerCallback proc)
 		{
 			lock(_syncLock)
 			{
-				removeTimerProcNoLock(proc);
+				if (disposedValue)
+				{
+					throw new ObjectDisposedException(nameof(ScummTimer));
+				}
+
+				if (_timers.ContainsKey(proc))
+				{
+					_timers[proc].Stop();
+					_timers[proc].Dispose();
+					_timers.Remove(proc);
+				}
 			}
 		}
 
-		private void removeTimerProcNoLock(ScummTimerCallback proc)
+		protected virtual void Dispose(bool disposing)
 		{
-			if (_timers.ContainsKey(proc))
+			lock (_syncLock)
 			{
-				_timers[proc].Stop();
-				_timers.Remove(proc);
+				if (!disposedValue)
+				{
+					if (disposing)
+					{
+						foreach (ScummTimerCallback kvp in new List<ScummTimerCallback>(_timers.Keys))
+						{
+							RemoveTimerProc(kvp);
+						}
+					}
+
+					// TODO: free unmanaged resources (unmanaged objects) and override finalizer
+					// TODO: set large fields to null
+					disposedValue = true;
+				}
 			}
+		}
+
+		public void Dispose()
+		{
+			// Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+			Dispose(disposing: true);
+			GC.SuppressFinalize(this);
 		}
 	}
 }
