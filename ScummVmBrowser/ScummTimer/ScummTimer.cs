@@ -79,7 +79,7 @@ namespace ScummTimer
 			if (_timers.ContainsKey(proc))
 			{
 				_timers[proc].Stop();
-				_timers[proc] = null;
+				_timers.Remove(proc);
 			}
 		}
 	}
