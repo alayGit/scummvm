@@ -28,30 +28,49 @@ namespace ScummTimerTests
 		}
 
         [TestMethod]
-        public async Task CanScheduleTimedEvent()
+        public async Task CanScheduleTimedEvents()
 		{
-			IntPtr expectedIntPtr;
-			Mock<ScummTimerCallback> callback;
-			ScheduleTimedEvent(out expectedIntPtr, out callback);
+			const int NoEvents = 5;
+			IntPtr[] expectedIntPtrs = new IntPtr[NoEvents];
+			Mock<ScummTimerCallback>[] callbacks = new Mock<ScummTimerCallback>[NoEvents];
+
+			for (int i = 0; i < NoEvents; i++)
+			{
+				ScheduleTimedEvent(out expectedIntPtrs[i], out callbacks[i]);
+			}
 
 			await Task.Delay(1000);
 
-			callback.Verify(e => e.Invoke(It.Is<IntPtr>(x => x == expectedIntPtr)), Times.AtLeast(50));
+			for(int i = 0; i < NoEvents; i++)
+			{
+				callbacks[i].Verify(e => e.Invoke(It.Is<IntPtr>(x => x == expectedIntPtrs[i])), Times.AtLeast(50));
+			}
 		}
 
 		[TestMethod]
 		public async Task CanRemoveScheduledEvent()
 		{
-			IntPtr expectedIntPtr;
-			Mock<ScummTimerCallback> callback;
-			ScheduleTimedEvent(out expectedIntPtr, out callback);
-			_managedScummTimer.RemoveTimerProc(callback.Object);
+			const int NoEvents = 5;
+			IntPtr[] expectedIntPtrs = new IntPtr[NoEvents];
+			Mock<ScummTimerCallback>[] callbacks = new Mock<ScummTimerCallback>[NoEvents];
+
+			for (int i = 0; i < NoEvents; i++)
+			{
+				ScheduleTimedEvent(out expectedIntPtrs[i], out callbacks[i]);
+			}
 
 			await Task.Delay(1000);
-			int invocationsAfterStop = callback.Invocations.Count;
-			await Task.Delay(1000);
 
-			Assert.AreEqual(invocationsAfterStop, callback.Invocations.Count);
+			for (int i = 0; i < NoEvents; i++)
+			{
+				_managedScummTimer.RemoveTimerProc(callbacks[i].Object);
+
+				await Task.Delay(1000);
+				int invocationsAfterStop = callbacks[i].Invocations.Count;
+				await Task.Delay(1000);
+
+				Assert.AreEqual(invocationsAfterStop, callbacks[i].Invocations.Count);
+			}
 		}
 
 		[TestMethod]
