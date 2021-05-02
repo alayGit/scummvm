@@ -10,5 +10,5 @@ bool UnmanagedScummTimerWrapper::UnmanagedScummTimerManagerWrapper::installTimer
 }
 
 void UnmanagedScummTimerWrapper::UnmanagedScummTimerManagerWrapper::removeTimerProc(TimerProc proc) {
-	_scummTimer->removeTimerProc(Marshal::GetDelegateForFunctionPointer<ScummTimerCallback ^>(System::IntPtr(proc)));
+	_scummTimer->RemoveTimerProc(Marshal::GetDelegateForFunctionPointer<ScummTimerCallback ^>(System::IntPtr(proc)));
 }

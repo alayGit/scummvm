@@ -2215,6 +2215,15 @@
   <ItemGroup>
     <None Include="Resources\CanRunGameRequiringLockScreen_52.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CanStartKq5_963.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CanStartKq5_958.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CanRunGamesWithMusicTimer_1190.bmp" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

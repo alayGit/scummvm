@@ -87,6 +87,7 @@ namespace ScummTimer
 					_timers[proc].Stop();
 					_timers[proc].Dispose();
 					_timers.Remove(proc);
+					_timerIds.Remove(proc);
 				}
 			}
 		}

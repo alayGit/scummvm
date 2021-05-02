@@ -151,10 +151,12 @@ namespace DotNetScummTests
 		}
 
 		[TestMethod]
-		public async Task CanStartSmi()
+		public async Task CanRunGamesWithMusicTimer()
 		{
-			const string expectedFrameName = "CanStartKq5";
-			const int noFrames = 1000;
+			const string expectedFrameName = "CanRunGamesWithMusicTimer";
+			const int noFrames = 1500;
+			Cropping = new Rectangle(238, 20, 50, 20);
+			//Cropping = new Rectangle(238, 40, 50, 20);
 			Setup(gameDirectory, noFrames, expectedFrameName, AvailableGames.smi, Kq5CanStart, Constants.DoNotLoadSaveSlot);
 			await CheckForExpectedFrame(expectedFrameName, noFrames);
 		}
