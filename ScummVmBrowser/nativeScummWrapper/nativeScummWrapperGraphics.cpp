@@ -102,7 +102,6 @@ int NativeScummWrapper::NativeScummWrapperGraphics::getGraphicsMode() const {
 
 //TO DO: Implement All These
 void NativeScummWrapper::NativeScummWrapperGraphics::initSize(uint width, uint height, const Graphics::PixelFormat *format) {
-	int x = 4;
 }
 
 int NativeScummWrapper::NativeScummWrapperGraphics::getScreenChangeID() const {

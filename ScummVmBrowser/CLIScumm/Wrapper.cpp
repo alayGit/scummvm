@@ -35,6 +35,7 @@ CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum ^> ^ configureStore,
 
 CLIScumm::Wrapper::~Wrapper() {
 	delete _paletteManager;
+	delete _unManagedScummTimerManagerWrapper;
 }
 
 SendScreenBuffers ^ CLIScumm::Wrapper::SendScreenBuffers::get() {
