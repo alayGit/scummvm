@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ScummTimerTests
 {
-    [TestClass]
-    public class ScummTimerTests
-    {
+	[TestClass]
+	public class ScummTimerTests
+	{
 		ManagedScummTimer _managedScummTimer;
 		Mock<ILogger> _logger;
 
@@ -27,8 +27,8 @@ namespace ScummTimerTests
 			_managedScummTimer.Dispose();
 		}
 
-        [TestMethod]
-        public async Task CanScheduleTimedEvents()
+		[TestMethod]
+		public async Task CanScheduleTimedEvents()
 		{
 			const int NoEvents = 5;
 			IntPtr[] expectedIntPtrs = new IntPtr[NoEvents];
@@ -41,10 +41,32 @@ namespace ScummTimerTests
 
 			await Task.Delay(1000);
 
-			for(int i = 0; i < NoEvents; i++)
+			for (int i = 0; i < NoEvents; i++)
 			{
 				callbacks[i].Verify(e => e.Invoke(It.Is<IntPtr>(x => x == expectedIntPtrs[i])), Times.AtLeast(50));
 			}
+		}
+
+		[TestMethod]
+		public async Task CanScheduleReschuleSameEvent()
+		{
+			IntPtr expectedIntPtr = new IntPtr(20);
+			Mock<ScummTimerCallback> mockCallback = new Mock<ScummTimerCallback>();
+			ScummTimerCallback callback = mockCallback.Object;
+
+			_managedScummTimer.InstallTimerProc(callback, 10000, expectedIntPtr, "blah");
+
+			await Task.Delay(1000);
+			_managedScummTimer.RemoveTimerProc(callback);
+			await Task.Delay(1000);
+
+			int callbacksAfterRemove = mockCallback.Invocations.Count;
+
+			_managedScummTimer.InstallTimerProc(callback, 10000, expectedIntPtr, "blah");
+
+			await Task.Delay(1000);
+
+			mockCallback.Verify(e => e.Invoke(It.Is<IntPtr>(x => x == expectedIntPtr)), Times.AtLeast(callbacksAfterRemove + 50));
 		}
 
 		[TestMethod]
@@ -100,7 +122,7 @@ namespace ScummTimerTests
 				_managedScummTimer.Dispose();
 				ScheduleTimedEvent(out expectedIntPtr, out callback);
 			}
-			catch(ObjectDisposedException)
+			catch (ObjectDisposedException)
 			{
 				exceptionThrown = true;
 			}
