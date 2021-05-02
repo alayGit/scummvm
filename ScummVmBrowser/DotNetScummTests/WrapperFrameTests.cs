@@ -142,15 +142,6 @@ namespace DotNetScummTests
 		}
 
 		[TestMethod]
-		public async Task CanStartKq6()
-		{
-			const string expectedFrameName = "CanStartKq5";
-			const int noFrames = 1000;
-			Setup(gameDirectory, noFrames, expectedFrameName, AvailableGames.kq6, Kq5CanStart, 1);
-			await CheckForExpectedFrame(expectedFrameName, noFrames);
-		}
-
-		[TestMethod]
 		public async Task CanRunGamesWithMusicTimer()
 		{
 			const string expectedFrameName = "CanRunGamesWithMusicTimer";
