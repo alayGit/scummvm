@@ -59,7 +59,14 @@ namespace GameSaveCache
 
 		public byte[] GetFromCache(string name)
 		{
-			return _cache[name].Data;
+			byte[] result = null;
+
+			if (_cache.ContainsKey(name))
+			{
+				result = _cache[name].Data;
+			}
+
+			return result;
 		}
 
 		public int SaveCount
