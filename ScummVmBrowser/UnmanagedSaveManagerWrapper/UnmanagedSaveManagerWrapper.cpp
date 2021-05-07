@@ -30,7 +30,7 @@ OutSaveFile *SaveManager::UnmanagedSaveManagerWrapper::openForSaving(const Commo
 InSaveFile *SaveManager::UnmanagedSaveManagerWrapper::openForLoading(const Common::String &name) {
 	array<byte> ^ managedSaveData = _saveCache->GetFromCache(Converters::CommonStringToManagedString(&name));
 
-	if (managedSaveData->Length > 0) {
+	if (managedSaveData != nullptr && managedSaveData->Length > 0) {
 		byte *unmanagedSaveData = new byte[managedSaveData->Length];
 		Marshal::Copy(managedSaveData, 0, System::IntPtr(unmanagedSaveData), managedSaveData->Length);
 
