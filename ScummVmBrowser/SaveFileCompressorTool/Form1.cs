@@ -71,5 +71,16 @@ namespace SaveFileCompressorTool
 
 			}
 		}
+
+		private void button4_Click(object sender, EventArgs e)
+		{
+			GameSave save = new GameSave() { Data = File.ReadAllBytes(textBox1.Text) };
+			Dictionary<string, GameSave> dict = new Dictionary<string, GameSave>();
+			dict.Add("kq6.001", save);
+
+			string compressed = _compressor.CompressAndEncode(dict);
+
+			textBox1.Text = compressed;
+		}
 	}
 }
