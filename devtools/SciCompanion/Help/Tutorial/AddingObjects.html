@@ -1,0 +1,432 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Interacting with Objects &mdash; SCICompanion 3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="SCICompanion 3.0 documentation" href="../index.html"/>
+        <link rel="up" title="A Basic Tutorial" href="../sci11_tutorial.html"/>
+        <link rel="next" title="Adding a background and static objects" href="RoomBackground.html"/>
+        <link rel="prev" title="The first room" href="FirstRoom.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> SCICompanion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../views.html">View Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pics.html">Pic Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Script editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../legacy.html">The SCI0 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../classlibrary.html">The SCI1.1 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_kernels.html">Kernel Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../studio_compiler.html">SCI Studio compatible compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_compiler.html">The SCI Compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">Text Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../messages.html">Message editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sounds.html">Sound Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vocabs.html">Vocabs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fonts.html">Font Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cursors.html">Cursor Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettes.html">VGA Palette Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../audio.html">Digital Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../outputpane.html">Output Pane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debugging.html">Debugger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../undo.html">Undo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aspectratio.html">Aspect Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettecycling.html">Palette cycling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../anatomy.html">Anatomy of an SCI game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../decompiler.html">Decompiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preferences.html">Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameversion.html">Game/Interpreter Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../importexport.html">Importing and exporting resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extractall.html">Extract All</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tips.html">Handy tips</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../sci11_tutorial.html">A Basic Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="TitleScreen.html">Customizing the title screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FirstRoom.html">The first room</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Interacting with Objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adding-a-prop">Adding a Prop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interacting-with-a-prop">Interacting with a Prop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#approach-verbs">Approach verbs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#easier-positioning">Easier positioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-doverb-handler">Custom doVerb() handler</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="RoomBackground.html">Adding a background and static objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PriorityScreen.html">The priority screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AnimatingProps.html">Animating props</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ManagingInventory.html">Managing the player&#8217;s inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Actors.html">Actors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dying.html">Dying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UseInventory.html">Using inventory items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Score.html">Scoring and Flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Rooms.html">Adding a second room</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">SCICompanion</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../sci11_tutorial.html">A Basic Tutorial</a> &raquo;</li>
+      
+    <li>Interacting with Objects</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/Tutorial/AddingObjects.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">SCI1.1 only.</p>
+</div>
+<div class="section" id="interacting-with-objects">
+<h1>Interacting with Objects<a class="headerlink" href="#interacting-with-objects" title="Permalink to this headline">¶</a></h1>
+<p>This will show how to add an object to your room and interact with it.</p>
+<div class="section" id="adding-a-prop">
+<h2>Adding a Prop<a class="headerlink" href="#adding-a-prop" title="Permalink to this headline">¶</a></h2>
+<p>First, go to the Game Explorer, and add the Box sample from the Toolbox&#8217;s <em>Insert view sample</em> menu. Give it resource number 123:</p>
+<img alt="../_images/Box.jpg" src="../_images/Box.jpg" />
+<p>Next, go back to the rm110.sc script and place the cursor at the bottom. Right-click <em>InsertObject-&gt;Prop</em>. Give it a name <em>theBox</em>, and
+set its view property to 123 (this is the Box view included in the template game). It should look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">instance</span> <span class="n">theBox</span> <span class="n">of</span> <span class="n">Prop</span>
+    <span class="p">(</span><span class="n">properties</span>
+<span class="hll">        <span class="n">view</span> <span class="mi">123</span>
+</span>        <span class="n">x</span> <span class="mi">150</span>
+        <span class="n">y</span> <span class="mi">100</span>
+        <span class="n">signal</span> <span class="n">ignAct</span>
+        <span class="n">loop</span> <span class="mi">0</span>
+        <span class="n">cel</span> <span class="mi">0</span>
+        <span class="n">noun</span> <span class="n">N_NOUN</span>
+        <span class="n">priority</span> <span class="mi">0</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>However, this won&#8217;t compile properly yet, because we have given it a noun that doesn&#8217;t exist. You can just remove the noun property altogether, but
+we want to actually interact with this box. So go to the message resource for script 110 (use the <em>Messages</em> link in the Toolbox pane). Add a new
+noun, and call it N_BOX (see <a class="reference internal" href="../messages.html"><em>Message editor</em></a> to learn how to do this). Save the message resource and return to the script. Set the noun property of <em>theBox</em> to N_BOX:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">instance</span> <span class="n">theBox</span> <span class="n">of</span> <span class="n">Prop</span>
+    <span class="p">(</span><span class="n">properties</span>
+        <span class="n">view</span> <span class="mi">123</span>
+        <span class="n">x</span> <span class="mi">150</span>
+        <span class="n">y</span> <span class="mi">100</span>
+        <span class="n">signal</span> <span class="n">ignAct</span>
+        <span class="n">loop</span> <span class="mi">0</span>
+        <span class="n">cel</span> <span class="mi">0</span>
+<span class="hll">        <span class="n">noun</span> <span class="n">N_BOX</span>
+</span>        <span class="n">priority</span> <span class="mi">0</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>We&#8217;re not quite done yet! In addition to declaring a Prop, you need to initialize it. This makes sense, since you might not always want Props to appear right away in a room.
+So go to the room&#8217;s init() method and add this to the end:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">theBox</span> <span class="nv">init:</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now compile and run, and you should see the box in the center of the room:</p>
+<img alt="../_images/BoxInRoom.png" src="../_images/BoxInRoom.png" />
+</div>
+<div class="section" id="interacting-with-a-prop">
+<h2>Interacting with a Prop<a class="headerlink" href="#interacting-with-a-prop" title="Permalink to this headline">¶</a></h2>
+<p>That was the hard part. Now the easy part.</p>
+<p>Suppose we want to display a message when the player looks at the box. To do so, <a class="reference internal" href="../messages.html"><em>add a message</em></a> for the LOOK verb on BOX:</p>
+<img alt="../_images/BoxMessageLook.jpg" src="../_images/BoxMessageLook.jpg" />
+<p>Save the message resource and run the game, and try to look at the box:</p>
+<img alt="../_images/BoxMessageGame.png" src="../_images/BoxMessageGame.png" />
+<p>The ego will turn to look at the box and the message will be displayed. Easy, right? You can add more messages to handle different verbs on the box.</p>
+</div>
+<div class="section" id="approach-verbs">
+<h2>Approach verbs<a class="headerlink" href="#approach-verbs" title="Permalink to this headline">¶</a></h2>
+<p>Now, what if you want the ego to approach the box before it performs an action on it?</p>
+<p>First, make sure you have a message for the <strong>DO</strong> verb on the box. Next, go to the place where you init() the box, and change it to this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">theBox</span>
+<span class="hll">    <span class="n">approachVerbs</span><span class="p">:</span> <span class="n">V_DO</span>
+</span>    <span class="n">init</span><span class="p">:</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The approachVerbs method lets you list the verbs for which the ego will approach the object. You can specify multiple. Compile, run the game, and see that your ego will walk over to the box before the message appears. You also note, however, that
+the ego walks <em>right</em> up to the box&#8217;s position. Let&#8217;s set an approach position so he&#8217;s not on top of the box:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">instance</span> <span class="n">theBox</span> <span class="n">of</span> <span class="n">Prop</span>
+    <span class="p">(</span><span class="n">properties</span>
+        <span class="n">view</span> <span class="mi">123</span>
+        <span class="n">x</span> <span class="mi">150</span>
+        <span class="n">y</span> <span class="mi">100</span>
+        <span class="n">signal</span> <span class="n">ignAct</span>
+        <span class="n">loop</span> <span class="mi">0</span>
+        <span class="n">cel</span> <span class="mi">0</span>
+        <span class="n">noun</span> <span class="n">N_BOX</span>
+        <span class="n">priority</span> <span class="mi">0</span>
+<span class="hll">        <span class="n">approachX</span> <span class="mi">130</span>
+</span><span class="hll">        <span class="n">approachY</span> <span class="mi">110</span>
+</span>    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="easier-positioning">
+<h2>Easier positioning<a class="headerlink" href="#easier-positioning" title="Permalink to this headline">¶</a></h2>
+<p>Specifying the exact coordinates to position things can be tedious. There&#8217;s a better way.</p>
+<p>Let&#8217;s add another box. Open up view 123 (the blue box), and <a class="reference internal" href="../views.html"><em>add a new cel</em></a> to the loop. Use the <a class="reference internal" href="../views.html#color-shifting"><span>color shifter</span></a> to
+make that new cel be red instead of blue:</p>
+<img alt="../_images/RedBox.jpg" src="../_images/RedBox.jpg" />
+<p>Save the view and go to the pic for room 110. Enable the <a class="reference internal" href="../pics.html#fake-ego"><span>The fake ego</span></a> and choose view 123 (the box). The blue box should appear on screen. Click on it
+and press the right arrow key to cycle to the next cel, which should be your red cel.</p>
+<img alt="../_images/RedBoxPlaced.jpg" src="../_images/RedBoxPlaced.jpg" />
+<p>Right-click on the box and choose <em>Copy</em>. This will copy its attributes to the clipboard.</p>
+<p>Now, return to your script, and insert a new Prop (right-click, <em>Insert Object-&gt;Prop</em>) and call it <em>redBox</em>. It should <em>inherit</em> the view, cel, x and y properties from where you positioned the red box
+on the pic!:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">instance</span> <span class="nv">redBox</span> <span class="nv">of</span> <span class="nv">Prop</span>
+    <span class="p">(</span><span class="nf">properties</span>
+        <span class="nv">view</span> <span class="mi">123</span>
+        <span class="nv">x</span> <span class="mi">109</span>
+        <span class="nv">y</span> <span class="mi">140</span>
+        <span class="nv">signal</span> <span class="nv">ignAct</span>
+        <span class="nv">loop</span> <span class="mi">0</span>
+        <span class="nv">cel</span> <span class="mi">1</span>
+        <span class="nv">noun</span> <span class="nv">N_NOUN</span>
+        <span class="nv">priority</span> <span class="mi">-1</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Make a new noun for it (e.g. N_REDBOX), add appropriate values for approachX and approachY, and init() it just like you did for theBox. Compile and run, and it should look like this:</p>
+<img alt="../_images/RedBoxInGame.png" src="../_images/RedBoxInGame.png" />
+</div>
+<div class="section" id="custom-doverb-handler">
+<h2>Custom doVerb() handler<a class="headerlink" href="#custom-doverb-handler" title="Permalink to this headline">¶</a></h2>
+<p>What are we going to do with this red box? We&#8217;ll make it turn blue when you touch it.</p>
+<p>That means we actually need to write some code to respond to a verb, instead of just displaying a message. To do this, you override the doVerb() method on an object.</p>
+<p>Place the cursor inside the redBox Prop, and right-click <em>Insert Method-&gt;doVerb</em>. This adds the doVerb() method, with a default case that calls the super. We want to leave that in,
+but add a case for <strong>V_DO</strong>, where we&#8217;ll change the <em>cel</em> of the redBox. Cel 1 was red, but cel 0 was blue, remember? So it should look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">instance</span> <span class="n">redBox</span> <span class="n">of</span> <span class="n">Prop</span>
+    <span class="p">(</span><span class="n">properties</span>
+        <span class="n">view</span> <span class="mi">123</span>
+        <span class="n">x</span> <span class="mi">109</span>
+        <span class="n">y</span> <span class="mi">140</span>
+        <span class="n">signal</span> <span class="n">ignAct</span>
+        <span class="n">loop</span> <span class="mi">0</span>
+        <span class="n">cel</span> <span class="mi">1</span>
+        <span class="n">noun</span> <span class="n">N_REDBOX</span>
+        <span class="n">priority</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">approachX</span> <span class="mi">109</span>
+        <span class="n">approachY</span> <span class="mi">130</span>
+    <span class="p">)</span>
+
+    <span class="p">(</span><span class="n">method</span> <span class="p">(</span><span class="n">doVerb</span> <span class="n">theVerb</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">switch</span> <span class="n">theVerb</span>
+<span class="hll">            <span class="p">(</span><span class="n">V_DO</span>
+</span><span class="hll">                <span class="p">;</span> <span class="n">Set</span> <span class="n">it</span> <span class="n">back</span> <span class="n">to</span> <span class="n">cel</span> <span class="mi">0</span> <span class="n">to</span> <span class="n">turn</span> <span class="n">it</span> <span class="n">blue</span>
+</span><span class="hll">                <span class="p">(</span><span class="bp">self</span> <span class="n">setCel</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+</span><span class="hll">            <span class="p">)</span>
+</span>            <span class="p">(</span><span class="k">else</span>
+                <span class="p">(</span><span class="nb">super</span> <span class="n">doVerb</span><span class="p">:</span> <span class="n">theVerb</span> <span class="o">&amp;</span><span class="n">rest</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Compile and run. Now when the ego <em>touches</em> the red box, he&#8217;ll walk over there and it will turn blue.</p>
+<p>Now, if you also want to display a message when the box turns blue, you can invoke the message display system directly. First, add a message for when the
+box is still red, and for when you&#8217;ve already turned it blue. We&#8217;ll distinguish the messages by making use of the Condition property. The condition for the
+format will be 0 (none), and for the latter it will be 1.</p>
+<img alt="../_images/RedBoxMessages.png" src="../_images/RedBoxMessages.png" />
+<p>Then change the doVerb method to look like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>(method (doVerb theVerb)
+    (switch theVerb
+        (V_DO
+<span class="hll">            (if (== 1 (self cel?))
+</span><span class="hll">                (self setCel: 0)
+</span><span class="hll">                (gMessager say: N_REDBOX V_DO 0 0)
+</span><span class="hll">            else
+</span><span class="hll">                (gMessager say: N_REDBOX V_DO 1 0)
+</span><span class="hll">            )
+</span><span class="hll">        )
+</span>        (else
+            (super doVerb: theVerb &amp;rest)
+        )
+    )
+)
+</pre></div>
+</div>
+<p>Now the narrator should tell you that the box turned blue. And when it&#8217;s already blue, that nothing happened.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="RoomBackground.html" class="btn btn-neutral float-right" title="Adding a background and static objects" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="FirstRoom.html" class="btn btn-neutral" title="The first room" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Phil Fortier.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

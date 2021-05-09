@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Scoring and Flags &mdash; SCICompanion 3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="SCICompanion 3.0 documentation" href="../index.html"/>
+        <link rel="up" title="A Basic Tutorial" href="../sci11_tutorial.html"/>
+        <link rel="next" title="Adding a second room" href="Rooms.html"/>
+        <link rel="prev" title="Using inventory items" href="UseInventory.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> SCICompanion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../views.html">View Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pics.html">Pic Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Script editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../legacy.html">The SCI0 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../classlibrary.html">The SCI1.1 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_kernels.html">Kernel Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../studio_compiler.html">SCI Studio compatible compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_compiler.html">The SCI Compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">Text Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../messages.html">Message editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sounds.html">Sound Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vocabs.html">Vocabs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fonts.html">Font Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cursors.html">Cursor Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettes.html">VGA Palette Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../audio.html">Digital Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../outputpane.html">Output Pane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debugging.html">Debugger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../undo.html">Undo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aspectratio.html">Aspect Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettecycling.html">Palette cycling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../anatomy.html">Anatomy of an SCI game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../decompiler.html">Decompiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preferences.html">Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameversion.html">Game/Interpreter Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../importexport.html">Importing and exporting resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extractall.html">Extract All</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tips.html">Handy tips</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../sci11_tutorial.html">A Basic Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="TitleScreen.html">Customizing the title screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FirstRoom.html">The first room</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AddingObjects.html">Interacting with Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RoomBackground.html">Adding a background and static objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PriorityScreen.html">The priority screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AnimatingProps.html">Animating props</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ManagingInventory.html">Managing the player&#8217;s inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Actors.html">Actors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dying.html">Dying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UseInventory.html">Using inventory items</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Scoring and Flags</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adding-directly-to-the-score">Adding directly to the score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#assigning-a-value-to-an-inventory-item">Assigning a value to an inventory item</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flags">Flags</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Rooms.html">Adding a second room</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">SCICompanion</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../sci11_tutorial.html">A Basic Tutorial</a> &raquo;</li>
+      
+    <li>Scoring and Flags</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/Tutorial/Score.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">SCI1.1 only.</p>
+</div>
+<div class="section" id="scoring-and-flags">
+<h1>Scoring and Flags<a class="headerlink" href="#scoring-and-flags" title="Permalink to this headline">¶</a></h1>
+<p>When the player successfully kills the evil zombie guy, they should be rewarded some. So let&#8217;s
+add something to their score.</p>
+<div class="section" id="adding-directly-to-the-score">
+<h2>Adding directly to the score<a class="headerlink" href="#adding-directly-to-the-score" title="Permalink to this headline">¶</a></h2>
+<p>That can be as simple as using the AddToScore procedure (from Main.sc). So let&#8217;s add it to the throwBoxScript:</p>
+<div class="highlight-python"><div class="highlight"><pre>(
+    (evilEgo hide:)
+    (gGame handsOn:)
+<span class="hll">    ; Add 5 points to the player&#39;s score:
+</span><span class="hll">    (AddToScore 5)
+</span>    ; Box hangs in the air for a couple of seconds for comedic effect
+    (= seconds 2)
+    (theBox posn: (theBox x?) (- (theBox y?) 30) 0)
+)
+</pre></div>
+</div>
+<p>Now when the ego throws the box and hits the evil ego, the score sound will play (sound resource 1000) and 5 points will be
+added to the score in the status bar.</p>
+</div>
+<div class="section" id="assigning-a-value-to-an-inventory-item">
+<h2>Assigning a value to an inventory item<a class="headerlink" href="#assigning-a-value-to-an-inventory-item" title="Permalink to this headline">¶</a></h2>
+<p>Another way to add something to the player&#8217;s score is to assign a value to an inventory item. When the player
+first picks up the item, the score will be added.</p>
+<p>Go into the Inventory script and find the BlueBox. Add a <strong>value</strong> property to it:</p>
+<div class="highlight-python"><div class="highlight"><pre>(instance BlueBox of InventoryItem
+    (properties
+        view 900
+        cursor 900
+        loop 1
+        signal $0002
+        noun N_BOX
+        message V_BOX
+<span class="hll">        value 3
+</span>    )
+)
+</pre></div>
+</div>
+<p>This is useful, because the score won&#8217;t be added again if the ego picks up the box a second time (try it).</p>
+</div>
+<div class="section" id="flags">
+<h2>Flags<a class="headerlink" href="#flags" title="Permalink to this headline">¶</a></h2>
+<p>To keep track of various important events and states that happen in your game, you can add global variables
+to the Main.sc script. If the important event is just a true or false value, however, you can instead define
+a flag. Flags are more memory efficient, since 16 of them can be packed into the space of one 16-bit variable.</p>
+<p>Suppose we want the fact that you shrunk the box to be remembered even if you left the room and came back. We were using
+our <em>hasBoxShrunk</em> local variable, but instead we could
+define a flag F_ShrunkBox to indicate this, and then it can be tested and set anywhere in the game.
+To do so, open game.sh from the Quick links pane of the script editor, scroll
+to the end, and add this:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="c1">; flags</span>
+<span class="p">(</span><span class="nf">enum</span>
+    <span class="nv">F_ShrunkBox</span>
+    <span class="c1">; You can add more here later...</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Now go back to rm100 and find the shrinkBoxScript. Modify the third case to set the F_ShrunkBox flag:</p>
+<div class="highlight-python"><div class="highlight"><pre>(
+<span class="hll">    (Bset F_ShrunkBox)
+</span>    (Prints {The box shrunk!})
+    (gGame handsOn:)
+)
+</pre></div>
+</div>
+<p>Also modify the place in theBox&#8217;s doVerb where we were checking for hasBoxShrunk:</p>
+<div class="highlight-python"><div class="highlight"><pre>(method (doVerb theVerb)
+    (switch theVerb
+        (V_DO
+<span class="hll">            (if (not (Btest F_ShrunkBox))
+</span><span class="hll">                (self setScript: shrinkBoxScript)
+</span>            else
+                (Prints {The box is small now, so you can pick it up!})
+                (gEgo get: INV_BOX)
+                (theBox hide:)
+            )
+        )
+        (else
+            (super doVerb: theVerb &amp;rest)
+        )
+    )
+)
+</pre></div>
+</div>
+<p>This will come in useful later when we go to another room, and can remember that the box was shrunk.</p>
+<p>Now, what if we wanted to give the player some points for shrinking the box? We can certainly Bset the flag
+and then AddToScore. However, we can also take advantage of the <strong>ScoreFlag</strong> procedure to do both those things
+in one. ScoreFlag also checks that the flag is not already set - in that case the points won&#8217;t be added. So this
+is a good way to ensure that you only add points <em>once</em> for a particular event.</p>
+<div class="highlight-python"><div class="highlight"><pre>(
+<span class="hll">    (ScoreFlag F_ShrunkBox 3)
+</span>    (Prints {The box shrunk!})
+    (gGame handsOn:)
+)
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">The template game allocated 14 16-bit spots for the global variable gFlags, where the flags are stored. That&#8217;s enough room
+for 224 flags. If you need more, increase the size of the gFlags array.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Rooms.html" class="btn btn-neutral float-right" title="Adding a second room" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="UseInventory.html" class="btn btn-neutral" title="Using inventory items" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Phil Fortier.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The priority screen &mdash; SCICompanion 3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="SCICompanion 3.0 documentation" href="../index.html"/>
+        <link rel="up" title="A Basic Tutorial" href="../sci11_tutorial.html"/>
+        <link rel="next" title="Animating props" href="AnimatingProps.html"/>
+        <link rel="prev" title="Adding a background and static objects" href="RoomBackground.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> SCICompanion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../views.html">View Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pics.html">Pic Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Script editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../legacy.html">The SCI0 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../classlibrary.html">The SCI1.1 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_kernels.html">Kernel Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../studio_compiler.html">SCI Studio compatible compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_compiler.html">The SCI Compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">Text Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../messages.html">Message editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sounds.html">Sound Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vocabs.html">Vocabs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fonts.html">Font Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cursors.html">Cursor Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettes.html">VGA Palette Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../audio.html">Digital Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../outputpane.html">Output Pane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debugging.html">Debugger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../undo.html">Undo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aspectratio.html">Aspect Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettecycling.html">Palette cycling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../anatomy.html">Anatomy of an SCI game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../decompiler.html">Decompiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preferences.html">Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameversion.html">Game/Interpreter Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../importexport.html">Importing and exporting resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extractall.html">Extract All</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tips.html">Handy tips</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../sci11_tutorial.html">A Basic Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="TitleScreen.html">Customizing the title screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FirstRoom.html">The first room</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AddingObjects.html">Interacting with Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RoomBackground.html">Adding a background and static objects</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">The priority screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AnimatingProps.html">Animating props</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ManagingInventory.html">Managing the player&#8217;s inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Actors.html">Actors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dying.html">Dying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UseInventory.html">Using inventory items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Score.html">Scoring and Flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Rooms.html">Adding a second room</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">SCICompanion</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../sci11_tutorial.html">A Basic Tutorial</a> &raquo;</li>
+      
+    <li>The priority screen</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/Tutorial/PriorityScreen.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">SCI1.1 only.</p>
+</div>
+<div class="section" id="the-priority-screen">
+<h1>The priority screen<a class="headerlink" href="#the-priority-screen" title="Permalink to this headline">¶</a></h1>
+<p>Now let&#8217;s get to one of the more tricky aspects, drawing the <a class="reference internal" href="../pics.html#priority-screen"><span>priority screen</span></a>.</p>
+<p>We&#8217;ll provide a sort of partial wall, as if we&#8217;re looking into the room in a movie set.
+Go back to your pic, and <a class="reference internal" href="../pics.html#import-vga-overlay"><span>overlay</span></a> this image on it:</p>
+<img alt="../_images/PriorityOverlay.png" src="../_images/PriorityOverlay.png" />
+<p>Make sure not to copy this image via the Windows clipboard, Windows doesn&#8217;t preserve transparency. Click <em>Set background</em>
+and browse specifically for this file. Check the <em>Overlay on current</em> box, and select <em>Map to current palette</em>.
+Finally, since there isn&#8217;t any black in the pic-specific colors, you might want to just select palette index 0 (top-left
+corner of the palette) and click the refresh button. You should have something that looks like this:</p>
+<img alt="../_images/OverlayBackground.png" src="../_images/OverlayBackground.png" />
+<p>Click Accept and the overlay will be merged into the pic image. SCI1.1 only supports a single background image per pic, so
+it is now permanently fused to the original.</p>
+<p>If you now turn on the fake ego and choose view 0 (which is the actual ego), when you drag it around, you&#8217;ll notice it appears
+on top of the black overlay:</p>
+<img alt="../_images/FakeEgoBadPri.png" src="../_images/FakeEgoBadPri.png" />
+<p>Let&#8217;s fix this.</p>
+<p>Switch to the <em>Commands</em> tab in the pic Toolbox pane, and make sure the cursor is at the end of the commands. Then choose
+to draw in a white priority color:</p>
+<img alt="../_images/ChooseWhitePri.png" src="../_images/ChooseWhitePri.png" />
+<p>Now using the line tool, do your best to draw a line on the inner edge of the black overlay we added. The Helper pane on the right-hand
+side is useful here; it shows you a zoomed in area around the cursor. You may want to switch the main view to show the priority screen. It should
+look like this when you&#8217;re done:</p>
+<img alt="../_images/PriScreen.png" src="../_images/PriScreen.png" />
+<p>Now use the fill command to fill the rest of the area. Make sure there are no gaps!</p>
+<img alt="../_images/FillPri.png" src="../_images/FillPri.png" />
+<p>Now if you switch back to the visual screen and turn on the fake ego again, you&#8217;ll see that he disappears behind the wall:</p>
+<img alt="../_images/FakeEgoGoodPri.png" src="../_images/FakeEgoGoodPri.png" />
+<p>Run the game and walk around to see the full effect.</p>
+<p>We chose white as the priority color because it has the highest priority, so it will cover everything. If you had some static objects in the middle
+of the room, you&#8217;d use an different priority color. You can turn on the priority bands in the pic editor to see the color you should use
+for different y positions in the room. Generally, you should use the base of the object (e.g. the bottom of a table&#8217;s legs) as a guide for what priority
+to use.</p>
+<p>This <em>is</em> one of the more tedious aspects of creating pic backgrounds, but it gives life to them.</p>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="AnimatingProps.html" class="btn btn-neutral float-right" title="Animating props" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="RoomBackground.html" class="btn btn-neutral" title="Adding a background and static objects" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Phil Fortier.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

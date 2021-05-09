@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Managing the player’s inventory &mdash; SCICompanion 3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="SCICompanion 3.0 documentation" href="../index.html"/>
+        <link rel="up" title="A Basic Tutorial" href="../sci11_tutorial.html"/>
+        <link rel="next" title="Actors" href="Actors.html"/>
+        <link rel="prev" title="Animating props" href="AnimatingProps.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> SCICompanion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../views.html">View Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pics.html">Pic Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Script editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../legacy.html">The SCI0 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../classlibrary.html">The SCI1.1 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_kernels.html">Kernel Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../studio_compiler.html">SCI Studio compatible compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_compiler.html">The SCI Compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">Text Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../messages.html">Message editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sounds.html">Sound Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vocabs.html">Vocabs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fonts.html">Font Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cursors.html">Cursor Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettes.html">VGA Palette Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../audio.html">Digital Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../outputpane.html">Output Pane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debugging.html">Debugger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../undo.html">Undo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aspectratio.html">Aspect Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettecycling.html">Palette cycling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../anatomy.html">Anatomy of an SCI game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../decompiler.html">Decompiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preferences.html">Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameversion.html">Game/Interpreter Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../importexport.html">Importing and exporting resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extractall.html">Extract All</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tips.html">Handy tips</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../sci11_tutorial.html">A Basic Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="TitleScreen.html">Customizing the title screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FirstRoom.html">The first room</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AddingObjects.html">Interacting with Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RoomBackground.html">Adding a background and static objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PriorityScreen.html">The priority screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AnimatingProps.html">Animating props</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Managing the player&#8217;s inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Actors.html">Actors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dying.html">Dying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UseInventory.html">Using inventory items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Score.html">Scoring and Flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Rooms.html">Adding a second room</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">SCICompanion</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../sci11_tutorial.html">A Basic Tutorial</a> &raquo;</li>
+      
+    <li>Managing the player&#8217;s inventory</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/Tutorial/ManagingInventory.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">SCI1.1 only.</p>
+</div>
+<div class="section" id="managing-the-player-s-inventory">
+<h1>Managing the player&#8217;s inventory<a class="headerlink" href="#managing-the-player-s-inventory" title="Permalink to this headline">¶</a></h1>
+<p>Well, now that we have a small box, maybe we can put it in the player&#8217;s inventory.</p>
+<p>Open the <code class="xref doc docutils literal"><span class="pre">/Scripts/Inventory</span></code> script and scroll to the end. Here, create an inventory item for the box:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">instance</span> <span class="nv">BlueBox</span> <span class="nv">of</span> <span class="nv">InventoryItem</span>
+    <span class="p">(</span><span class="nf">properties</span>
+        <span class="nv">view</span> <span class="mi">123</span>        <span class="c1">; This is our box view, we&#39;ll re-use it</span>
+        <span class="nv">loop</span> <span class="mi">0</span>
+        <span class="nv">signal</span> <span class="nv">$0002</span>
+        <span class="nv">noun</span> <span class="nv">N_BOX</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>You&#8217;ll need to add a BOX noun in this script&#8217;s associated message resource. Note that this is different from the BOX noun we used before. Nouns are
+specific to each &#8220;room&#8221; (unlike verbs, which are global). So this N_BOX is simply a way to refer to the box in the inventory script.</p>
+<p>You may as well add a description of the box now (for the V_LOOK verb), in the inventory message resource:</p>
+<img alt="../_images/InvBoxLook.png" src="../_images/InvBoxLook.png" />
+<p>Then, in <strong>templateInventory</strong> init() method in Inventory.sc, write the code that adds the item to the inventory list. There is a commented
+out stub there in the template game:</p>
+<div class="highlight-python"><div class="highlight"><pre>    <span class="p">(</span><span class="bp">self</span><span class="p">:</span>
+            <span class="p">;</span> <span class="n">Add</span> <span class="n">inventory</span> <span class="n">items</span> <span class="n">here</span><span class="o">.</span>
+        <span class="p">;</span> <span class="n">add</span><span class="p">:</span> <span class="n">Money</span> <span class="n">AThing</span> <span class="n">AnotherThing</span>
+<span class="hll">        <span class="n">add</span><span class="p">:</span> <span class="n">BlueBox</span>
+</span>                    <span class="n">eachElementDo</span><span class="p">:</span> <span class="c">#lowlightColor 2</span>
+                    <span class="n">add</span><span class="p">:</span> <span class="n">invLook</span> <span class="n">invSelect</span> <span class="n">invHelp</span> <span class="n">invUp</span> <span class="n">invDown</span> <span class="n">ok</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>This doesn&#8217;t actually add the item to the player&#8217;s inventory. It just adds it to the master inventory list.</p>
+<p>We need to do one more thing to identify the inventory item. Scripts can&#8217;t directory refer to instances in other scripts, so we need
+to use the index of the inventory item. This is its position in the call to <em>add</em> in the above code. We&#8217;re only adding one item at this
+time, so it&#8217;s zero-based index is just 0. We should assign a descriptive name to this though.</p>
+<p>Open game.sh (via the <em>Quick links</em>, or by right clicking on (include &#8220;game.sh&#8221;)) and opening it. <strong>game.sh</strong> contains all the game-specific defines. Go to the
+end and add a section for inventory, where you&#8217;ll define your inventory item indices. For now, it should look like this:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="c1">; Inventory items</span>
+<span class="p">(</span><span class="k">define </span><span class="nv">INV_BOX</span>                                     <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, we are ready to give it to the player. Go back to your room (script 110) and find the <em>doVerb</em> method of <em>theBox</em>. Add a call to the <em>get</em> method on gEgo.
+This will give the ego the item.</p>
+<div class="highlight-python"><div class="highlight"><pre>(method (doVerb theVerb)
+    (switch theVerb
+        (V_DO
+            (if (not hasBoxShrunk)
+                (= hasBoxShrunk TRUE)
+                (self setScript: shrinkBoxScript)
+            else
+                (Prints {The box is small now, so you can pick it up!})
+                (gEgo get: INV_BOX)
+<span class="hll">                (theBox hide:)
+</span><span class="hll">            )
+</span>        )
+        (else
+            (super doVerb: theVerb &amp;rest)
+        )
+    )
+)
+</pre></div>
+</div>
+<p>Note that we also added a call to <strong>(theBox hide:)</strong>. theBox Prop is a completely different thing than the box inventory item, even if it
+doesn&#8217;t seem like it to the player. So we need to hide it from view when the player takes the box.</p>
+<p>Compile and run the game. Now when you player touches the box, it should shrink. The next time they touch it, it will be placed in the player&#8217;s inventory!</p>
+<p>Open your inventory from the icon bar on top and you&#8217;ll see it. You can then look at it to get a description:</p>
+<img alt="../_images/BoxInInventory.png" src="../_images/BoxInInventory.png" />
+<p>Note that for completeness, we&#8217;d want to modify the code in the room&#8217;s init() so that the box is never initialized in the first place if the player
+has already taken it. That way if we re-enter the room the box won&#8217;t be shown. You can check if the player has an item by doing:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">not </span><span class="p">(</span><span class="nf">gEgo</span> <span class="nv">has:</span> <span class="nv">INV_BOX</span><span class="p">))</span>
+    <span class="c1">; initialize it here (if the player doesn&#39;t have it)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Actors.html" class="btn btn-neutral float-right" title="Actors" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="AnimatingProps.html" class="btn btn-neutral" title="Animating props" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Phil Fortier.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

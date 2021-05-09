@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Dying &mdash; SCICompanion 3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="SCICompanion 3.0 documentation" href="../index.html"/>
+        <link rel="up" title="A Basic Tutorial" href="../sci11_tutorial.html"/>
+        <link rel="next" title="Using inventory items" href="UseInventory.html"/>
+        <link rel="prev" title="Actors" href="Actors.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> SCICompanion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../views.html">View Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pics.html">Pic Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Script editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../legacy.html">The SCI0 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../classlibrary.html">The SCI1.1 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_kernels.html">Kernel Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../studio_compiler.html">SCI Studio compatible compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_compiler.html">The SCI Compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">Text Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../messages.html">Message editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sounds.html">Sound Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vocabs.html">Vocabs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fonts.html">Font Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cursors.html">Cursor Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettes.html">VGA Palette Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../audio.html">Digital Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../outputpane.html">Output Pane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debugging.html">Debugger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../undo.html">Undo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aspectratio.html">Aspect Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettecycling.html">Palette cycling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../anatomy.html">Anatomy of an SCI game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../decompiler.html">Decompiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preferences.html">Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameversion.html">Game/Interpreter Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../importexport.html">Importing and exporting resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extractall.html">Extract All</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tips.html">Handy tips</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../sci11_tutorial.html">A Basic Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="TitleScreen.html">Customizing the title screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FirstRoom.html">The first room</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AddingObjects.html">Interacting with Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RoomBackground.html">Adding a background and static objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PriorityScreen.html">The priority screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AnimatingProps.html">Animating props</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ManagingInventory.html">Managing the player&#8217;s inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Actors.html">Actors</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Dying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UseInventory.html">Using inventory items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Score.html">Scoring and Flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Rooms.html">Adding a second room</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">SCICompanion</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../sci11_tutorial.html">A Basic Tutorial</a> &raquo;</li>
+      
+    <li>Dying</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/Tutorial/Dying.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">SCI1.1 only.</p>
+</div>
+<div class="section" id="dying">
+<h1>Dying<a class="headerlink" href="#dying" title="Permalink to this headline">¶</a></h1>
+<p>Having an evil ego walking around is a good time to worry about dying.</p>
+<p>Let&#8217;s make the ego die when the evil ego gets close. Add a script to the evilEgo. We can delete the changeState method (we don&#8217;t need it)
+and just use doit(). Furthermore, we can override init() in the evilEgo and set the script there. That looks like:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">instance</span> <span class="nv">evilEgo</span> <span class="nv">of</span> <span class="nv">Actor</span>
+    <span class="p">(</span><span class="nf">properties</span>
+        <span class="nv">view</span> <span class="mi">1</span>
+        <span class="nv">x</span> <span class="mi">231</span>
+        <span class="nv">y</span> <span class="mi">131</span>
+        <span class="nv">signal</span> <span class="nv">ignAct</span>
+        <span class="nv">noun</span> <span class="nv">N_EVILEGO</span>
+        <span class="nv">moveSpeed</span> <span class="mi">30</span>
+        <span class="nv">cycleSpeed</span> <span class="mi">30</span>
+    <span class="p">)</span>
+
+    <span class="p">(</span><span class="nf">method</span> <span class="p">(</span><span class="nf">init</span><span class="p">)</span>
+        <span class="p">(</span><span class="nf">super</span> <span class="nv">init:</span> <span class="nv">&amp;rest</span><span class="p">)</span>
+        <span class="p">(</span><span class="nf">self</span> <span class="nv">setScript:</span> <span class="nv">evilEgoScript</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="p">(</span><span class="nf">instance</span> <span class="nv">evilEgoScript</span> <span class="nv">of</span> <span class="nv">Script</span>
+    <span class="p">(</span><span class="nf">properties</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="nf">method</span> <span class="p">(</span><span class="nf">doit</span><span class="p">)</span>
+        <span class="p">(</span><span class="nf">super</span> <span class="nv">doit:</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Now in our doit() method we need to see how close the evilEgo is to the player, and kill them if evilEgo is too close:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">instance</span> <span class="n">evilEgoScript</span> <span class="n">of</span> <span class="n">Script</span>
+    <span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="n">method</span> <span class="p">(</span><span class="n">doit</span><span class="p">)</span>
+        <span class="p">(</span><span class="nb">super</span> <span class="n">doit</span><span class="p">:)</span>
+<span class="hll">        <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&lt;=</span> <span class="p">(</span><span class="n">client</span> <span class="n">distanceTo</span><span class="p">:</span> <span class="n">gEgo</span><span class="p">)</span> <span class="mi">25</span><span class="p">)</span>
+</span><span class="hll">            <span class="p">(</span><span class="n">Die</span><span class="p">)</span>
+</span><span class="hll">        <span class="p">)</span>
+</span>    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Is it that easy? Yes it is! You can also pass a number to Die to indicate a death reason. This lets you customize your death screen.
+The default one in the template game is a little spartan, but you can open DeathRoom.sc and customize to your heart&#8217;s content when
+you&#8217;re more familiar with SCI.</p>
+<p>What if there were a way to fight back?</p>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="UseInventory.html" class="btn btn-neutral float-right" title="Using inventory items" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Actors.html" class="btn btn-neutral" title="Actors" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Phil Fortier.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

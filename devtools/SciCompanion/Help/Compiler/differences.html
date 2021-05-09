@@ -1,0 +1,504 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Differences from SCI Studio syntax &mdash; SCICompanion 3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="SCICompanion 3.0 documentation" href="../index.html"/>
+        <link rel="up" title="The SCI Compiler" href="../sci_compiler.html"/>
+        <link rel="next" title="Classes and instances" href="classes.html"/>
+        <link rel="prev" title="The SCI Compiler" href="../sci_compiler.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> SCICompanion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../views.html">View Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pics.html">Pic Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Script editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../legacy.html">The SCI0 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../classlibrary.html">The SCI1.1 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_kernels.html">Kernel Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../studio_compiler.html">SCI Studio compatible compiler</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../sci_compiler.html">The SCI Compiler</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Differences from SCI Studio syntax</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#quick-guide">Quick guide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#identifying-a-script-as-being-in-sierra-script">Identifying a script as being in Sierra Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enclosing-expressions-in-parentheses">Enclosing expressions in parentheses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#public-exports">Public exports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-send-keyword">The send keyword</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#and-or-operators-are-now-prefix">and/or operators are now prefix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#switch-and-switchto">Switch and Switchto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#loops">Loops</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#strings">Strings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="classes.html">Classes and instances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="properties.html">Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="procedures.html">Procedures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="public.html">Public exports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variables.html">Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variabletypes.html">Variable types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="comment.html">Comments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="define.html">Define and enum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="include.html">Include</a></li>
+<li class="toctree-l2"><a class="reference internal" href="use.html">Use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="strings.html">Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="saids.html">Said</a></li>
+<li class="toctree-l2"><a class="reference internal" href="synonyms.html">Synonyms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="selectors.html">Selectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="selfsuper.html">Self and Super</a></li>
+<li class="toctree-l2"><a class="reference internal" href="return.html">Return</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assignment.html">Assignment operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arithmetic.html">Arithmetic Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bitwise.html">Bitwise operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relationaloperators.html">Relational operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="otheroperators.html">Other operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conditionalexpressions.html">Conditional expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="if.html">If statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cond.html">cond statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switch.html">Switch statement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switchto.html">switchto statement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="while.html">While statement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="repeat.html">repeat statement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="for.html">For loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="break.html">break and breakif statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="continue.html">continue and contIf statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest.html">&amp;rest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="asm.html">Inline assembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="objectfiles.html">Object files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="classheader.html">Accessing an object&#8217;s header</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">Text Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../messages.html">Message editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sounds.html">Sound Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vocabs.html">Vocabs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fonts.html">Font Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cursors.html">Cursor Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettes.html">VGA Palette Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../audio.html">Digital Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../outputpane.html">Output Pane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debugging.html">Debugger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../undo.html">Undo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aspectratio.html">Aspect Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettecycling.html">Palette cycling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../anatomy.html">Anatomy of an SCI game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../decompiler.html">Decompiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preferences.html">Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameversion.html">Game/Interpreter Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../importexport.html">Importing and exporting resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extractall.html">Extract All</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tips.html">Handy tips</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci11_tutorial.html">A Basic Tutorial</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">SCICompanion</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../sci_compiler.html">The SCI Compiler</a> &raquo;</li>
+      
+    <li>Differences from SCI Studio syntax</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/Compiler/differences.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="differences-from-sci-studio-syntax">
+<h1>Differences from SCI Studio syntax<a class="headerlink" href="#differences-from-sci-studio-syntax" title="Permalink to this headline">¶</a></h1>
+<p>The script syntax used by SCI Studio (and previous versions of <strong>SCI</strong>Companion) was an educated guess at what the original
+Sierra Script syntax looked like. It&#8217;s similar in many ways, but also has some important differences.</p>
+<p>Sierra Script is more faithful to its roots in LISP, and more rigorous and strict about parentheses. You can think
+of each statement as an expression enclosed in parentheses.</p>
+<div class="section" id="quick-guide">
+<h2>Quick guide<a class="headerlink" href="#quick-guide" title="Permalink to this headline">¶</a></h2>
+<p>Here&#8217;s a easy-reference table of some of the differences:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="27%" />
+<col width="34%" />
+<col width="40%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operation</th>
+<th class="head">SCI Studio</th>
+<th class="head">Sierra Script</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Calling a procedure</td>
+<td><strong>Proc</strong>(param1 param2)</td>
+<td>(<strong>Proc</strong> param1 param2)</td>
+</tr>
+<tr class="row-odd"><td>Calling a method</td>
+<td>(send gEgo:posn(4 5))</td>
+<td>(gEgo posn: 4 5)</td>
+</tr>
+<tr class="row-even"><td>Calling a method</td>
+<td>(anInstance: init())</td>
+<td>(anInstance init:)</td>
+</tr>
+<tr class="row-odd"><td>Calling multiple methods</td>
+<td>(anInstance: posn(4 5) init())</td>
+<td>(anInstance posn: 4 5 init:)</td>
+</tr>
+<tr class="row-even"><td>Retrieving a property</td>
+<td>(send gEgo: x)</td>
+<td>(gEgo x?)</td>
+</tr>
+<tr class="row-odd"><td>Declare an array</td>
+<td>myArray[5]</td>
+<td>[myArray 5]</td>
+</tr>
+<tr class="row-even"><td>Initialize an array</td>
+<td>myArray[3] = (1 10 100)</td>
+<td>[myArray 3] = [1 10 100]</td>
+</tr>
+<tr class="row-odd"><td>Reference an array</td>
+<td>(= temp0 myArray[2])</td>
+<td>(= temp0 [myArray 2])</td>
+</tr>
+<tr class="row-even"><td>Items not equal</td>
+<td>(if (<strong>&lt;&gt;</strong> one two) Print(&#8220;not equal&#8221;) )</td>
+<td>(if (<strong>!=</strong> one two) (Print {not equal}) )</td>
+</tr>
+<tr class="row-odd"><td>Bitwise not</td>
+<td>(= temp0 (bnot signal))</td>
+<td>(= temp0 (~ signal))</td>
+</tr>
+<tr class="row-even"><td>Conditional expressions</td>
+<td>(if (A and B) Print(&#8220;Both!&#8221;) )</td>
+<td>(if (and A B) Print({Both!}) )</td>
+</tr>
+<tr class="row-odd"><td>Temp variables</td>
+<td>(var temp0, temp1)</td>
+<td>(procedure (Proc &amp;tmp temp0 temp1) ... )</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="identifying-a-script-as-being-in-sierra-script">
+<h2>Identifying a script as being in Sierra Script<a class="headerlink" href="#identifying-a-script-as-being-in-sierra-script" title="Permalink to this headline">¶</a></h2>
+<p>Sierra Script files use the same file extensions as SCI Studio files. To identify a Sierra Script, <strong>SCI</strong>Companion looks for a Sierra Script token
+in the first comment of the file:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="c1">; Sierra Script - don&#39;t remove this comment</span>
+</pre></div>
+</div>
+<p>Both languages can be mixed and matched in the same project (but not the same file), though it is not recommended you do so (but this might be the case if you are
+converting an old project to the Sierra Script syntax file-by-file).</p>
+</div>
+<div class="section" id="enclosing-expressions-in-parentheses">
+<h2>Enclosing expressions in parentheses<a class="headerlink" href="#enclosing-expressions-in-parentheses" title="Permalink to this headline">¶</a></h2>
+<p>Sierra Script is much more strict regarding parentheses. Unlike SCI Studio syntax, you can&#8217;t arbitrarily enclose expressions
+in parentheses, nor can you leave them out:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">method</span> <span class="p">(</span><span class="nf">foo</span><span class="p">)</span>
+    <span class="p">(</span><span class="nf">var</span> <span class="nv">temp0</span><span class="p">)</span>
+    <span class="nv">=</span> <span class="nv">temp0</span> <span class="mi">6</span>       <span class="nv">//</span> <span class="nv">This</span> <span class="nv">is</span> <span class="nv">legal</span> <span class="nv">in</span> <span class="nv">SCI</span> <span class="nv">Studio</span>
+<span class="p">)</span>
+
+<span class="p">(</span><span class="nf">method</span> <span class="p">(</span><span class="nf">foo</span> <span class="nv">&amp;tmp</span> <span class="nv">temp0</span><span class="p">))</span>
+    <span class="nv">=</span> <span class="nv">temp0</span> <span class="mi">6</span>       <span class="c1">; This is a compile error in Sierra Script</span>
+    <span class="p">(</span><span class="nb">= </span><span class="nv">temp0</span> <span class="mi">6</span><span class="p">)</span>     <span class="c1">; This is the correct way to do it.</span>
+<span class="p">)</span>
+
+
+<span class="p">(</span><span class="nf">while</span> <span class="p">(</span><span class="nf">TRUE</span><span class="p">)</span>       <span class="nv">//</span> <span class="nv">This</span> <span class="nv">is</span> <span class="nv">legal</span> <span class="nv">in</span> <span class="nv">SCI</span> <span class="nv">Studio</span>
+    <span class="nv">SomeProc</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="p">(</span><span class="nf">while</span> <span class="p">(</span><span class="nf">TRUE</span><span class="p">)</span>       <span class="c1">; This is a compile error in Sierra Script</span>
+    <span class="p">(</span><span class="nf">SomeProc</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="p">(</span><span class="nf">while</span> <span class="nv">TRUE</span>         <span class="c1">; This is the correct way to do it in Sierra Script</span>
+    <span class="p">(</span><span class="nf">SomeProc</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>In summary, <strong>all</strong> expressions must be enclosed in parentheses in Sierra Script, unless it is just a single value (in which case it cannot
+be enclosed, or it will be treated as a procedure call).</p>
+</div>
+<div class="section" id="public-exports">
+<h2>Public exports<a class="headerlink" href="#public-exports" title="Permalink to this headline">¶</a></h2>
+<p><strong>public</strong> is not longer a keyword that can be applied to procedures and instances. Instead, public instances and procedures are
+listed in a separate <strong>public</strong> block at the top of the script file.</p>
+</div>
+<div class="section" id="the-send-keyword">
+<h2>The send keyword<a class="headerlink" href="#the-send-keyword" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>send</strong> keyword used in SCI Studio is not present in Sierra Script. There is no difference in sending messages to
+an explicitly declared instance versus a variable that points to an object.</p>
+<p>Suppose you had:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">instance</span> <span class="nv">aMan</span> <span class="nv">of</span> <span class="nv">Actor</span><span class="p">)</span>
+    <span class="p">(</span><span class="nf">properties</span>
+        <span class="nv">x</span> <span class="mi">100</span>
+        <span class="nv">y</span> <span class="mi">100</span>
+        <span class="nv">view</span> <span class="mi">10</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>In SCI Studio you would do:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">aMan:</span> <span class="nv">posn</span><span class="p">(</span><span class="mi">50</span> <span class="mi">100</span><span class="p">))</span>   <span class="nv">//</span> <span class="nv">but</span><span class="o">...</span>
+<span class="p">(</span><span class="nf">send</span> <span class="nv">gEgo:</span> <span class="nv">posn</span><span class="p">(</span><span class="mi">50</span> <span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>In Sierra script these would both look the same:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">aMan</span> <span class="nv">posn:</span> <span class="mi">50</span> <span class="mi">100</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">gEgo</span> <span class="nv">posn:</span> <span class="mi">50</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="and-or-operators-are-now-prefix">
+<h2>and/or operators are now prefix<a class="headerlink" href="#and-or-operators-are-now-prefix" title="Permalink to this headline">¶</a></h2>
+<p>In SCI Studio syntax, <strong>and</strong> and <strong>or</strong> behaved differently than all other oeprators in that they were infix instead of prefix.
+In Sierra Script, <strong>and</strong> and <strong>or</strong> are prefix. So if statements must be written like so:</p>
+<div class="highlight-scheme"><div class="highlight"><pre>(if (and A B))
+    (Print {Both A and B are true})
+)
+</pre></div>
+</div>
+<p>Note that these can also take multiple arguments:</p>
+<div class="highlight-scheme"><div class="highlight"><pre>(if (and A B C))
+    (Print {A, B and C are all true})
+)
+</pre></div>
+</div>
+</div>
+<div class="section" id="switch-and-switchto">
+<h2>Switch and Switchto<a class="headerlink" href="#switch-and-switchto" title="Permalink to this headline">¶</a></h2>
+<p>There is no more <strong>case</strong> keyword for the <strong>switch</strong> statement. Instead, the case is the first expression in the enclosing parentheses.
+SCI Studio:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">switch</span> <span class="p">(</span><span class="nf">state</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">case </span><span class="mi">0</span>
+        <span class="nv">=</span> <span class="nv">seconds</span> <span class="mi">2</span>
+    <span class="p">)</span>
+    <span class="p">(</span><span class="k">case </span><span class="mi">1</span>
+        <span class="p">(</span><span class="nb">= </span><span class="nv">egoSpotted</span> <span class="nv">TRUE</span><span class="p">)</span>
+        <span class="p">(</span><span class="nf">aMan:</span> <span class="nv">setMotion</span><span class="p">(</span><span class="nf">MoveTo</span> <span class="mi">100</span> <span class="mi">100</span><span class="p">))</span>
+    <span class="p">)</span>
+    <span class="p">(</span><span class="k">case </span><span class="mi">2</span>
+        <span class="nv">//</span> <span class="nv">done</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>And in Sierra Script:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">switch</span> <span class="nv">state</span>
+    <span class="p">(</span><span class="mi">0</span>
+        <span class="p">(</span><span class="nb">= </span><span class="nv">seconds</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="p">(</span><span class="mi">1</span>
+        <span class="p">(</span><span class="nb">= </span><span class="nv">egoSpotted</span> <span class="nv">TRUE</span><span class="p">)</span>
+        <span class="p">(</span><span class="nf">aMan</span> <span class="nv">setMotion:</span> <span class="nv">MoveTo</span> <span class="mi">100</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="p">(</span><span class="mi">2</span>
+        <span class="nv">//</span> <span class="nv">done</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>With the <strong>switchto</strong> statement, you can also leave out the case values altogether if your cases are sequential starting from 0:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">switchto</span> <span class="nv">state</span>
+    <span class="p">(</span>
+        <span class="p">(</span><span class="nb">= </span><span class="nv">seconds</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="p">(</span>
+        <span class="p">(</span><span class="nb">= </span><span class="nv">egoSpotted</span> <span class="nv">TRUE</span><span class="p">)</span>
+        <span class="p">(</span><span class="nf">aMan</span> <span class="nv">setMotion:</span> <span class="nv">MoveTo</span> <span class="mi">100</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="loops">
+<h2>Loops<a class="headerlink" href="#loops" title="Permalink to this headline">¶</a></h2>
+<p>The do-loop is gone. In its place you can use the <strong>repeat</strong> loop with a <strong>breakif</strong> statement.</p>
+</div>
+<div class="section" id="strings">
+<h2>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h2>
+<p>In SCI Studio, strings are enclosed in double-quotes. In Sierra Script, they can be enclosed in curly braces or double-quotes. In the original Script
+used by Sierra, double-quoted strings were automatically placed into a text resource and converted into a resource number/entry tuple, while brace-enclosed strings
+were not. <strong>SCI</strong>Companion does not support this feature yet, so currently curly braces strings and double-quote strings are treated the same:</p>
+<div class="highlight-scheme"><div class="highlight"><pre>Print(&quot;Hello there&quot;)            // SCI Studio
+
+(Print {Hello there})           ; Sierra Script
+(Print &quot;Hello there&quot;)           ; Sierra Script
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="classes.html" class="btn btn-neutral float-right" title="Classes and instances" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../sci_compiler.html" class="btn btn-neutral" title="The SCI Compiler" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Phil Fortier.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

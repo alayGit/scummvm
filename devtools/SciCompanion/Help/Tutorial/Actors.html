@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Actors &mdash; SCICompanion 3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="SCICompanion 3.0 documentation" href="../index.html"/>
+        <link rel="up" title="A Basic Tutorial" href="../sci11_tutorial.html"/>
+        <link rel="next" title="Dying" href="Dying.html"/>
+        <link rel="prev" title="Managing the player’s inventory" href="ManagingInventory.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> SCICompanion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../views.html">View Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pics.html">Pic Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Script editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../legacy.html">The SCI0 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../classlibrary.html">The SCI1.1 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_kernels.html">Kernel Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../studio_compiler.html">SCI Studio compatible compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_compiler.html">The SCI Compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">Text Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../messages.html">Message editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sounds.html">Sound Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vocabs.html">Vocabs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fonts.html">Font Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cursors.html">Cursor Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettes.html">VGA Palette Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../audio.html">Digital Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../outputpane.html">Output Pane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debugging.html">Debugger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../undo.html">Undo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aspectratio.html">Aspect Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettecycling.html">Palette cycling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../anatomy.html">Anatomy of an SCI game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../decompiler.html">Decompiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preferences.html">Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameversion.html">Game/Interpreter Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../importexport.html">Importing and exporting resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extractall.html">Extract All</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tips.html">Handy tips</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../sci11_tutorial.html">A Basic Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="TitleScreen.html">Customizing the title screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FirstRoom.html">The first room</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AddingObjects.html">Interacting with Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RoomBackground.html">Adding a background and static objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PriorityScreen.html">The priority screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AnimatingProps.html">Animating props</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ManagingInventory.html">Managing the player&#8217;s inventory</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Actors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dying.html">Dying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UseInventory.html">Using inventory items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Score.html">Scoring and Flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Rooms.html">Adding a second room</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">SCICompanion</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../sci11_tutorial.html">A Basic Tutorial</a> &raquo;</li>
+      
+    <li>Actors</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/Tutorial/Actors.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">SCI1.1 only.</p>
+</div>
+<div class="section" id="actors">
+<h1>Actors<a class="headerlink" href="#actors" title="Permalink to this headline">¶</a></h1>
+<p>Let&#8217;s add another character! Open the template ego character, and <strong>Save As</strong> a new view resource (say view number 1).</p>
+<p>Then use the shift color functionality to change the colors so he looks different. This evil ego will wear grey clothing and have purple skin.</p>
+<img alt="../_images/EvilEgo.jpg" src="../_images/EvilEgo.jpg" />
+<p>Go into your room script file and add a new <a class="reference internal" href="../Classes/Actor.html#Actor" title="Actor"><code class="xref py py-class docutils literal"><span class="pre">Actor</span></code></a> at the bottom:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">instance</span> <span class="nv">evilEgo</span> <span class="nv">of</span> <span class="nv">Actor</span>
+    <span class="p">(</span><span class="nf">properties</span>
+        <span class="nv">view</span> <span class="mi">1</span>
+        <span class="nv">x</span> <span class="mi">231</span>
+        <span class="nv">y</span> <span class="mi">131</span>
+        <span class="nv">signal</span> <span class="nv">ignAct</span>
+        <span class="nv">noun</span> <span class="nv">N_EVILEGO</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Also add the N_EVILEGO to the message resource (you should be good at this now).</p>
+<p>Now go up to the room&#8217;s init() method and initialize the evil ego:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">evilEgo</span>
+    <span class="nv">init:</span>
+    <span class="nv">setCycle:</span> <span class="nv">StopWalk</span> <span class="mi">-1</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="../Classes/StopWalk.html#StopWalk" title="StopWalk"><code class="xref py py-class docutils literal"><span class="pre">StopWalk</span></code></a> is the standard Walk cycler that will switch to a special loop or different view when it is stopped. We don&#8217;t have a different view,
+but the ego view we used has a special 9th loop that is used for the stop pose. In this case, -1 says to use the final loop of the view as the stop pose.</p>
+<p>Compile and run the game (you may need to <strong>(use &#8220;StopWalk&#8221;)</strong>), and you should see the evil ego standing menacingly on the other side of the room.</p>
+<img alt="../_images/EvilEgoRoom.png" src="../_images/EvilEgoRoom.png" />
+<p>Maybe give him some messages so you can look at him or talk to him:</p>
+<img alt="../_images/EvilEgoMessages.png" src="../_images/EvilEgoMessages.png" />
+<p>Now let&#8217;s make him wander around:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">evilEgo</span>
+     <span class="n">init</span><span class="p">:</span>
+     <span class="n">setCycle</span><span class="p">:</span> <span class="n">StopWalk</span> <span class="o">-</span><span class="mi">1</span>
+     <span class="n">setMotion</span><span class="p">:</span> <span class="n">Wander</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>You&#8217;ll need to <strong>(use &#8220;Wander&#8221;)</strong>. Compile and run, and you&#8217;ll see him wander around. <strong>setMotion</strong> sets a <a class="reference internal" href="../Classes/Motion.html#Motion" title="Motion"><code class="xref py py-class docutils literal"><span class="pre">Motion</span></code></a> class on an <a class="reference internal" href="../Classes/Actor.html#Actor" title="Actor"><code class="xref py py-class docutils literal"><span class="pre">Actor</span></code></a>. This
+is used to control how the Actor moves.</p>
+<p>You might notice that he&#8217;ll walk right through walls. The <a class="reference internal" href="../Classes/Wander.html#Wander" title="Wander"><code class="xref py py-class docutils literal"><span class="pre">Wander</span></code></a> Motion doesn&#8217;t obey the room obstacles, so it&#8217;s not very useful for us here.</p>
+<p>The Motion classes that obey obstacles generally start with the letter P. So maybe we can use <a class="reference internal" href="../Classes/PFollow.html#PFollow" title="PFollow"><code class="xref py py-class docutils literal"><span class="pre">PFollow</span></code></a> instead:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">evilEgo</span>
+    <span class="n">init</span><span class="p">:</span>
+    <span class="n">setCycle</span><span class="p">:</span> <span class="n">StopWalk</span> <span class="o">-</span><span class="mi">1</span>
+<span class="hll">    <span class="p">;</span> <span class="n">Follow</span> <span class="n">the</span> <span class="n">ego</span> <span class="n">to</span> <span class="n">a</span> <span class="n">distance</span> <span class="n">of</span> <span class="mi">20</span>
+</span><span class="hll">    <span class="n">setMotion</span><span class="p">:</span> <span class="n">PFollow</span> <span class="n">gEgo</span> <span class="mi">20</span>
+</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Compile and run the game, and now he&#8217;ll be following the ego around!! That&#8217;s a bit scary, so let&#8217;s slow him down:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">instance</span> <span class="n">evilEgo</span> <span class="n">of</span> <span class="n">Actor</span>
+    <span class="p">(</span><span class="n">properties</span>
+        <span class="n">view</span> <span class="mi">1</span>
+        <span class="n">x</span> <span class="mi">231</span>
+        <span class="n">y</span> <span class="mi">131</span>
+        <span class="n">signal</span> <span class="n">ignAct</span>
+        <span class="n">noun</span> <span class="n">N_EVILEGO</span>
+<span class="hll">        <span class="n">moveSpeed</span> <span class="mi">30</span>
+</span><span class="hll">        <span class="n">cycleSpeed</span> <span class="mi">30</span>
+</span>    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we at least have a chance to escape.</p>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Dying.html" class="btn btn-neutral float-right" title="Dying" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ManagingInventory.html" class="btn btn-neutral" title="Managing the player’s inventory" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Phil Fortier.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

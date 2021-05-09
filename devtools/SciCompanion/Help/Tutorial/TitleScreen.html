@@ -1,0 +1,302 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Customizing the title screen &mdash; SCICompanion 3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="SCICompanion 3.0 documentation" href="../index.html"/>
+        <link rel="up" title="A Basic Tutorial" href="../sci11_tutorial.html"/>
+        <link rel="next" title="The first room" href="FirstRoom.html"/>
+        <link rel="prev" title="A Basic Tutorial" href="../sci11_tutorial.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> SCICompanion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../views.html">View Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pics.html">Pic Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Script editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../legacy.html">The SCI0 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../classlibrary.html">The SCI1.1 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_kernels.html">Kernel Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../studio_compiler.html">SCI Studio compatible compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_compiler.html">The SCI Compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">Text Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../messages.html">Message editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sounds.html">Sound Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vocabs.html">Vocabs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fonts.html">Font Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cursors.html">Cursor Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettes.html">VGA Palette Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../audio.html">Digital Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../outputpane.html">Output Pane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debugging.html">Debugger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../undo.html">Undo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aspectratio.html">Aspect Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettecycling.html">Palette cycling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../anatomy.html">Anatomy of an SCI game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../decompiler.html">Decompiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preferences.html">Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameversion.html">Game/Interpreter Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../importexport.html">Importing and exporting resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extractall.html">Extract All</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tips.html">Handy tips</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../sci11_tutorial.html">A Basic Tutorial</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Customizing the title screen</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#changing-the-game-name">Changing the game name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#changing-the-background-image">Changing the background image:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#extra-credit">Extra credit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="FirstRoom.html">The first room</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AddingObjects.html">Interacting with Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RoomBackground.html">Adding a background and static objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PriorityScreen.html">The priority screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AnimatingProps.html">Animating props</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ManagingInventory.html">Managing the player&#8217;s inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Actors.html">Actors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dying.html">Dying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UseInventory.html">Using inventory items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Score.html">Scoring and Flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Rooms.html">Adding a second room</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">SCICompanion</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../sci11_tutorial.html">A Basic Tutorial</a> &raquo;</li>
+      
+    <li>Customizing the title screen</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/Tutorial/TitleScreen.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">SCI1.1 only.</p>
+</div>
+<div class="section" id="customizing-the-title-screen">
+<h1>Customizing the title screen<a class="headerlink" href="#customizing-the-title-screen" title="Permalink to this headline">¶</a></h1>
+<p>When you create a new game, the script editor will be opened to the title screen script. The default title screen logic shows
+a background image for 4 seconds, then display a menu on top of it after that time (or when any mouse button or keyboard key is pressed).</p>
+<div class="section" id="changing-the-game-name">
+<h2>Changing the game name<a class="headerlink" href="#changing-the-game-name" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s put the name of your game in the title screen. If you go to the <em>changeState</em> method of the <em>rmScript</em> class, you&#8217;ll see
+a call to <a class="reference internal" href="../Classes/Print.html#Print" title="Print"><code class="xref py py-class docutils literal"><span class="pre">Print</span></code></a> that adds two lines of text and three buttons. We want to change what the <em>addText</em> calls point to:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="nv">addText:</span> <span class="nv">N_TITLEMENU</span> <span class="nv">V_LOOK</span> <span class="mi">0</span> <span class="mi">4</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>The parameters passed to addText are: noun, verb, condition, sequence, x, y and module number. Module number indicates which message
+resource the text is contained in.</p>
+<p>Almost all text in SCI1.1 games comes from message resources. So to change this, we don&#8217;t actually need to edit the script. Instead, we&#8217;ll edit
+the message resource.</p>
+<p>Normally for a room, the message resource number
+is the same as the room number. However, in the TitleScreen room, we&#8217;re using message resource 0.</p>
+<p>Open up <a class="reference internal" href="../messages.html"><em>message resource 0</em></a> from the Game Explorer and search for N_TITLEMENU. N_TITLEMENU is just an arbitrary noun. These are used
+to identify a particular message entry. The same goes for V_LOOK. Nouns and verbs will feel more natural when we start interacting with objects.</p>
+<img alt="../_images/MessageTitleScreen.png" src="../_images/MessageTitleScreen.png" />
+<p>Click on the entries for Seq: 4 and 5 (which were the values passed to addText), and modify the text in the message details section. Save the message resource, the run the game, and you should see your changes.</p>
+<img alt="../_images/TitleChange.png" src="../_images/TitleChange.png" />
+<p>Of course, if you really want, you can also put the text directly in the call to addText:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="c1">; addText: N_TITLEMENU V_LOOK 0 4 0 0 0</span>
+<span class="nv">addText:</span> <span class="s">&quot;Direct Quest&quot;</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="c1">; addText: N_TITLEMENU V_LOOK 0 5 0 10 0</span>
+<span class="nv">addText:</span> <span class="s">&quot;A subtitle&quot;</span> <span class="mi">0</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="changing-the-background-image">
+<h2>Changing the background image:<a class="headerlink" href="#changing-the-background-image" title="Permalink to this headline">¶</a></h2>
+<p>To change the background image, open the pic resource by clicking on the pic quick link in the Toolbox pane of the script editor (or by going to the Game Explorer and opening pic 100).
+You&#8217;ll see the background image.</p>
+<img alt="../_images/TitleScreenBackground.jpg" src="../_images/TitleScreenBackground.jpg" />
+<p>To change it, click the <em>Set background</em> button, and <a class="reference internal" href="../pics.html#import-vga-background"><span>find a new picture to use</span></a>. Change the settings until your image looks right (you may
+need to select <em>Scale image to fit</em>), then click <em>Accept</em> and save the pic. Run the game and
+you should have a new background image.</p>
+<img alt="../_images/TitleChangeImage.png" src="../_images/TitleChangeImage.png" />
+</div>
+<div class="section" id="extra-credit">
+<h2>Extra credit<a class="headerlink" href="#extra-credit" title="Permalink to this headline">¶</a></h2>
+<p>See if you can figure out how to add more button links to the title dialog, or change their highlight color (If you right-click on addText or addButton, you can
+go see the definition of them to see what the various parameters do). The color indices used in the call to addColorButton will refer to the palette for the background pic (and
+the first 64 colors should be shared with the global palette 999).</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="FirstRoom.html" class="btn btn-neutral float-right" title="The first room" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../sci11_tutorial.html" class="btn btn-neutral" title="A Basic Tutorial" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Phil Fortier.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

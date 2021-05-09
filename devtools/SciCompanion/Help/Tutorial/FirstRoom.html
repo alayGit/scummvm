@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The first room &mdash; SCICompanion 3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="SCICompanion 3.0 documentation" href="../index.html"/>
+        <link rel="up" title="A Basic Tutorial" href="../sci11_tutorial.html"/>
+        <link rel="next" title="Interacting with Objects" href="AddingObjects.html"/>
+        <link rel="prev" title="Customizing the title screen" href="TitleScreen.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> SCICompanion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../views.html">View Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pics.html">Pic Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Script editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../legacy.html">The SCI0 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../classlibrary.html">The SCI1.1 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_kernels.html">Kernel Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../studio_compiler.html">SCI Studio compatible compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_compiler.html">The SCI Compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">Text Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../messages.html">Message editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sounds.html">Sound Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vocabs.html">Vocabs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fonts.html">Font Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cursors.html">Cursor Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettes.html">VGA Palette Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../audio.html">Digital Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../outputpane.html">Output Pane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debugging.html">Debugger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../undo.html">Undo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aspectratio.html">Aspect Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettecycling.html">Palette cycling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../anatomy.html">Anatomy of an SCI game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../decompiler.html">Decompiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preferences.html">Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameversion.html">Game/Interpreter Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../importexport.html">Importing and exporting resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extractall.html">Extract All</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tips.html">Handy tips</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../sci11_tutorial.html">A Basic Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="TitleScreen.html">Customizing the title screen</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">The first room</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-init-method">The init: method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-room-script">The room script</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#changestate-newstate">(changeState newState)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#doit">doit:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#title-bar">Title bar</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="AddingObjects.html">Interacting with Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RoomBackground.html">Adding a background and static objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PriorityScreen.html">The priority screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AnimatingProps.html">Animating props</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ManagingInventory.html">Managing the player&#8217;s inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Actors.html">Actors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dying.html">Dying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UseInventory.html">Using inventory items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Score.html">Scoring and Flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Rooms.html">Adding a second room</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">SCICompanion</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../sci11_tutorial.html">A Basic Tutorial</a> &raquo;</li>
+      
+    <li>The first room</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/Tutorial/FirstRoom.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">SCI1.1 only.</p>
+</div>
+<div class="section" id="the-first-room">
+<h1>The first room<a class="headerlink" href="#the-first-room" title="Permalink to this headline">¶</a></h1>
+<p>By default, the TitleScreen.sc script takes you to room 110 when you click on the color button number 0:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">switch</span> <span class="n">temp0</span>
+<span class="hll">    <span class="p">(</span><span class="mi">0</span> <span class="p">(</span><span class="n">gRoom</span> <span class="n">newRoom</span><span class="p">:</span> <span class="mi">110</span><span class="p">))</span>
+</span>    <span class="p">(</span><span class="mi">1</span> <span class="p">(</span><span class="n">gGame</span> <span class="n">restore</span><span class="p">:)</span> <span class="p">(</span><span class="bp">self</span> <span class="n">changeState</span><span class="p">:</span> <span class="n">state</span><span class="p">))</span>
+    <span class="p">(</span><span class="mi">2</span> <span class="p">(</span><span class="o">=</span> <span class="n">gQuitGame</span> <span class="n">TRUE</span><span class="p">))</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Room 110 is already set up for you. Find <em>rm110.sc</em> in the Quick links in the script editor, or open it from the Game Explorer.</p>
+<p>When you run the game, your ego will appear on a blank white screen (pic 110). You can switch between the <em>walk</em>, <em>look</em>, <em>do</em> and <em>talk</em> cursors by right-clicking or
+using the icon bar at the top. To move the ego around, click with the <em>walk</em> cursor.</p>
+<div class="section" id="the-init-method">
+<h2>The init: method<a class="headerlink" href="#the-init-method" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s go through each of the pieces of code in init():</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">AddPolygonsToRoom</span> <span class="nv">@P_Default110</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above line adds the polygons defined with the pic resource to the room. Polygons define the boundaries of where the ego can go. (If you click
+on the <em>pic 110</em> link in the Toolbox, pic 110 will open. Then click on <em>Show polygons</em> in the pic Toolbox, and you&#8217;ll see a green rectangle outlined
+on the pic. This is the single default polygon for this room). In subsequent tutorials we&#8217;ll modify this to control where the ego can go.</p>
+<p>Next, we have:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">super</span> <span class="nv">init:</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Always remember to call (super init:). It&#8217;s responsible for drawing the background, among other things. Next, we have:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">switch</span> <span class="nv">gPreviousRoomNumber</span>
+    <span class="c1">; Add room numbers here to set up the ego when coming from different directions.</span>
+    <span class="p">(</span><span class="nf">else</span>
+        <span class="p">(</span><span class="nf">SetUpEgo</span> <span class="mi">-1</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">(</span><span class="nf">gEgo</span> <span class="nv">posn:</span> <span class="mi">150</span> <span class="mi">130</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="p">(</span><span class="nf">gEgo</span> <span class="nv">init:</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is responsible for placing the ego in different locations depending on what room they entered from. For now, we just have it set up
+so that when the ego enters from any room to room 110, he&#8217;ll be placed at (150, 130). SetUpEgo says to use the default view (-1), and loop 1 (facing west).</p>
+<p>Try changing <strong>posn: 150 130</strong> to <strong>posn: 20 130</strong>, and you&#8217;ll see the ego appears at a different spot:</p>
+<img alt="../_images/EgoMoved.png" src="../_images/EgoMoved.png" />
+<p>Finally, we have:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="c1">; We just came from the title screen, so we need to call this to give control</span>
+<span class="c1">; to the player.</span>
+<span class="p">(</span><span class="nf">gGame</span> <span class="nv">handsOn:</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Normally you wouldn&#8217;t need to put this in your room&#8217;s init(). But since we came from the TitleScreen where player input was disabled, we need to do this.</p>
+</div>
+<div class="section" id="the-room-script">
+<h2>The room script<a class="headerlink" href="#the-room-script" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s add a room script. Room scripts give the ability to handle state changes and execute code every game cycle. Place the cursor at the bottom of the
+script file, right-click and choose <em>Insert Object-&gt;Script</em>. Name your script <strong>RoomScript</strong>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="hll"><span class="p">(</span><span class="n">instance</span> <span class="n">RoomScript</span> <span class="n">of</span> <span class="n">Script</span>
+</span>    <span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="n">method</span> <span class="p">(</span><span class="n">changeState</span> <span class="n">newState</span><span class="p">)</span>
+        <span class="p">(</span><span class="o">=</span> <span class="n">state</span> <span class="n">newState</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">switch</span> <span class="n">state</span>
+            <span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Go to your room&#8217;s init method, and assign the script to the room:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">method</span> <span class="p">(</span><span class="n">init</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">AddPolygonsToRoom</span> <span class="nd">@P_Default110</span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">super</span> <span class="n">init</span><span class="p">:)</span>
+<span class="hll">    <span class="p">(</span><span class="bp">self</span> <span class="n">setScript</span><span class="p">:</span> <span class="n">RoomScript</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<div class="section" id="changestate-newstate">
+<h3>(changeState newState)<a class="headerlink" href="#changestate-newstate" title="Permalink to this headline">¶</a></h3>
+<p>By default, when a script is assigned to a room, the <em>changeState</em> method will be called with newState equal to zero. So whatever code you put in in case 0 will
+be executed. Try this, then compile and run:</p>
+<div class="highlight-python"><div class="highlight"><pre>(instance RoomScript of Script
+    (properties)
+
+    (method (changeState newState)
+        (= state newState)
+        (switch state
+            (0
+<span class="hll">                        (Prints {Case 0!})
+</span>            )
+        )
+    )
+)
+</pre></div>
+</div>
+<p>You&#8217;ll note that the text actually comes up right away... before the room has actually been drawn! Let&#8217;s modify the changeState method
+by making it wait four seconds:</p>
+<div class="highlight-python"><div class="highlight"><pre>(instance RoomScript of Script
+    (properties)
+
+    (method (changeState newState)
+        (= state newState)
+        (switch state
+            (0
+<span class="hll">                    (= seconds 4)
+</span>            )
+            (1
+                    (Prints {Case 0!})
+            )
+        )
+    )
+)
+</pre></div>
+</div>
+<p>Setting the <em>seconds</em> property of a script will make it trigger the next state after that many seconds. You can also use the <em>cycles</em> property for
+more fine-grained time.</p>
+<p>In other tutorials we&#8217;ll see other ways to trigger the next state (like when a certain game event happens), and you could also set a state directly using:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">RoomScript</span> <span class="nv">cue:</span> <span class="mi">5</span><span class="p">)</span> <span class="c1">; Sets state 5</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="doit">
+<h3>doit:<a class="headerlink" href="#doit" title="Permalink to this headline">¶</a></h3>
+<p>Scripts also have a <em>doit:</em> method which is useful. This is called on every game cycle. To add this, position your cursor inside the <em>RoomScript</em> instance,
+after the <em>changeState</em> method. Then right-click, <em>Insert Method-&gt;doit</em>:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">method</span> <span class="p">(</span><span class="nf">doit</span><span class="p">)</span>
+    <span class="p">(</span><span class="nf">super</span> <span class="nv">doit:</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, suppose we wanted the ego to be magically transported back to the left side of the screen whenever they tried to walk past the center of the screen.
+To do so, each game cycle we&#8217;d check to see if the ego&#8217;s x position was large than 150. If so, we would position the ego back on the left side of the screen.
+It would look like this:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">method</span> <span class="p">(</span><span class="nf">doit</span> <span class="nv">&amp;tmp</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+    <span class="p">(</span><span class="nf">super</span> <span class="nv">doit:</span><span class="p">)</span>
+    <span class="c1">; Grab the ego&#39;s x and y and put them in temp variables</span>
+    <span class="p">(</span><span class="nb">= </span><span class="nv">x</span> <span class="p">(</span><span class="nf">gEgo</span> <span class="nv">x?</span><span class="p">))</span>
+    <span class="p">(</span><span class="nb">= </span><span class="nv">y</span> <span class="p">(</span><span class="nf">gEgo</span> <span class="nv">y?</span><span class="p">))</span>
+
+    <span class="c1">; If the ego is past 150</span>
+    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="nv">x</span> <span class="mi">150</span><span class="p">)</span>
+        <span class="c1">; Then put him back at 20</span>
+        <span class="p">(</span><span class="nf">gEgo</span> <span class="nv">posn:</span> <span class="mi">20</span> <span class="nv">y</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Now compile and run, and try to walk the ego to the right side of the screen.</p>
+<p>Note that this example introduced temporary variables (following the &amp;tmp token). They are scoped to the method or procedure they are declared in.</p>
+</div>
+<div class="section" id="title-bar">
+<h3>Title bar<a class="headerlink" href="#title-bar" title="Permalink to this headline">¶</a></h3>
+<p>At this point, you may have noticed that the status bar still has a default game name in it (the status bar wasn&#8217;t visible on the TitleScreen, so we didn&#8217;t notice it).
+Open message resource 0 and find the the message with the TITLEBAR noun (or <em>Edit-&gt;Find in Files</em> and search for &#8220;Your game name&#8221;). In there, you&#8217;ll see:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="nv">Your</span> <span class="nv">game</span> <span class="nv">name</span>                                             <span class="nv">Score:</span>
+</pre></div>
+</div>
+<p>Change this to whatever you want, and modify the spacing if needed so that &#8220;Score:&#8221; still appears on screen.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="AddingObjects.html" class="btn btn-neutral float-right" title="Interacting with Objects" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="TitleScreen.html" class="btn btn-neutral" title="Customizing the title screen" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Phil Fortier.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

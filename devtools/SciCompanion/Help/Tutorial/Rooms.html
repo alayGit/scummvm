@@ -1,0 +1,363 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Adding a second room &mdash; SCICompanion 3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="SCICompanion 3.0 documentation" href="../index.html"/>
+        <link rel="up" title="A Basic Tutorial" href="../sci11_tutorial.html"/>
+        <link rel="prev" title="Scoring and Flags" href="Score.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> SCICompanion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../views.html">View Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pics.html">Pic Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Script editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../legacy.html">The SCI0 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../classlibrary.html">The SCI1.1 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_kernels.html">Kernel Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../studio_compiler.html">SCI Studio compatible compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_compiler.html">The SCI Compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">Text Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../messages.html">Message editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sounds.html">Sound Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vocabs.html">Vocabs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fonts.html">Font Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cursors.html">Cursor Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettes.html">VGA Palette Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../audio.html">Digital Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../outputpane.html">Output Pane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debugging.html">Debugger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../undo.html">Undo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aspectratio.html">Aspect Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettecycling.html">Palette cycling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../anatomy.html">Anatomy of an SCI game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../decompiler.html">Decompiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preferences.html">Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameversion.html">Game/Interpreter Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../importexport.html">Importing and exporting resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extractall.html">Extract All</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tips.html">Handy tips</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../sci11_tutorial.html">A Basic Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="TitleScreen.html">Customizing the title screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FirstRoom.html">The first room</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AddingObjects.html">Interacting with Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RoomBackground.html">Adding a background and static objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PriorityScreen.html">The priority screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AnimatingProps.html">Animating props</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ManagingInventory.html">Managing the player&#8217;s inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Actors.html">Actors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dying.html">Dying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UseInventory.html">Using inventory items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Score.html">Scoring and Flags</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Adding a second room</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#connecting-the-rooms">Connecting the rooms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transitions">Transitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bonus">Bonus</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">SCICompanion</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../sci11_tutorial.html">A Basic Tutorial</a> &raquo;</li>
+      
+    <li>Adding a second room</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/Tutorial/Rooms.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">SCI1.1 only.</p>
+</div>
+<div class="section" id="adding-a-second-room">
+<h1>Adding a second room<a class="headerlink" href="#adding-a-second-room" title="Permalink to this headline">¶</a></h1>
+<p>Create a new empty pic and import the following background:</p>
+<img alt="../_images/Room2.png" src="../_images/Room2.png" />
+<p>Save the pic as resource 111.</p>
+<p>Next, create a new room (File -&gt; New -&gt; New Room) and make sure Room Number is set to 111. Accept the rest of the defaults.</p>
+<div class="section" id="connecting-the-rooms">
+<h2>Connecting the rooms<a class="headerlink" href="#connecting-the-rooms" title="Permalink to this headline">¶</a></h2>
+<p>Go back to pic 111 and extend the polygon into the back door a bit:</p>
+<img alt="../_images/ExtendPoly.png" src="../_images/ExtendPoly.png" />
+<p>You can do this by choosing the polygon tool, selecting the Default polygon in the Toolbox back, and then manipulating the
+polygon edges and points. Right clicking on an edge will allow you the option of splitting the edge (creating a new point). You
+can then drag the point as you please.</p>
+<p>Once you&#8217;ve done that, you need to draw a control area that will be the trigger to go to the next room. Choose the line tool, and
+make sure the visual and priority are disabled. Choose green as your control color (02). The pen state should look something like this:</p>
+<img alt="../_images/ControlScreenPenState.png" src="../_images/ControlScreenPenState.png" />
+<p>Switch to the priority screen, and draw 4 connected lines roughly in the area of the doorway. If you leave on &#8220;Show Polygons&#8221;, you can use that
+as a guide as to where to draw. Make sure they form an enclosed quadrilateral, then choose the fill tool and click in the middle of your
+quadrilateral (if your lines weren&#8217;t fully enclosed, the fill will leak out into the whole image). It should look something like this:</p>
+<img alt="../_images/DoorControl.png" src="../_images/DoorControl.png" />
+<p>Save the pic and return to the room 110 script. Go to the RoomScript class and find the <strong>doit</strong> method. Remember, this is code that is executed
+every game cycle. So all we have to do is ask (every game cycle) is: Is the ego on green? If so, send him to room 111. This can be accomplished like so:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">method</span> <span class="p">(</span><span class="n">doit</span><span class="p">)</span>
+<span class="hll">    <span class="p">;</span> <span class="n">If</span> <span class="n">the</span> <span class="n">ego</span> <span class="ow">is</span> <span class="n">on</span> <span class="n">green</span>
+</span><span class="hll">    <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="o">&amp;</span> <span class="p">(</span><span class="n">gEgo</span> <span class="n">onControl</span><span class="p">:)</span> <span class="n">ctlGREEN</span><span class="p">)</span>
+</span><span class="hll">        <span class="p">(</span><span class="n">gRoom</span> <span class="n">newRoom</span><span class="p">:</span> <span class="mi">111</span><span class="p">)</span> <span class="p">;</span> <span class="n">change</span> <span class="n">the</span> <span class="n">room</span> <span class="n">to</span> <span class="mi">111</span>
+</span>    <span class="p">)</span>
+    <span class="p">(</span><span class="nb">super</span> <span class="n">doit</span><span class="p">:)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>To make things easier, let&#8217;s disable the evil ego for now. Comment out the call to <strong>setMotion:</strong> for the evilEgo. Now compile and run the game.
+Walk up through the doorway, and you&#8217;ll be transported to room 111 (be careful not to walk too close to the evil ego - he can still kill
+you even if he&#8217;s not following you).</p>
+<p>You&#8217;ll notice however, that you appear in the center of the room (and that you can walk through walls). Let&#8217;s fix that. Go to room 111 and find
+the room&#8217;s <strong>init</strong> method. In there, there is a switch statement that is responsible for setting the ego&#8217;s position and direction depending on
+which room it came from. Add a case for coming from room 110:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">switch</span> <span class="n">gPreviousRoomNumber</span>
+<span class="hll">    <span class="p">(</span><span class="mi">110</span>
+</span><span class="hll">        <span class="p">(</span><span class="n">SetUpEgo</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">3</span><span class="p">)</span> <span class="p">;</span> <span class="mi">3</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">loop</span> <span class="n">of</span> <span class="n">the</span> <span class="n">ego</span> <span class="n">where</span> <span class="n">he</span><span class="s">&#39;s facing up.</span>
+</span><span class="hll">        <span class="p">(</span><span class="n">gEgo</span> <span class="n">posn</span><span class="p">:</span> <span class="mi">234</span> <span class="mi">111</span><span class="p">)</span> <span class="p">;</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">position</span> <span class="n">of</span> <span class="n">the</span> <span class="n">ego</span>
+</span><span class="hll">    <span class="p">)</span>
+</span>    <span class="p">(</span><span class="k">else</span>
+        <span class="p">;</span> <span class="n">Set</span> <span class="n">up</span> <span class="n">ego</span> <span class="n">view</span> <span class="ow">and</span> <span class="n">loop</span> <span class="p">(</span><span class="n">direction</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">SetUpEgo</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">gEgo</span> <span class="n">posn</span><span class="p">:</span> <span class="mi">150</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p>Now run the game, and the ego should appear in a sensible place when he enters the room.</p>
+<p>Now, you&#8217;ll want to do the same thing for coming back to room 110 <em>from</em> room 111. To summarize:</p>
+<blockquote>
+<div><ul class="simple">
+<li>add an area of green (or whatever your choice) control color in pic 111. This will be the trigger.</li>
+<li>in room 111&#8217;s RoomScript, add logic in the <strong>doit</strong> method to send the ego to room 110 when he&#8217;s on the control color.</li>
+<li>add a case in room 110&#8217;s Room <strong>init</strong> method for when the ego comes from room 111 ((gEgo posn: 212 113) is a good choice).</li>
+</ul>
+</div></blockquote>
+<p>Run the game and you should be able to walk between room 110 and 111. You&#8217;ll probably want to add a <em>Contained</em> polygon to room 111 so the ego can&#8217;t
+walk through walls.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You&#8217;ll need to make sure the ego isn&#8217;t on the room change control color when he enters the room, or you&#8217;ll immediately be sent back!</p>
+</div>
+</div>
+<div class="section" id="transitions">
+<h2>Transitions<a class="headerlink" href="#transitions" title="Permalink to this headline">¶</a></h2>
+<p>You can set visual transitions (fades, slides, etc...) when you go between rooms. The transition that runs is the one that is specified in the <strong>style</strong> property
+of the Room. To see the different kinds, look at the dp* defines in sci.sh. For more details see <a class="reference internal" href="../palettes.html#room-transitions-label"><span>Transitions</span></a>.</p>
+<p>For now, try this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">instance</span> <span class="n">rm111</span> <span class="n">of</span> <span class="n">Room</span>
+    <span class="p">(</span><span class="n">properties</span>
+        <span class="n">picture</span> <span class="n">scriptNumber</span>
+        <span class="n">north</span> <span class="mi">0</span>
+        <span class="n">east</span> <span class="mi">0</span>
+        <span class="n">south</span> <span class="mi">0</span>
+        <span class="n">west</span> <span class="mi">0</span>
+        <span class="n">noun</span> <span class="n">N_ROOM</span>
+<span class="hll">        <span class="n">style</span> <span class="p">(</span><span class="o">|</span> <span class="n">dpOPEN_TOP</span> <span class="n">dpANIMATION_BLACKOUT</span><span class="p">)</span>
+</span>    <span class="p">)</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Note that since we&#8217;re using different background palettes between the rooms, it is important to specify dpANIMATION_BLACKOUT. This makes sure
+one screen completely transitions off before the other begins transitioning on. Otherwise, you&#8217;ll get weird colors showing up.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you need different transitions depending on which room you came from, you can set the style manually in the room&#8217;s <strong>init</strong> method, <em>before</em>
+the call to (super init:).</p>
+</div>
+</div>
+<div class="section" id="bonus">
+<h2>Bonus<a class="headerlink" href="#bonus" title="Permalink to this headline">¶</a></h2>
+<p>If you have shrunk the box (but haven&#8217;t picked it up), you&#8217;ll notice that when the ego returns to room 110 that it still shows the large box.
+You&#8217;ll also note that if the ego is <em>carrying</em> the box, it still shows up on the ground. So we need to add a little more logic to room 110&#8217;s <strong>init</strong> method.
+Find where the box is initialized, and add the following:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">theBox</span> <span class="n">approachVerbs</span><span class="p">:</span> <span class="n">V_DO</span> <span class="n">init</span><span class="p">:)</span>
+<span class="hll"><span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">Btest</span> <span class="n">F_ShrunkBox</span><span class="p">)</span>
+</span><span class="hll">    <span class="p">;</span> <span class="n">Set</span> <span class="n">the</span> <span class="n">box</span> <span class="n">to</span> <span class="n">the</span> <span class="n">last</span> <span class="n">animation</span> <span class="n">cel</span>
+</span><span class="hll">    <span class="p">(</span><span class="n">theBox</span> <span class="n">setCel</span><span class="p">:</span> <span class="mi">1000</span><span class="p">)</span>
+</span><span class="hll"><span class="p">)</span>
+</span><span class="hll"><span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">gEgo</span> <span class="n">has</span><span class="p">:</span> <span class="n">INV_BOX</span><span class="p">)</span>
+</span><span class="hll">    <span class="p">;</span> <span class="n">hide</span> <span class="n">it</span> <span class="k">if</span> <span class="n">the</span> <span class="n">ego</span> <span class="ow">is</span> <span class="n">carrying</span> <span class="n">it</span>
+</span><span class="hll">    <span class="p">(</span><span class="n">theBox</span> <span class="n">hide</span><span class="p">:)</span>
+</span><span class="hll"><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>You&#8217;ll notice that we can leverage the F_ShrunkBox global flag we added. If we used a variable that was local to room 110, it would be reset when we came back in.
+Setting the cel to some large number is a little trick that will actually set it to the final cel in the loop (which is the one that show it small).</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="Score.html" class="btn btn-neutral" title="Scoring and Flags" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Phil Fortier.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,315 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Adding a background and static objects &mdash; SCICompanion 3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="SCICompanion 3.0 documentation" href="../index.html"/>
+        <link rel="up" title="A Basic Tutorial" href="../sci11_tutorial.html"/>
+        <link rel="next" title="The priority screen" href="PriorityScreen.html"/>
+        <link rel="prev" title="Interacting with Objects" href="AddingObjects.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> SCICompanion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../views.html">View Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pics.html">Pic Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Script editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../legacy.html">The SCI0 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../classlibrary.html">The SCI1.1 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_kernels.html">Kernel Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../studio_compiler.html">SCI Studio compatible compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_compiler.html">The SCI Compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">Text Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../messages.html">Message editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sounds.html">Sound Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vocabs.html">Vocabs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fonts.html">Font Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cursors.html">Cursor Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettes.html">VGA Palette Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../audio.html">Digital Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../outputpane.html">Output Pane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debugging.html">Debugger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../undo.html">Undo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aspectratio.html">Aspect Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettecycling.html">Palette cycling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../anatomy.html">Anatomy of an SCI game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../decompiler.html">Decompiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preferences.html">Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameversion.html">Game/Interpreter Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../importexport.html">Importing and exporting resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extractall.html">Extract All</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tips.html">Handy tips</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../sci11_tutorial.html">A Basic Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="TitleScreen.html">Customizing the title screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FirstRoom.html">The first room</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AddingObjects.html">Interacting with Objects</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Adding a background and static objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adding-a-background">Adding a background</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#some-static-objects-with-canned-responses">Some static objects with canned responses</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PriorityScreen.html">The priority screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AnimatingProps.html">Animating props</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ManagingInventory.html">Managing the player&#8217;s inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Actors.html">Actors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dying.html">Dying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UseInventory.html">Using inventory items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Score.html">Scoring and Flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Rooms.html">Adding a second room</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">SCICompanion</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../sci11_tutorial.html">A Basic Tutorial</a> &raquo;</li>
+      
+    <li>Adding a background and static objects</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/Tutorial/RoomBackground.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">SCI1.1 only.</p>
+</div>
+<div class="section" id="adding-a-background-and-static-objects">
+<h1>Adding a background and static objects<a class="headerlink" href="#adding-a-background-and-static-objects" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="adding-a-background">
+<h2>Adding a background<a class="headerlink" href="#adding-a-background" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s give our room a real background. Open pic 110, and click on <em>Set Background</em>. Import the following backgrond:</p>
+<img alt="../_images/RoomBackground.png" src="../_images/RoomBackground.png" />
+<p>Then save the pic. Great, now we have what looks like a real room! However, the polygon that defines the room&#8217;s boundary is incorrect.
+Click on the polygon tool <img alt="polygon" src="../_images/PolygonTool.png" /> and then select the Default polygon in the Toolbox pane.</p>
+<p>Drag the polygon corners so they better align with the corners of the room, then save the pic. If you want, split the polygon edges and
+extend the polygon a little ways up into the doorway at the back of the room.</p>
+<img alt="../_images/DragPolygon.png" src="../_images/DragPolygon.png" />
+<p>Before running the game, go back to script 110 and change the ego&#8217;s default start location to <strong>posn(60 130)</strong>, otherwise he will
+probably be outside the room&#8217;s polygon. Now run the game and walk around, and notice how the ego stays within the confines of the polygon,
+and will walk along its edges.</p>
+<p>Note that the polygon was a <em>Contained access</em> polygon, which indicates the ego should stay inside the polygon. You can also
+add some <em>Barred access</em> default polygons which would be areas that the ego should avoid.</p>
+</div>
+<div class="section" id="some-static-objects-with-canned-responses">
+<h2>Some static objects with canned responses<a class="headerlink" href="#some-static-objects-with-canned-responses" title="Permalink to this headline">¶</a></h2>
+<p>Notice that painting on the wall? We can offer some limited interaction with it even though it&#8217;s a static part of the background. To do
+so, we&#8217;ll first create a polygon for it.</p>
+<p>Using the polygon tool, draw a line around the painting. Then give the polygon a name. <em>Named</em> polygons won&#8217;t be added to the room&#8217;s obstacles
+in the init: method. Instead, we can assign them to individual features to define that feature&#8217;s boundary. Also, note that the type (Barred, Contained, etc...) of the polygon
+doesn&#8217;t matter when we&#8217;re using it to define the click boundaries of a feature.</p>
+<img alt="../_images/PaintingPolygon.png" src="../_images/PaintingPolygon.png" />
+<p>Save the pic and come back to the script.</p>
+<p>Let&#8217;s add a <a class="reference internal" href="../Classes/Feature.html#Feature" title="Feature"><code class="xref py py-class docutils literal"><span class="pre">Feature</span></code></a> for the painting. Place the cursor at the bottom of the script and right-click <em>Insert Object-&gt;Feature</em>, and give it the name <strong>painting</strong>. Also add a noun for this in the message editor,
+say N_PAINTING. You can remove the onMeCheck property for now. So you should have something like this:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">instance</span> <span class="nv">painting</span> <span class="nv">of</span> <span class="nv">Feature</span>
+    <span class="p">(</span><span class="nf">properties</span>
+        <span class="nv">x</span> <span class="mi">150</span>
+        <span class="nv">y</span> <span class="mi">100</span>
+        <span class="nv">noun</span> <span class="nv">N_PAINTING</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Of course, we need to initialize it. Here is where we&#8217;ll also associate the polygon with it. In the room&#8217;s init() method, at the end, add:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">painting:</span>
+    <span class="nv">setOnMeCheck</span><span class="p">(</span><span class="nf">omcPOLYGON</span> <span class="nv">CreateNewPolygon</span><span class="p">(</span><span class="nf">@P_Painting</span><span class="p">))</span>
+    <span class="nv">init</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>This tells the painting that a click should be &#8220;on me&#8221; if it is within the bounds of the polygon defined by P_Painting. P_Painting is defined in
+the 110.shp header file that is included at the top of the script. This header file is written by the pic editor when you save a pic containing polygons.
+If you want to look at it, right-click on the header file name and choose <em>open 110.shp</em>.</p>
+<p>Now in the message editor, add some messages for N_PAINTING, say for the V_LOOK verb.</p>
+<p>If you compile now, you might get an error that you need to use &#8220;Feature&#8221;. The <strong>use</strong> statements at the top of the script list other scripts that contain
+classes we reference. The <a class="reference internal" href="../Classes/Feature.html#Feature" title="Feature"><code class="xref py py-class docutils literal"><span class="pre">Feature</span></code></a> class is in the Feature.sc script. So add this:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">use</span> <span class="nv">Feature</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now compile and run, and the ego should display the messages you added when interacting with the painting.</p>
+<img alt="../_images/EgoPainting.png" src="../_images/EgoPainting.png" />
+<p>You might note that the ego doesn&#8217;t face the painting properly. This is because even though a <a class="reference internal" href="../Classes/Feature.html#Feature" title="Feature"><code class="xref py py-class docutils literal"><span class="pre">Feature</span></code></a> isn&#8217;t an object placed at a specific location
+(like a Prop), it still should have a valid x and y position. The position is used to determine the direct the ego faces when interacting with the feature.
+So go back to the pic editor, and hover the mouse cursor over the floor near the painting. In the status bar you should see the pic coordinates, roughly (117, 104).
+Go back and change the x and y values in the <em>painting</em> declaration to those values. Now the ego should face the correct direction when looking at the painting.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="PriorityScreen.html" class="btn btn-neutral float-right" title="The priority screen" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="AddingObjects.html" class="btn btn-neutral" title="Interacting with Objects" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Phil Fortier.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

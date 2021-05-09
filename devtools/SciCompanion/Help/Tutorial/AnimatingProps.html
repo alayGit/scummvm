@@ -1,0 +1,450 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Animating props &mdash; SCICompanion 3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="SCICompanion 3.0 documentation" href="../index.html"/>
+        <link rel="up" title="A Basic Tutorial" href="../sci11_tutorial.html"/>
+        <link rel="next" title="Managing the player’s inventory" href="ManagingInventory.html"/>
+        <link rel="prev" title="The priority screen" href="PriorityScreen.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> SCICompanion
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../views.html">View Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pics.html">Pic Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Script editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../legacy.html">The SCI0 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../classlibrary.html">The SCI1.1 class library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_kernels.html">Kernel Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../studio_compiler.html">SCI Studio compatible compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sci_compiler.html">The SCI Compiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../texts.html">Text Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../messages.html">Message editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sounds.html">Sound Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vocabs.html">Vocabs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fonts.html">Font Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cursors.html">Cursor Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettes.html">VGA Palette Editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../audio.html">Digital Audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../outputpane.html">Output Pane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../debugging.html">Debugger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../undo.html">Undo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aspectratio.html">Aspect Ratio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../palettecycling.html">Palette cycling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../anatomy.html">Anatomy of an SCI game</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../decompiler.html">Decompiler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preferences.html">Preferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gameversion.html">Game/Interpreter Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../importexport.html">Importing and exporting resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extractall.html">Extract All</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tips.html">Handy tips</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../sci11_tutorial.html">A Basic Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="TitleScreen.html">Customizing the title screen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FirstRoom.html">The first room</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AddingObjects.html">Interacting with Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RoomBackground.html">Adding a background and static objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PriorityScreen.html">The priority screen</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Animating props</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#a-simple-animation">A simple animation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#triggering-off-animation-events">Triggering off animation events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#switchto">switchto</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ManagingInventory.html">Managing the player&#8217;s inventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Actors.html">Actors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Dying.html">Dying</a></li>
+<li class="toctree-l2"><a class="reference internal" href="UseInventory.html">Using inventory items</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Score.html">Scoring and Flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Rooms.html">Adding a second room</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">SCICompanion</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../sci11_tutorial.html">A Basic Tutorial</a> &raquo;</li>
+      
+    <li>Animating props</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/Tutorial/AnimatingProps.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">SCI1.1 only.</p>
+</div>
+<div class="section" id="animating-props">
+<h1>Animating props<a class="headerlink" href="#animating-props" title="Permalink to this headline">¶</a></h1>
+<p>This will show you how to use <a class="reference internal" href="../Classes/Cycle.html#Cycle" title="Cycle"><code class="xref py py-class docutils literal"><span class="pre">Cycle</span></code></a> objects to create animations.</p>
+<div class="section" id="a-simple-animation">
+<h2>A simple animation<a class="headerlink" href="#a-simple-animation" title="Permalink to this headline">¶</a></h2>
+<p>Remember that blue box? Go back to the box view, and add a third cel. Color shift it so it&#8217;s yellow (or do whatever you want).</p>
+<p>Go to your script file, and add at a setCycle method call to the box&#8217;s initialization:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">theBox</span>
+    <span class="n">approachVerbs</span><span class="p">:</span> <span class="n">V_DO</span>
+<span class="hll">    <span class="n">setCycle</span><span class="p">:</span> <span class="n">Forward</span>
+</span>    <span class="n">init</span><span class="p">:</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>This uses the <a class="reference internal" href="../Classes/Forward.html#Forward" title="Forward"><code class="xref py py-class docutils literal"><span class="pre">Forward</span></code></a> cycler to cycle forward through the loops cels. So when you run the game, the blue box will now cycle between
+blue, red and yellow. Easy!</p>
+<p>To adjust the speed, you can set a different cycleSpeed on the object:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">instance</span> <span class="n">theBox</span> <span class="n">of</span> <span class="n">Prop</span>
+    <span class="p">(</span><span class="n">properties</span>
+        <span class="n">view</span> <span class="mi">123</span>
+        <span class="n">x</span> <span class="mi">150</span>
+        <span class="n">y</span> <span class="mi">100</span>
+        <span class="n">signal</span> <span class="n">ignAct</span>
+        <span class="n">loop</span> <span class="mi">0</span>
+        <span class="n">cel</span> <span class="mi">0</span>
+        <span class="n">noun</span> <span class="n">N_BOX</span>
+        <span class="n">priority</span> <span class="mi">0</span>
+        <span class="n">approachX</span> <span class="mi">130</span>
+        <span class="n">approachY</span> <span class="mi">110</span>
+<span class="hll">        <span class="n">cycleSpeed</span> <span class="mi">15</span>   <span class="p">;</span> <span class="n">Large</span> <span class="n">numbers</span> <span class="n">are</span> <span class="n">slower</span><span class="o">.</span>
+</span>    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="triggering-off-animation-events">
+<h2>Triggering off animation events<a class="headerlink" href="#triggering-off-animation-events" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s do something a little more complicated. Let&#8217;s make the box shrink when the player touches it. Go back to view 123, and create a new loop.
+When you create a new loop, by default it should contain the first cel of the previous loop (it has to contain something). That&#8217;s great, it&#8217;s our blue box.</p>
+<p>Add three more cels to the loop. They should all have blue boxes in them by default.</p>
+<p>Click on the second cel and resize the borders while holding down the SHIFT key (this makes resizing the borders grow or shrink the view inside). Make the box a <em>little</em> smaller.
+Click on the third cel and make it even smaller, and so on. You should end up with something like this:</p>
+<img alt="../_images/ShrinkingBox.jpg" src="../_images/ShrinkingBox.jpg" />
+<p>Now we&#8217;ll write code that triggers off the ego performing the V_DO verb on the N_BOX. In that, we&#8217;ll make the box cels cycle from beginning to end. To do that, we&#8217;ll
+need to do a few things:</p>
+<ul class="simple">
+<li><strong>Remove</strong> the (theBox:setCycle(Forward)) we added in the previous section (in the room&#8217;s init()).</li>
+<li>Make <em>theBox</em> use loop 1 by default (since that&#8217;s where our shrinking box is).</li>
+<li>Add a doVerb method to <em>theBox</em>, and tell the box to cycle from beginning to end.</li>
+</ul>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">instance</span> <span class="n">theBox</span> <span class="n">of</span> <span class="n">Prop</span>
+    <span class="p">(</span><span class="n">properties</span>
+        <span class="n">view</span> <span class="mi">123</span>
+        <span class="n">x</span> <span class="mi">150</span>
+        <span class="n">y</span> <span class="mi">100</span>
+        <span class="n">signal</span> <span class="n">ignAct</span>
+<span class="hll">        <span class="n">loop</span> <span class="mi">1</span>
+</span>        <span class="n">cel</span> <span class="mi">0</span>
+        <span class="n">noun</span> <span class="n">N_BOX</span>
+        <span class="n">priority</span> <span class="mi">0</span>
+        <span class="n">approachX</span> <span class="mi">130</span>
+        <span class="n">approachY</span> <span class="mi">110</span>
+        <span class="n">cycleSpeed</span> <span class="mi">15</span>
+    <span class="p">)</span>
+
+<span class="hll">    <span class="p">(</span><span class="n">method</span> <span class="p">(</span><span class="n">doVerb</span> <span class="n">theVerb</span><span class="p">)</span>
+</span><span class="hll">        <span class="p">(</span><span class="n">switch</span> <span class="n">theVerb</span>
+</span><span class="hll">            <span class="p">(</span><span class="n">V_DO</span>
+</span><span class="hll">                <span class="p">(</span><span class="bp">self</span> <span class="n">setCycle</span><span class="p">:</span> <span class="n">EndLoop</span><span class="p">)</span>
+</span><span class="hll">            <span class="p">)</span>
+</span><span class="hll">            <span class="p">(</span><span class="k">else</span>
+</span><span class="hll">                <span class="p">(</span><span class="nb">super</span> <span class="n">doVerb</span><span class="p">:</span> <span class="n">theVerb</span> <span class="o">&amp;</span><span class="n">rest</span><span class="p">)</span>
+</span><span class="hll">            <span class="p">)</span>
+</span><span class="hll">        <span class="p">)</span>
+</span><span class="hll">    <span class="p">)</span>
+</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Compile and run the game to test it.</p>
+<p>That&#8217;s nice, but what if we want to display a message <em>after</em> the box has shrunk? This is where <a class="reference internal" href="../Classes/Script.html#Script" title="Script"><code class="xref py py-class docutils literal"><span class="pre">Script</span></code></a> objects come in (not to be confused with script files).
+With a Script we can choreograph a sequence of events. We&#8217;ll make a Script that has a state for shrinking the box, followed by a state for displaying a message. We&#8217;ll attach
+this Script to <em>theBox</em>.</p>
+<p>First, create a new Script object (you can use <em>Insert Object-&gt;Script</em> for convenience):</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">instance</span> <span class="nv">shrinkBoxScript</span> <span class="nv">of</span> <span class="nv">Script</span>
+    <span class="p">(</span><span class="nf">properties</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="nf">method</span> <span class="p">(</span><span class="nf">changeState</span> <span class="nv">newState</span><span class="p">)</span>
+        <span class="p">(</span><span class="nb">= </span><span class="nv">state</span> <span class="nv">newState</span><span class="p">)</span>
+        <span class="p">(</span><span class="nf">switch</span> <span class="nv">state</span>
+            <span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Then, replace our previous handling of <em>theBox</em> doVerb with a call to set the Script on the box:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span><span class="n">method</span> <span class="p">(</span><span class="n">doVerb</span> <span class="n">theVerb</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">switch</span> <span class="n">theVerb</span>
+        <span class="p">(</span><span class="n">V_DO</span>
+<span class="hll">            <span class="p">(</span><span class="bp">self</span> <span class="n">setScript</span><span class="p">:</span> <span class="n">shrinkBoxScript</span><span class="p">)</span>
+</span>        <span class="p">)</span>
+        <span class="p">(</span><span class="k">else</span>
+            <span class="p">(</span><span class="nb">super</span> <span class="n">doVerb</span><span class="p">:</span> <span class="n">theVerb</span> <span class="o">&amp;</span><span class="n">rest</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Now add some meat to the shrinkBoxScript.</p>
+<div class="highlight-python"><div class="highlight"><pre>(instance shrinkBoxScript of Script
+    (properties)
+
+    (method (changeState newState)
+        (= state newState)
+        (switch state
+<span class="hll">            (0
+</span><span class="hll">                (gGame handsOff:)
+</span><span class="hll">                ; We could also say (theBox setCycle: EndLoop self)
+</span><span class="hll">                (client setCycle: EndLoop self)
+</span><span class="hll">            )
+</span><span class="hll">            (1
+</span><span class="hll">                (= seconds 2)
+</span><span class="hll">            )
+</span><span class="hll">            (2
+</span><span class="hll">                (Prints {The box shrunk!})
+</span><span class="hll">                (gGame handsOn:)
+</span><span class="hll">            )
+</span>        )
+    )
+)
+</pre></div>
+</div>
+<p>Ok, what is all that? First of all, <em>case 0</em> will be executed as soon as the Script is set on the box. So that will start the cycle to shrink the box. Note
+that we added a <strong>self</strong> parameter to the setCycle call. This is a common thing for setCycle (and setMotion). It means that <strong>self</strong> will be <em>cued()</em> when
+the cycle is finished. And what happenes when a Script is cued()? It&#8217;s changeState() is called with an incremented <em>newState</em>. So basically this is saying: &#8220;when
+we reach the End of the cycle, go to the next state&#8221;.</p>
+<p>The next state sets the Script&#8217;s seconds to 2. So after 2 seconds, changeState will be called again with an incremented newState. In this final case, we print
+some text to notify the player what happened (of course, we should probably use a message here).</p>
+<p>We also put calls to handsOff and handsOn so that the player can&#8217;t go and do something else while this short Script is executing (for instance, to prevent them from touching
+the box again and re-triggering the Script).</p>
+<p>Now, the player can keep touching <em>theBox</em> and it will appear large again and shrink down. Because that&#8217;s what the <code class="xref py py-class docutils literal"><span class="pre">End</span></code> cycle does: Starts from cel 0 and goes to the end.
+So maybe we should handle that case.</p>
+<p>Go to the top of the script and add a local variable:</p>
+<div class="highlight-scheme"><div class="highlight"><pre><span class="p">(</span><span class="nf">local</span>
+    <span class="nv">hasBoxShrunk</span> <span class="nv">=</span> <span class="nv">FALSE</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Then modify theBox:doVerb() like so:</p>
+<div class="highlight-python"><div class="highlight"><pre>(method (doVerb theVerb)
+    (switch theVerb
+        (V_DO
+<span class="hll">            (if (not hasBoxShrunk)
+</span><span class="hll">                (= hasBoxShrunk TRUE)
+</span><span class="hll">                (self setScript: shrinkBoxScript)
+</span><span class="hll">            else
+</span><span class="hll">                (Prints {What a small box!})
+</span><span class="hll">            )
+</span><span class="hll">        )
+</span>        (else
+            (super doVerb: theVerb &amp;rest)
+        )
+    )
+)
+</pre></div>
+</div>
+<p>Now the box can only shrink once, and we can respond to V_DO with something else when the box is already shrunk.</p>
+</div>
+<div class="section" id="switchto">
+<h2>switchto<a class="headerlink" href="#switchto" title="Permalink to this headline">¶</a></h2>
+<p>This might be a good time to introduce the switchto statement. It&#8217;s just like a switch statement, except the cases are
+implicitly number from 0 upwards. This can be useful if you&#8217;re adding and removing lots of cases as you create your room scripts.</p>
+<p>This is what shrinkBoxScript&#8217;s changeState method looks like if we use a switchto:</p>
+<div class="highlight-scheme"><div class="highlight"><pre>(method (changeState newState)
+    (= state newState)
+    (switchto state
+        (
+            (gGame handsOff:)
+            ; We could also say (theBox setCycle: EndLoop self)
+            (client setCycle: EndLoop self)
+        )
+        (
+            (= seconds 2)
+        )
+        (
+            (Prints {The box shrunk!})
+            (gGame handsOn:)
+        )
+    )
+)
+</pre></div>
+</div>
+<p>It doesn&#8217;t look much different, but there&#8217;s no chance we miss a state number when we&#8217;re adding and removing states.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ManagingInventory.html" class="btn btn-neutral float-right" title="Managing the player’s inventory" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="PriorityScreen.html" class="btn btn-neutral" title="The priority screen" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Phil Fortier.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
