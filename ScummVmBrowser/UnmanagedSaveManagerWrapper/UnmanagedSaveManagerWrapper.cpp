@@ -56,10 +56,13 @@ bool SaveManager::UnmanagedSaveManagerWrapper::removeSavefile(const Common::Stri
 StringArray SaveManager::UnmanagedSaveManagerWrapper::listSavefiles(const Common::String &pattern) {
 	StringArray result;
 	IEnumerable<System::String ^> ^ managedSaveFileNames = _saveCache->ListCache();
+	System::String ^ managedPattern = Converters::CommonStringToManagedString(&pattern);
 
 	for each(System::String ^ managedSaveFileName in managedSaveFileNames) {
-			result.push_back(Converters::ManagedStringToCommonString(managedSaveFileName));
-		}
+			if (managedPattern == "" || managedSaveFileName == managedPattern) {
+				result.push_back(Converters::ManagedStringToCommonString(managedSaveFileName));
+			}
+	}
 
 	return result;
 }
