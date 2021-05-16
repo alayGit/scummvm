@@ -147,7 +147,7 @@ namespace DotNetScummTests
 			Cropping = null; //new Rectangle(100, 100, 20, 20);
 			const string expectedFrameName = "CanStartKq5";
 			const int noFrames = 50000;
-			Setup(gameDirectory, noFrames, expectedFrameName, AvailableGames.kq6, Kq5CanStart, 0);
+			Setup(gameDirectory, noFrames, expectedFrameName, AvailableGames.kq6, Kq6CanStart, 0);
 			await CheckForExpectedFrame(expectedFrameName, noFrames);
 		}
 
