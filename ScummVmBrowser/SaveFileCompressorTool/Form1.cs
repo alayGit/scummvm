@@ -42,7 +42,7 @@ namespace SaveFileCompressorTool
 		{
 			try
 			{
-				textBox1.Text = JsonConvert.SerializeObject(_compressor.DecompressAndDecode(textBox1.Text.Trim()));
+				textBox1.Text = JsonConvert.SerializeObject(_compressor.DecompressAndDecode(textBox1.Text));
 			}
 			catch(Exception ex)
 			{

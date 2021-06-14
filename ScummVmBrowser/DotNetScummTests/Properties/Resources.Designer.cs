@@ -358,15 +358,6 @@ namespace DotNetScummTests.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XQAAAASkrAAAAD2IiWdSFNhswLVpPG0N2Zj4vuZ/fzZYLLZ3suEkE7z8eeH7PSwxJ+XcrdLpP9XI5JSXHgbwBMqttP9gBD+v/ah3G8Kq9HOGzCMI7Tup8M9JqWRZG+008p1lnJZ7Lm77zO0YDAqRIomdFpcMBM0z5+/xQ5CViuFw04Rf5jRo/loeEd/Qjs3eNEcIHVeNEZeKvZeyqh+czrcghCgoPo8LE7BkIdxAgq/mk4S7JXYiQg5IsvQinHYmoBzhZkHf3C/55RH/a0GKOJzlFxPUWGVEd0nOoP7sqZzdH9tkX5anLo2tph2WpQ2avbedN1BjruprGlgPFBd17nHN1YUne9rIvc7ZKt6VHbI3CK0fHluL3ChST9aqaipJwPUrhfbtAJ1WneszklAf/JNXdsbH+WFSGzQKJXh4OJaV0tb3CUm2A0uhLXvI9jjgJLVBkhREMugCx99VaOXVoXIi6lhH/OtDbjawruTF6ee8Jt9+yk5Gk/ijqtaJ8eCU [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string Kq6CanStart {
-            get {
-                return ResourceManager.GetString("Kq6CanStart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Thumbnail {

@@ -37,7 +37,6 @@ namespace DotNetScummTests
 		public const string DefaultSavesDataResourceName = "Kq3CanRestore";
 		public const string KingsQuest4OnMountain = "KingsQuest4OnMountain";
 		public const string Kq5CanStart = "Kq5CanStart";
-		public const string Kq6CanStart = "Kq6CanStart";
 
 		protected static ResourceManager ResourceManager = DotNetScummTests.Properties.Resources.ResourceManager;
 		private object _clearLock;
