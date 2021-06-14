@@ -144,43 +144,12 @@ namespace DotNetScummTests
 		[TestMethod]
 		public async Task CanStartKq6()
 		{
-			Cropping = null; //new Rectangle(100, 100, 20, 20);
-			const string expectedFrameName = "CanStartKq5";
-			const int noFrames = 50000;
-			Setup(gameDirectory, noFrames, expectedFrameName, AvailableGames.kq6, Kq5CanStart, 0);
-			await CheckForExpectedFrame(expectedFrameName, noFrames);
-		}
-
-		[TestMethod]
-		public async Task CanStartKq7()
-		{
 			Cropping = new Rectangle(100, 100, 20, 20);
 			const string expectedFrameName = "CanStartKq5";
 			const int noFrames = 50;
-			Setup(gameDirectory, noFrames, expectedFrameName, AvailableGames.kq7, Kq5CanStart, 1);
+			Setup(gameDirectory, noFrames, expectedFrameName, AvailableGames.kq6, Kq5CanStart, 1);
 			await CheckForExpectedFrame(expectedFrameName, noFrames);
 		}
-
-		[TestMethod]
-		public async Task CanStartFred()
-		{
-			Cropping = new Rectangle(100, 100, 20, 20);
-			const string expectedFrameName = "CanStartFred";
-			const int noFrames = 50;
-			Setup(gameDirectory, noFrames, expectedFrameName, AvailableGames.kq7, Kq5CanStart, 1);
-			await CheckForExpectedFrame(expectedFrameName, noFrames);
-		}
-
-		[TestMethod]
-		public async Task CanStartBow5()
-		{
-			Cropping = new Rectangle(100, 100, 20, 20);
-			const string expectedFrameName = "CanStartFred";
-			const int noFrames = 50;
-			Setup(gameDirectory, noFrames, expectedFrameName, AvailableGames.bow5, Kq5CanStart, 1);
-			await CheckForExpectedFrame(expectedFrameName, noFrames);
-		}
-
 
 		[TestMethod]
 		public async Task CanRunGamesWithMusicTimer()
