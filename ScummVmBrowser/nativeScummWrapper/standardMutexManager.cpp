@@ -25,7 +25,7 @@
 
 
 OSystem::MutexRef NativeScummWrapper::StandardMutexManager::createMutex() {
-    std::mutex* mutex = new std::mutex();
+	std::recursive_mutex *mutex = new std::recursive_mutex();
     return (OSystem::MutexRef) mutex;
 }
 
