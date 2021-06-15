@@ -34,6 +34,7 @@ void CliScummEvents::SendControlCharacters::CreateEvents()
 		break;
 	case ControlKeys::Escape:
 		eventList[0].kbd.ascii = Common::KEYCODE_ESCAPE;
+		eventList[0].kbd.keycode = Common::KEYCODE_ESCAPE;
 		break;
 	case ControlKeys::F1:
 		eventList[0].kbd.keycode = Common::KEYCODE_F1;
