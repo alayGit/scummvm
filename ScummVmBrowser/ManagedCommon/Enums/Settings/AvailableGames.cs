@@ -9,7 +9,6 @@ namespace ManagedCommon.Enums
 		kq7,
 		sq2,
 		pq1,
-		gob,
 		smi,
 		steel
 	}
