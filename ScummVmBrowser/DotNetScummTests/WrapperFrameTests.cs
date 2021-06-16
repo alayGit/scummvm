@@ -95,6 +95,26 @@ namespace DotNetScummTests
         }
 
 		[TestMethod]
+		public async Task CanStartTeen()
+		{
+			Cropping = null;
+			const string expectedFrameName = "CanStartKq5";
+			const int noFrames = 1500000;
+			//DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
+			Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers, noFrames, expectedFrameName), AvailableGames.steel);
+			await WaitForFrame(50);
+
+			_wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.Escape));
+			await WaitForFrame(300);
+			_wrapper.EnqueueGameEvent(new SendMouseMove(172,173));
+			await WaitForFrame(50);
+			_wrapper.EnqueueGameEvent(new SendMouseClick(MouseClick.Left, () => new Point(172,173)));
+
+			await CheckForExpectedFrame(expectedFrameName, noFrames);
+		}
+
+
+		[TestMethod]
 		public async Task CanMoveMousePaletteDisabled()
 		{
 			Cropping = null;
