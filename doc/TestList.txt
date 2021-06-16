@@ -8,6 +8,8 @@ Refresh
 
 Kq5:
 Move Mouse All Over Screen
+Walk Graham To A Different Part Of Screen
+Right Click Several Times To Make Sure Icon Changes
 Save
 Start New Game and Restore
 Remove Save
@@ -16,6 +18,11 @@ Toy Shop Test (Make sure text doesn't break up)
 
 
 Open Kq5 and Kq3 at the same time
+
+Steel:
+Make sure can open menu with F5
+
+Release Build 
 
 
 
