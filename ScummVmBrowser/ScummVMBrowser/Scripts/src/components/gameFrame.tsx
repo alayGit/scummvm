@@ -106,7 +106,6 @@ export const GameFrame = (props: GameFrameProps) => {
 		var key = 0;
 
 		if (props.controlKeys.hasOwnProperty(event.key)) {
-
 			key = props.controlKeys[event.key];
 		}
 
@@ -114,7 +113,9 @@ export const GameFrame = (props: GameFrameProps) => {
 			updateEventQueue({ Key: InputMessageType.ControlKey.toString(), Value: key.toString() });
 		}
 
-		event.preventDefault();
+		if (event.keyCode == 116) { //F5 Refresh
+			event.preventDefault();
+		}
 	}
 
 	var onMouseMove = (event: any) => {
