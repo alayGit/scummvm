@@ -113,6 +113,8 @@ export const GameFrame = (props: GameFrameProps) => {
 		if (key != 0) {
 			updateEventQueue({ Key: InputMessageType.ControlKey.toString(), Value: key.toString() });
 		}
+
+		event.preventDefault();
 	}
 
 	var onMouseMove = (event: any) => {

@@ -94,13 +94,13 @@ namespace DotNetScummTests
             await CheckForExpectedFrame(expectedFrameName, noFrames);
         }
 
+		//Also tests steel
 		[TestMethod]
-		public async Task CanStartTeen()
+		public async Task CanRunGamesRequiringReentrantMutexes()
 		{
-			Cropping = null;
-			const string expectedFrameName = "CanStartKq5";
-			const int noFrames = 1500000;
-			//DotNetScummTests.Properties.Resources.CanDoFirst100Frames__97_
+			Cropping = new Rectangle(0, 180, 10, 20);
+			const string expectedFrameName = "CanRunGamesRequiringReentrantMutexes";
+			const int noFrames = 2549;
 			Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers, noFrames, expectedFrameName), AvailableGames.steel);
 			await WaitForFrame(50);
 
