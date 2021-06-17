@@ -144,6 +144,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\Other\MouseUpDown.cs" />
     <Compile Include="Interfaces\IScummTimer.cs" />
     <Compile Include="Serializers\ByteArrayConverter.cs" />
     <Compile Include="Constants\Constants.cs" />

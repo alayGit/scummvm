@@ -169,8 +169,11 @@ namespace SignalRSelfHost
 					case InputType.ControlKey:
 						EnqueueGameEvent(new SendControlCharacters((ControlKeys)Enum.Parse(typeof(ControlKeys), inputMessage.Input)));
 						break;
-					case InputType.MouseClick:
-						EnqueueGameEvent(new SendMouseClick((MouseClick)Enum.Parse(typeof(MouseClick), inputMessage.Input), () => _wrapper.GetCurrentMousePosition()));
+					case InputType.MouseDown:
+						EnqueueGameEvent(new SendMouseClick((MouseClick)Enum.Parse(typeof(MouseClick), inputMessage.Input), () => _wrapper.GetCurrentMousePosition(), MouseUpDown.MouseDown));
+						break;
+					case InputType.MouseUp:
+						EnqueueGameEvent(new SendMouseClick((MouseClick)Enum.Parse(typeof(MouseClick), inputMessage.Input), () => _wrapper.GetCurrentMousePosition(), MouseUpDown.MouseUp));
 						break;
 					case InputType.MouseMove:
 						string[] xy = inputMessage.Input.Split(',');

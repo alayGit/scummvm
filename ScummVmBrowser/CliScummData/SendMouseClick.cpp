@@ -1,23 +1,23 @@
 #include "SendMouseClick.h"
 
-CliScummEvents::SendMouseClick::SendMouseClick(ManagedCommon::Enums::Actions::MouseClick clickEventType, GetCurrentMousePosition^ getCurrentMousePosition)
-{
+CliScummEvents::SendMouseClick::SendMouseClick(ManagedCommon::Enums::Actions::MouseClick clickEventType, GetCurrentMousePosition ^ getCurrentMousePosition, ManagedCommon::Enums::Other::MouseUpDown mouseUpDown) {
 	_noTimesEventsDispatched = 0;
 	_clickEventType = clickEventType;
 	_getCurrentMousePosition = getCurrentMousePosition;
+	_mouseUpDown = mouseUpDown;
 }
 
 bool CliScummEvents::SendMouseClick::HasEvents()
 {
-	return _noTimesEventsDispatched < 2;
+	return _noTimesEventsDispatched < 1;
 }
 
 System::IntPtr CliScummEvents::SendMouseClick::GetEvent()
 {
 	Common::Event* result = new Common::Event();  //Does not need to be destroyed, unless there is an error because ScummVM deals with it for us :)
-	switch (_noTimesEventsDispatched)
+	switch (_mouseUpDown)
 	{
-	case 0:
+	case ManagedCommon::Enums::Other::MouseUpDown::MouseDown:
 		switch (_clickEventType)
 		{
 		case MouseClick::Left:
@@ -31,7 +31,7 @@ System::IntPtr CliScummEvents::SendMouseClick::GetEvent()
 			break;
 		}
 		break;
-	case 1:
+	case ManagedCommon::Enums::Other::MouseUpDown::MouseUp:
 		switch (_clickEventType)
 		{
 		case MouseClick::Left:

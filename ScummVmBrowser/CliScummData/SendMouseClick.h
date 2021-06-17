@@ -10,10 +10,11 @@ using namespace  ManagedCommon::Delegates;
 namespace CliScummEvents {
 	public ref class SendMouseClick : IGameEvent {
 	public:
-		SendMouseClick(ManagedCommon::Enums::Actions::MouseClick clickEventType, GetCurrentMousePosition^ getCurrentMousePosition);
+	        SendMouseClick(ManagedCommon::Enums::Actions::MouseClick clickEventType, GetCurrentMousePosition ^ getCurrentMousePosition, ManagedCommon::Enums::Other::MouseUpDown mouseUpDown);
 		virtual bool HasEvents() override;
 		virtual System::IntPtr GetEvent() override;
 	private:
+	    ManagedCommon::Enums::Other::MouseUpDown _mouseUpDown;
 		int _noTimesEventsDispatched;
 		ManagedCommon::Enums::Actions::MouseClick _clickEventType;
 		GetCurrentMousePosition^ _getCurrentMousePosition;

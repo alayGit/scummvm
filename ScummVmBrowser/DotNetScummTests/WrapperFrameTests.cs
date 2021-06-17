@@ -162,6 +162,16 @@ namespace DotNetScummTests
 		}
 
 		[TestMethod]
+		public async Task CanStartKq7()
+		{
+			//Cropping = new Rectangle(100, 100, 20, 20);
+			const string expectedFrameName = "CanStartKq5";
+			const int noFrames = 50000;
+			Setup(gameDirectory, noFrames, expectedFrameName, AvailableGames.kq7, Kq5CanStart, 1);
+			await CheckForExpectedFrame(expectedFrameName, noFrames);
+		}
+
+		[TestMethod]
 		public async Task CanRunGamesWithMusicTimer()
 		{
 			const string expectedFrameName = "CanRunGamesWithMusicTimer";
@@ -186,7 +196,7 @@ namespace DotNetScummTests
 			_wrapper.EnqueueGameEvent(new SendString("\r"));
 			await WaitForFrame(785);
 			_wrapper.EnqueueGameEvent(new SendMouseMove(226, 120));
-			_wrapper.EnqueueGameEvent(new SendMouseClick(MouseClick.Left, () => new Point(226, 120)));
+			//_wrapper.EnqueueGameEvent(new SendMouseClick(MouseClick.Left, () => new Point(226, 120)));
 
 			await CheckForExpectedFrame(expectedFrameName, noFrames);
 		}
@@ -571,7 +581,7 @@ namespace DotNetScummTests
 
             Setup(gameDirectory, noFrames, expectedFrameName);
             await WaitForFrame(180);
-            _wrapper.EnqueueGameEvent(new SendMouseClick(ManagedCommon.Enums.Actions.MouseClick.Left, new GetCurrentMousePosition(() => _wrapper.GetCurrentMousePosition())));
+            //_wrapper.EnqueueGameEvent(new SendMouseClick(ManagedCommon.Enums.Actions.MouseClick.Left, new GetCurrentMousePosition(() => _wrapper.GetCurrentMousePosition())));
 
             await CheckForExpectedFrame(expectedFrameName, noFrames);
         }

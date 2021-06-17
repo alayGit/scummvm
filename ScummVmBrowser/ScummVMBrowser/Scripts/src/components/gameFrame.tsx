@@ -13,7 +13,8 @@ import useInterval from "./useInterval";
 
 enum InputMessageType {
 	TextString,
-	MouseClick,
+	MouseUp, 
+	MouseDown,
 	MouseMove,
 	ControlKey
 }
@@ -127,13 +128,17 @@ export const GameFrame = (props: GameFrameProps) => {
 		}
 	}
 
-	var onClick = (event: any) => {
-		updateEventQueue({ Key: InputMessageType.MouseClick.toString(), Value: event.button });
+	var onMouseUp = (event: any) => {
+		updateEventQueue({ Key: InputMessageType.MouseUp.toString(), Value: event.button });
+	}
+
+	var onMouseDown = (event: any) => {
+		updateEventQueue({ Key: InputMessageType.MouseDown.toString(), Value: event.button });
 	}
 
 	return (
-		<div id="gameFrame" onKeyPress={onKeyPress} onKeyDown={onKeyDown} onMouseMove={onMouseMove} onClick={onClick} tabIndex={0} style={{ width: Width + CanvasWidthEdgeSize, height: Height + CanvasHeightEdgeSize, backgroundColor: "black", textAlign: "center", cursor: "none" }}>
-			<canvas id="canvas" width={Width} height={Height} onContextMenu={e => { e.preventDefault(); e.stopPropagation(); updateEventQueue({ Key: InputMessageType.MouseClick.toString(), Value: "2" }); }} />
+		<div id="gameFrame" onKeyPress={onKeyPress} onKeyDown={onKeyDown} onMouseMove={onMouseMove} onMouseDown={onMouseDown} onMouseUp={onMouseUp} tabIndex={0} style={{ width: Width + CanvasWidthEdgeSize, height: Height + CanvasHeightEdgeSize, backgroundColor: "black", textAlign: "center", cursor: "none" }}>
+			<canvas id="canvas" width={Width} height={Height} onContextMenu={e => { e.preventDefault(); e.stopPropagation(); updateEventQueue({ Key: InputMessageType.MouseDown.toString(), Value: "2" }); updateEventQueue({ Key: InputMessageType.MouseUp.toString(), Value: "2" }); }} />
 		</div>
 	);
 }
