@@ -7,6 +7,7 @@ using ManagedCommon.Delegates;
 using ManagedCommon.Enums;
 using ManagedCommon.Enums.Actions;
 using ManagedCommon.Enums.Logging;
+using ManagedCommon.Enums.Other;
 using ManagedCommon.Implementations;
 using ManagedCommon.Interfaces;
 using ManagedCommon.Models;
@@ -98,6 +99,9 @@ namespace DotNetScummTests
 		[TestMethod]
 		public async Task CanRunGamesRequiringReentrantMutexes()
 		{
+			const int MouseX = 172;
+			const int MouseY = 173;
+
 			Cropping = new Rectangle(0, 180, 10, 20);
 			const string expectedFrameName = "CanRunGamesRequiringReentrantMutexes";
 			const int noFrames = 2549;
@@ -106,9 +110,9 @@ namespace DotNetScummTests
 
 			_wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.Escape));
 			await WaitForFrame(300);
-			_wrapper.EnqueueGameEvent(new SendMouseMove(172,173));
+			_wrapper.EnqueueGameEvent(new SendMouseMove(MouseX,MouseY));
 			await WaitForFrame(50);
-			_wrapper.EnqueueGameEvent(new SendMouseClick(MouseClick.Left, () => new Point(172,173)));
+			EnqueueClick(MouseX, MouseY);
 
 			await CheckForExpectedFrame(expectedFrameName, noFrames);
 		}
@@ -695,5 +699,11 @@ namespace DotNetScummTests
             Quit();
             await gameTask;
         }
+
+		private void EnqueueClick(int x, int y)
+		{
+			_wrapper.EnqueueGameEvent(new SendMouseClick(MouseClick.Left, () => new Point(x, y), MouseUpDown.MouseDown));
+			_wrapper.EnqueueGameEvent(new SendMouseClick(MouseClick.Left, () => new Point(x, y), MouseUpDown.MouseUp));
+		}
     }
 }
