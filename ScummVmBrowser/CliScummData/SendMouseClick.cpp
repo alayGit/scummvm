@@ -9,7 +9,7 @@ CliScummEvents::SendMouseClick::SendMouseClick(ManagedCommon::Enums::Actions::Mo
 
 bool CliScummEvents::SendMouseClick::HasEvents()
 {
-	return _noTimesEventsDispatched < 1;
+	return _noTimesEventsDispatched == 0;
 }
 
 System::IntPtr CliScummEvents::SendMouseClick::GetEvent()
