@@ -63,6 +63,16 @@ namespace DotNetScummTests.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CanClickButtonRequiringLongMousePress {
+            get {
+                object obj = ResourceManager.GetObject("CanClickButtonRequiringLongMousePress", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CanClickNonZeroHotSpot {
             get {
                 object obj = ResourceManager.GetObject("CanClickNonZeroHotSpot", resourceCulture);

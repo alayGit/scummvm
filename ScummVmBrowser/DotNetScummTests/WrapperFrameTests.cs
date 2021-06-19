@@ -82,6 +82,7 @@ namespace DotNetScummTests
                 return true;
              };
             gameTask = Task.Run(() => RunGame(game,saveDataResourceName, saveSlotToLoad));
+			_wrapper.StartSound();
         }
 
         [TestMethod]
@@ -158,10 +159,40 @@ namespace DotNetScummTests
 		[TestMethod]
 		public async Task CanStartKq5()
 		{
-			Cropping = new Rectangle(100, 100, 20, 20);
+			Cropping = null;
 			const string expectedFrameName = "CanStartKq5";
-			const int noFrames = 50;
-			Setup(gameDirectory, noFrames, expectedFrameName, AvailableGames.kq5, Kq5CanStart, 1);
+			const int noFrames = 400;
+			Setup(gameDirectory, noFrames, expectedFrameName, AvailableGames.kq5);
+			await CheckForExpectedFrame(expectedFrameName, noFrames);
+		}
+
+		[TestMethod]
+		public async Task CanClickButtonRequiringLongMousePress()
+		{
+			const int MouseX = 129;
+			const int MouseY = 34;
+
+			//Cropping = null;
+			Cropping = new Rectangle(100, 0, 20, 30);
+
+			const string expectedFrameName = "CanClickButtonRequiringLongMousePress";
+			const int noFrames = 220;
+			Setup(gameDirectory, (List<ScreenBuffer> screenBuffers) => CaptureAndQuit(screenBuffers, noFrames, expectedFrameName), AvailableGames.steel);
+			await WaitForFrame(50);
+
+			_wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.Escape));
+			await WaitForFrame(170);
+			_wrapper.EnqueueGameEvent(new SendMouseMove(MouseX, MouseY));
+			_wrapper.EnqueueGameEvent(new SendControlCharacters(ControlKeys.F5));
+
+			await WaitForFrame(199);
+			_wrapper.EnqueueGameEvent(new SendMouseMove(MouseX, MouseY));
+			_wrapper.EnqueueGameEvent(new SendMouseClick(MouseClick.Left, () => new Point(MouseX, MouseY), MouseUpDown.MouseDown));
+
+			await Task.Delay(1000);
+
+			_wrapper.EnqueueGameEvent(new SendMouseClick(MouseClick.Left, () => new Point(MouseX, MouseY), MouseUpDown.MouseUp));
+
 			await CheckForExpectedFrame(expectedFrameName, noFrames);
 		}
 

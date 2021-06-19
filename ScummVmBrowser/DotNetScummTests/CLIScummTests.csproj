@@ -2221,6 +2221,15 @@
   <ItemGroup>
     <None Include="Resources\CanRunGamesRequiringReentrantMutexes.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CanStartKq5_381.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CanStartKq5_391.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CanRunGamesRequiringReentrantMutexes_227.bmp" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
