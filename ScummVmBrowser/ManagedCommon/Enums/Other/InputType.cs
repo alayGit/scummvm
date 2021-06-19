@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace ManagedCommon.Enums.Other
 {
-	public enum MouseUpDown
+	public enum InputType //Note must be in same order as InputMessageType in GameFrame.tsx
 	{
+        TextString,
 		MouseDown,
 		MouseUp,
+		MouseMove,
+		ControlKey
 	}
 }

@@ -11,10 +11,10 @@ import { isNullOrUndefined } from "util";
 import { WebServerSettings, ClientSide } from "./configManager";
 import useInterval from "./useInterval";
 
-enum InputMessageType {
+enum InputMessageType { //Note must be in the same order as InputType.cs
 	TextString,
-	MouseUp, 
 	MouseDown,
+	MouseUp, 
 	MouseMove,
 	ControlKey
 }

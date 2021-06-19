@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace ManagedCommon.Enums.Other
 {
-	public enum InputType
+	public enum MouseUpDown
 	{
-        TextString,
 		MouseDown,
 		MouseUp,
-		MouseMove,
-		ControlKey
 	}
 }
