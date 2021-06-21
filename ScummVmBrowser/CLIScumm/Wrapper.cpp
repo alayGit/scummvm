@@ -107,6 +107,7 @@ void CLIScumm::Wrapper::Init(AvailableGames game, System::String^ compressedAndE
 	}
 	ConfMan.setInt("autosave_period", 0, domain);
 	ConfMan.setBool("originalsaveload", true);
+	ConfMan.setBool("fade_style", false);
 }
 
 void CLIScumm::Wrapper::RunGame(AvailableGames game, cli::array<System::Byte> ^ gameData, System::String ^ gameSaveData, PlayAudio ^ playAudio, uint saveSlotToLoad) {

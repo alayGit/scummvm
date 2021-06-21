@@ -28,6 +28,7 @@
 #include <vector>
 #include "./ScummVmBrowser/ZLibCompression/ZLibCompression.h"
 #include "PaletteManager.h"
+#include "screenCache.h"
 //#include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
 
 class NativeScummWrapperEvents;
@@ -106,6 +107,7 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 
 	private:
 	    NativeScummWrapperPaletteManager* _paletteManager;
+	    ScreenCache _screenCache;
 	    std::vector<ScreenBuffer> _drawingBuffers;
 		f_SendScreenBuffers _copyRect;
 		MouseState _cliMouse;

@@ -163,6 +163,7 @@
     <ClInclude Include="hashMap.h" />
     <ClInclude Include="mouseState.h" />
     <ClInclude Include="PaletteManager.h" />
+    <ClInclude Include="screenCache.h" />
     <ClInclude Include="standardMutexManager.h" />
     <ClInclude Include="nativeScummVMWrapperEvents.h" />
     <ClInclude Include="nativeScummVmWrapperSaveMemStream.h" />
@@ -172,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="paletteManager.cpp" />
+    <ClCompile Include="screenCache.cpp" />
     <ClCompile Include="standardMutexManager.cpp" />
     <ClCompile Include="nativeScummVmWrapperSaveMemStream.cpp" />
     <ClCompile Include="nativeScummWrapperEvents.cpp" />

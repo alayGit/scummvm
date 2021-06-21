@@ -427,6 +427,8 @@ NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics:
 	screenBuffer.paletteHash = paletteHash;
 	_paletteManager->registerSeenPalette(paletteHash);
 
+	_screenCache.AddScreenToCache(screenBuffer);
+
 	return screenBuffer;
 }
 
