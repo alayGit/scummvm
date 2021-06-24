@@ -409,8 +409,13 @@ bool NativeScummWrapper::NativeScummWrapperGraphics::IsScreenUpdateRequired(byte
 
 NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics::GetScreenBuffer(const void *buf, int pitch, int x, int y, int w, int h, uint32 paletteHash, bool isMouseUpdate, bool forcePaletteToBeSent) {
 	NativeScummWrapper::ScreenBuffer screenBuffer;
-	screenBuffer.buffer = (byte *)buf;
-	screenBuffer.length = w * h;
+	int screenBufferLength = w * h;
+
+	ScreenCacheAddResult screenCacheAddResult = _screenCache.AddScreenToCache((byte *)buf, screenBufferLength);
+
+	screenBuffer.buffer = screenCacheAddResult.firstTimeAdded ? (byte *)buf : nullptr;
+	screenBuffer.screenBufferHash = screenCacheAddResult.hash;
+	screenBuffer.length = screenCacheAddResult.firstTimeAdded ? screenBufferLength : 0;
 	screenBuffer.ignoreColour = isMouseUpdate ? _cliMouse.keyColor : DO_NOT_IGNORE_ANY_COLOR;
 	screenBuffer.x = x;
 	screenBuffer.y = y;
@@ -426,8 +431,6 @@ NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics:
 	}
 	screenBuffer.paletteHash = paletteHash;
 	_paletteManager->registerSeenPalette(paletteHash);
-
-	_screenCache.AddScreenToCache(screenBuffer);
 
 	return screenBuffer;
 }

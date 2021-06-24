@@ -149,8 +149,13 @@ Common::String CLIScumm::Wrapper::GetGamePath(AvailableGames game) {
 }
 
 array<byte> ^ CLIScumm::Wrapper::MarshalByteBuffer(byte *buffer, int length) {
-	cli::array<byte> ^ managedCompressedWholeScreenBuffer = gcnew cli::array<byte>(length);
-	Marshal::Copy((System::IntPtr)buffer, managedCompressedWholeScreenBuffer, 0, length);
+	cli::array<byte> ^ managedCompressedWholeScreenBuffer = nullptr;
+
+	if (buffer != nullptr) {
+		managedCompressedWholeScreenBuffer = gcnew cli::array<byte>(length);
+		Marshal::Copy((System::IntPtr)buffer, managedCompressedWholeScreenBuffer, 0, length);
+	}
+
 	return managedCompressedWholeScreenBuffer;
 }
 
@@ -164,6 +169,7 @@ ManagedCommon::Interfaces::ScreenBuffer ^ CLIScumm::Wrapper::MarshalScreenBuffer
 	result->PaletteBuffer = screenBuffer.paletteBuffer != nullptr ? MarshalByteBuffer(screenBuffer.paletteBuffer, screenBuffer.paletteBufferLength) : nullptr;
 	result->PaletteHash = screenBuffer.paletteHash;
 	result->IgnoreColour = screenBuffer.ignoreColour;
+	result->ScreenBufferHash = gcnew System::String(screenBuffer.screenBufferHash.c_str());
 
 	return result;
 }

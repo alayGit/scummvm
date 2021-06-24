@@ -36,6 +36,7 @@ struct ScreenBuffer {
 	uint32 paletteHash;
 	byte* paletteBuffer;
 	int paletteBufferLength;
+	std::string screenBufferHash;
 };
 
 inline std::string PadPaletteValue(uint value) {

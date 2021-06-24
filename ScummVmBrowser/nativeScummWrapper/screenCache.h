@@ -1,18 +1,23 @@
 #pragma once
 #include "scummVm.h"
 #include "common.h"
+#include "../ExternalLibraries/include/sha1.h";
 #include<string>
 #include<map>
 
 namespace NativeScummWrapper {
+
+	struct ScreenCacheAddResult {
+		std::string hash;
+	    bool firstTimeAdded;
+    };
+
 class ScreenCache {
 public:
-	uint32 AddScreenToCache(ScreenBuffer screenBuffer);
-	bool IsInCache(ScreenBuffer screenBuffer);
+	ScreenCacheAddResult AddScreenToCache(const byte* buf, int length);
 
 private:
-	std::map<uint32, int> _order;
-	std::unordered_map<int, ScreenBuffer> _screenBuffers;
-	uint32 CalculateHash(ScreenBuffer screenBuffer);
+	std::unordered_map<std::string, bool> _screenBuffers;
+	std::string CalculateHash(const byte *buf, int length);
 };
 } // namespace NativeScummWrapper

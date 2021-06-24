@@ -22,5 +22,7 @@ namespace ManagedCommon.Interfaces
 		public byte[] PaletteBuffer { get; set; }
 		public uint PaletteHash { get; set; }
 		public int IgnoreColour { get; set; }
-    }
+		public string ScreenBufferHash { get; set; }
+
+	}
 }

@@ -20,6 +20,8 @@ namespace DotNetScummTests
 	{
 		ConcurrentQueue<Bitmap> _capturedFrames;
 		Dictionary<uint, Dictionary<int, byte[]>> _palettes;
+		Dictionary<string, byte[]> _screenBuffers;
+
 		bool hasSentQuit;
 
 		protected const string gameDirectory = "C:\\scumm\\GamesKQ3";
@@ -57,6 +59,7 @@ namespace DotNetScummTests
 			_b = new Bitmap(DisplayDefaultWidth, DisplayDefaultHeight);
 			_clearLock = new object();
 			_palettes = new Dictionary<uint, Dictionary<int, byte[]>>();
+			_screenBuffers = new Dictionary<string, byte[]>();
 		}
 
 		protected Rectangle? Cropping { get; set; }
@@ -259,7 +262,18 @@ namespace DotNetScummTests
 
 			foreach (ScreenBuffer screenBuffer in screenBuffers)
 			{
-				CaptureAndQuit(screenBuffer.PictureBuffer, screenBuffer.IgnoreColour, screenBuffer.PaletteHash, screenBuffer.X, screenBuffer.Y, screenBuffer.W, screenBuffer.H, noFrames, expectedFrameName);
+				if (!_screenBuffers.ContainsKey(screenBuffer.ScreenBufferHash))
+				{
+					Assert.IsNotNull(screenBuffer.PictureBuffer);
+
+					_screenBuffers[screenBuffer.ScreenBufferHash] = screenBuffer.PictureBuffer;
+				}
+				else
+				{
+					Assert.IsNull(screenBuffer.PictureBuffer);
+				}
+
+				CaptureAndQuit(_screenBuffers[screenBuffer.ScreenBufferHash], screenBuffer.IgnoreColour, screenBuffer.PaletteHash, screenBuffer.X, screenBuffer.Y, screenBuffer.W, screenBuffer.H, noFrames, expectedFrameName);
 			}
 		}
 
