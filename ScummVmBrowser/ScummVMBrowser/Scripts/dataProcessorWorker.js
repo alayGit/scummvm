@@ -1,4 +1,5 @@
-﻿var palletteBufferMap = new Map();
+﻿var _screenBufferMap = new Map();
+var _addOrder = new Array();
 
 self.onmessage = function (postedMessage) {
 	importScripts("/scripts/pako.min.js");
@@ -6,11 +7,18 @@ self.onmessage = function (postedMessage) {
 
 	postedMessage.data.fromGameMessageMessageWorkerToPictureWorker.onmessage = function (toOffScreenCanvasWorkerMessage) {
 		var getPictureBuffer = (frameSetPart) => {
-			if (palletteBufferMap[frameSetPart.ScreenBufferHash] == undefined) {
-				palletteBufferMap[frameSetPart.ScreenBufferHash] = decode(frameSetPart.PictureBuffer);
+			if (_screenBufferMap[frameSetPart.ScreenBufferHash] == undefined) {
+				_screenBufferMap[frameSetPart.ScreenBufferHash] = decode(frameSetPart.PictureBuffer);
+				_addOrder.push(frameSetPart.ScreenBufferHash);
 			}
 
-			return palletteBufferMap[frameSetPart.ScreenBufferHash];
+			var result = _screenBufferMap[frameSetPart.ScreenBufferHash];
+
+			if (_addOrder.length > 500) {
+				_screenBufferMap.delete(_addOrder.pop());
+			}
+
+			return result;
 		}
 
 		toOffScreenCanvasWorkerMessage.data.frameSets.forEach(

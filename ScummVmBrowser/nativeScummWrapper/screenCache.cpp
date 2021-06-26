@@ -8,6 +8,15 @@ NativeScummWrapper::ScreenCacheAddResult NativeScummWrapper::ScreenCache::AddScr
 
 	_screenBuffers[result.hash] = true;
 
+	if (result.firstTimeAdded) {
+		_addOrder.push(result.hash);
+
+		if (_addOrder.size() > 500) {
+			_screenBuffers.erase(_addOrder.front());
+			_addOrder.pop();
+		}
+	}
+
 	return result;
 }
 

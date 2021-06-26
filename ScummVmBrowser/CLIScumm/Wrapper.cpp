@@ -256,7 +256,6 @@ void CLIScumm::Wrapper::Quit() {
 }
 
 void CLIScumm::Wrapper::ScheduleRedrawWholeScreen() {
-	std::vector<NativeScummWrapper::ScreenBuffer> unmanagedWholeScreenBuffers;
-
+	_gSystemCli->getGraphicsManager()->ClearCache();
 	_gSystemCli->getGraphicsManager()->ScheduleRedrawWholeScreen();
 }

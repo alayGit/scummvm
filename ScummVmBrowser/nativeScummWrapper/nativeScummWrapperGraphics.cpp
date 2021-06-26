@@ -354,6 +354,10 @@ byte *NativeScummWrapper::NativeScummWrapperGraphics::GetWholeScreenBufferRaw(in
 	return cpyWholeScreenBuffer;
 }
 
+void NativeScummWrapper::NativeScummWrapperGraphics::ClearCache() {
+	_screenCache = ScreenCache();
+}
+
 byte *NativeScummWrapper::NativeScummWrapperGraphics::ScreenUpdated(const void *buf, int pitch, int x, int y, int w, int h, bool isMouseUpdate, bool& differenceDetected) {
 	byte *pictureArray = nullptr;
 

@@ -105,7 +105,7 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 		MouseState getMouseState();
 	    void ScheduleRedrawWholeScreen();
 	    byte* GetWholeScreenBufferRaw(int &width, int &height, int &bufferSize);
-
+	    void ClearCache();
 	private:
 	    ScreenCache _screenCache;
 	    NativeScummWrapperPaletteManager* _paletteManager;

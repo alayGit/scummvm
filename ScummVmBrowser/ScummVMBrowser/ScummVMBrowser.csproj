@@ -261,7 +261,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\EmscriptenProcessGameMessages.js" />
     <Content Include="Scripts\processGameMessagesWorker.js" />
-    <Content Include="Scripts\emscripten\utils\utils.js" />
     <Content Include="Scripts\gameMessageWorker.js" />
     <Content Include="Scripts\deflateWorker.js" />
     <Content Include="Scripts\pako.min.js" />
@@ -308,6 +307,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="enums\" />
     <Folder Include="Scripts\dist\" />
+    <Folder Include="Scripts\emscripten\" />
     <Folder Include="Scripts\src\emscripten\" />
     <Folder Include="Views\Api\" />
     <Folder Include="Views\TestApi\" />
