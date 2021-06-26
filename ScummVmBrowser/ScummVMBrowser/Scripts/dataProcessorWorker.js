@@ -1,15 +1,24 @@
-﻿
+﻿var palletteBufferMap = new Map();
+
 self.onmessage = function (postedMessage) {
 	importScripts("/scripts/pako.min.js");
 	importScripts("/scripts/yEncoding.js");
 
 	postedMessage.data.fromGameMessageMessageWorkerToPictureWorker.onmessage = function (toOffScreenCanvasWorkerMessage) {
+		var getPictureBuffer = (frameSetPart) => {
+			if (palletteBufferMap[frameSetPart.ScreenBufferHash] == undefined) {
+				palletteBufferMap[frameSetPart.ScreenBufferHash] = decode(frameSetPart.PictureBuffer);
+			}
+
+			return palletteBufferMap[frameSetPart.ScreenBufferHash];
+		}
+
 		toOffScreenCanvasWorkerMessage.data.frameSets.forEach(
 			frameSet => {
 				let dataWithUncompressedBuffers = [];
 				frameSet.forEach(
 					frameSetPart => {
-						frameSetPart.PictureBuffer = decode(frameSetPart.PictureBuffer);
+						frameSetPart.PictureBuffer = getPictureBuffer(frameSetPart);
 			
 						if (frameSetPart.PaletteBuffer) {
 							frameSetPart.PaletteBuffer = convertPaletteByteArrayToPaletteDictionary(decode(frameSetPart.PaletteBuffer));
