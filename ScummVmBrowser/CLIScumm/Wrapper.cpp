@@ -5,6 +5,9 @@ int main() {
 }
 
 CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum ^> ^ configureStore, ISaveCache ^ saveCache, ISaveDataEncoder^ byteEncoder, IScummTimer^ scummTimer) {
+	DebuggerTools::DebuggerLauncher l;
+	l.launchDebugger();
+
 	eventQueue = gcnew ConcurrentQueue<IGameEvent ^>();
 	imageUpdated = gcnew CLIScumm::Wrapper::Wrapper::delCopyRectToScreen(this, &CLIScumm::Wrapper::Wrapper::UpdatePicturesToBeSentBuffer);
 	pollEvent = gcnew CLIScumm::Wrapper::Wrapper::delPollEvent(this, &CLIScumm::Wrapper::Wrapper::pollEventWrapper);
@@ -256,6 +259,5 @@ void CLIScumm::Wrapper::Quit() {
 }
 
 void CLIScumm::Wrapper::ScheduleRedrawWholeScreen() {
-	_gSystemCli->getGraphicsManager()->ClearCache();
-	_gSystemCli->getGraphicsManager()->ScheduleRedrawWholeScreen();
+	_gSystemCli->getGraphicsManager()->ScheduleRedrawWholeScreen(true);
 }

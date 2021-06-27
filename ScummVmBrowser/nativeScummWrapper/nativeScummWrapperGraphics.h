@@ -103,9 +103,8 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 		bool screenUpdateOverlapsMouse(int x, int y, int w, int h);
 		bool positionInRange(int x, int y);
 		MouseState getMouseState();
-	    void ScheduleRedrawWholeScreen();
+	    void ScheduleRedrawWholeScreen(bool emptyScreenBufferCache = false);
 	    byte* GetWholeScreenBufferRaw(int &width, int &height, int &bufferSize);
-	    void ClearCache();
 	private:
 	    ScreenCache _screenCache;
 	    NativeScummWrapperPaletteManager* _paletteManager;
@@ -124,6 +123,7 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 		ScreenBuffer GetScreenBuffer(const void *buf, int pitch, int x, int y, int w, int h, uint32 paletteHash, bool isMouseUpdate, bool forcePaletteToBeSent);
 	    ScreenBuffer GetMouseScreenBuffer(bool forcePalettesToBeSent);
 	    void InitScreen();
+	    void ClearScreenBufferCache();
 	    byte *_wholeScreenBufferNoMouse;
 	    HANDLE _wholeScreenMutex;
 	    Graphics::Surface _framebuffer;

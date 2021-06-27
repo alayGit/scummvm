@@ -329,8 +329,12 @@ byte *NativeScummWrapper::NativeScummWrapperGraphics::GetBlottedBuffer(int x, in
 	return pictureBuffer;
 }
 
-void NativeScummWrapper::NativeScummWrapperGraphics::ScheduleRedrawWholeScreen() {
+void NativeScummWrapper::NativeScummWrapperGraphics::ScheduleRedrawWholeScreen(bool emptyScreenBufferCache) {
 	WaitForSingleObject(_wholeScreenMutex, INFINITE);
+
+	if (emptyScreenBufferCache) {
+		ClearScreenBufferCache();
+	}
 
 	byte *cpyWholeScreenBuffer = new byte[WHOLE_SCREEN_BUFFER_LENGTH];
 
@@ -354,7 +358,7 @@ byte *NativeScummWrapper::NativeScummWrapperGraphics::GetWholeScreenBufferRaw(in
 	return cpyWholeScreenBuffer;
 }
 
-void NativeScummWrapper::NativeScummWrapperGraphics::ClearCache() {
+void NativeScummWrapper::NativeScummWrapperGraphics::ClearScreenBufferCache() {
 	_screenCache = ScreenCache();
 }
 
