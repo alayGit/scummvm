@@ -29,7 +29,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void
 		int _;
 		byte *wholeScreenBuffer = GetWholeScreenBufferRaw(_, _, _);
 
-		ScreenBuffer initScreen = GetScreenBuffer(wholeScreenBuffer, DISPLAY_DEFAULT_WIDTH, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT, _paletteManager->getCurrentCursorPaletteHash(), false, false);
+		ScreenBuffer initScreen = GetScreenBuffer(wholeScreenBuffer, DISPLAY_DEFAULT_WIDTH, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT, _paletteManager->getCurrentCursorPaletteHash(), false);
 
 		_drawingBuffers.push_back(initScreen);
 	}
@@ -38,11 +38,11 @@ void NativeScummWrapper::NativeScummWrapperGraphics::copyRectToScreen(const void
 	byte *pictureBuffer = ScreenUpdated(buf, pitch, x, y, w, h, false, differenceDetected);
 
 	if (differenceDetected) {
-		_drawingBuffers.push_back(GetScreenBuffer((byte *)pictureBuffer, pitch, x, y, w, h, _paletteManager->getCurrentPaletteHash(), false, false));
+		_drawingBuffers.push_back(GetScreenBuffer((byte *)pictureBuffer, pitch, x, y, w, h, _paletteManager->getCurrentPaletteHash(), false));
 
 		if (_cliMouse.adjustedX() < DISPLAY_DEFAULT_WIDTH && _cliMouse.adjustedY() < DISPLAY_DEFAULT_HEIGHT && _cliMouse.width > 0 && _cliMouse.height > 0 && screenUpdateOverlapsMouse(x, y, w, h)) {
 			if (_cliMouse.width > 0 && _cliMouse.height > 0) {
-				_drawingBuffers.push_back(GetMouseScreenBuffer(false));
+				_drawingBuffers.push_back(GetMouseScreenBuffer());
 			}
 		}
 	} else {
@@ -223,11 +223,11 @@ void NativeScummWrapper::NativeScummWrapperGraphics::warpMouse(int x, int y) {
 
 			if (shouldBlot) {
 				byte *blotBuffer = GetBlottedBuffer(_cliMouse.adjustedPrevX(), _cliMouse.adjustedPrevY(), _cliMouse.prevW, _cliMouse.prevH);
-				_drawingBuffers.push_back(GetScreenBuffer(blotBuffer, _cliMouse.fullWidth, _cliMouse.adjustedPrevX(), _cliMouse.adjustedPrevY(), _cliMouse.prevW, _cliMouse.prevH, _paletteManager->getCurrentPaletteHash(), false, false));
+				_drawingBuffers.push_back(GetScreenBuffer(blotBuffer, _cliMouse.fullWidth, _cliMouse.adjustedPrevX(), _cliMouse.adjustedPrevY(), _cliMouse.prevW, _cliMouse.prevH, _paletteManager->getCurrentPaletteHash(), false));
 			}
 
 			if (shouldSendNewMouseExample) {
-				_drawingBuffers.push_back(GetMouseScreenBuffer(false));
+				_drawingBuffers.push_back(GetMouseScreenBuffer());
 			}
 		}
 		setCurrentMouseStateToPrevious();
@@ -334,14 +334,16 @@ void NativeScummWrapper::NativeScummWrapperGraphics::ScheduleRedrawWholeScreen(b
 
 	if (emptyScreenBufferCache) {
 		ClearScreenBufferCache();
+		_paletteManager->clearPalettesSeen();
 	}
 
 	byte *cpyWholeScreenBuffer = new byte[WHOLE_SCREEN_BUFFER_LENGTH];
 
 	memcpy(cpyWholeScreenBuffer, _wholeScreenBufferNoMouse, WHOLE_SCREEN_BUFFER_LENGTH);
+	
+	_drawingBuffers.push_back(GetScreenBuffer(cpyWholeScreenBuffer, DISPLAY_DEFAULT_WIDTH, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT, _paletteManager->getCurrentPaletteHash(), false));
+	_drawingBuffers.push_back(GetMouseScreenBuffer());
 
-	_drawingBuffers.push_back(GetScreenBuffer(cpyWholeScreenBuffer, DISPLAY_DEFAULT_WIDTH, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT, _paletteManager->getCurrentPaletteHash(), false, true));
-	_drawingBuffers.push_back(GetMouseScreenBuffer(true));
 
 	ReleaseSemaphore(_wholeScreenMutex, 1, NULL);
 }
@@ -415,7 +417,7 @@ bool NativeScummWrapper::NativeScummWrapperGraphics::IsScreenUpdateRequired(byte
 	return !noDifference;
 }
 
-NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics::GetScreenBuffer(const void *buf, int pitch, int x, int y, int w, int h, uint32 paletteHash, bool isMouseUpdate, bool forcePaletteToBeSent) {
+NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics::GetScreenBuffer(const void *buf, int pitch, int x, int y, int w, int h, uint32 paletteHash, bool isMouseUpdate) {
 	NativeScummWrapper::ScreenBuffer screenBuffer;
 	int screenBufferLength = w * h;
 
@@ -432,7 +434,7 @@ NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics:
 	screenBuffer.paletteBuffer = nullptr;
 	screenBuffer.paletteBufferLength = 0;
 
-	if (!_paletteManager->haveSeenPalette(paletteHash) || forcePaletteToBeSent) {
+	if (!_paletteManager->haveSeenPalette(paletteHash)) {
 		const char *paletteBuffer = _paletteManager->getPalette(paletteHash);
 		screenBuffer.paletteBuffer = (byte *)paletteBuffer;
 		screenBuffer.paletteBufferLength = strlen(paletteBuffer);
@@ -443,17 +445,17 @@ NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics:
 	return screenBuffer;
 }
 
-NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics::GetMouseScreenBuffer(bool forcePalettesToBeSent) {
+NativeScummWrapper::ScreenBuffer NativeScummWrapper::NativeScummWrapperGraphics::GetMouseScreenBuffer() {
 	ScreenBuffer result;
 	bool _;
 
 	if (_cliMouse.hasInited() && positionInRange(_cliMouse.adjustedX(), _cliMouse.adjustedY()) && _cliMouse.width > 0 && _cliMouse.height > 0) {
 		byte *pictureBuffer = ScreenUpdated(_cliMouse.buffer, _cliMouse.fullWidth, _cliMouse.adjustedX(), _cliMouse.adjustedY(), _cliMouse.width, _cliMouse.height, true, _);
-		result = GetScreenBuffer(pictureBuffer, _cliMouse.fullWidth, _cliMouse.adjustedX(), _cliMouse.adjustedY(), _cliMouse.width, _cliMouse.height, _paletteManager->getCurrentCursorPaletteHash(), true, forcePalettesToBeSent);
+		result = GetScreenBuffer(pictureBuffer, _cliMouse.fullWidth, _cliMouse.adjustedX(), _cliMouse.adjustedY(), _cliMouse.width, _cliMouse.height, _paletteManager->getCurrentCursorPaletteHash(), true);
 	}
 	else {
 		byte *pictureBuffer = new byte[0];
-		result = GetScreenBuffer(pictureBuffer, _cliMouse.fullWidth, 0, 0, 0, 0, _paletteManager->getCurrentCursorPaletteHash(), true, forcePalettesToBeSent);
+		result = GetScreenBuffer(pictureBuffer, _cliMouse.fullWidth, 0, 0, 0, 0, _paletteManager->getCurrentCursorPaletteHash(), true);
 	}
 	return result;
 }

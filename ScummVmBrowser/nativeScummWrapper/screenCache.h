@@ -5,12 +5,13 @@
 #include <string>
 #include <queue>
 #include<map>
+#include <cstdlib>
 
 namespace NativeScummWrapper {
 
 	struct ScreenCacheAddResult {
 		std::string hash;
-	    bool firstTimeAdded;
+	    bool firstTimeAdded = true;
     };
 
 class ScreenCache {

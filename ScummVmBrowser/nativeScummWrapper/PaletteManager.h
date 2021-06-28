@@ -31,6 +31,7 @@ public:
 	bool haveSeenPalette(uint32 paletteHash);
 	void registerSeenPalette(uint32 paletteHash);
 	const char* getPalette(uint32 paletteHash);
+	void clearPalettesSeen();
 
 private:
 	void throwIfPaletteHashIsUnknown(uint32 paletteHash);

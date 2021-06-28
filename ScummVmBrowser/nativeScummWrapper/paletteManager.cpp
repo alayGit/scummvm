@@ -111,6 +111,10 @@ const char* NativeScummWrapper::NativeScummWrapperPaletteManager::getPalette(uin
 	return palettes[paletteHash].c_str();
 }
 
+void NativeScummWrapper::NativeScummWrapperPaletteManager::clearPalettesSeen() {
+	palettesSeen.clear();
+}
+
 void NativeScummWrapper::NativeScummWrapperPaletteManager::throwIfPaletteHashIsUnknown(uint32 paletteHash) {
 	if (palettes[paletteHash] == "") {
 		palettes.erase(paletteHash);
