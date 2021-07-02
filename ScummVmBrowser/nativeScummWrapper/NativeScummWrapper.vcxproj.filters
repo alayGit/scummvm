@@ -51,6 +51,9 @@
     <ClInclude Include="screenCache.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="nativeScummWrapperOptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="nativeScummWrapperGraphics.cpp">

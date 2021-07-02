@@ -29,6 +29,7 @@
 #include "./ScummVmBrowser/ZLibCompression/ZLibCompression.h"
 #include "PaletteManager.h"
 #include "screenCache.h"
+#include "nativeScummWrapperOptions.h"
 #include <string>
 //#include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
 
@@ -52,7 +53,7 @@ namespace NativeScummWrapper {
 
 class NativeScummWrapperGraphics : virtual public GraphicsManager {
 	public:
-	NativeScummWrapperGraphics(f_SendScreenBuffers copyRect, NativeScummWrapperPaletteManager* paletteManager);
+	NativeScummWrapperGraphics(f_SendScreenBuffers copyRect, NativeScummWrapperPaletteManager* paletteManager, NativeScummWrapperOptions);
 	    ~NativeScummWrapperGraphics();
 
 		virtual void copyRectToScreen(const void *buf, int pitch, int x, int y, int w, int h) override;
@@ -127,5 +128,6 @@ class NativeScummWrapperGraphics : virtual public GraphicsManager {
 	    byte *_wholeScreenBufferNoMouse;
 	    HANDLE _wholeScreenMutex;
 	    Graphics::Surface _framebuffer;
+	    NativeScummWrapperOptions _nativeScummWrapperOptions;
 	};
 } // namespace NativeScummWrapper

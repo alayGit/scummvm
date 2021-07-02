@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ManagedCommon.Enums
+namespace ManagedCommon.Enums.Settings
 {
    public enum SoundSettings
     {

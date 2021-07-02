@@ -8,6 +8,7 @@ struct PalletteColor;
 #include <stdlib.h>
 #include <ctime>
 #include <queue>
+#include "./ScummVmBrowser/nativeScummWrapper/nativeScummWrapperOptions.h"
 
 using namespace NativeScummWrapper;
 
@@ -31,10 +32,14 @@ namespace TestCustomScummVMSubclasses
 	static const int NO_IN_PALLETTE = 256;
 
 	class TestNativeScummWrapperGraphics: public NativeScummWrapper::NativeScummWrapperGraphics {
+	private:
+	    NativeScummWrapperOptions _nativeScummWrapperOptions;
+
 	public:
 
-		TestNativeScummWrapperGraphics(f_SendScreenBuffers copyRect, NativeScummWrapper::NativeScummWrapperPaletteManager* _paletteManager) : NativeScummWrapperGraphics(copyRect, _paletteManager) {
-
+		TestNativeScummWrapperGraphics(f_SendScreenBuffers copyRect, NativeScummWrapper::NativeScummWrapperPaletteManager* _paletteManager) : NativeScummWrapperGraphics(copyRect, _paletteManager, _nativeScummWrapperOptions) {
+		    _nativeScummWrapperOptions = NativeScummWrapperOptions();
+		    _nativeScummWrapperOptions.ScreenBufferCacheSize = 500;
 		}
 
 		void triggerUpdateScreen() {

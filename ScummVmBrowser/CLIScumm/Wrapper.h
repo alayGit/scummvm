@@ -35,6 +35,7 @@ using namespace System::Threading::Tasks;
 using namespace ManagedCommon::Interfaces;
 using namespace ManagedCommon::Enums;
 using namespace ManagedCommon::Delegates;
+using namespace ManagedCommon::Enums::Settings;
 using namespace SoundManagement;
 using namespace System::Collections::Generic;
 using namespace UnmanagedScummTimerWrapper;

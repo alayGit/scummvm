@@ -2,7 +2,7 @@
 #include "nativeScummWrapperGraphics.h"
 #include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
 #define DO_NOT_IGNORE_ANY_COLOR -1
-NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_SendScreenBuffers copyRect, NativeScummWrapperPaletteManager* paletteManager) : GraphicsManager() {
+NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_SendScreenBuffers copyRect, NativeScummWrapperPaletteManager* paletteManager, NativeScummWrapperOptions nativeScummWrapperOptions) : _screenCache(nativeScummWrapperOptions), GraphicsManager() {
 	_copyRect = copyRect;
 	
 	_wholeScreenBufferNoMouse = new byte[WHOLE_SCREEN_BUFFER_LENGTH];
@@ -13,6 +13,7 @@ NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_Sen
 	    1,                               // maximum count
 	    NULL);                          // unnamed semaphore
 	_paletteManager = paletteManager;
+	_screenCache = ScreenCache(nativeScummWrapperOptions);
 	InitScreen();
 }
 
@@ -361,7 +362,7 @@ byte *NativeScummWrapper::NativeScummWrapperGraphics::GetWholeScreenBufferRaw(in
 }
 
 void NativeScummWrapper::NativeScummWrapperGraphics::ClearScreenBufferCache() {
-	_screenCache = ScreenCache();
+	_screenCache = ScreenCache(_nativeScummWrapperOptions);
 }
 
 byte *NativeScummWrapper::NativeScummWrapperGraphics::ScreenUpdated(const void *buf, int pitch, int x, int y, int w, int h, bool isMouseUpdate, bool& differenceDetected) {

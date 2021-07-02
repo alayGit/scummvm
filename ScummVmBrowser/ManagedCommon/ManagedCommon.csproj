@@ -145,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\Other\InputType.cs" />
+    <Compile Include="Enums\Settings\CliScummSettings.cs" />
     <Compile Include="Interfaces\IScummTimer.cs" />
     <Compile Include="Serializers\ByteArrayConverter.cs" />
     <Compile Include="Constants\Constants.cs" />

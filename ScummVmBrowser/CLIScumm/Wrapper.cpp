@@ -5,9 +5,6 @@ int main() {
 }
 
 CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum ^> ^ configureStore, ISaveCache ^ saveCache, ISaveDataEncoder^ byteEncoder, IScummTimer^ scummTimer) {
-	DebuggerTools::DebuggerLauncher l;
-	l.launchDebugger();
-
 	eventQueue = gcnew ConcurrentQueue<IGameEvent ^>();
 	imageUpdated = gcnew CLIScumm::Wrapper::Wrapper::delCopyRectToScreen(this, &CLIScumm::Wrapper::Wrapper::UpdatePicturesToBeSentBuffer);
 	pollEvent = gcnew CLIScumm::Wrapper::Wrapper::delPollEvent(this, &CLIScumm::Wrapper::Wrapper::pollEventWrapper);
@@ -24,8 +21,12 @@ CLIScumm::Wrapper::Wrapper(IConfigurationStore<System::Enum ^> ^ configureStore,
 	soundOptions.sampleSize = configureStore->GetValue<int>(SoundSettings::SampleSize);
 	soundOptions.soundPollingFrequencyMs = configureStore->GetValue<int>(SoundSettings::SoundPollingFrequencyMs);
 	soundOptions.serverFeedSize = configureStore->GetValue<int>(SoundSettings::ServerFeedSize);
+
+	NativeScummWrapperOptions nativeScummWrapperOptions;
+	nativeScummWrapperOptions.ScreenBufferCacheSize = configureStore->GetValue<int>(CliScummSettings::ScreenBufferCacheSize);
+
 	_paletteManager = new NativeScummWrapperPaletteManager();
-	_graphics = new NativeScummWrapperGraphics(static_cast<NativeScummWrapper::f_SendScreenBuffers>(Marshal::GetFunctionPointerForDelegate(imageUpdated).ToPointer()), _paletteManager);
+	_graphics = new NativeScummWrapperGraphics(static_cast<NativeScummWrapper::f_SendScreenBuffers>(Marshal::GetFunctionPointerForDelegate(imageUpdated).ToPointer()), _paletteManager, nativeScummWrapperOptions);
 	_saveFileManager = new SaveManager::UnmanagedSaveManagerWrapper(saveCache, static_cast<NativeScummWrapper::f_SaveFileData>(Marshal::GetFunctionPointerForDelegate(saveData).ToPointer()), byteEncoder, _paletteManager, _graphics);
 	_unManagedScummTimerManagerWrapper = new UnmanagedScummTimerWrapper::UnmanagedScummTimerManagerWrapper(scummTimer);
 	g_system = new NativeScummWrapper::NativeScummWrapperOSystem(soundOptions, //ToDo: Tidy these up as a whole they are a mess
