@@ -15,7 +15,7 @@ NativeScummWrapper::ScreenCacheAddResult NativeScummWrapper::ScreenCache::AddScr
 	if (result.firstTimeAdded) {
 		_addOrder.push(result.hash);
 
-		if (_addOrder.size() > _nativeScummWrapperOptions.ScreenBufferCacheSize) {
+		if (_addOrder.size() == _nativeScummWrapperOptions.ScreenBufferCacheSize) {
 			_screenBuffers.erase(_addOrder.front());
 			_addOrder.pop();
 		}

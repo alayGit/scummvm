@@ -51,6 +51,7 @@
   <ItemGroup>
     <ClCompile Include="MouseTests.cpp" />
     <ClCompile Include="PaletteManagerTests.cpp" />
+    <ClCompile Include="ScreenBufferTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\dists\msvc\scummvm.vcxproj">

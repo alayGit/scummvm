@@ -14,7 +14,7 @@ self.onmessage = function (postedMessage) {
 
 			var result = _screenBufferMap[frameSetPart.ScreenBufferHash];
 
-			if (_addOrder.length > 500) {
+			if (_addOrder.length == 500) {
 				_screenBufferMap.delete(_addOrder.pop());
 			}
 
