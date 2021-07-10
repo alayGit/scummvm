@@ -1,0 +1,10 @@
+gflags.exe –p /enable C:\scumm\ScummVmBrowser\SignalRSelfHost\bin\Debug\SignalRSelfHost.exe /full
+
+.sympath+ C:\scumm\ScummVmBrowser\SignalRSelfHost\bin\Debug\
+
+
+.sympath srv*
+
+882868490
+
+c:\Program Files (x86)\Windows Kits\10\Debuggers\x86\windbg.exe

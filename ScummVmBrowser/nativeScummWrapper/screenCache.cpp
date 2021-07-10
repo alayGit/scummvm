@@ -27,6 +27,8 @@ NativeScummWrapper::ScreenCacheAddResult NativeScummWrapper::ScreenCache::AddScr
 
 std::string NativeScummWrapper::ScreenCache::CalculateHash(const byte *buf, int length) {
 	SHA1 sha1;
-
-	return sha1(buf, length);
+	if (length > 0) {
+		return sha1(buf, length);
+	}
+	return sha1("",1);
 }

@@ -3,6 +3,10 @@
 #include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
 #define DO_NOT_IGNORE_ANY_COLOR -1
 NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_SendScreenBuffers copyRect, NativeScummWrapperPaletteManager* paletteManager, NativeScummWrapperOptions nativeScummWrapperOptions) : _screenCache(nativeScummWrapperOptions), GraphicsManager() {
+	DebuggerTools::DebuggerLauncher l;
+	l.launchDebugger();
+
+
 	_copyRect = copyRect;
 	
 	_wholeScreenBufferNoMouse = new byte[WHOLE_SCREEN_BUFFER_LENGTH];
