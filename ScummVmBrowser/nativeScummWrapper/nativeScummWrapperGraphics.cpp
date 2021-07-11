@@ -1,6 +1,7 @@
 #define FORBIDDEN_SYMBOL_ALLOW_ALL
 #include "nativeScummWrapperGraphics.h"
 #include "C:\scumm\ScummVmBrowser\LaunchDebugger\LaunchDebugger.h"
+#include "..\ScummVmBrowser\DebuggerLogger\DebuggerLogger.h"
 #define DO_NOT_IGNORE_ANY_COLOR -1
 NativeScummWrapper::NativeScummWrapperGraphics::NativeScummWrapperGraphics(f_SendScreenBuffers copyRect, NativeScummWrapperPaletteManager* paletteManager, NativeScummWrapperOptions nativeScummWrapperOptions) : _screenCache(nativeScummWrapperOptions), GraphicsManager() {
 	DebuggerTools::DebuggerLauncher l;
@@ -338,6 +339,7 @@ void NativeScummWrapper::NativeScummWrapperGraphics::ScheduleRedrawWholeScreen(b
 	WaitForSingleObject(_wholeScreenMutex, INFINITE);
 
 	if (emptyScreenBufferCache) {
+		_drawingBuffers.clear();
 		ClearScreenBufferCache();
 		_paletteManager->clearPalettesSeen();
 	}
@@ -348,6 +350,12 @@ void NativeScummWrapper::NativeScummWrapperGraphics::ScheduleRedrawWholeScreen(b
 	
 	_drawingBuffers.push_back(GetScreenBuffer(cpyWholeScreenBuffer, DISPLAY_DEFAULT_WIDTH, 0, 0, DISPLAY_DEFAULT_WIDTH, DISPLAY_DEFAULT_HEIGHT, _paletteManager->getCurrentPaletteHash(), false));
 	_drawingBuffers.push_back(GetMouseScreenBuffer());
+
+	for (int i = 0; i < _drawingBuffers.size(); i++) {
+		DebuggerTools::DebuggerLogger::Log("{0}: Palette Buffer: {1}, X: {2}, Y:{3}, W:{4}, H:{5}\n", "c:\\temp\\paletteLog.txt", 6, i, _drawingBuffers[0].paletteBuffer == nullptr ? 0 : 1, _drawingBuffers[i].x, _drawingBuffers[i].y, _drawingBuffers[i].w, _drawingBuffers[i].h);
+	}
+	DebuggerTools::DebuggerLogger::Log("....\n\n\n", "c:\\temp\\paletteLog.txt", 0);
+
 
 
 	ReleaseSemaphore(_wholeScreenMutex, 1, NULL);

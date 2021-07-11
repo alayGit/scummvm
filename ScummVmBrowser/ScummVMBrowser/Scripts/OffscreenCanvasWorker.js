@@ -34,7 +34,7 @@ class OffScreenCanvasManager {
 
 			for (let heightCounter = frame.Y; heightCounter < frame.H + frame.Y; heightCounter++) {
 				for (let widthCounter = frame.X; widthCounter < frame.W + frame.X; widthCounter++) {
-					if (frame.PictureBuffer[byteNo] !== frame.IgnoreColour || frame.ignoreColour === -1)
+					if (frame.PictureBuffer && frame.PictureBuffer[byteNo] !== frame.IgnoreColour || frame.ignoreColour === -1)
 						for (let colorComponent = 0; colorComponent < NoBytesPerPixel; colorComponent++) {
 							this.ImageData.data[heightCounter * NoBytesPerPixel * Width + widthCounter * NoBytesPerPixel + colorComponent] = this.PaletteMap[frame.PaletteHash][frame.PictureBuffer[byteNo]][colorComponent];
 						}

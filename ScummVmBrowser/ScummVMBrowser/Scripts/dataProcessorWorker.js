@@ -7,7 +7,7 @@ self.onmessage = function (postedMessage) {
 
 	postedMessage.data.fromGameMessageMessageWorkerToPictureWorker.onmessage = function (toOffScreenCanvasWorkerMessage) {
 		var getPictureBuffer = (frameSetPart) => {
-			if (_screenBufferMap[frameSetPart.ScreenBufferHash] == undefined) {
+			if (_screenBufferMap[frameSetPart.ScreenBufferHash] == undefined && frameSetPart.PictureBuffer) {
 				_screenBufferMap[frameSetPart.ScreenBufferHash] = decode(frameSetPart.PictureBuffer);
 				_addOrder.push(frameSetPart.ScreenBufferHash);
 			}

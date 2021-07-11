@@ -181,6 +181,9 @@
     <ClCompile Include="nativeScummWrapperOSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DebuggerLogger\DebuggerLogger.vcxproj">
+      <Project>{3df74c44-7413-4118-af85-9df8c3950bfe}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\LaunchDebugger\LaunchDebugger.vcxproj">
       <Project>{3e61b71a-9d88-4bd8-b629-575b84c2b3a0}</Project>
     </ProjectReference>
